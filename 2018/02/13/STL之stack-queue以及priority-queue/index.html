@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    STL之stack, queue以及priority_queue | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  STL,priority_queue,queue,stack
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1518489071000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1518489071000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>STL之stack, queue以及priority_queue</h1>
+    <p>栈、队列、优先队列基本总结<br><a id="more"></a></p>
+<h3 id="一、stack"><a href="#一、stack" class="headerlink" title="一、stack"></a>一、stack</h3><ol>
+<li>要使用stack，必须要包含头文件&lt; stack &gt;</li>
+<li>实际上stack只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持back(), push_back(), pop_back()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt; <span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;st;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p></p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/stack%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="70%" height="70%"><br></div>
+
+<p>stack内部存放元素所用的实际容器，缺省采用deque。之所以采用deque，而非vector，是因为deque移除元素时会释放内存。</p>
+<ol start="3">
+<li>stack核心接口：</li>
+</ol>
+<ul>
+<li>push()：将一个元素置入stack内</li>
+<li>top():返回栈顶元素，但是并不移除它</li>
+<li>pop():从stack移除元素，但是并不将它返回</li>
+<li>empty():检查底层容器是否为空，当栈为空时返回true</li>
+<li>size():返回容纳的元素数</li>
+</ul>
+<p><em>如果stack内没有元素，则执行top()和pop()会导致未定义的行为，可以采用成员函数size()和empty()来检验容器是否为空</em></p>
+<ol start="4">
+<li>stack简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">1</span>);</span><br><span class="line">    st.push(<span class="number">2</span>);</span><br><span class="line">    st.push(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    st.top() = <span class="number">77</span>;</span><br><span class="line">    st.push(<span class="number">4</span>);</span><br><span class="line">    st.push(<span class="number">5</span>);</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!st.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">        st.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出: <span class="number">3</span> <span class="number">2</span> <span class="number">4</span> <span class="number">77</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多了解stack:<br><a href="http://zh.cppreference.com/w/cpp/container/stack" target="_blank" rel="noopener">stack- C++ Reference</a></p>
+<h3 id="二、queue"><a href="#二、queue" class="headerlink" title="二、queue"></a>二、queue</h3><ol>
+<li>要使用queue，必须包含头文件&lt; queue &gt;</li>
+<li>实际上queue只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持front(), back(), push_back(), pop_front()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt; <span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &gt; buffer;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p></p>
+<div align="center"><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/queue%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="80%" height="80%"><br></div>
+
+<ol start="3">
+<li>queue核心接口:</li>
+</ol>
+<ul>
+<li>push():入队，将一个元素置入队列末端中</li>
+<li>front():返回第一个被置入的元素，但并不移除</li>
+<li>back():返回最后一个元素，但并不移除</li>
+<li>pop():出队，移除队列中第一个元素，但并不返回</li>
+<li>empty():判断队列是否为空，队列为空时，返回true</li>
+<li>size():返回容纳的元素数</li>
+</ul>
+<p><em>如果queue之内没有元素，则front(), back(), pop()的执行行为会导致未定义行为。</em></p>
+<ol start="4">
+<li>queue简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"These "</span>);</span><br><span class="line">   q.push(<span class="string">"are "</span>);</span><br><span class="line">   q.push(<span class="string">"more than"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"four "</span>);</span><br><span class="line">   q.push(<span class="string">"words!"</span>);</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"number pf elements in the queue: "</span> &lt;&lt; q.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">These are four words!</span><br><span class="line">number pf elements in the <span class="built_in">queue</span>: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多了解queue:<br><a href="http://zh.cppreference.com/w/cpp/container/queue" target="_blank" rel="noopener">queue- C++ Reference</a></p>
+<h3 id="三、priority-queue"><a href="#三、priority-queue" class="headerlink" title="三、priority_queue"></a>三、priority_queue</h3><ol>
+<li>要使用priority_queue，必须包含头文件&lt; queue &gt;</li>
+<li>实际上priority_queue只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持priority_queue，只要它们支持随机存取迭代器和front(), push_back(), pop_front()等动作就行。由于priority_queue需要用到STL的heap算法，所以其内部容器必须支持随机存取迭代器。例如你可以使用deque来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::priority_queue&lt; <span class="keyword">float</span>, <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">float</span>&gt; &gt; pbuffer;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>优先队列与队列的差别在于优先队列不是按照入队的顺序出队，而是按照队列中元素的优先权顺序出队（默认为大者优先，也可以通过指定算子来指定自己的优先顺序），如果同时存在若干个数值最大的元素，无法确知究竟哪个会入选。</li>
+<li>priority_queue模板类有三个模板参数，默认容器为vector，默认算子为less，即小的往前排，大的往后排（出队时序列尾的元素出队）<br><em>一点要注意的是priority_queue中的三个参数，后两个可以省去，因为有默认参数，不过如果，有第三个参数的话，必定要写第二个参数。</em></li>
+<li><p>定义priority_queue的示例代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>&gt; q1;</span><br><span class="line">priority_queue&lt; pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt;q2; <span class="comment">//注意在两个尖括号之间一定要保留空格</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt;q3; <span class="comment">//定义小的先出队</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>priority_queue与queue基本操作相同。接口有empty(), size(), top(), push(), pop()等等</p>
+</li>
+</ul>
+<ol start="3">
+<li><p>priority_queue简单示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showpq</span><span class="params">(priority_queue &lt;<span class="keyword">int</span>&gt; gq)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; g = gq;</span><br><span class="line">    <span class="keyword">while</span> (!g.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">'\t'</span> &lt;&lt; g.top();</span><br><span class="line">        g.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; gquiz;</span><br><span class="line">    gquiz.push(<span class="number">10</span>);</span><br><span class="line">    gquiz.push(<span class="number">30</span>);</span><br><span class="line">    gquiz.push(<span class="number">20</span>);</span><br><span class="line">    gquiz.push(<span class="number">5</span>);</span><br><span class="line">    gquiz.push(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The priority queue gquiz is : "</span>;</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.size() : "</span> &lt;&lt; gquiz.size();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.top() : "</span> &lt;&lt; gquiz.top();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.pop() : "</span>;</span><br><span class="line">    gquiz.pop();</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">The priority <span class="built_in">queue</span> gquiz is :     <span class="number">30</span>    <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br><span class="line"></span><br><span class="line">gquiz.size() : <span class="number">5</span></span><br><span class="line">gquiz.top() : <span class="number">30</span></span><br><span class="line">gquiz.pop() :     <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>算子：<br> 默认为使用less算子。<br> 如果要定义自己的比较算子，则必须自己重载 operator&lt; 或者自己写仿函数，<br> 优先队列试图将两个元素x 和y 代入比较运算符(对less 算子，调用x&lt;y，对greater 算子，调用x&gt;y)，若结果为真，则x 排在y 前面，y 将先于x 出队，反之，则将y 排在x 前面，x 将先出队。<br> 下面程序是针对结构体的，对数据的比较是通过对结构体重载operator()。（转自<a href="http://blog.csdn.net/morewindows/article/details/6976468" target="_blank" rel="noopener">博客</a>）<br> 程序功能是模拟排队过程，每人有姓名和优先级，优先级相同则比较姓名，开始有5个人进入队列，然后队头2个人出队，再有3个人进入队列，最后所有人都依次出队，程序会输出离开队伍的顺序。<br>自定义算子可参考：</p>
+<p><a href="https://www.cnblogs.com/flipped/p/5691430.html" target="_blank" rel="noopener">优先队列priority_queue的比较函数</a></p>
+</li>
+</ol>
+<p><a href="https://blog.csdn.net/u014644714/article/details/68924863" target="_blank" rel="noopener">优先级队列priority_queue之比较函数</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//by MoreWindows( http://blog.csdn.net/MoreWindows )</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> szName[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span>  priority;</span><br><span class="line">	Node(<span class="keyword">int</span> nri, <span class="keyword">char</span> *pszName)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">strcpy</span>(szName, pszName);</span><br><span class="line">		priority = nri;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//结构体的比较方法 改写operator()</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NodeCmp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Node &amp;na, <span class="keyword">const</span> Node &amp;nb)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (na.priority != nb.priority)</span><br><span class="line">			<span class="keyword">return</span> na.priority &lt;= nb.priority;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">strcmp</span>(na.szName, nb.szName) &gt; <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintfNode</span><span class="params">(Node &amp;na)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s %d\n"</span>, na.szName, na.priority);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//优先级队列默认是使用vector作容器，底层数据结构为堆。</span></span><br><span class="line">	priority_queue&lt;Node, <span class="built_in">vector</span>&lt;Node&gt;, NodeCmp&gt; a;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//有5个人进入队列</span></span><br><span class="line">	a.push(Node(<span class="number">5</span>, <span class="string">"小谭"</span>));</span><br><span class="line">	a.push(Node(<span class="number">3</span>, <span class="string">"小刘"</span>));</span><br><span class="line">	a.push(Node(<span class="number">1</span>, <span class="string">"小涛"</span>));</span><br><span class="line">	a.push(Node(<span class="number">5</span>, <span class="string">"小王"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//队头的2个人出队</span></span><br><span class="line">	PrintfNode(a.top());</span><br><span class="line">	a.pop();</span><br><span class="line">	PrintfNode(a.top());</span><br><span class="line">	a.pop();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"--------------------\n"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//再进入3个人</span></span><br><span class="line">	a.push(Node(<span class="number">2</span>, <span class="string">"小白"</span>));</span><br><span class="line">	a.push(Node(<span class="number">2</span>, <span class="string">"小强"</span>));</span><br><span class="line">	a.push(Node(<span class="number">3</span>, <span class="string">"小新"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//所有人都依次出队</span></span><br><span class="line">	<span class="keyword">while</span> (!a.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		PrintfNode(a.top());</span><br><span class="line">		a.pop();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多了解priority_queue:<br><a href="http://zh.cppreference.com/w/cpp/container/priority_queue" target="_blank" rel="noopener">priority_queue- C++ Reference</a></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

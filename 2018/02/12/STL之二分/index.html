@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    STL之二分法四个函数及两道对应习题 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  STL,二分
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1518425132000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1518425132000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>STL之二分法四个函数及两道对应习题</h1>
+    <p>STL四个二分搜索操作函数：lower_bound, upper_bound, binary_search, equal_range<br><a id="more"></a><br>注意：</p>
+<ol>
+<li>四个函数都定义在头文件<algorithm>中，要使用它们必须包含这个头文件</algorithm></li>
+<li>这四个函数都运用了有序区间，这也是二分查找前提，可以用sort函数(需要包含<algorithm>头文件)对数组从小到大排序</algorithm></li>
+</ol>
+<h3 id="一、lower-bound-函数"><a href="#一、lower-bound-函数" class="headerlink" title="一、lower_bound()函数"></a>一、lower_bound()函数</h3><p><em>lower_bound()在first和last中的前闭后开区间进行二分查找，返回大于或等于val的第一个元素位置。如果所有元素都小于val，则返回last的位置。函数返回的是迭代器。</em><br>函数功能简单实例:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> len 12</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">21</span>;</span><br><span class="line">    <span class="keyword">int</span> arr[len]=&#123;<span class="number">12</span>,<span class="number">15</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">26</span>,<span class="number">29</span>,<span class="number">35</span>,<span class="number">40</span>,<span class="number">51</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> k = lower_bound(arr, arr, len)- arr;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    因为函数返回的是元素位置，默认是指针位置，所以要减去第一个位置，即arr(&amp;arr[0]</span></span><br><span class="line"><span class="comment">    才能得出一个整数，这是指针的减法</span></span><br><span class="line"><span class="comment">    auto k = lower_bound(arr, arr + len,  21);  k=0x7ffc399f1ce4(在不同电脑上该值会不同)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; k; <span class="comment">//输出5</span></span><br><span class="line">    <span class="comment">//把val换成11时，程序结果是0</span></span><br><span class="line">    <span class="comment">//把val换成12时，程序结果是0</span></span><br><span class="line">    <span class="comment">//把val换成52时，程序结果是12</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>lower_bound()在first和last中的前闭后开区间进行二分查找，返回大于或等于val的第一个元素位置。如果所有元素都小于val，则返回last的位置，且last的位置是越界的<br><strong>lower_bound()源码以及补充:</strong><br><a href="http://zh.cppreference.com/w/cpp/algorithm/lower_bound" target="_blank" rel="noopener">lower_bound - C++ Reference</a></p>
+<h3 id="二、upper-bound-函数"><a href="#二、upper-bound-函数" class="headerlink" title="二、upper_bound()函数"></a>二、upper_bound()函数</h3><p><em>返回指向范围 [first, last) 中首个大于 value 的元素的迭代器，或若找不到这种元素则返回 last 。函数返回的是迭代器。</em><br>函数功能简单实例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> len 12</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> val = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">int</span> arr[len]=&#123;<span class="number">12</span>,<span class="number">15</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">26</span>,<span class="number">29</span>,<span class="number">35</span>,<span class="number">40</span>,<span class="number">51</span>&#125;;</span><br><span class="line">  <span class="keyword">int</span> k = lower_bound(arr, arr + len, <span class="number">21</span>)- arr;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; k; <span class="comment">//输出5</span></span><br><span class="line">    <span class="comment">//把val换成11时，程序结果是0</span></span><br><span class="line">    <span class="comment">//把val换成12时，程序结果是1</span></span><br><span class="line">    <span class="comment">//把val换成52时，程序结果是12</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>upper_bound()若找不到这种元素则返回 last，此时last的位置的越界的<br><strong>upper_bound()源码以及补充:</strong><br><a href="http://zh.cppreference.com/w/cpp/algorithm/upper_bound" target="_blank" rel="noopener">upper_bound - C++ Reference</a></p>
+<h3 id="三、binary-search-函数"><a href="#三、binary-search-函数" class="headerlink" title="三、binary_search()函数"></a>三、binary_search()函数</h3><p><em>检查等价于 value 的元素是否出现于范围 [first, last) 中。</em><br>函数模版:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span>  <span class="title">binary_search</span> <span class="params">(T arr[ ],  <span class="keyword">int</span> size,  T target)</span> </span>;</span><br><span class="line">T: 模版参数</span><br><span class="line">arr:  数组首地址</span><br><span class="line">size: 数组元素个数</span><br><span class="line">T target: 需要查找的值</span><br><span class="line">若找到等于 value 的元素则为 <span class="literal">true</span> ，否则为 <span class="literal">false</span> 。</span><br></pre></td></tr></table></figure></p>
+<p>函数功能简单实例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> len 12</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> val = <span class="number">51</span>;</span><br><span class="line">  <span class="keyword">int</span> arr[len]=&#123;<span class="number">12</span>,<span class="number">15</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">26</span>,<span class="number">29</span>,<span class="number">35</span>,<span class="number">40</span>,<span class="number">51</span>&#125;;</span><br><span class="line">  <span class="keyword">if</span>( binary_search(arr, arr + len, val) )</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; val &lt;&lt; <span class="string">" exits in arr"</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; val &lt;&lt; <span class="string">" does not exist"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">输出：<span class="number">51</span> exits in arr</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>binary_search试图在已排序的[first,last)中寻找元素value，若存在就返回true，若不存在则返回false。返回单纯的布尔值也许不能满足需求，而lower_bound、upper_bound能提供额外的信息。事实上由源码可知binary_search便是利用lower_bound求出元素应该出现的位置，然后再比较该位置的值与value的值。<br><strong>binary_search()源码以及补充:</strong><br><a href="http://zh.cppreference.com/w/cpp/algorithm/binary_search" target="_blank" rel="noopener">binary_search() - C++ Reference</a></p>
+<h3 id="四、equal-range-函数"><a href="#四、equal-range-函数" class="headerlink" title="四、equal_range()函数"></a>四、equal_range()函数</h3><p><em>qual_range是C++ STL中的一种二分查找的算法，试图在已排序的[first,last)中寻找value，它返回一对迭代器i和j，其中i是在不破坏次序的前提下，value可插入的第一个位置（亦即lower_bound），j则是在不破坏次序的前提下，value可插入的最后一个位置（亦即upper_bound），因此，[i,j)内的每个元素都等同于value，而且[i,j)是[first,last)之中符合此一性质的最大子区间</em><br>函数功能简单实例：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v = &#123; <span class="number">10</span>, <span class="number">10</span>, <span class="number">10</span>, <span class="number">30</span>, <span class="number">30</span>, <span class="number">30</span>, <span class="number">70</span>, <span class="number">70</span>, <span class="number">80</span>, <span class="number">100</span>,</span><br><span class="line">                      <span class="number">300</span>, <span class="number">300</span>&#125;;</span><br><span class="line"></span><br><span class="line">    pair&lt;<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator,</span><br><span class="line">              <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator&gt; ip;</span><br><span class="line"></span><br><span class="line">    ip = equal_range(v.begin(), v.begin() + <span class="number">12</span>, <span class="number">30</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"30 is present in the sorted vector from index "</span></span><br><span class="line">         &lt;&lt; (ip.first - v.begin()) &lt;&lt; <span class="string">" till "</span></span><br><span class="line">         &lt;&lt; (ip.second - v.begin());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：<span class="number">30</span> is present in the sorted <span class="built_in">vector</span> from index <span class="number">3</span> till <span class="number">6</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ol>
+<li>就是30连续出现的区间是[3,6]（注意容器得是有序的）。</li>
+<li>std::pair主要的作用是将两个数据组合成一个数据，两个数据可以是同一类型或者不同类型<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::pair定义于头文件&lt;utility&gt;</span><br><span class="line"><span class="keyword">template</span>&lt;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">T1</span>,</span></span><br><span class="line"><span class="class">    <span class="title">class</span> <span class="title">T2</span></span></span><br><span class="line"><span class="class">&gt; <span class="title">struct</span> <span class="title">pair</span>;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>那么，equal_range()有什么用呢？如果我们想同时使用std :: lower_bound和std :: upper_bound，可以使用这个函数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span> &#125;;</span><br><span class="line"></span><br><span class="line">    pair&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator,</span><br><span class="line">              <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator&gt; ip;</span><br><span class="line"></span><br><span class="line">    ip = equal_range(v.begin(), v.end(), <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ip.first - v.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ip.second - v.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator i1, i2;</span><br><span class="line"></span><br><span class="line">    i1 = lower_bound(v.begin(), v.end(), <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i1 - v.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    i2 = upper_bound(v.begin(), v.end(), <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i2 - v.begin() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure></p>
+<p>尾言：<br>关联式容器(set, multiset, map, multimap)分别提供了等效的成员函数，性能更佳</p>
+<h3 id="五、两道习题："><a href="#五、两道习题：" class="headerlink" title="五、两道习题："></a>五、两道习题：</h3><ol>
+<li><h5 id="猜数字游戏"><a href="#猜数字游戏" class="headerlink" title="猜数字游戏"></a>猜数字游戏</h5><strong>题目描述</strong></li>
+</ol>
+<p>有一个由n个数字组成的数列a，且后一个数字严格大于前一个(a[i+1]&gt;a[i])<br>小溜进行Q次猜数，每次他都猜一个x，若这个x在数列里面，小溜的得分加上这个分数的大小，被猜中的数不会从数列消失。<br>如：数列1 2 3 4 5 6，小溜猜5次，分别是1 1 3 5 7 那小溜的得分为1+1+3+5=10<br>现在请你计算出小溜的得分。</p>
+<p><strong>输入</strong></p>
+<p>第一行输入一个T（0 &lt; T &lt;= 100)<br>接下来T组测试数据<br>每组第一行两个数n，q(1 &lt;= n, q &lt;= 1000000)<br>接下来一行n个数a1，a2…an(1 &lt;= a[i] &lt;= 10^9)<br>再接下来一行q个数b1，b2…bq(1 &lt;= b[i] &lt;= 10^9)表示猜的数字</p>
+<p><strong>输出</strong></p>
+<p>输出总分</p>
+<p><strong>例如：</strong></p>
+<p>输入：<br>1<br>6 5<br>1 2 3 4 5 6<br>1 1 3 5 7<br>输出：<br>10</p>
+<p>代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> len = <span class="number">1000005</span>;</span><br><span class="line"><span class="keyword">int</span> p[len], q[len];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> t, n, m;</span><br><span class="line">  ll sum = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">  <span class="keyword">while</span>(t--)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">memset</span>(p, <span class="number">0</span>, <span class="keyword">sizeof</span>(p));</span><br><span class="line">    <span class="built_in">memset</span>(q, <span class="number">0</span>, <span class="keyword">sizeof</span>(q));</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">for</span>(ll i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p[i]);</span><br><span class="line">    <span class="keyword">for</span>(ll j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;q[j]);</span><br><span class="line">      <span class="keyword">if</span>(q[j] == p[upper_bound(p+<span class="number">1</span>, p+n+<span class="number">1</span>, q[j]) - (p + <span class="number">1</span>)])</span><br><span class="line">      sum+=q[j];</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, sum);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li><h5 id="询问"><a href="#询问" class="headerlink" title="询问"></a>询问</h5><strong>题目描述</strong></li>
+</ol>
+<p>每次给出一个整数x，共给出m个，需要找出每个整数在数列c中出现的次数。</p>
+<p><strong>输入</strong></p>
+<p>第一行两个整数n，m。n表示数列c长度，m表示共给出m个数(1 &lt;= n, m &lt;= 100000)<br>第二行为n个空格隔开的整数ci，c表示数列。(-10^9 &lt;= ci &lt;= 10^9)<br>第三行到m+2行，每行一个整数x，表示给出的整数x。（-10^9 &lt;= x &lt;= 10^9)</p>
+<p><strong>输出</strong></p>
+<p>共m行，每行一个整数y，表示整数x在数列c里面出现的次数</p>
+<p><strong>例如:</strong></p>
+<p>输入：<br>5 3<br>9 6 3 3 2<br>1<br>3<br>9<br>输出：<br>0<br>2<br>1</p>
+<p>代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, a[<span class="number">100005</span>], q;</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m))</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">      sort(a+<span class="number">1</span>, a+n+<span class="number">1</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++)</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;q);</span><br><span class="line">        <span class="keyword">int</span> k = upper_bound(a+<span class="number">1</span>, a+n+<span class="number">1</span>, q) - lower_bound(a+<span class="number">1</span>, a+n+<span class="number">1</span>, q);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,k);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

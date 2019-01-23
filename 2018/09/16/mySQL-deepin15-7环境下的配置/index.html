@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    MySQL--deepin15.7环境下的配置 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  MySQL,deepin
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1537081116000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1537081116000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>MySQL--deepin15.7环境下的配置</h1>
+    <p>deepin15.7基于debian9</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/deepin%E4%BF%A1%E6%81%AF.png"></p>
+<p>为了还原最好的配置环境，先把MySQL的遗留配置以及部分依赖卸载干净</p>
+<h1 id="使用APT删除MySQL"><a href="#使用APT删除MySQL" class="headerlink" title="使用APT删除MySQL"></a>使用APT删除MySQL</h1><p>参考：</p>
+<p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-remove" target="_blank" rel="noopener">Removing MySQL with APT</a></p>
+<p>要卸载MySQL服务器以及使用MySQL APT存储库安装的相关组件，首先，使用以下命令删除MySQL服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove mysql-server</span><br></pre></td></tr></table></figure>
+<p>强力卸载可以使用以下这条命令（卸载并清除软件包的配置）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge mysql-server</span><br></pre></td></tr></table></figure>
+<p>然后，删除使用MySQL服务器自动安装的任何其他软件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get autoremove</span><br></pre></td></tr></table></figure>
+<p>如果要卸载MySQL其他组件，可以先看看软件包列表</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l | grep mysql | grep ii</span><br></pre></td></tr></table></figure>
+<p>然后再对应删除</p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/mysql%E5%8D%B8%E8%BD%BD.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/mysql%E5%8D%B8%E8%BD%BD2.png"></p>
+<h1 id="全新安装MySQL步骤之之配置软件源-APT"><a href="#全新安装MySQL步骤之之配置软件源-APT" class="headerlink" title="全新安装MySQL步骤之之配置软件源(APT)"></a>全新安装MySQL步骤之之配置软件源(APT)</h1><p>参考：</p>
+<p><a href="https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/index.html#apt-repo-fresh-install" target="_blank" rel="noopener">Steps for a Fresh Installation of MySQL</a></p>
+<p>这里导入相关源的信息是用deb包，也可以自己手动编辑对应的源文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.mysql.com//mysql-apt-config_0.8.10-1_all.deb</span><br></pre></td></tr></table></figure>
+<p>然后安装对应的deb包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i mysql-apt-config_0.8.10-1_all.deb</span><br></pre></td></tr></table></figure>
+<p>接着会进入相关的设置</p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/mysql-apt-config1.png"></p>
+<p>因为本次配置的环境是debian stretch，所以选择debian stretch</p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/mysql-apt-config2.png"></p>
+<p>然后默认ok，然后就完成了apt源的设置</p>
+<p>接着就是常规更新源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<p>重新配置mysql-apt-config</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg-reconfigure mysql-apt-config</span><br></pre></td></tr></table></figure>
+<h1 id="全新安装MySQL步骤之之安装MySQL-APT"><a href="#全新安装MySQL步骤之之安装MySQL-APT" class="headerlink" title="全新安装MySQL步骤之之安装MySQL(APT)"></a>全新安装MySQL步骤之之安装MySQL(APT)</h1><p>通过以下命令安装MySQL,这将安装MySQL服务器的包，以及客户端和数据库公共文件的包。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-server</span><br></pre></td></tr></table></figure>
+<p><em>然后据说安装新版MySQL(8.0)没有出现设置root的提示框，确实，这次安装我也没有出现，那么就安装后再通过命令行设置</em></p>
+<p>可选安装图形化管理工具workbench</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-workbench</span><br></pre></td></tr></table></figure>
+<h1 id="完成上一步未完成的工作—设置root密码"><a href="#完成上一步未完成的工作—设置root密码" class="headerlink" title="完成上一步未完成的工作—设置root密码"></a>完成上一步未完成的工作—设置root密码</h1><p>参考：</p>
+<p><a href="https://bbs.deepin.org/forum.php?mod=viewthread&amp;tid=168685&amp;highlight=mysql" target="_blank" rel="noopener">deepin15.7安装mysql无输入密码提示，导致安装后无法使用mysql</a></p>
+<p>登录Mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>输入系统密码回车</p>
+<p>然后输入，注意还有<code>;</code>号</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use sql;</span><br></pre></td></tr></table></figure>
+<p>回车，接着输入下面的命令,123456是将要设置的密码，然后可以自己更改</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set authentication_string=password('123456'),plugin='mysql_native_password' where user='root';</span><br></pre></td></tr></table></figure>
+<p>回车，接着输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+<p>回车，已经设置好了密码，输入<code>exit</code>回车退出命令行</p>
+<h1 id="不知道密码登录MySQL"><a href="#不知道密码登录MySQL" class="headerlink" title="不知道密码登录MySQL"></a>不知道密码登录MySQL</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql stop回车</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysqld_safe --skip-grant-tables &amp;回车</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql回车</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

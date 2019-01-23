@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    MOOC学习python爬虫学习之Requests | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  python,爬虫,MOOC
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1537703668000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1537703668000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>MOOC学习python爬虫学习之Requests</h1>
+    <p>Python-Requests库</p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install requests</span><br><span class="line"><span class="comment"># python3 deepin15.6</span></span><br></pre></td></tr></table></figure>
+<h1 id="Requests库的7个主要办法"><a href="#Requests库的7个主要办法" class="headerlink" title="Requests库的7个主要办法"></a>Requests库的7个主要办法</h1><table>
+<thead>
+<tr>
+<th>requests.request()</th>
+<th>构造一个请求，支撑以下各方法的基础方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>requests.get()</td>
+<td>获取HTML网页的主要方法，对应于HTTP的GET</td>
+</tr>
+<tr>
+<td>requests.head()</td>
+<td>获取HTML网页头信息的方法，对应于HTTP的HEAD</td>
+</tr>
+<tr>
+<td>requests.post()</td>
+<td>向HTML网页提交POST请求的方法，对应于HTTP的POST</td>
+</tr>
+<tr>
+<td>requests.put()</td>
+<td>向HTML网页提交PUT请求的方法，对应于HTTP的PUT</td>
+</tr>
+<tr>
+<td>requests.patch()</td>
+<td>向HTML网页提交局部修改请求，对应于HTTP的PATCH</td>
+</tr>
+<tr>
+<td>requests.delete()</td>
+<td>向HTML页面提交删除请求，对应于HTTP的DELETE</td>
+</tr>
+</tbody>
+</table>
+<h1 id="request-get"><a href="#request-get" class="headerlink" title="request.get()"></a>request.get()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests2.png"></p>
+<h1 id="requests-head"><a href="#requests-head" class="headerlink" title="requests.head()"></a>requests.head()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-gead.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-head.png"></p>
+<p><em>HEAD获取头部信息，没有html主体，故r.text为空</em>‘</p>
+<h1 id="requests-post"><a href="#requests-post" class="headerlink" title="requests.post()"></a>requests.post()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-post.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-post.png"></p>
+<h1 id="requests-put"><a href="#requests-put" class="headerlink" title="requests.put()"></a>requests.put()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-put.png"></p>
+<h1 id="requests-patch"><a href="#requests-patch" class="headerlink" title="requests.patch()"></a>requests.patch()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-patch.png"></p>
+<h1 id="requests-delete"><a href="#requests-delete" class="headerlink" title="requests.delete()"></a>requests.delete()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-delete.png"></p>
+<h1 id="Response对象"><a href="#Response对象" class="headerlink" title="Response对象"></a>Response对象</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests3.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-Response.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-response.png"></p>
+<h1 id="Requests库的异常"><a href="#Requests库的异常" class="headerlink" title="Requests库的异常"></a>Requests库的异常</h1><p> <img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests%E5%BC%82%E5%B8%B8.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r.raise_for_status() <span class="comment">#如果不是200，产生异常requests.HTTPError</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python%E7%88%AC%E5%8F%96%E7%BD%91%E9%A1%B5%E9%80%9A%E7%94%A8%E6%A1%86%E6%9E%B6.png"></p>
+<h1 id="Http协议对资源的操作"><a href="#Http协议对资源的操作" class="headerlink" title="Http协议对资源的操作"></a>Http协议对资源的操作</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-http%E5%AF%B9%E5%BF%97%E6%84%BF%E7%9A%84%E6%93%8D%E4%BD%9C.png"></p>
+<h1 id="resquests-request"><a href="#resquests-request" class="headerlink" title="resquests.request()"></a>resquests.request()</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-request.png"></p>
+<p><strong>kwargs参数讲解</strong></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request2.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request3.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request4.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request5.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request6.png"></p>
+<p> <img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request7.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request8.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-requests-request9.png"></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

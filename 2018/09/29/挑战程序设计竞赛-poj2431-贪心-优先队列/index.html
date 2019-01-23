@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    挑战程序设计竞赛---poj2431(贪心+优先队列) | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  priority_queue,挑战程序设计,贪心
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1538206333000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1538206333000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>挑战程序设计竞赛---poj2431(贪心+优先队列)</h1>
+    <p>贪心，优先队列</p>
+<a id="more"></a>
+<p><strong>题目链接：</strong><a href="http://poj.org/problem?id=2431" target="_blank" rel="noopener">http://poj.org/problem?id=2431</a></p>
+<p><strong>题目大意：</strong></p>
+<p>一辆卡车，初始时，距离终点L，油量为P，在起点到终点途中有n个加油站，每个加油站油量有限，而卡车的油箱容量无限，卡车在行车途中，每走一个单位的距离消耗一个单位的油量，给定n个加油站距离终点的距离以及油存储量。问卡车是否能到达终点，如果可达，最少需要加多少次油，否则输出-1.</p>
+<p><strong>题目思路：</strong></p>
+<p>采用贪心的思想，卡车当然在不加油的情况下走的越远越好了，而当它没油时，我们再判断卡车在经过的途中的加油站，哪个加油站加的油最多，选油量最多的，这样后面加油次数也越少，然后又继续行驶，当它又没油了的时候，继续选它从起点到该点所经过的加油站油量最多的加油。</p>
+<p>做法先将加油站到终点的距离由远到近排下序，这样离起点就是由近到远。就是每经过一个加油站就将该加油站的油量压入优先队列中，然后每次没油的时候，去队首元素加油即可。</p>
+<p>参考：<a href="https://www.cnblogs.com/zjl192628928/p/9414201.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjl192628928/p/9414201.html</a></p>
+<p><em>为什么这样做呢，经过加油站后还可以加油？其实不是这样的，只是预先模拟汽车到达那个加油站的情况，并不是汽车真正到达那个加油站，这样才能预算沿途究竟在哪个加油站加油最好。之前纠结这个有点久2333，后来就想想这个只是预想汽车到达那个加油站，并没有真正到达</em></p>
+<p><strong>Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">	Submit Time:2018-09-29 12:18:22</span></span><br><span class="line"><span class="comment">	Time:172MS</span></span><br><span class="line"><span class="comment">	Memory:300K</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1E6</span>;</span><br><span class="line"><span class="comment">//代表一个加油站，x代表距离终点位置，y代表能加的油量</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">&#125;stru[MAXN];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(node x1, node x2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x1.x &lt; x2.x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> p, l, n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; stru[i].x &gt;&gt; stru[i].y;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; p &gt;&gt; l;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//因为给的是距离终点的距离，不是距离起点，所以得算出距离起点的</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        stru[i].x = p - stru[i].x;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将终点也看是一个加油站，避免一些特殊情况，比如</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    0</span></span><br><span class="line"><span class="comment">    3 1</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    stru[n].x = p;</span><br><span class="line">    stru[n].y = <span class="number">0</span>;</span><br><span class="line">    n++;</span><br><span class="line">    sort(stru, stru + n, cmp); <span class="comment">//因为题目不一定按顺序输入，所以得手动排序，将离起点最近的放在前面</span></span><br><span class="line"></span><br><span class="line">    priority_queue&lt;<span class="keyword">int</span>&gt;pq;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, pos = <span class="number">0</span>, tank = l; <span class="comment">//ans:加油次数，pos：现在所在位置，tank：油箱中的汽油量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="comment">//模拟经过所有加油站</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> d = stru[i].x - pos; <span class="comment">//到下一个加油站需要的路程</span></span><br><span class="line">        <span class="keyword">while</span>(tank - d &lt; <span class="number">0</span>) <span class="comment">//到不了了，需要在沿途加油</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(pq.empty()) <span class="comment">//没有加油站可以加油，输入-1，代表到达不了</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            tank += pq.top(); <span class="comment">//否则找个加油站，加最多的油，正好优先队列第一个元素就是最大值</span></span><br><span class="line">            pq.pop(); </span><br><span class="line">            ans++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        tank -= d; <span class="comment">//如果到达的了这个加油站，说明油够，不需要加，那么只需要减去到达这个加油站的油量就行了</span></span><br><span class="line">        pos = stru[i].x; <span class="comment">//位置更新为这个加油站</span></span><br><span class="line">        pq.push(stru[i].y); </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

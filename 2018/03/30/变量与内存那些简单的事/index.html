@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    变量与内存那些简单的事 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  内存
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1522396550000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1522396550000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>变量与内存那些简单的事</h1>
+    <p>内存内存，内存才是永恒的真理</p>
+ <a id="more"></a>
+<p>总的来说：</p>
+<p>新建的对象开在 堆里  </p>
+<p>属性 开在 堆里的对象里  </p>
+<p>局部变量 参数变量 开在 栈里  </p>
+<h1 id="由C-C-编译的程序占用的内存分的几部分"><a href="#由C-C-编译的程序占用的内存分的几部分" class="headerlink" title="由C/C++编译的程序占用的内存分的几部分"></a>由C/C++编译的程序占用的内存分的几部分</h1><h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>栈区（stack）— 由编译器自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆区（heap）— 由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收 。注意它与数据结构中的堆是两回事，分配方式倒是类似于链表。</p>
+<h2 id="全局区（静态区）"><a href="#全局区（静态区）" class="headerlink" title="全局区（静态区）"></a>全局区（静态区）</h2><p>全局区（静态区）（static）— 全局变量和静态变量的存储是放在一块的，初始化的全局变量和静态变量在一块区域， 未初始化的全局变量和未初始化的静态变量在相邻的另一块区域。程序结束后由系统释放。</p>
+<h2 id="文字常量区"><a href="#文字常量区" class="headerlink" title="文字常量区"></a>文字常量区</h2><p>常量字符串就是放在这里的，程序结束后由系统释放 。</p>
+<h2 id="程序代码区"><a href="#程序代码区" class="headerlink" title="程序代码区"></a>程序代码区</h2><p>存放函数体的二进制代码。</p>
+<h1 id="变量，对象，内存"><a href="#变量，对象，内存" class="headerlink" title="变量，对象，内存"></a>变量，对象，内存</h1><ol>
+<li>Java把内存划分成两种：一种是<strong>栈内存</strong>，一种是<strong>堆内存</strong>。在函数中定义的一些基本类型的变量和对象的引用变量都在函数的堆栈中分配 。  </li>
+<li>当在一段代码块定义一个变量时，Java就在栈中为这个变量分配内存空间，当超过变量的作用域后，Java会自动释放掉为该变量所分配的内存空间， 该内存空间可以立即被另作他用。 所以尽量使用基本类型的变量。  </li>
+<li>堆内存用来存放由 new创建的对象和数组。 由Java虚拟机的自动垃圾回收器来管理。</li>
+<li>在堆中产生了一个数组或对象后，还可以在栈中定义一个特殊的变量，让栈中这个变量的取值等于数组或对象在堆内存中的首地址，栈中的这个变量就成了数组或对象的引用变量。引用变量就相当于是为数组或对象起的一个名称，以后就可以在程序中使用栈中的引用变量来访问堆中的数组或对象Java的堆或者说内存堆是一个运行时数据区,类的(对象从中分配空间。这些对象通过new、newarray、anewarray和multianewarray等 指令建立，它们不需要程序代码来显式的释放。</li>
+<li>堆是由垃圾回收来负责的，堆的优势是可以动态地分配内存大小，生存期也不必事先告诉编译器，因为它是在运行时 动态分配内存的，Java的垃圾收集器会自动收走这些不再使用的数据。但缺点是，由于要在运行时动态分配内存，存取速度较慢。</li>
+</ol>
+<h1 id="静态存储分配与动态存储分配"><a href="#静态存储分配与动态存储分配" class="headerlink" title="静态存储分配与动态存储分配"></a>静态存储分配与动态存储分配</h1><p>通常定义变量（或对象），编译器在编译时都可以根据该变量（或对象）的类型知道所需内存空间的大小，从而系统在适当的时候为他们分配确定的存储空间。这种内存分配称为<strong>静态存储分配；</strong>  </p>
+<p>有些操作对象只在程序运行时才能确定，这样编译时就无法为他们预定存储空间，只能在程序运行时，系统根据运行时的要求进行内存分配，这种方法称为<strong>动态存储分配</strong>。所有动态存储分配都在堆区中进行。  </p>
+<p>当程序运行到需要一个动态分配的变量或对象时，必须向系统申请取得堆中的一块所需大小的存贮空间，用于存贮该变量或对象。当不再使用该变量或对象时，也就是它的生命结束时，要显式释放它所占用的存贮空间，这样系统就能对该堆空间进行再次分配，做到重复使用有限的资源。</p>
+<p>参考:<a href="https://blog.csdn.net/susan19890313/article/details/7494143" target="_blank" rel="noopener">动态内存分配（new delete）</a>  </p>
+<h1 id="栈的共享性"><a href="#栈的共享性" class="headerlink" title="栈的共享性"></a>栈的共享性</h1><p>假设我们同时定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>; </span><br><span class="line"><span class="keyword">int</span> b = <span class="number">3</span>；</span><br></pre></td></tr></table></figure>
+<p>编译器先处理int a = 3；首先它会在栈中创建一个变量为a的引用，然后查找栈中是否有3这个值，如果没找到，就将3存放进来，然后将a指向3。接着处理int b = 3；在创建完b的引用变量后，因为在栈中已经有3这个值，便将b直接指向3。这样，就出现了a与b同时均指向3的情况。这时，如果再令a=4；那么编译器 会重新搜索栈中是否有4值，如果没有，则将4存放进来，并令a指向4；如果已经有了，则直接将a指向这个地址。因此a值的改变不会影响到b的值。要注意这 种数据的共享与两个对象的引用同时指向一个对象的这种共享是不同的，因为这种情况a的修改并不会影响到b, 它是由编译器完成的，它有利于节省空间。而一个对象引用变量修改了这个对象的内部状态，会影响到另一个对象引用变量。</p>
+<h1 id="两种创建String类对象的比较"><a href="#两种创建String类对象的比较" class="headerlink" title="两种创建String类对象的比较"></a>两种创建String类对象的比较</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(“abc”); <span class="comment">//（1）</span></span><br><span class="line">String str = “abc”;</span><br></pre></td></tr></table></figure>
+<p>首先说下new </p>
+<h2 id="new的那些内存分配的事情"><a href="#new的那些内存分配的事情" class="headerlink" title="new的那些内存分配的事情"></a>new的那些内存分配的事情</h2><p>Java关键字new是一个运算符。与+、-、*、/等运算符具有相同或类似的优先级。  </p>
+<p>创建一个Java对象需要三步：声明引用变量、实例化、初始化对象实例。</p>
+<p>应该说有会产生两个对象，一个为new String(“abc”)的实体对象放到内存堆中， 一个为堆栈对象str也就是类实例对象的引用对象。</p>
+<h3 id="声明Declaration"><a href="#声明Declaration" class="headerlink" title="声明Declaration"></a>声明Declaration</h3><p>把上面代码(1)拆分只留下下面部分，就算是声明部分了，就是将变量名称与对象类型关联的变量声明。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str</span><br></pre></td></tr></table></figure>
+<p>如同</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>声明一个对象str 时，将在栈内存为对象的引用变量str 分配内存空间，但值为空，称str是一个空对象。空对象不能使用，因为它还没有引用任何”实体”</li>
+</ul>
+<h3 id="实例化Instantiating"><a href="#实例化Instantiating" class="headerlink" title="实例化Instantiating"></a>实例化Instantiating</h3><p>实例化？“实例化一个类的对象”的意思就是“创建对象”。创建对象时，你正在创造一个类的“实例”，因而“实例化”一个类的对象。</p>
+<p>实例化就是“创建一个Java对象”—–分配内存并返回指向该内存的引用。</p>
+<ul>
+<li>在堆内存中为类的成员变量分配内存，并将其初始化为各数据类型的默认值；接着进行显式初始化（类定义时的初始化值）；</li>
+</ul>
+<h3 id="初始化Initialization"><a href="#初始化Initialization" class="headerlink" title="初始化Initialization"></a>初始化Initialization</h3><ul>
+<li>最后调用构造方法，为成员变量赋值。</li>
+<li>返回堆内存中对象的引用（相当于首地址）给引用变量str,以后就可以通过str来引用堆内存中的对象了。</li>
+</ul>
+<h3 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h3><p>而第二种（String str = “abc”;）是先在栈中创建一个对String类的对象引用变量str，然后查找栈 中有没有存放”abc”，如果没有，则将”abc”存放进栈，并令str指向”abc”，如果已经有”abc” 则直接令str指向“abc”。 </p>
+<p>因此用第二种方式（String str = “abc”;）创建多个”abc”字符串,在内存中其实只存在一个对象而已</p>
+<p>另一方面, 要注意: 我们在使用诸如String str = “abc”；的格式定义类时，总是想当然地认为，创建了String类的对象str。担心陷阱！对象可能并没有被创建！而可能只是指向一个先前已经创建的 对象。只有通过new()方法才能保证每次都创建一个新的对象。</p>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp  </span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>; 全局初始化区  </span><br><span class="line"><span class="keyword">char</span> *p1; 全局未初始化区  </span><br><span class="line">main()  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="keyword">int</span> b; 栈  </span><br><span class="line"><span class="keyword">char</span> s[] = <span class="string">"abc"</span>; 栈  </span><br><span class="line"><span class="keyword">char</span> *p2; 栈  </span><br><span class="line"><span class="keyword">char</span> *p3 = <span class="string">"123456"</span>; <span class="number">123456</span>\<span class="number">0</span>在常量区，p3在栈上。  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> c =<span class="number">0</span>； 全局（静态）初始化区  </span><br><span class="line">p1 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);  </span><br><span class="line">p2 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>);  </span><br><span class="line">分配得来得<span class="number">10</span>和<span class="number">20</span>字节的区域就在堆区。  </span><br><span class="line"><span class="built_in">strcpy</span>(p1, <span class="string">"123456"</span>); <span class="number">123456</span>\<span class="number">0</span>放在常量区，编译器可能会将它与p3所指向的<span class="string">"123456"</span></span><br><span class="line">优化成一个地方。  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考:  </p>
+<p><a href="https://blog.csdn.net/a675311/article/details/52293730" target="_blank" rel="noopener">Java变量以及内存分配（非常重要）</a></p>
+<p><a href="http://wiki.jikexueyuan.com/project/java-special-topic/platorm-memory.html" target="_blank" rel="noopener">Java 内存管理</a></p>
+<p><a href="https://ask.csdn.net/questions/368543" target="_blank" rel="noopener">java string什么是字符串常量，什么是字符串数组，什么是字符串常量池？</a></p>
+<p><a href="http://www.360doc.com/content/16/0830/07/36064344_586925087.shtml" target="_blank" rel="noopener">java学习笔记之string类型和字符串常量区  </a></p>
+<p><a href="https://wenku.baidu.com/view/c10613bffe4733687f21aa0f.html" target="_blank" rel="noopener">Java语言中字符串常量和变量的分析与比较</a>  </p>
+<p><a href="https://blog.csdn.net/ljheee/article/details/52235915" target="_blank" rel="noopener">Java关键字new—–对象的内存分配原理  </a></p>
+<p>[<a href="https://blog.csdn.net/daiyutage/article/details/8605580" target="_blank" rel="noopener">字符串常量到底存放在哪个存储区</a>]</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

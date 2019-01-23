@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    LinuxShell | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  LinuxShell
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1529131938000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1529131938000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>LinuxShell</h1>
+    <p>LinuxShell操作小总结</p>
+<a id="more"></a>
+<h1 id="sed，获取当前路径，强制复制，du的用法"><a href="#sed，获取当前路径，强制复制，du的用法" class="headerlink" title="sed，获取当前路径，强制复制，du的用法"></a>sed，获取当前路径，强制复制，du的用法</h1><h2 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h2><p>sed [选项] ‘命令’ 输入文本 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed [-nefri] ‘command’ 输入文本</span><br></pre></td></tr></table></figure>
+<h2 id="选项与参数"><a href="#选项与参数" class="headerlink" title="选项与参数"></a>选项与参数</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">选项</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-n</td>
+<td style="text-align:left">使用安静(silent)模式。在一般 sed 的用法中，所有来自 STDIN 的数据一般都会被列出到终端上。但如果加上参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来</td>
+</tr>
+<tr>
+<td style="text-align:center">-e</td>
+<td style="text-align:left">直接在命令列模式上进行 sed 的动作编辑</td>
+</tr>
+<tr>
+<td style="text-align:center">-f</td>
+<td style="text-align:left">直接将 sed 的动作写在一个文件内， -f filename 则可以运行 filename 内的 sed 动作</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td style="text-align:left">sed 的动作支持的是延伸型正规表示法的语法。(默认是基础正规表示法语法)</td>
+</tr>
+<tr>
+<td style="text-align:center">-i</td>
+<td style="text-align:left">直接修改读取的文件内容，而不是输出到终端</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">a</td>
+<td>新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)</td>
+</tr>
+<tr>
+<td style="text-align:center">c</td>
+<td>取代， c 的后面可以接字串，这些字串可以取代n1,n2 之间的行！</td>
+</tr>
+<tr>
+<td style="text-align:center">d</td>
+<td>删除，因为是删除啊，所以 d后面通常不接任何咚咚</td>
+</tr>
+<tr>
+<td style="text-align:center">i</td>
+<td>插入， i的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)</td>
+</tr>
+<tr>
+<td style="text-align:center">p</td>
+<td>输出，亦即将某个选择的资料输出。通常 p 会与参数 sed-n 一起运作</td>
+</tr>
+<tr>
+<td style="text-align:center">s</td>
+<td>取代，可以直接进行取代的工作哩！通常这个 s的动作可以搭配正则表达式！例如 1,20s/old/new/g 就是啦！</td>
+</tr>
+</tbody>
+</table>
+<h2 id="对行操作"><a href="#对行操作" class="headerlink" title="对行操作"></a>对行操作</h2><p>现有一文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cat ~/test.sh </span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="删除一行"><a href="#删除一行" class="headerlink" title="删除一行"></a>删除一行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '1d' ~/test.sh</span><br></pre></td></tr></table></figure>
+<p>举个例子：</p>
+<p>(以后同理)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed '1d' ~/test.sh</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br><span class="line"><span class="meta">#</span> cat ~/test.sh  </span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<p>对源文件进行操作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed -i '1d' ~/test.sh</span><br><span class="line"><span class="meta">#</span> cat ~/test.sh           </span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="删除最后一行"><a href="#删除最后一行" class="headerlink" title="删除最后一行"></a>删除最后一行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '$d' ~/test.sh</span><br></pre></td></tr></table></figure>
+<h3 id="删除第一行到第二行"><a href="#删除第一行到第二行" class="headerlink" title="删除第一行到第二行"></a>删除第一行到第二行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '1,2d' ~/test.sh</span><br></pre></td></tr></table></figure>
+<h3 id="删除第二行到最后一行"><a href="#删除第二行到最后一行" class="headerlink" title="删除第二行到最后一行"></a>删除第二行到最后一行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '2,$d' ～/test.sh</span><br></pre></td></tr></table></figure>
+<h3 id="显示某行"><a href="#显示某行" class="headerlink" title="显示某行"></a>显示某行</h3><p>第一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n '1p' ～/test.sh</span><br></pre></td></tr></table></figure>
+<p>最后一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n '$p' ~/test.sh</span><br></pre></td></tr></table></figure>
+<p>第一行到第二行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n '1,2p' ～/test.sh</span><br></pre></td></tr></table></figure>
+<p>第二行到最后一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n '2,$p' ~/test.sh</span><br></pre></td></tr></table></figure>
+<p><em>不加-n</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed '$p' ~/test.sh  </span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br><span class="line">echo "写入完成"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> sed '1p' ~/test.sh</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="显示含有某个字符串的所有行"><a href="#显示含有某个字符串的所有行" class="headerlink" title="显示含有某个字符串的所有行"></a>显示含有某个字符串的所有行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n '/echo/p' ~/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed -n '/echo/p' ~/test.sh </span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="在第一行后增加一行"><a href="#在第一行后增加一行" class="headerlink" title="在第一行后增加一行"></a>在第一行后增加一行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '1a new str1' ~/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed '1a new str1' ~/test.sh</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">new str1</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="在第一行到第三行后增加一行"><a href="#在第一行到第三行后增加一行" class="headerlink" title="在第一行到第三行后增加一行"></a>在第一行到第三行后增加一行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '1,3a new str' ~/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sed '1,3a new str' ~/test.sh</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">new str</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">new str</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">new str</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h3 id="在第一行后增加多行"><a href="#在第一行后增加多行" class="headerlink" title="在第一行后增加多行"></a>在第一行后增加多行</h3><p>使用\n将要增加的每行内容分割开</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed '1a newstr1\nnewstr2' ~/test.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sed '1a newstr1\nnewstr2' ~/test.sh</span><br><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">newstr1</span><br><span class="line">newstr2</span><br><span class="line">str1="[archlinuxcn]"</span><br><span class="line">str2="Server = https://mirrors.ustc.edu.cn/archlinuxcn/\$arch"</span><br><span class="line">echo $&#123;str2&#125;</span><br><span class="line">echo "写入完成"</span><br></pre></td></tr></table></figure>
+<h1 id="获取当前路径"><a href="#获取当前路径" class="headerlink" title="获取当前路径"></a>获取当前路径</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filepath=$(cd "$(dirname "$0")"; pwd)</span><br></pre></td></tr></table></figure>
+<p>dirname $0，取得当前执行的脚本文件的父目录</p>
+<p>cd <code>dirname $0</code>，进入这个目录(切换当前工作目录)</p>
+<p>pwd，显示当前工作目录(cd执行后的)</p>
+<h1 id="cp-f强制复制"><a href="#cp-f强制复制" class="headerlink" title="cp -f强制复制"></a>cp -f强制复制</h1><p>-f 参数是强制复制,比如你在A文件夹里面有个文件名叫B，然后你把C文件夹里面的另一个文件名叫B的复制到A里面,这个时候会照成冲突,然后会提示你要不要继续复制.加上-f 就不会提示你了</p>
+<h1 id="du的用法"><a href="#du的用法" class="headerlink" title="du的用法"></a>du的用法</h1><p>du命令用来查看目录或文件所占用磁盘空间的大小。常用选项组合为：du -sh</p>
+<table>
+<thead>
+<tr>
+<th>du常用的选项</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>以人类可读的方式显示</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>显示目录占用的磁盘空间大小，还要显示其下目录和文件占用磁盘空间的大小</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>显示目录占用的磁盘空间大小，不要显示其下子目录和文件占用的磁盘空间大小</td>
+</tr>
+<tr>
+<td>–apparent-size</td>
+<td>显示目录或文件自身的大小</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>统计硬链接占用磁盘空间的大小</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>统计符号链接所指向的文件占用的磁盘空间大小</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>显示几个目录或文件占用的磁盘空间大小，还要统计它们的总和</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>du常用命令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>du -sh</td>
+<td>查看当前目录总共占的容量。而不单独列出各子项占用的容量</td>
+</tr>
+<tr>
+<td>du -lh –max-depth=1</td>
+<td>查看当前目录下一级子文件和子目录占用的磁盘容量。</td>
+</tr>
+<tr>
+<td>du -sh * \</td>
+<td>sort -n</td>
+<td>统计当前文件夹(目录)大小，并按文件大小排序</td>
+</tr>
+<tr>
+<td>du -sk filename</td>
+<td>查看指定文件大小</td>
+</tr>
+</tbody>
+</table>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

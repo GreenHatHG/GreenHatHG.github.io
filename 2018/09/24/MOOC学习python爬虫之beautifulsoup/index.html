@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    MOOC学习python爬虫之beautifulsoup | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  python,爬虫,MOOC
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1537789318000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1537789318000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>MOOC学习python爬虫之beautifulsoup</h1>
+    <p>beautifulsoup4</p>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install beautifulsoup4</span><br><span class="line"><span class="comment">#python 3.6 deepin15.7</span></span><br></pre></td></tr></table></figure>
+<h1 id="bs4理解以及引用"><a href="#bs4理解以及引用" class="headerlink" title="bs4理解以及引用"></a>bs4理解以及引用</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E7%90%86%E8%A7%A3.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E7%B1%BB.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs4%E5%BC%95%E7%94%A8%60.png"></p>
+<h1 id="bs类基本元素"><a href="#bs类基本元素" class="headerlink" title="bs类基本元素"></a>bs类基本元素</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0.png"></p>
+<h2 id="Name属性"><a href="#Name属性" class="headerlink" title="Name属性"></a>Name属性</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A02.png"></p>
+<h2 id="Attribus属性"><a href="#Attribus属性" class="headerlink" title="Attribus属性"></a>Attribus属性</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A03.png"></p>
+<h2 id="NavigableString属性"><a href="#NavigableString属性" class="headerlink" title="NavigableString属性"></a>NavigableString属性</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A04.png"></p>
+<h1 id="Comment属性"><a href="#Comment属性" class="headerlink" title="Comment属性"></a>Comment属性</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A05.png"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/pythob-bs%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A06.png"></p>
+<h1 id="HTML基本格式以及遍历"><a href="#HTML基本格式以及遍历" class="headerlink" title="HTML基本格式以及遍历"></a>HTML基本格式以及遍历</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html2.png"></p>
+<h2 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html3.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/pythob-html4.png"></p>
+<h2 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html5.png"></p>
+<h2 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html6.png"></p>
+<p>迭代类型：只能放在循环里面</p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html7.png"></p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-html8.png"></p>
+<h1 id="pretiffy"><a href="#pretiffy" class="headerlink" title="pretiffy()"></a>pretiffy()</h1><p>美化代码</p>
+<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-prettify.png"></p>
+<h1 id="find-all"><a href="#find-all" class="headerlink" title="find_all"></a>find_all</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all.png"></p>
+<h2 id="name"><a href="#name" class="headerlink" title="name"></a>name</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all2.png"></p>
+<h2 id="attrs"><a href="#attrs" class="headerlink" title="attrs"></a>attrs</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all3.png"></p>
+<h2 id="recursive"><a href="#recursive" class="headerlink" title="recursive"></a>recursive</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all4.png"></p>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all5.png"></p>
+<h2 id="拓展办法"><a href="#拓展办法" class="headerlink" title="拓展办法"></a>拓展办法</h2><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-find_all6.png"></p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

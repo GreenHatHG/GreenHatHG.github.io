@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    异或 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  异或
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 56 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 45 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 14 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1521904804000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1521904804000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>异或</h1>
+    <p>异或一些应用</p>
+ <a id="more"></a>
+<p> 参考:<a href="https://www.lijinma.com/blog/2014/05/29/amazing-xor/" target="_blank" rel="noopener">感受异或的神奇</a><br>它的规则是若参加运算的两个二进位同号，则结果为0（假）；异号则为1（真）。即0∧0＝0，0∧1＝1，1∧1＝0</p>
+<h1 id="快速比较两个值"><a href="#快速比较两个值" class="headerlink" title="快速比较两个值"></a>快速比较两个值</h1><p>可以用a^b == 0来快速比较两个值，效率会更高</p>
+<h1 id="使某些特定的位翻转"><a href="#使某些特定的位翻转" class="headerlink" title="使某些特定的位翻转"></a>使某些特定的位翻转</h1><p>0 ^ 1 = 1  </p>
+<p>1 ^ 1 = 0  </p>
+<p> 例如：翻转10100001的第6位，答案：可以将该数与00100000进行按位异或运算：10100001 ^ 00100000 = 10000001</p>
+<h1 id="判断一个二进制数中1的数量是奇数还是偶数"><a href="#判断一个二进制数中1的数量是奇数还是偶数" class="headerlink" title="判断一个二进制数中1的数量是奇数还是偶数"></a>判断一个二进制数中1的数量是奇数还是偶数</h1><p>求10100001中1的数量是奇数还是偶数； 答案：1 ^ 0 ^ 1 ^ 0 ^ 0 ^ 0 ^ 0 ^ 1 = 1,结果为<code>1</code>就是奇数个1，结果为0就是偶数个1</p>
+<h1 id="不使用其他空间，交换两个值"><a href="#不使用其他空间，交换两个值" class="headerlink" title="不使用其他空间，交换两个值"></a>不使用其他空间，交换两个值</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a ^ b;</span><br><span class="line">b = a ^ b; <span class="comment">//a ^ b ^ b = a ^ 0 = a;</span></span><br><span class="line">a = a ^ b;</span><br></pre></td></tr></table></figure>
+<h1 id="一个整型数组里除了N个数字之外，其他的数字都出现了两次，找出这N个数字"><a href="#一个整型数组里除了N个数字之外，其他的数字都出现了两次，找出这N个数字" class="headerlink" title="一个整型数组里除了N个数字之外，其他的数字都出现了两次，找出这N个数字"></a>一个整型数组里除了N个数字之外，其他的数字都出现了两次，找出这N个数字</h1><p>从{A B C B C D A}找出单个字母的D</p>
+<p>用到：  </p>
+<ol>
+<li>A ^ A = 0;  </li>
+<li>异或满足交换律、结合律</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A ^ B ^ C ^ B ^ C ^ D ^ A</span><br><span class="line">= A ^ A ^ B ^ B ^ C ^ C ^ D</span><br><span class="line">= <span class="number">0</span> ^ <span class="number">0</span> ^ <span class="number">0</span> ^ D</span><br><span class="line">= <span class="number">0</span> ^ D</span><br><span class="line">= D</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n)，当然是线性的，空间复杂度O(1)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span> A[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//特殊情况1,2  </span></span><br><span class="line">    <span class="keyword">if</span>(n&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>) <span class="keyword">return</span> A[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++) &#123;</span><br><span class="line">        result = result ^ A[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="一个整型数组里除了两个数字之外，其他的数字都出现了两次。找出这两个只出现一次的数字"><a href="#一个整型数组里除了两个数字之外，其他的数字都出现了两次。找出这两个只出现一次的数字" class="headerlink" title="一个整型数组里除了两个数字之外，其他的数字都出现了两次。找出这两个只出现一次的数字"></a>一个整型数组里除了两个数字之外，其他的数字都出现了两次。找出这两个只出现一次的数字</h1><p>思路：  </p>
+<ol>
+<li>肯定还是像我们上面的解法一样，所有数进行异或，不过最终得到的结果是 a 和 b（假设 a 和 b 是落单的数字）两个值的异或结果 aXORb，没有直接得到 a 和 b 的值；  </li>
+<li>那么我们如何找到两个的真实值呢？根据异或的特点可以发现，两个相同的位异或后结果是0，不同则是1。同时aXORb不可能每一位都是0，那么就可以得知假如有一位是1的话，则对应着a与b在此位上的数值是不同的，由此我们可以根据这个特点进行解题。因为a,b不同，肯定有一个位是1，对应着那个就是0，我们可以先找出aXORb第一位为1的那个位，把它提取出来，然后其他位全为0，然后与数组所有的数进行&amp;运算，这样就能找出与提取出的那个数（其实也只是一个位有用）的位相等的数，比如提取出的是0001，那么1111可以被&amp;找出来。</li>
+<li>aXORb = a ^ b，假设我们已经找到了 a，根据异或特性，我们知道，b = aXORb ^ a；这样我们就可以找出 b；所以我们只需要循环两次 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getFirstOneBit</span><span class="params">(<span class="keyword">int</span> num)</span> <span class="comment">//输出 num 的低位中的第一个 1 的位置  </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num &amp; ~(num - <span class="number">1</span>);  <span class="comment">// num 与 -num 相与找到</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findTwo</span><span class="params">(<span class="keyword">int</span> *<span class="built_in">array</span>, <span class="keyword">int</span> length)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> aXORb = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> firstOneBit = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">        aXORb ^= <span class="built_in">array</span>[i];</span><br><span class="line">    &#125;</span><br><span class="line">    assert(aXORb != <span class="number">0</span>); <span class="comment">//保证题目要求，有两个single的数字，如果不成立则退出程序</span></span><br><span class="line">    firstOneBit = getFirstOneBit(aXORb);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">array</span>[i] &amp; firstOneBit)</span><br><span class="line">        <span class="comment">//与提取出的那个数对应的位相同的数有很多，但是其他的数都有相同的两个，异或后就可以相除了，只留下单独的那一个</span></span><br><span class="line">         &#123;</span><br><span class="line">            a ^= <span class="built_in">array</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b = aXORb ^ a;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"a: "</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"b: "</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> array1[] = &#123;<span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">7</span>&#125;;</span><br><span class="line">    findTwo(array1, <span class="number">8</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>#</p>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
