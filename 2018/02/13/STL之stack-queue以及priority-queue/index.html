@@ -140,11 +140,13 @@
 <li>实际上stack只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持back(), push_back(), pop_back()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt; <span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;st;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p></p>
-<div align="center"><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/stack%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="70%" height="70%"><br></div>
+<p>&lt;/div&gt;</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/stack%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="70%" height="70%">
+</div>
 
 <p>stack内部存放元素所用的实际容器，缺省采用deque。之所以采用deque，而非vector，是因为deque移除元素时会释放内存。</p>
-<ol start="3">
+<ol>
 <li>stack核心接口：</li>
 </ol>
 <ul>
@@ -155,7 +157,7 @@
 <li>size():返回容纳的元素数</li>
 </ul>
 <p><em>如果stack内没有元素，则执行top()和pop()会导致未定义的行为，可以采用成员函数size()和empty()来检验容器是否为空</em></p>
-<ol start="4">
+<ol>
 <li>stack简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">1</span>);</span><br><span class="line">    st.push(<span class="number">2</span>);</span><br><span class="line">    st.push(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    st.top() = <span class="number">77</span>;</span><br><span class="line">    st.push(<span class="number">4</span>);</span><br><span class="line">    st.push(<span class="number">5</span>);</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!st.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">        st.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出: <span class="number">3</span> <span class="number">2</span> <span class="number">4</span> <span class="number">77</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -165,10 +167,12 @@
 <li>实际上queue只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持front(), back(), push_back(), pop_front()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt; <span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &gt; buffer;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p></p>
-<div align="center"><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/queue%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="80%" height="80%"><br></div>
+<p>&lt;/div&gt;</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/queue%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="80%" height="80%">
+</div>
 
-<ol start="3">
+<ol>
 <li>queue核心接口:</li>
 </ol>
 <ul>
@@ -180,7 +184,7 @@
 <li>size():返回容纳的元素数</li>
 </ul>
 <p><em>如果queue之内没有元素，则front(), back(), pop()的执行行为会导致未定义行为。</em></p>
-<ol start="4">
+<ol>
 <li>queue简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"These "</span>);</span><br><span class="line">   q.push(<span class="string">"are "</span>);</span><br><span class="line">   q.push(<span class="string">"more than"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"four "</span>);</span><br><span class="line">   q.push(<span class="string">"words!"</span>);</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"number pf elements in the queue: "</span> &lt;&lt; q.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">These are four words!</span><br><span class="line">number pf elements in the <span class="built_in">queue</span>: <span class="number">0</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -199,11 +203,11 @@
 <li><p>priority_queue与queue基本操作相同。接口有empty(), size(), top(), push(), pop()等等</p>
 </li>
 </ul>
-<ol start="3">
+<ol>
 <li><p>priority_queue简单示例：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showpq</span><span class="params">(priority_queue &lt;<span class="keyword">int</span>&gt; gq)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; g = gq;</span><br><span class="line">    <span class="keyword">while</span> (!g.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">'\t'</span> &lt;&lt; g.top();</span><br><span class="line">        g.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; gquiz;</span><br><span class="line">    gquiz.push(<span class="number">10</span>);</span><br><span class="line">    gquiz.push(<span class="number">30</span>);</span><br><span class="line">    gquiz.push(<span class="number">20</span>);</span><br><span class="line">    gquiz.push(<span class="number">5</span>);</span><br><span class="line">    gquiz.push(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The priority queue gquiz is : "</span>;</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.size() : "</span> &lt;&lt; gquiz.size();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.top() : "</span> &lt;&lt; gquiz.top();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.pop() : "</span>;</span><br><span class="line">    gquiz.pop();</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">The priority <span class="built_in">queue</span> gquiz is :     <span class="number">30</span>    <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br><span class="line"></span><br><span class="line">gquiz.size() : <span class="number">5</span></span><br><span class="line">gquiz.top() : <span class="number">30</span></span><br><span class="line">gquiz.pop() :     <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>算子：<br> 默认为使用less算子。<br> 如果要定义自己的比较算子，则必须自己重载 operator&lt; 或者自己写仿函数，<br> 优先队列试图将两个元素x 和y 代入比较运算符(对less 算子，调用x&lt;y，对greater 算子，调用x&gt;y)，若结果为真，则x 排在y 前面，y 将先于x 出队，反之，则将y 排在x 前面，x 将先出队。<br> 下面程序是针对结构体的，对数据的比较是通过对结构体重载operator()。（转自<a href="http://blog.csdn.net/morewindows/article/details/6976468" target="_blank" rel="noopener">博客</a>）<br> 程序功能是模拟排队过程，每人有姓名和优先级，优先级相同则比较姓名，开始有5个人进入队列，然后队头2个人出队，再有3个人进入队列，最后所有人都依次出队，程序会输出离开队伍的顺序。<br>自定义算子可参考：</p>
+<li><p>算子：<br> 默认为使用less算子。<br> 如果要定义自己的比较算子，则必须自己重载 operator&lt; 或者自己写仿函数，<br> 优先队列试图将两个元素x 和y 代入比较运算符(对less 算子，调用x<y，对greater 算子，调用x="">y)，若结果为真，则x 排在y 前面，y 将先于x 出队，反之，则将y 排在x 前面，x 将先出队。<br> 下面程序是针对结构体的，对数据的比较是通过对结构体重载operator()。（转自<a href="http://blog.csdn.net/morewindows/article/details/6976468" target="_blank" rel="noopener">博客</a>）<br> 程序功能是模拟排队过程，每人有姓名和优先级，优先级相同则比较姓名，开始有5个人进入队列，然后队头2个人出队，再有3个人进入队列，最后所有人都依次出队，程序会输出离开队伍的顺序。<br>自定义算子可参考：</y，对greater></p>
 <p><a href="https://www.cnblogs.com/flipped/p/5691430.html" target="_blank" rel="noopener">优先队列priority_queue的比较函数</a></p>
 </li>
 </ol>
@@ -279,6 +283,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

@@ -145,7 +145,7 @@
 <li>获取<code>Sakura Frp arm</code>版并且解压</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://s1.tcotp.cn/cdn/SakuraFrpClient-2.3/Sakura_frpc_linux_arm.tar.gz </span><br><span class="line">tar -xvf Sakura_frpc_linux_arm.tar.gz</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol>
 <li>在<code>/etc/init.d</code>目录下放个启动无线网卡的脚本<code>dhd</code>并且赋予权限</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/init.d/dhd</span><br></pre></td></tr></table></figure>
@@ -153,7 +153,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line">modprobe dhd</span><br></pre></td></tr></table></figure>
 <p>如果开机不能启动话<br><code>ln -s /etc/init.d/dhd /etc/rc.d/rc3.d/S70dhd</code><br>然后</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x dhd</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>然后在<code>/etc/systemd/system</code>目录下放关于<code>frp</code>的<code>service</code>文件</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/systemd/system/sakurafrp.service</span><br></pre></td></tr></table></figure>
@@ -173,12 +173,12 @@
 <li>解压然后设置<code>frps.ini</code></li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line"><span class="comment"># 用于接收 frpc 连接的端口</span></span><br><span class="line">bind_port = <span class="number">7000</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>启动</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
 <p>或者<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c ./frps.ini &amp;</span><br></pre></td></tr></table></figure></p>
-<ol start="4">
+<ol>
 <li>设置开机自启</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /lib/systemd/system/frps.service</span><br></pre></td></tr></table></figure>
@@ -189,13 +189,13 @@
 <li>配置<code>frpc.ini</code></li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr = ip</span><br><span class="line">server_port = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line">[ssh]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line">local_port = <span class="number">22</span></span><br><span class="line">remote_port = <span class="number">7022</span></span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>连接</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
 <p>或者</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frpc -c ./frpc.ini &amp;</span><br></pre></td></tr></table></figure>
-<ol start="4">
+<ol>
 <li>开机自启</li>
 </ol>
 <p>设置盒子的开启网卡为</p>
@@ -274,6 +274,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

@@ -140,7 +140,7 @@
 <li>string类由头文件string支持</li>
 </ol>
 <p><em>（头文件string.h和cstring支持对c-风格字符串进行操纵的c库字符串函数，但不支持string类）</em></p>
-<ol start="2">
+<ol>
 <li>string类将string::nops定义为字符串最大长度，通常为unsigned int最大值</li>
 <li>string与wstring：</li>
 </ol>
@@ -149,11 +149,12 @@
 <li>使用wstring可以让你使用宽字符集，例如Unicode或某些亚洲字符集‘</li>
 <li>所有字符串类型都采用相同接口，所以两者用法都一样。</li>
 </ul>
-<ol start="4">
+<ol>
 <li>C++字符串并不以’/0’结尾</li>
 <li>注意对象名不会被看做是对象地址，比如string s(20, ‘x’); s不是指针，s+6没有意义，而&amp;s[6]却是指针。</li>
 </ol>
-<h1 id="字符串各种操作函数"><a href="#字符串各种操作函数" class="headerlink" title="字符串各种操作函数"></a>字符串各种操作函数</h1><table>
+<h1 id="字符串各种操作函数"><a href="#字符串各种操作函数" class="headerlink" title="字符串各种操作函数"></a>字符串各种操作函数</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Name</th>
@@ -259,6 +260,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="转换成c-string或字符数组"><a href="#转换成c-string或字符数组" class="headerlink" title="转换成c-string或字符数组"></a>转换成c-string或字符数组</h2><p>操作函数data(), c_str(), copy()</p>
 <p>注意：</p>
 <ol>
@@ -308,7 +310,8 @@
 <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>直接举个栗子：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s=<span class="string">"il8n"</span>;</span><br><span class="line">s.replace(<span class="number">1</span>,<span class="number">2</span>,<span class="string">"nternationalizatio"</span>);</span><br><span class="line"><span class="comment">//从索引1开始的2个替换成后面的C_string</span></span><br><span class="line"><span class="comment">//即输出： nternationalization</span></span><br><span class="line">s.replace(<span class="number">1</span>,<span class="number">2</span>,”nternationalizatio”);</span><br><span class="line">s.erase(<span class="number">13</span>);<span class="comment">//从索引13开始往后全删除</span></span><br><span class="line">s.erase(<span class="number">7</span>,<span class="number">5</span>);<span class="comment">//从索引7开始往后删5个</span></span><br></pre></td></tr></table></figure>
 <h3 id="提取子串和字符串连接"><a href="#提取子串和字符串连接" class="headerlink" title="提取子串和字符串连接"></a>提取子串和字符串连接</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s.substr();<span class="comment">//返回s的全部内容</span></span><br><span class="line">s.substr(<span class="number">11</span>);<span class="comment">//从索引11往后的子串</span></span><br><span class="line">s.substr(<span class="number">5</span>,<span class="number">6</span>);<span class="comment">//从索引5开始6个字符</span></span><br><span class="line"><span class="comment">//把两个字符串结合起来的函数是+。</span></span><br></pre></td></tr></table></figure>
-<h2 id="搜索和查找"><a href="#搜索和查找" class="headerlink" title="搜索和查找"></a>搜索和查找</h2><table>
+<h2 id="搜索和查找"><a href="#搜索和查找" class="headerlink" title="搜索和查找"></a>搜索和查找</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Name</th>
@@ -342,6 +345,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <ol>
 <li><p>所有搜索函数都返回符合条件的字符位置，如果搜索不成功，则返回npos。</p>
 </li>
@@ -360,7 +364,8 @@
 </ol>
 <h2 id="数值npos"><a href="#数值npos" class="headerlink" title="数值npos"></a>数值npos</h2><p>string::npos的类型是string::size_type,所以，一旦需要把一个索引与npos相比，这个索引值必须是string::size)type类型的，更多的情况下，我们可以直接把函数和npos进行比较（如：if(s.find(“jia”)== string::npos)）。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="built_in">string</span>::size_type idx;</span><br><span class="line">...</span><br><span class="line">idx = s.find(<span class="string">"sub"</span>);</span><br><span class="line"><span class="keyword">if</span>(id == <span class="built_in">string</span>::nops)</span><br><span class="line">    ....</span><br></pre></td></tr></table></figure>
-<h1 id="string的构造和析构"><a href="#string的构造和析构" class="headerlink" title="string的构造和析构"></a>string的构造和析构</h1><table>
+<h1 id="string的构造和析构"><a href="#string的构造和析构" class="headerlink" title="string的构造和析构"></a>string的构造和析构</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Name</th>
@@ -414,6 +419,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>注意：</p>
 <p><em>不能以单一字符；爱初始化某个字符串</em></p>
 <p>但是可以这么做：</p>
@@ -426,7 +432,7 @@
 <li>两个版本的getline()都有一个可选参数，用于指定使用哪个字符来确定输入的边界</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cin</span>.getline(info, <span class="number">100</span>, <span class="string">':'</span>);</span><br><span class="line">getline(<span class="built_in">cin</span>, stuff, <span class="string">':'</span>);</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol>
 <li>string版本的getline()函数从输入中读取字符，并将其储存到目标string中，直到发生下种情况之一：<ul>
 <li>到达文件结尾，输入流的eofbit将被设置，这意味着方法fail()和eof()将被返回true</li>
 <li>遇到分界字符(默认未\n)，将把分界字符从输出流中删除，但是不储存</li>
@@ -503,6 +509,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

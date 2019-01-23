@@ -155,8 +155,12 @@
 <h1 id="6-操作符重载"><a href="#6-操作符重载" class="headerlink" title="6. 操作符重载"></a>6. 操作符重载</h1><ul>
 <li>成员函数（有this）：</li>
 </ul>
-<p></p>
-<div align="center"><br><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD.png" width="80%" height="80%"><br><br></div>
+<p>&lt;/div&gt;</p>
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD.png" width="80%" height="80%">
+
+</div>
 
 <ul>
 <li>非成员函数（无this）：</li>
@@ -262,6 +266,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

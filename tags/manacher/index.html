@@ -169,7 +169,7 @@
              kmp，E-kmp，manacher，ac自动机 
    
    KMP   http://t.cn/EZlzRyg  
-   Manacher–最长回文串O(N)    关于求最长回文串办法   四种方法求最长回文串  
+   Manacher—最长回文串O(N)    关于求最长回文串办法   四种方法求最长回文串  
  但是上面几种都不是最快的，最快的是Manacher（马拉车）算法，算法复...
           </p>
           <ul class="tag-list clearfix">
@@ -234,6 +234,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

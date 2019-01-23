@@ -171,7 +171,7 @@
 <p><em>然后据说安装新版MySQL(8.0)没有出现设置root的提示框，确实，这次安装我也没有出现，那么就安装后再通过命令行设置</em></p>
 <p>可选安装图形化管理工具workbench</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-workbench</span><br></pre></td></tr></table></figure>
-<h1 id="完成上一步未完成的工作—设置root密码"><a href="#完成上一步未完成的工作—设置root密码" class="headerlink" title="完成上一步未完成的工作—设置root密码"></a>完成上一步未完成的工作—设置root密码</h1><p>参考：</p>
+<h1 id="完成上一步未完成的工作—-设置root密码"><a href="#完成上一步未完成的工作—-设置root密码" class="headerlink" title="完成上一步未完成的工作—-设置root密码"></a>完成上一步未完成的工作—-设置root密码</h1><p>参考：</p>
 <p><a href="https://bbs.deepin.org/forum.php?mod=viewthread&amp;tid=168685&amp;highlight=mysql" target="_blank" rel="noopener">deepin15.7安装mysql无输入密码提示，导致安装后无法使用mysql</a></p>
 <p>登录Mysql</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mysql -uroot -p</span><br></pre></td></tr></table></figure>
@@ -255,6 +255,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

@@ -140,9 +140,9 @@
 <li>c++有map和multimap两种容器，区别在于multimap允许重复元素，map则不允许，在头文件中&lt; map &gt;中定义</li>
 <li>Map是STL的一个关联容器，它提供一对一（其中第一个可以称为关键字(key)，每个关键字只能在map中出现一次，第二个可能称为该关键字的值(value)）的数据处理能力，由于这个特性，它完成有可能在我们处理一对一数据的时候，在编程上提供快速通道。这里说下map内部数据的组织，map内部自建一颗红黑树(一种非严格意义上的平衡二叉树)，这颗树具有对数据自动排序的功能，所以在map内部所有的数据都是有序的</li>
 </ol>
-<p></p>
+<p>&lt;/div&gt;</p>
 <p><div align="center"><br><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/map-example.png"></div></p>
-<ol start="3">
+<ol>
 <li><p>它的特点是增加和删除节点对迭代器的影响很小，除了那个操作节点，对其他的节点都没有什么影响。对于迭代器来说，可以修改实值，而不能修改key。</p>
 </li>
 <li><p>自动建立Key － value的对应。key 和 value可以是任意你需要的类型。  <strong>根据key值快速查找记录，查找的复杂度基本是Log</strong>(N)，如果有1000个记录，最多查找10次，1,000,000个记录，最多查找20次。</p>
@@ -269,6 +269,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
