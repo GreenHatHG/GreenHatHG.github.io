@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    模运算 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  数论,模运算,逆元,费马小定理
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 64 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 62 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 15 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1549185312000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1549185312000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>模运算</h1>
+    <p>模运算</p>
+<a id="more"></a>
+<h1 id="模运算"><a href="#模运算" class="headerlink" title="模运算"></a>模运算</h1><p><strong>一些基本规则</strong></p>
+<p>加法：</p>
+<p>$(a+b)\mod n=(a \mod n+b \mod n)\mod n​$</p>
+<p>减法：</p>
+<p>$(a-b)\mod n=(a \mod n-b \mod n)\mod n​$</p>
+<p>乘法：</p>
+<p>$(a∗b)\mod n=(a \mod n∗b \mod n)\mod n​$</p>
+<p>幂：</p>
+<p>$a^b \mod n=(a \mod n)^b  mod  n​$</p>
+<p><strong><em>注意！除法不成立。</em></strong></p>
+<p>那么，如何计算$(a/b) mod  n$?</p>
+<p>我们可以通过将除b转换成乘b的逆元来解决，即$(a∗b^{-1} )\mod n​$ </p>
+<h1 id="求-a-b-mod-m"><a href="#求-a-b-mod-m" class="headerlink" title="求$(a/b) mod m $"></a>求$(a/b) mod m $</h1><h3 id="逆元定义"><a href="#逆元定义" class="headerlink" title="逆元定义"></a>逆元定义</h3><p>对于正整数$a$和$m$，如果有$ax\equiv 1( mod m)$，那么把这个同余方程中的$x$最小正整数解叫做$a$模$m$的逆元。</p>
+<p><strong>逆元的存在性质：当$a$与$m$互素的时候，逆元才存在解，如果不互素则无解（这里说的都是整数解）</strong></p>
+<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>逆元一般用扩展欧几里得算法来求得，如果$m​$为素数，那么还可以根据费马小定理得到逆元为$a^{m-2} mod m​$。（都要求$a​$和$m​$互质）</p>
+<hr>
+<h4 id="费马小定理求解（m为素数是费马小定理的前置条件）"><a href="#费马小定理求解（m为素数是费马小定理的前置条件）" class="headerlink" title="费马小定理求解（m为素数是费马小定理的前置条件）"></a>费马小定理求解（m为素数是费马小定理的前置条件）</h4><p>费马小定理：对于素数 $m​$ 任意不是 $m​$ 的倍数的 $b​$，都有：$b^{m-1}\equiv1  mod  m​$</p>
+<p>于是有$b* b^{m-2}\equiv1 mod  m​$</p>
+<p>于是有$a/b=a/b<em>(b </em> b ^ {m-2})=a*b ^ {m-2} mod m​$</p>
+<h4 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h4><p>利用费马小定理只能求出m为素数的情况下的乘法逆元，所以还是需要采用扩展欧几里德算法来计算普遍情况下的乘法逆元的情况。</p>
+<p>当 a 与 b 互素时有$ gcd （ a ， b ） = 1 ​$；</p>
+<p>即得： $a <em> x + b </em> y = 1$；</p>
+<p>$a * x ≡ 1 （ mod b ）；​$</p>
+<p>由于 a 与 b 互素，同余式两边可以同除 a ，得：</p>
+<p>$1 * x ≡ 1 / a （mod b）​$；</p>
+<p>因此 $x$ 是 $a  mod  b$ 的逆元；</p>
+<p>$a<em>x + b</em>y = 1 $            </p>
+<p><strong>求得$x$即为$a\%b$的逆元$(ax\%b \equiv 1)$；$ y$即为$b\%a$的逆元$(by\%a \equiv 1)$。</strong></p>
+<p><strong>所以</strong></p>
+<p>用扩展欧几里得算法求得一组$x0,y0$和$gcd$;检查$gcd$是否为1<br>$gcd$不为1说明逆元不存在，若为1,调整$x0$到0~m-1的范围中即可。 </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//此算法即可求出gcd(a,b)，也可求出x和y。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ex_gcd</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span>       <span class="comment">//扩展欧几里得 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        x=<span class="number">1</span>;</span><br><span class="line">        y=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> r=ex_gcd(b,a%b,x,y);</span><br><span class="line">    <span class="keyword">int</span> t=x;</span><br><span class="line">    x=y;</span><br><span class="line">    y=t-a/b*y;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mod_reverse</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> n)</span><span class="comment">//ax=1(mod n) 求a的逆元x </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> d,x,y;</span><br><span class="line">    d=ex_gcd(a,n,x,y);</span><br><span class="line">    <span class="keyword">if</span>(d==<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> (x%n+n)%n;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h4><p>费马小定理和扩展欧几里得算法求逆元是有局限性的，它们都会要求<img src="https://img-blog.csdn.net/20140613102654328" alt="img">与<img src="https://img-blog.csdn.net/20140613102712781" alt="img">互素。实际上我们还有一</p>
+<p>种通用的求逆元方法，适合所有情况。公式如下</p>
+<p>$ans=a*b^{-1} mod m=a mod (mb)/b​$</p>
+<p>参考：</p>
+<p><a href="http://www.cnblogs.com/cenariusxz/p/4323872.html" target="_blank" rel="noopener">http://www.cnblogs.com/cenariusxz/p/4323872.html</a></p>
+<p><a href="https://blog.csdn.net/liangzhaoyang1/article/details/56514028" target="_blank" rel="noopener">https://blog.csdn.net/liangzhaoyang1/article/details/56514028</a></p>
+<p><a href="https://blog.csdn.net/greenary/article/details/79343176" target="_blank" rel="noopener">https://blog.csdn.net/greenary/article/details/79343176</a></p>
+<p><a href="https://blog.csdn.net/acdreamers/article/details/8220787" target="_blank" rel="noopener">https://blog.csdn.net/acdreamers/article/details/8220787</a></p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/02/03/模运算/";
+    this.page.identifier = 1549185312;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
