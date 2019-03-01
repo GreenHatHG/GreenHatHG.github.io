@@ -136,6 +136,8 @@
     <h1>n1配置</h1>
     <p>某讯日常倒闭</p>
 <a id="more"></a>
+<h1 id="清空data"><a href="#清空data" class="headerlink" title="清空data"></a>清空<code>data</code></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/data</span><br></pre></td></tr></table></figure>
+<h1 id="开启WiFi"><a href="#开启WiFi" class="headerlink" title="开启WiFi"></a>开启<code>WiFi</code></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modprobe dhd &amp;&amp; echo dhd &gt;&gt; /etc/modules</span><br></pre></td></tr></table></figure>
 <h1 id="配置Sakura-Frp"><a href="#配置Sakura-Frp" class="headerlink" title="配置Sakura Frp"></a>配置<code>Sakura Frp</code></h1><p>配置<code>frp</code>内网穿透，今天卡在开机自启这里了，后来查了下<code>linux</code>启动顺序才知道错处</p>
 <p>参考：</p>
 <p><a href="http://blog.51cto.com/net881004/2073150" target="_blank" rel="noopener">centos 6和centos 7启动顺序</a></p>
