@@ -156,11 +156,13 @@
 </ol>
 <h2 id="引用类型与值"><a href="#引用类型与值" class="headerlink" title="引用类型与值"></a>引用类型与值</h2><p>​    Java虚拟机中有三种引用类型：类类型(<code>class type</code>)，数组类型(<code>array type</code>)和接口类型(<code>interface type</code>)。</p>
 <h1 id="运行时的数据区"><a href="#运行时的数据区" class="headerlink" title="运行时的数据区"></a>运行时的数据区</h1><h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><ol>
-<li><p><strong>Java虚拟机可以支持多条线程同时执行，每一条Java虚拟机线程都有自己的PC（<code>program counter</code>）寄存器。在任意时刻。一条Java虚拟机线程只会执行一个办法的代码，这个正在被线程执行的方法称为该线程的当前方法（<code>currentme thod</code>）。</strong></p>
-</li>
-<li><p>如果这个方法不是<code>native</code>的，那PC寄存器就保存Java虚拟机正在执行的字节码指令的地址，如果该方法是<code>native</code>的，那pc寄存器的值是<code>undefined</code>。pc寄存器的容量至少应当能保存一个<code>returnAddress</code>类型的数据或者一个与平台相关的本地指针的值。</p>
-</li>
+<li><strong>Java虚拟机可以支持多条线程同时执行，每一条Java虚拟机线程都有自己的PC（<code>program counter</code>）寄存器。在任意时刻。一条Java虚拟机线程只会执行一个办法的代码，这个正在被线程执行的方法称为该线程的当前方法（<code>currentme thod</code>）。</strong></li>
+<li>如果这个方法不是<code>native</code>的，那PC寄存器就保存Java虚拟机正在执行的字节码指令的地址，如果该方法是<code>native</code>的，那pc寄存器的值是<code>undefined</code>。pc寄存器的容量至少应当能保存一个<code>returnAddress</code>类型的数据或者一个与平台相关的本地指针的值。</li>
 </ol>
+<blockquote>
+<p>在编程领域，<strong>JNI</strong> （Java Native Interface,Java本地接口）是一种编程框架，使得Java虚拟机中的Java程序可以调用本地应用/或库，也可以被其他程序调用。 本地程序一般是用其它语言（C、C++或汇编语言等）编写的，并且被编译为基于本机硬件和操作系统的程序</p>
+</blockquote>
+<p><code>native方法称为本地方法。在java源程序中以关键字“native”声明，不提供函数体。其实现使用C/C++语言在另外的文件中编写，编写的规则遵循Java本地接口的规范(简称JNI)。简而言就是Java中声明的可调用的使用C/C++实现的方法</code></p>
 <h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><ol>
 <li><p><strong>每一条Java虚拟机线程都有自己私有的Java虚拟机栈（Java Virtual Machine stack)，这<br>个栈与线程同时创建，用于存储栈帧。</strong>Java虚拟机栈的作用与传统语言（例如C语言）中的栈非常类似，<strong>用于存局部变量与一些尚未算好的结果。另外，它在方法调用和返回中也扮演了很重要的角色。</strong></p>
 </li>
@@ -190,7 +192,45 @@
 </ul>
 </li>
 </ol>
-<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>​    在Java虚拟机中，方法区(<code>method area</code>)是可供各个线程共享的运行时内存区域</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><ol>
+<li><p>在Java虚拟机中，方法区(<code>method area</code>)是可供各个线程共享的运行时内存区域</p>
+</li>
+<li><p><strong>它存储了每一个类的结构信息，运行时常量池(<code>runtime constant pool)</code>、字段和方法数据、构造函数和普通方法的字节码内容，还包括一些在类、实例、接口初始化时用到的特殊方法。</strong></p>
+</li>
+<li>方法区在虚拟机启动的时候创建，虽然方法区是堆的逻辑组成部分，但是简单的虚拟机实现可以选择在这个区域不实现垃圾收集与压缩。</li>
+<li>方法区可能发生如下异常情况：<ul>
+<li>如 果 方 法 区 的 内 存 空 间 不 能 满 足 内 存 分 配 请 求 ，那 么 Java虚拟机将抛岀一个<br><code>OutOfMemoryError</code> 异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><ol>
+<li>运 行 时 常 量 池 <code>(runtime constant pool</code>) 是 <code>class</code> 文件中每一个类或接口的常量池表(<code>constant_pool table</code>)的运行时表示形式，它包括了若干种不同的常量，从编译期可知的数值字面量到必须在运行期解析后才能获得的方法或字段引用。</li>
+<li>运行时常量池类似于传统语言中的符号表(<code>symbol table</code>)</li>
+<li><p>每一个运行时常量池都在Java虚拟机的方法区中分配，在加载类和接口到虚拟机后，就创建对应的运行时常量池</p>
+</li>
+<li><p>在创建类和接口的运行时常量池时，可能会发生如下异常情况:</p>
+<ul>
+<li>当创建类或接口时，如果构造运行时常量池所需要的内存空间超过了方法区所能提供的最大值，那么 Java虚拟机将会抛出一个<code>OutOfMemoryError</code> 异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="本地办法栈"><a href="#本地办法栈" class="headerlink" title="本地办法栈"></a>本地办法栈</h2><ol>
+<li><p>Java虚拟机实现可能会使用到传统的栈（通常称为<code>C stack</code>）来支持 <code>native</code> 方 法 （指使用 Java以外的其他语言编写的方法）的执行，这个栈就是本地方法栈（<code>native method stack</code>）</p>
+</li>
+<li><p>当 Java虚拟机使用其他语言（例如C语言）来实现指令集解释器时，也可以使用本地方法栈。如果 Java虚拟机不支持<code>native</code>方法，或是本身不依赖传统栈，那么可以不提供本地方法栈，如果支持本地方法栈，那这个栈一般会在线程创建的时候按线程分配。</p>
+</li>
+<li><p>本地方法栈可能发生如下异常情况:</p>
+<ul>
+<li><p>如果线程请求分配的栈容量超过本地方法栈允许的最大容量， Java虚拟机将会抛出一个<code>StackOverflowError</code>异常</p>
+</li>
+<li><p>如果本地方法栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的本地方法栈，那 么 Java虚拟机将会抛出一个<code>OutOfMemoryError</code> 异常</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h2><ol>
+<li>栈帧 (<code>frame</code>)是用来存储数据和部分过程结果的数据结构，同时也用来处理动态链接(<code>dynamic linking</code>)方法返回值和异常分派（<code>dispatch exception)</code></li>
+</ol>
 
   </article>
 </div>
