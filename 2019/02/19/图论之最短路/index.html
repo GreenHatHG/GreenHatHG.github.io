@@ -90,7 +90,7 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 84 </a>
+        <a href="/archives" class="header-toolbar-right"> 85 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
@@ -145,6 +145,13 @@
 </li>
 </ul>
 <p>（E为边个数，V为顶点个数）</p>
+<hr>
+<p><img src="/2019/02/19/图论之最短路/duibi.png" alt=""></p>
+<p>其中N表示点数，M表示边数</p>
+<p>Floyd 算法虽然总体上时间复杂度较高，但可以处理带负权边的图（但不能有负权回路），并且均摊到每一点对上，在所有的算法中还是属于比较优秀的算法。另外，floyd算法较小的编码复杂度也是一大优势，所以，如果要求的是所有点对间的最短路径，或者如果数据范围较小，则floyd算法比较合适。</p>
+<p>Dijkstra算法最大的弊端就是他无法处理带有负权边以及负权回路的图，但是Dijkstra算法具有良好的可扩展性，扩展后可以适应很多问题。另外用堆优化的Dijkstra算法的时间复杂度可以达到O（M log N）。当边有负权，甚至存在负权回路时，需要使用Bellman-ford 算法或者队列优化的Bellman-ford算法，因此我们选择最短路径法时，根据实际的需求和每一种算法的特性，选择合适的算法来使用。</p>
+<p>参考：<a href="https://blog.csdn.net/yuewenyao/article/details/81023035" target="_blank" rel="noopener">https://blog.csdn.net/yuewenyao/article/details/81023035</a></p>
+<hr>
 <h1 id="Floyd-多源最短路"><a href="#Floyd-多源最短路" class="headerlink" title="Floyd(多源最短路)"></a>Floyd(多源最短路)</h1><p>Floyd算法用于求每一对顶点之间的最短路径，3个for循环就可以。时间复杂度O(v^3) 。v为图顶点个数</p>
 <p>模板题：<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2544" target="_blank" rel="noopener">HDU2544-最短路</a></p>
 <p><img src="/2019/02/19/图论之最短路/floyd.png" alt=""></p>
