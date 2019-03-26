@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    图论之存图方式 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  图论
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 86 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 76 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1553588936000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1553588936000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>图论之存图方式</h1>
+    <p>邻接矩阵，邻接表，链式向前星</p>
+<a id="more"></a>
+<p>参考：</p>
+<p><a href="http://jzqt.github.io/2015/07/21/ACM%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/" target="_blank" rel="noopener">ACM图论之存图方式</a></p>
+<h1 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h1><p>邻接矩阵是三种存图方式中最简单也最为暴力的一种存图方式了。</p>
+<h2 id="存图思想"><a href="#存图思想" class="headerlink" title="存图思想"></a>存图思想</h2><p>使用一个矩阵来描述一个图，对于矩阵的第i行第j列的值，表示编号为i的顶点到编号为j的顶点的权值</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>对于邻接矩阵来说，它的代码实现都十分简单，二维数组就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//最大顶点数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXV = <span class="number">1e3</span>;</span><br><span class="line"><span class="comment">//邻接矩阵,Map[i][j]:顶点i到顶点j的权值</span></span><br><span class="line"><span class="keyword">int</span> Map[MAXV][MAXV];</span><br><span class="line"><span class="built_in">memset</span>(Map, <span class="number">0</span>, <span class="keyword">sizeof</span>(Map));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边</span></span><br><span class="line"><span class="comment">// 新增顶点`i`到顶点`j`的边，权值为`w`</span></span><br><span class="line">Map[i][j] = w;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除边</span></span><br><span class="line"><span class="comment">// 删除顶点`i`到顶点`j`的边</span></span><br><span class="line">Map[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询边</span></span><br><span class="line"><span class="comment">// 查询顶点`i`到顶点`j`的边权</span></span><br><span class="line"></span><br><span class="line">Map[i][j];</span><br></pre></td></tr></table></figure>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>使用邻接矩阵来进行建图存图有以下优点</p>
+<ul>
+<li><strong>简单易学</strong></li>
+</ul>
+<p>这个肯定不用多说，哪怕是没学过线性代数的童鞋也很容易理解这样的存图方式。</p>
+<ul>
+<li><strong>代码易写，简单好操作</strong></li>
+</ul>
+<p>上面的代码实现已经展示了要定义这个数据结构以及实现初始化，增加删除边等操作有多么的简单。</p>
+<ul>
+<li><strong>对已确定的边进行操作，效率高</strong></li>
+</ul>
+<p>确定边（已知两顶点编号）要进行增加或删除边（或者说更改边权）以及查询边权等操作，时间复杂度为O(1)。</p>
+<ul>
+<li><strong>易处理重边</strong></li>
+</ul>
+<p>你可以随时覆盖掉重边，可以自己实现存储最新的边，权值最大的边或权值最小的边等。<br>当然，如果你非要使用邻接矩阵存图还要存重边也不是不可以。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>邻接矩阵存图虽然简单优雅，但是它的一些缺点却几乎是致命的。</p>
+<ul>
+<li><strong>过高的空间复杂度</strong></li>
+</ul>
+<p>对于顶点数V，邻接矩阵存图的空间复杂度高达<code>O(V^2)</code>，顶点数上了一万可以不用考虑这种存图方式了。<br>对于稀疏图来说，邻接矩阵存图内存浪费太严重，这也是邻接矩阵存图在ACM题目中十分罕见的根本原因。</p>
+<ul>
+<li><strong>对于不确定边的查询效率一般</strong></li>
+</ul>
+<p>比如，我找个编号为1出发的第一条边我还要一条条边判断是否存在（权值是否为0）</p>
+<h1 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h1><p>邻接表在三种常用的存图方式中属于较为中庸和普遍的存图方式了，缺点不致命，优点不明显。</p>
+<h2 id="存图思想-1"><a href="#存图思想-1" class="headerlink" title="存图思想"></a>存图思想</h2><p><strong>邻接矩阵</strong>对于每个顶点使用<strong>定长的数组</strong>来存储以该点出发的边的情况。第i个数组的第j个值存储的是从顶点i到顶点j的边的权值。</p>
+<p>而<strong>邻接表</strong>则是对于每个顶点使用<strong>不定长的链表</strong>来存储以该点出发的边的情况。<strong>因此对于第i个链表的第j个值实际上存储的是从编号为i的顶点出发的第j条边的情况</strong>。</p>
+<p><strong>一般来说，如果有边权的话，邻接表的链表存储的是一个结构体，这个结构体存储该边的终点以及边权</strong></p>
+<p><img src="/2019/03/26/图论之存图方式/links&amp;matrix.png" alt=""></p>
+<h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><p>在ACM题目中，动态的数据结构一般是不被推荐的，因为动态开辟内存比较消耗时间，且写起来复杂容易出错。<br>大部分情况我们使用<strong>C++STL里的vector</strong>作为链表来实现图的邻接表。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vector实现的邻接表的定义</span></span><br><span class="line"><span class="comment">// 不考虑边权，存储类型为int型</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; e[V];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 邻接表的初始化操作</span></span><br><span class="line"><span class="comment">// 将起点为`i`的边链表全部清空</span></span><br><span class="line">e[i].clear();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边</span></span><br><span class="line"><span class="comment">// 新增顶点`i`到顶点`j`的边</span></span><br><span class="line">e[i].push_back(j);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询边</span></span><br><span class="line">e[i][<span class="number">0</span>];    <span class="comment">// 查询以`i`为起点的第一条边i-&gt;e[i][0]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;(<span class="keyword">int</span>)e[i].size(); ++j) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e[i][j] == k) &#123;     <span class="comment">// 查询边`i-&gt;k`</span></span><br><span class="line">        <span class="comment">// do something.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><strong>较为简单易学</strong></li>
+</ul>
+<p>相比邻接矩阵，无非是数组转链表加上存储值的意义不同而已，不需要转太大的弯。</p>
+<ul>
+<li><strong>代码易写，不复杂</strong></li>
+</ul>
+<p>代码实现已经演示过了，较简单，不容易写错。</p>
+<ul>
+<li><strong>内存利用率较高</strong></li>
+</ul>
+<p>对于顶点数V与边数E，空间复杂度为O(V+E)。能较好处理稀疏图的存储。</p>
+<ul>
+<li><strong>对不确定边的操作方便效率也不错</strong></li>
+</ul>
+<p>比如，要遍历从某点出发的所有边，不会像邻接矩阵一样可能会遍历到不存在的边。</p>
+<h2 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><strong>重边不好处理</strong></li>
+</ul>
+<p>判重比较麻烦，还要遍历已有的边，不能直接判断。<br>一般情况下使用邻接表存图是会存储重边的，不会做重边的判断。<br>所以如果要解决重边的影响一般不在存边的情况下做文章。</p>
+<ul>
+<li><strong>对确定边的操作效率不高</strong></li>
+</ul>
+<p>比如对于给定i-&gt;j的边要进行查询或修改等操作只有通过遍历这种方式找到了。</p>
+<h1 id="链式向前星"><a href="#链式向前星" class="headerlink" title="链式向前星"></a>链式向前星</h1><p>链式前向星是前向星的升级版，因为它可以完美代替前向星，所以就跳过前向星的学习，直接学习链式前向星。</p>
+<h2 id="存图思想-2"><a href="#存图思想-2" class="headerlink" title="存图思想"></a>存图思想</h2><p>链式前向星的本质其实就是用数组模拟链表的邻接表。</p>
+<p>这种存图方式的数据结构主要是<strong>边集数组</strong>，顾名思义，<strong>图的边是用数组来存储的。</strong><br>当然想要完美表示图结构，光有一个边集数组还不够，还要有一个数组存储指向<strong>每一个点的第一条边的“指针”。</strong><br>而每一条边都需要存储接下来一条边的“指针”，这样就能够像类似邻接表一样方便遍历每一个点的所有边了</p>
+<p>可参考:</p>
+<p><a href="https://blog.csdn.net/acdreamers/article/details/16902023" target="_blank" rel="noopener">https://blog.csdn.net/acdreamers/article/details/16902023</a></p>
+<h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大顶点数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXV = <span class="number">1E5</span>;</span><br><span class="line"><span class="comment">// 最大边数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXE = <span class="number">1E5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 边结构体的定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;         <span class="comment">// 表示这条边的另外一个顶点</span></span><br><span class="line">    <span class="keyword">int</span> next;       <span class="comment">// 指向下一条边的数组下标，值为-1表示没有下一条边</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// head[i] 表示顶点i的第一条边的数组下标，-1表示顶点i没有边</span></span><br><span class="line"><span class="keyword">int</span> head[V];</span><br><span class="line">Edge edge[E];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 链式前向星初始化，只需要初始化顶点数组就可以了</span></span><br><span class="line"><span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边的方式</span></span><br><span class="line"><span class="comment">// 新增边 a -&gt; b，该边的数组下标为`id`</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[id].to = b;</span><br><span class="line">    edge[id].next = head[a];    <span class="comment">// 新增的边要成为顶点`a`的第一条边，而不是最后一条边</span></span><br><span class="line">    head[a] = id;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=head[a]; i!=<span class="number">-1</span>; i=e[i].next) &#123;</span><br><span class="line">    <span class="comment">// e[i] 就是你当前遍历的边 a -&gt; e[i].to</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><strong>内存利用率高</strong></li>
+</ul>
+<p>相比vector实现的邻接表而言，可以准确开辟最多边数的内存，不像vector实现的邻接表有爆内存的风险。</p>
+<ul>
+<li><strong>对不确定边的操作方便效率也不错</strong></li>
+</ul>
+<p>这点和邻接表一样，不会遍历到不存在的边。</p>
+<h2 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><strong>难于理解，代码较复杂</strong></li>
+</ul>
+<p>这种存图方式相对于邻接表来说比较难理解，代码虽然不是很复杂但是不熟练的话写起来也不是方便。</p>
+<ul>
+<li><strong>重边不好处理</strong></li>
+</ul>
+<p>这点与邻接表一样，只有通过遍历判重。</p>
+<ul>
+<li><strong>对确定边的操作效率不高</strong></li>
+</ul>
+<p>也与邻接表一样，不能通过两点马上确定边，只能遍历查找。</p>
+<h1 id="链式向前星与邻接表"><a href="#链式向前星与邻接表" class="headerlink" title="链式向前星与邻接表"></a>链式向前星与邻接表</h1><p><strong>邻接表</strong></p>
+<p><strong>优点：</strong></p>
+<ol>
+<li><p>写起来比链式前向星快（大概</p>
+</li>
+<li><p>每个顶点的出边都是用vector存储的，方便执行一些STL中的函数（比如排序）</p>
+</li>
+</ol>
+<p><strong>缺点:</strong></p>
+<ol>
+<li>STL会略慢一些</li>
+<li>浪费空间，由于vector申请空间的方式是两倍扩容，遇到卡空间的题目的时候会跪</li>
+<li>数组可以random access的优点在图问题中通常没有什么卵用，但是数组不能O(1)删除元素的缺点在某些应用场合下非常致命</li>
+</ol>
+<p>然后把上面的取个反大概也就是链式前向星的特点了…</p>
+<p><strong>所以在没有删边操作的情况下，以写的爽的角度来看的话应该是邻接表这种方式更爽一点，遇到需求删边操作或者对时间空间要求比较高的问题用链式前向星比较稳妥</strong></p>
+<p>参考：<br><a href="https://www.zhihu.com/question/59676094/answer/178637763" target="_blank" rel="noopener">https://www.zhihu.com/question/59676094/answer/178637763</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于<strong>邻接矩阵存图</strong>来说，由于<strong>内存消耗的局限性</strong>，它的适用范围比较狭窄，几乎只能在简单图论题目中见到。</p>
+<p><strong>邻接表存图</strong>是最为常见的一种，绝大部分采用<code>C++STL中的vector</code>实现，一般情况下大部分图论题目都能使用该存图方式。</p>
+<p>但是<strong>链式前向星</strong>其实是一种较好替代邻接表来存图的数据结构，在邻接表存图不能使用时可以使用，几乎可以用于全部图论题目。</p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/03/26/图论之存图方式/";
+    this.page.identifier = 1553588936;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>

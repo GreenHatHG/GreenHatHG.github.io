@@ -151,7 +151,7 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="selected">
-      <a href="/archives">Posts <span class="counter">85</span></a>
+      <a href="/archives">Posts <span class="counter">86</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
@@ -162,6 +162,33 @@
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/03/26/图论之存图方式/">图论之存图方式</a></h2>
+          <p>
+             邻接矩阵，邻接表，链式向前星 
+  
+ 参考： 
+  ACM图论之存图方式  
+   邻接矩阵  邻接矩阵是三种存图方式中最简单也最为暴力的一种存图方式了。 
+   存图思想  使用一个矩阵来描述一个图，对于矩阵的第i行第j列的值，表示编号为i的顶点到编号为j的顶点的权值 
+   代码实现  对于...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 1 </span>
+            <span>Published {{moment(1553588936000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/03/23/图着色问题-POJ-1129-ChannelAllocation/">图着色问题--POJ-1129-ChannelAllocation</a></h2>
@@ -1012,22 +1039,6 @@ euler(x) =x\times(1-\frac{1}{p_1})\times(1-\frac{1}{p_2}...
 
 
 <script src="/js/main.js"></script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
