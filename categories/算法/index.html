@@ -151,7 +151,7 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">86</span></a>
+      <a href="/archives">Posts <span class="counter">87</span></a>
     </li>
     <li class="selected">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
@@ -162,6 +162,36 @@
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/03/28/牛客283H-Dij-链式向前星-快速幂/">牛客283H-Dij-链式向前星-快速幂</a></h2>
+          <p>
+             Dijkstra—链式向前星—快速幂    
+   题目  链接： 牛客283H-图论一顿套模版  
+   
+   
+   解析  题目求的是乘积，但是又因为 W一定是2的整数次幂。 所以我们可以将乘法换为加法， 2^x * 2^y = 2^(x+y)  
+ 只要我们求出 x+y 的最小值，那么对...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/最短路/">最短路</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/快速幂/">快速幂</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 3 </span>
+            <span>Published {{moment(1553772694000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/03/26/图论之存图方式/">图论之存图方式</a></h2>
@@ -741,6 +771,22 @@ euler(x) =x\times(1-\frac{1}{p_1})\times(1-\frac{1}{p_2}...
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
