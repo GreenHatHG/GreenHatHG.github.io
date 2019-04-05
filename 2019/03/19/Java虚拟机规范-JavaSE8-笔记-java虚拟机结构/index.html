@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机规范(JavaSE8)笔记--java虚拟机结构 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 87 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 77 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1552984479000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1552984479000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机规范(JavaSE8)笔记--java虚拟机结构</h1>
+    <a id="more"></a>
+<h1 id="Class文件格式"><a href="#Class文件格式" class="headerlink" title="Class文件格式"></a>Class文件格式</h1><ol>
+<li>编译后被Java虚拟机所执行的代码使用了一种平台中立（不依赖于特定硬件及操作系统）的二进制格式来表示，并且经常（但并非绝对）以文件的形式存储，因此这种格式称为<strong>class文件格式</strong>。</li>
+<li>class文件格式中精确地定义了类与接口的表示形式，包括在平台相关的目标文件格式中一些细节上的惯例，例如字节序(<code>byte ordering</code>）等。</li>
+</ol>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><ol>
+<li>与Java程序语言中的数据类型相似，Java虚拟机可以操作的数据类型可分为两类：<strong>原始类型</strong>（<code>primitive type</code>，也经常翻译为原生类型或者基本类型）和<strong>引用类型</strong>（<code>reference type</code>）。</li>
+<li>与之对应，也存在原始值（<code>primitive value</code>)和引用值（<code>reference value</code>)两种类型的数值，它们可用于变量赋值、参数传递、方法返回和运算操作。</li>
+<li>Java虚拟机希望尽可能多的类型检查能在程序运行之前完成，换句话说，<strong>编译器应当在编译期间尽最大努力完成可能的类型检查，使得虚拟机在运行期间无需进行这些操作。</strong>原始类型的值不需要通过特殊标记或别的额外识别手段来在运行期确定它们的实际数据类型，也无需刻意将它们与引用类型的值区分开。虚拟机的字节码指令本身就可以确定它的指令操作数的类型是什么，所以可以利用这种特性直接确定操作数的数值类型。</li>
+</ol>
+<h2 id="原始类型与值"><a href="#原始类型与值" class="headerlink" title="原始类型与值"></a>原始类型与值</h2><p>​    Java虚拟机所支持的原始数据类型包括数值类型（<code>numeric type</code>）、<code>boolean</code>类型和<code>returnAddress</code>类型三类</p>
+<h3 id="returnAddress"><a href="#returnAddress" class="headerlink" title="returnAddress"></a>returnAddress</h3><p>​    <code>returnAddress</code>类型是指向某个操作码（<code>opcode</code>）的指针，此操作码与Java虚拟机指令相对应。在虚拟机支持的所有原始类型中，只有<code>returnAddress</code>类型是不能直接与Java语言的数据类型相对应的</p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>​    在浮点数中，正数零和负数零是相等的，但是它们在某些操作上会有区别。例如，<code>1.0</code>除以<code>0.0</code>会产生正无穷大的结果，而<code>1.0</code>除以<code>-0.0</code>则会产生负无穷大的结果</p>
+<h3 id="boolean类型"><a href="#boolean类型" class="headerlink" title="boolean类型"></a>boolean类型</h3><ol>
+<li><p>虽然Java虚拟机定义了<code>boolean</code>这种数据类型，但是只对它提供了非常有限的支持。在Java虚拟机中没有任何供<code>boolean</code>值专用的字节码指令，<strong>Java语言表达式所操作的<code>boolean</code>值，在编译之后都使用Java虚拟机中的int数据类型来代替</strong></p>
+</li>
+<li><p><strong>在Oracle公司的虚拟机实现里，Java语言中的<code>booIean</code>数组将会被编码成Java虚拟机的<code>byte</code>数组，每个<code>boolean</code>元素占8位。</strong></p>
+</li>
+<li>Java虚拟机会把<code>boolean</code>数组元素中的<code>true</code>值采用1来表示，<code>false</code>值采用0来表示，当Java编译器把Java语言中的<code>boolean</code>类型值映射为Java虚拟机的int类型值时，也必须采用上述表示方式</li>
+</ol>
+<h2 id="引用类型与值"><a href="#引用类型与值" class="headerlink" title="引用类型与值"></a>引用类型与值</h2><p>​    Java虚拟机中有三种引用类型：类类型(<code>class type</code>)，数组类型(<code>array type</code>)和接口类型(<code>interface type</code>)。</p>
+<h1 id="运行时的数据区"><a href="#运行时的数据区" class="headerlink" title="运行时的数据区"></a>运行时的数据区</h1><h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><ol>
+<li><strong>Java虚拟机可以支持多条线程同时执行，每一条Java虚拟机线程都有自己的PC（<code>program counter</code>）寄存器。在任意时刻。一条Java虚拟机线程只会执行一个办法的代码，这个正在被线程执行的方法称为该线程的当前方法（<code>currentme thod</code>）。</strong></li>
+<li>如果这个方法不是<code>native</code>的，那PC寄存器就保存Java虚拟机正在执行的字节码指令的地址，如果该方法是<code>native</code>的，那pc寄存器的值是<code>undefined</code>。pc寄存器的容量至少应当能保存一个<code>returnAddress</code>类型的数据或者一个与平台相关的本地指针的值。</li>
+</ol>
+<blockquote>
+<p>在编程领域，<strong>JNI</strong> （Java Native Interface,Java本地接口）是一种编程框架，使得Java虚拟机中的Java程序可以调用本地应用/或库，也可以被其他程序调用。 本地程序一般是用其它语言（C、C++或汇编语言等）编写的，并且被编译为基于本机硬件和操作系统的程序</p>
+</blockquote>
+<p><code>native方法称为本地方法。在java源程序中以关键字“native”声明，不提供函数体。其实现使用C/C++语言在另外的文件中编写，编写的规则遵循Java本地接口的规范(简称JNI)。简而言就是Java中声明的可调用的使用C/C++实现的方法</code></p>
+<h2 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h2><ol>
+<li><p><strong>每一条Java虚拟机线程都有自己私有的Java虚拟机栈（Java Virtual Machine stack)，这<br>个栈与线程同时创建，用于存储栈帧。</strong>Java虚拟机栈的作用与传统语言（例如C语言）中的栈非常类似，<strong>用于存局部变量与一些尚未算好的结果。另外，它在方法调用和返回中也扮演了很重要的角色。</strong></p>
+</li>
+<li><p>因为除了栈帧的出栈和入栈之外，Java虚拟机栈不会再受其他因素的影响，所以栈帧可以在堆中分配，<strong>Java虚拟机栈所使用的内存不需要保证是连续的。</strong></p>
+</li>
+<li><p>Java虚拟机规范既允许Java虚拟机栈被实现成固定大小，也允许根据计算动态来扩展和收缩。如果采用固定大小的Java虚拟机栈，那每一个线程的Java虚拟机栈容量可以在线程创建的时候独立选定。    </p>
+</li>
+<li><p>Java虚拟机栈可能发生如下异常情况：</p>
+<ul>
+<li>如果线程请求分配的栈容量超过Java虚拟机栈允许的最大容量，Java虚拟机将会抛出一个<code>StackOverflowError</code>异常</li>
+<li>如果Java虚拟机栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那Java虚拟机将会抛出一个<code>OutOfMemoryError</code>异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h2><ol>
+<li><p><strong>在Java虚拟机中，堆（<code>heap</code>)是可供各个线程共享的运行时内存区域，也是供所有类实例和数组对象分配内存的区域。</strong></p>
+</li>
+<li><p><strong>Java堆在虚拟机启动的时候就被创建</strong>，它存储了被自动内存管理系统(<code>automatic storagemanagement system</code>)，也就是常说的<code>garbage collector</code>（垃圾收集器))所管理的各种对象，这些受管理的对象无需也无法显式地销毁。</p>
+</li>
+<li><p><strong>请注意避免混淆<code>Stack</code>、<code>Heap</code>和<code>Java（VM）Stack、JavaHeap</code>的概念，Java虚拟机的实现本质上是由其他<br>语言所编写的应用程序，Java语言程序里分配在<code>Java Stack</code>中的数据，从实现拟机的程序角度上看则可<br>能分配在Heap之中。</strong></p>
+</li>
+<li><p>Java堆的容量可以是固定的，也可以随着程序执行的需求动态扩展，并在不需要过多空间时自动收缩。<strong>Java堆所使用的内存不需要保证是连续的</strong></p>
+</li>
+<li><p>Java堆可能发生如下异常情况：</p>
+<ul>
+<li>如果实际所需的堆超过了自动内存管理系统能提供的最大容量，那Java虚拟机将会抛出一个<code>OutOfMemoryError</code>异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><ol>
+<li><p>在Java虚拟机中，方法区(<code>method area</code>)是可供各个线程共享的运行时内存区域</p>
+</li>
+<li><p><strong>它存储了每一个类的结构信息，运行时常量池(<code>runtime constant pool)</code>、字段和方法数据、构造函数和普通方法的字节码内容，还包括一些在类、实例、接口初始化时用到的特殊方法。</strong></p>
+</li>
+<li>方法区在虚拟机启动的时候创建，虽然方法区是堆的逻辑组成部分，但是简单的虚拟机实现可以选择在这个区域不实现垃圾收集与压缩。</li>
+<li>方法区可能发生如下异常情况：<ul>
+<li>如 果 方 法 区 的 内 存 空 间 不 能 满 足 内 存 分 配 请 求 ，那 么 Java虚拟机将抛岀一个<br><code>OutOfMemoryError</code> 异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h2><ol>
+<li>运 行 时 常 量 池 <code>(runtime constant pool</code>) 是 <code>class</code> 文件中每一个类或接口的常量池表(<code>constant_pool table</code>)的运行时表示形式，它包括了若干种不同的常量，从编译期可知的数值字面量到必须在运行期解析后才能获得的方法或字段引用。</li>
+<li>运行时常量池类似于传统语言中的符号表(<code>symbol table</code>)</li>
+<li><p>每一个运行时常量池都在Java虚拟机的方法区中分配，在加载类和接口到虚拟机后，就创建对应的运行时常量池</p>
+</li>
+<li><p>在创建类和接口的运行时常量池时，可能会发生如下异常情况:</p>
+<ul>
+<li>当创建类或接口时，如果构造运行时常量池所需要的内存空间超过了方法区所能提供的最大值，那么 Java虚拟机将会抛出一个<code>OutOfMemoryError</code> 异常</li>
+</ul>
+</li>
+</ol>
+<h2 id="本地办法栈"><a href="#本地办法栈" class="headerlink" title="本地办法栈"></a>本地办法栈</h2><ol>
+<li><p>Java虚拟机实现可能会使用到传统的栈（通常称为<code>C stack</code>）来支持 <code>native</code> 方 法 （指使用 Java以外的其他语言编写的方法）的执行，这个栈就是本地方法栈（<code>native method stack</code>）</p>
+</li>
+<li><p>当 Java虚拟机使用其他语言（例如C语言）来实现指令集解释器时，也可以使用本地方法栈。如果 Java虚拟机不支持<code>native</code>方法，或是本身不依赖传统栈，那么可以不提供本地方法栈，如果支持本地方法栈，那这个栈一般会在线程创建的时候按线程分配。</p>
+</li>
+<li><p>本地方法栈可能发生如下异常情况:</p>
+<ul>
+<li><p>如果线程请求分配的栈容量超过本地方法栈允许的最大容量， Java虚拟机将会抛出一个<code>StackOverflowError</code>异常</p>
+</li>
+<li><p>如果本地方法栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的本地方法栈，那 么 Java虚拟机将会抛出一个<code>OutOfMemoryError</code> 异常</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h2><ol>
+<li><p>栈帧 (<code>frame</code>)是用来存储数据和部分过程结果的数据结构，同时也用来处理动态链接(<code>dynamic linking</code>)方法返回值和异常分派（<code>dispatch exception)</code></p>
+</li>
+<li><p>栈帧随着方法调用而创建，随着方法结束而销毁—无论方法是正常完成还是异常完成（抛出了在方法内未被捕获的异常）都算作方法结束。栈帧的存储空间由创建它的线程分配在Java虚拟机栈之中，每一个栈帧都有自己的本地变量表（<code>local variable</code>）、操作数栈 （<code>operand stack</code>）和指向当前方法所属的类的运行时常量池 的引用。</p>
+</li>
+<li>本地变量表和操作数栈的容量在编译期确定，并通过相关方法的code属 性保存及提供给栈帧使用。因此，栈帧数据结构的大小仅仅取决于Java虚拟机的实现。实现者可以在调用方法时给它们分配内存</li>
+<li>在某条线程执行过程中的某个时间点上，只有目前正在执行的那个方法的栈帧是活动的。这个栈帧称为<strong>当前 栈帧 </strong>(<code>current frame</code>),这个栈帧对应的方法称为<strong>当前方法</strong>(<code>currentm ethod</code>),定义这个方法的类称作当前类(<code>current class</code>)。对局部变量表和操作数栈的各种操作 ，通常都指的是对当前栈帧的局部变量表和操作数栈所进行的操作。</li>
+<li>如果当前方法调用了其他方法，或者当前方法执行结束，那这个方法的栈帧就不再是当前栈帧了。<strong>调用新的方法时，新的栈帧也会随之而创建，并且会随着程序控制权移交到新方法而成为新的当前栈帧</strong>。方法返回之际，当前栈帧会传回此方法的执行结果给前一个栈帧,然后，虚拟机会丢弃当前栈帧，使得前一个栈帧重新成为当前栈帧。请特别注意，<strong>栈帧是线程本地私有的数据，不可能在一个栈帧之中引用另外一个线程的栈帧</strong>。</li>
+</ol>
+<h2 id="局部变量表"><a href="#局部变量表" class="headerlink" title="局部变量表"></a>局部变量表</h2><ol>
+<li>每个栈帧内部都包含一组称为局部变量表的变量列表</li>
+<li>一个局部变量可以保存一个类型为<code>boolean</code>、<code>byte</code> 、<code>char</code>、<code>short</code> 、<code>int</code> 、<code>float</code>、<code>reference</code> 或 <code>returnAddress</code>的数据 。两个局部变量可以保存一个类型为<code>long</code>或<code>double</code>的数据。<code>long</code>和 <code>double</code> 类型的数据占用两个连续的局部变量</li>
+<li>Java虚拟机使用局部变量表来完成方法调用时的参数传递。</li>
+</ol>
+<h2 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h2><ol>
+<li>每个栈帧内部都包含一个称为操作数栈的后进先岀栈</li>
+<li>栈帧在刚刚创建时，操作数栈是空的。 Java虚拟机提供一些字节码指令来从局部变量表或者对象实例的字段中复制常量或变量值到操作数栈中，也提供了一些指令用于从操作数栈取走数据、操作数据以及把操作结果重新入栈。在调用方法时，操作数栈也用来准备调用方法的参数以及接收方法返回结果.</li>
+<li>操作数栈的每个位置上可以保存一个Java虚拟机中定义的任意数据类型的值，包括<code>long</code>和<code>double</code>类型</li>
+</ol>
+<h2 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h2><p>每个栈帧内部都包含一个指向当前方法所在类型的运行时常量池的引用，以便对当前方法的代码实现动态链接。在 class 文件里面，一个方法若要调用其他方法，或者访问成员变量，则需要通过符号引（<code>symbolicreference</code>）来表示，动态链接的作用就是将这些以符号引用所表示的方法转换为对实际方法的直接引用。</p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/03/19/Java虚拟机规范-JavaSE8-笔记-java虚拟机结构/";
+    this.page.identifier = 1552984479;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
