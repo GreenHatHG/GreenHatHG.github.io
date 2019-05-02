@@ -153,17 +153,71 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">87</span></a>
+      <a href="/archives">Posts <span class="counter">103</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
     <li class="selected">
-      <a href="/tags">Tags <span class="counter">76</span></a></li>
+      <a href="/tags">Tags <span class="counter">83</span></a></li>
   </ul>
 </nav>
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/04/19/EXBSGS算法/">EXBSGS算法</a></h2>
+          <p>
+             EXBSGS 
+  
+ $a^{x} \equiv b(\bmod p)$ 
+ BSGS只能求解p为素数的情况，EXBSGS可以完美解决这个问题，其基本思路就是通过转换，然后可以运用BSGS算法来求解，最终还是基于BSGS基础 
+   EXBSGS  参考： https://www.cnblogs...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/数论/">数论</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/EXBSGS/">EXBSGS</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1555645426000).fromNow()}}</span>
+          </div>
+        </li>
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/04/17/BSGS算法/">BSGS算法</a></h2>
+          <p>
+             BSGS 
+  
+   BSGS(baby-step gaint-step)  该算法是指类似于$a^{x} \equiv b(\bmod p$)的方程，已知a，b，p，求x的算法 
+  原始的BSGS只能解决p为质数的情况  
+ 由费马小定理$a^{p-1} \equiv 1(\bmod p)$...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/数论/">数论</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/BSGS/">BSGS</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1555519246000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/03/16/FZU-1649-PrimeNumberOrNot-大素数判断/">FZU-1649-PrimeNumberOrNot-大素数判断</a></h2>
@@ -295,8 +349,7 @@ euler(x) =x\times(1-\frac{1}{p_1})\times(1-\frac{1}{p_2}...
           <p>
              素数筛快速幂 
   
-   素数   埃氏筛法 —-求解n以内的素数个数 
-      1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16   17   18   19   20        int  prim...
+   素数筛    埃氏筛法—-求解n以内的素数个数       1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16   17   18   19   20        int  prim...
           </p>
           <ul class="tag-list clearfix">
             

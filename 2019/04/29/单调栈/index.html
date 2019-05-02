@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    单调栈 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  单调栈
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 103 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 83 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1556538427000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1556538427000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>单调栈</h1>
+    <p>单调栈及poj2559</p>
+<a id="more"></a>
+<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><p>什么是单调栈？顾名思义，单调栈首先是一个栈，并且栈内的元素的大小按照他们所在栈内的位置，满足一定的单调性。</p>
+<p>比如有一数组{1,3,232,23,24,3324,-1}，维护其单调递减栈，数组左边为栈顶</p>
+<p>首先，栈为空，入栈[1]</p>
+<p>到下一个元素3，因为3&gt;1，所以入栈，此时栈[3,1]</p>
+<p>接着下一个元素232，因为232&gt;3，所以入栈，此时栈[232,3,1]</p>
+<p>接着下一个元素23，因为232&lt;23，所以232出栈，此时栈[3,1]，因为3&lt;23，所以入栈，此时栈[23,3,1]</p>
+<p>接着下一个元素3324，因为3324&gt;23，所以入栈，此时栈[3324,23,3,1]</p>
+<p>接着下一个元素-1，因为3324&gt;-1，所以出栈，此时栈[23,3,1]，因为23&gt;-1，所以出栈，此时栈[3,1]，因为3&gt;-1，出栈，此时栈[1]，因为1&gt;-1，出栈，此时栈为空，将-1入栈，此时栈[-1]</p>
+<h1 id="模板题—poj2559"><a href="#模板题—poj2559" class="headerlink" title="模板题—poj2559"></a><a href="http://poj.org/problem?id=2559" target="_blank" rel="noopener">模板题—poj2559</a></h1><p><img src="/2019/04/29/单调栈/timu.png" alt=""></p>
+<h2 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h2><p>参考：<a href="https://www.zybuluo.com/Chilling/note/633014" target="_blank" rel="noopener">https://www.zybuluo.com/Chilling/note/633014</a></p>
+<p>题意：给出几个连续的宽为1的木板的高度，求木板构成矩形的最大面积。</p>
+<p>将木板的长和宽（h，w）压入栈中，若下一个木板的高度大于等于当前栈顶的，那么依次弹出栈中的木板，并且累加他们的宽度，更新最大面积，贪心选择当前最高矩形能连续的位置</p>
+<p>举例：</p>
+<p>(x，y)为一结构体，x表示矩形的高，y为矩形的宽。<br>给出的例子：2，1，4，5，1，3，3，数组左边为栈顶</p>
+<ol>
+<li>入栈： <code>(2,1)</code></li>
+<li>下一个高度为1，但是栈顶高度为2，大于1，说明高度为2的矩形不能延续到当前矩形，那么删除(2，1)，累加宽度，并且更新最大面积2，（1，2）入栈；<code>(1,2)</code></li>
+<li><p>(4，1)入栈：<code>(4,1)(1,2)</code></p>
+</li>
+<li><p>(5，1)入栈：<code>(5,1)(4,1)(1,2)</code></p>
+</li>
+<li><p>下一个高度为1，但是栈顶高度为5，大于1，那么删除(5，1)，更新最大矩形面积为5，把1累加到下一个元素，得到(4，2)，仍然大于1，删除(4，2)，更新最大矩形面积为8，把2累加到下一个元素，得到(1，4)，面积为4小于8，不必更新，删除(1，4)，把4累加到当前准备进栈的元素，(1，5)进栈</p>
+</li>
+<li>(3，1)进栈：<code>(3,1)(1,5)</code></li>
+<li>下一个高度为3，但是栈顶高度也为3，删除(3，1)不必更新，把1累加到当前准备进栈的元素，(3，2)进栈: <code>(3,2)(1,5)</code></li>
+<li>栈非空时，依次出栈；首先(3，2)出栈，不必更新，把2累加到下一个元素，当前栈为(1，7)，(1，7)出栈，不必更新。<br>栈空，结束。<br>最后的答案就是8</li>
+</ol>
+<p><img src="/2019/04/29/单调栈/1.png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">c++: 2812K	375MS</span></span><br><span class="line"><span class="comment">2019-04-29 20:57:30</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LL h,w; <span class="comment">//矩形的高，宽</span></span><br><span class="line">&#125;a[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;n) &amp;&amp; n)</span><br><span class="line">    &#123;</span><br><span class="line">        LL ans=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;a[i].h);</span><br><span class="line">            a[i].w = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">stack</span>&lt;node&gt;q;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ;i &lt; n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            LL temp = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">//栈不为空&amp;&amp;栈顶的值&gt;=当前元素的值，出栈已经更新面积值</span></span><br><span class="line">            <span class="keyword">while</span>(!q.empty() &amp;&amp; q.top().h &gt;= a[i].h) </span><br><span class="line">            &#123;</span><br><span class="line">                LL x = q.top().h*(q.top().w+temp); <span class="comment">//计算面积</span></span><br><span class="line">                ans = max(ans,x);</span><br><span class="line">                temp += q.top().w; <span class="comment">//叠加宽</span></span><br><span class="line">                q.pop();</span><br><span class="line">            &#125;</span><br><span class="line">            node next;</span><br><span class="line">            next.h = a[i].h;</span><br><span class="line">            next.w = <span class="number">1</span>+temp;</span><br><span class="line">            q.push(next); <span class="comment">//元素进栈</span></span><br><span class="line">        &#125;</span><br><span class="line">                LL temp=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty()) <span class="comment">//遍历完所有元素，但是栈还有元素</span></span><br><span class="line">        &#123;</span><br><span class="line">            LL x = q.top().h*(q.top().w+temp);</span><br><span class="line">            ans = max(ans,x);</span><br><span class="line">            temp += q.top().w;</span><br><span class="line">            q.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/04/29/单调栈/";
+    this.page.identifier = 1556538427;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

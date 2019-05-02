@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 103 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 83 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1555978715000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1555978715000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符</h1>
+    <p>常量的本质含义以及反编译出现的部分助记符</p>
+<a id="more"></a>
+<h1 id="样例1"><a href="#样例1" class="headerlink" title="样例1"></a>样例1</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(Mychild1.str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent1</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String str = <span class="string">"hello world"</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        out.println(<span class="string">"Myparent1 static block"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mychild1</span> <span class="keyword">extends</span> <span class="title">MyParent1</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String str2 = <span class="string">"welcome"</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Mychild1 static block"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于静态字段来说，只有定义了该字段的类才会被初始化，当一个类在初始化时，要求其父类全部都已经初始化完毕了。所以上述代码只会输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Myparent1 static block</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>并没有<code>welcome</code>以及<code>Mychild1 static block</code></p>
+<p>但是子类<code>Mychild1</code>有没有被加载呢，可以使用虚拟机参数去查看</p>
+<p><code>-XX:+TraceClassLoading</code></p>
+<p>然后运行，可以看到子类被加载了，(这个有没有加载并没有规范)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">[Loaded sun.net.NetHooks$Provider from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">[Loaded sun.net.sdp.SdpProvider from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">[Loaded MyParent1 from file:/home/cc/IdeaProjects/test/out/production/test/]</span><br><span class="line">[Loaded Mychild1 from file:/home/cc/IdeaProjects/test/out/production/test/]</span><br><span class="line">[Loaded java.net.Socket$<span class="number">2</span> from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">Myparent1 <span class="keyword">static</span> block</span><br><span class="line">hello world</span><br><span class="line">[Loaded java.net.SocketInputStream from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">[Loaded sun.nio.cs.US_ASCII$Decoder from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.lang.Shutdown from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line">[Loaded java.lang.Shutdown$Lock from /usr/lib/jvm/java-<span class="number">8</span>-oracle/jre/lib/rt.jar]</span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h1 id="虚拟机参数一般形式"><a href="#虚拟机参数一般形式" class="headerlink" title="虚拟机参数一般形式"></a>虚拟机参数一般形式</h1><p><code>-XX:+&lt;option&gt;</code>：表示开启option选项</p>
+<p><code>-XX:-&lt;option&gt;</code>：表示关闭option选项</p>
+<p><code>`-XX:&lt;option&gt;=value</code>：表示将option选项的值设置为value</p>
+<h1 id="样例2"><a href="#样例2" class="headerlink" title="样例2"></a>样例2</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(MyParent2.str);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent2</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String str = <span class="string">"hello world"</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Myparent2 static block"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//output: hello world</span></span><br></pre></td></tr></table></figure>
+<p>为什么输出没有<code>Myparent2 static block</code>呢？</p>
+<p><strong>常量在编译阶段会存入到调用这个常量的方法所在的类的常量池中，本质上，调用类并没有直接引用到定义常量的类，因此并不会触发定义常量的类的初始化</strong></p>
+<p><strong>注意：这里指的是将常量放到了<code>Main</code>的常量池中，之后<code>Main</code>与<code>MyParent2</code>就没有任何关系了.</strong></p>
+<p>甚至可以将<code>MyParent2</code>的class文件删除</p>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/1.png" alt=""></p>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/2.png" alt=""></p>
+<h1 id="对样例2反编译"><a href="#对样例2反编译" class="headerlink" title="对样例2反编译"></a>对样例2反编译</h1><p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/3.png" alt=""></p>
+<p>对样例2反编译后我们可以看到一些助记符以及code那里的一些构造方法,下面看一些助记符(操作码)</p>
+<ul>
+<li><p>gestatic：得到out这个对象,本身out这个对象是一个静态成员变量</p>
+</li>
+<li><p>ldc：表示将int，float或是String类型的常量值从常量池中推送至栈顶（栈顶表示等会立即要用的）</p>
+</li>
+</ul>
+<p>将代码改为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(MyParent2.S);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent2</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">short</span> S = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Myparent2 static block"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后反编译</p>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/4.png" alt=""></p>
+<p>可以看到其他的相同，出现一个新的名叫<code>bipush</code>的助记符</p>
+<ul>
+<li>bipush：表示将单字节(-128~127)的常量值推送到栈顶</li>
+</ul>
+<p>改为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">128</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/5.png" alt=""></p>
+<ul>
+<li>sipush：表示将一个短整型的常量值(-32768~32767)推送到栈顶</li>
+</ul>
+<p>改为</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/6.png" alt=""></p>
+<ul>
+<li>iconst_1：表示将int型1推送至栈顶(<code>iconst_m1~iconst_5</code>)</li>
+</ul>
+<h1 id="助记符"><a href="#助记符" class="headerlink" title="助记符"></a>助记符</h1><p>助记符在<code>jt.jar</code>包有相关的类实现</p>
+<p>比如<code>ICONST</code>，在包<code>com.sun.org.apache.bcel.internal.generic</code>里面</p>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/7.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ICONST</span> <span class="keyword">extends</span> <span class="title">Instruction</span></span></span><br><span class="line"><span class="class">  <span class="keyword">implements</span> <span class="title">ConstantPushInstruction</span>, <span class="title">TypedInstruction</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Empty constructor needed for the Class.newInstance() statement in</span></span><br><span class="line"><span class="comment">   * Instruction.readInstruction(). Not to be used otherwise.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  ICONST() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">ICONST</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(com.sun.org.apache.bcel.internal.Constants.ICONST_0, (<span class="keyword">short</span>)<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((i &gt;= -<span class="number">1</span>) &amp;&amp; (i &lt;= <span class="number">5</span>))</span><br><span class="line">      opcode = (<span class="keyword">short</span>)(com.sun.org.apache.bcel.internal.Constants.ICONST_0 + i); <span class="comment">// Even works for i == -1</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> ClassGenException(<span class="string">"ICONST can be used only for value between -1 and 5: "</span> +</span><br><span class="line">                                  i);</span><br><span class="line">    value = i;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，它<code>icosnt</code>只有[-1,5]</p>
+<p>再比如<code>sipush</code></p>
+<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/8.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SIPUSH</span> <span class="keyword">extends</span> <span class="title">Instruction</span> <span class="keyword">implements</span> <span class="title">ConstantPushInstruction</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">short</span> b;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Empty constructor needed for the Class.newInstance() statement in</span></span><br><span class="line"><span class="comment">   * Instruction.readInstruction(). Not to be used otherwise.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  SIPUSH() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SIPUSH</span><span class="params">(<span class="keyword">short</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(com.sun.org.apache.bcel.internal.Constants.SIPUSH, (<span class="keyword">short</span>)<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">this</span>.b = b;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/";
+    this.page.identifier = 1555978715;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
