@@ -92,7 +92,7 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 103 </a>
+        <a href="/archives" class="header-toolbar-right"> 104 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
@@ -302,8 +302,7 @@
 <p>装完以后需要修改<code>/etc/profile</code>文件，在文件开头加入三行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export XMODIFIERS="@im=fcitx"</span><br><span class="line">export GTK_IM_MODULE="fcitx"</span><br><span class="line">export QT_IM_MODULE="fcitx"</span><br></pre></td></tr></table></figure>
 <p>可以解决一些软件无法调出fcitx的问题。</p>
-<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>参考:</p>
-<p>archwiki:</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>参考:archwiki:</p>
 <ul>
 <li>Localization/Simplified Chinese</li>
 <li>Font Configuration/Chinese </li>
@@ -317,8 +316,10 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp -r fonts_infinality /etc/fonts</span><br><span class="line">chmod -R 755 /etc/fonts</span><br><span class="line">cp fonts_infinality/fonts.conf ~/.config/fontconfig/fonts.conf</span><br></pre></td></tr></table></figure>
 <ol>
-<li>配置终端字体为<code>monaco</code></li>
-<li>配置系统字体</li>
+<li><p>配置终端字体为<code>monaco</code></p>
+</li>
+<li><p>配置系统字体</p>
+</li>
 </ol>
 <p><img src="/2019/02/15/Arch安装配置笔记/2.png" alt=""></p>
 <ol>
@@ -335,6 +336,7 @@
 <p><code>rm -rf /usr/share/plasma/plasmoids/org.kde.plasma.clipboard</code></p>
 <p>安装<code>copyq</code></p>
 <p><code>pacman -S copyq</code></p>
+<h2 id="xournal"><a href="#xournal" class="headerlink" title="xournal"></a>xournal</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay -S xournal</span><br></pre></td></tr></table></figure>
 <h2 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h2><p><code>pacman -S virtualbox virtualbox-ext-vnc virtualbox-guest-iso virtualbox-host-modules-arch</code><br>再去官网下载Oracle VM VirtualBox Extension Pack ，在设置中导入使用。安装windows的过程不在这里讲解，记得安装之后在windows内安装扩展客户端软件即可。</p>
 <h2 id="系统备份"><a href="#系统备份" class="headerlink" title="系统备份"></a>系统备份</h2><p><code>pacman -S timeshifts</code></p>
 <h2 id="声卡"><a href="#声卡" class="headerlink" title="声卡"></a>声卡</h2><p><code>pacman -S alsa-utils pulseaudio pulseaudio-bluetooth</code><br>图形化<br><code>pacman -S pavucontrol</code></p>
