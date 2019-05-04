@@ -92,7 +92,7 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 106 </a>
+        <a href="/archives" class="header-toolbar-right"> 107 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
@@ -394,6 +394,20 @@
 <p>添加backlight文件夹下的文件名到grub文件,然后禁止上面的service</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> ls /sys/class/backlight/</span><br><span class="line">radeon_bl0</span><br><span class="line"><span class="meta">$</span> sudo vim /etc/default/grub</span><br><span class="line">GRUB_CMDLINE_LINUX_DEFAULT="quiet acpi_backlight=radeon_bl0"</span><br><span class="line"><span class="meta">$</span> sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line"><span class="meta">$</span> sudo systemctl mask systemd-backlight@backlight:acpi_video0.service</span><br><span class="line"><span class="meta">$</span> reboot</span><br></pre></td></tr></table></figure>
 <h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pacman -S docker</span><br><span class="line">sudo systemctl enable docker</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">sudo groupadd docker</span><br><span class="line">sudo gpasswd -a $&#123;USER&#125; docker</span><br></pre></td></tr></table></figure>
+<h2 id="划词翻译"><a href="#划词翻译" class="headerlink" title="划词翻译"></a>划词翻译</h2><p>参考：<a href="https://blog.einverne.info/post/2018/08/goldendict.html" target="_blank" rel="noopener">https://blog.einverne.info/post/2018/08/goldendict.html</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S goldendict</span><br></pre></td></tr></table></figure>
+<ol>
+<li>有道的源</li>
+</ol>
+<p><code>http://dict.youdao.com/search?q=%GDWORD%&amp;ue=utf8</code></p>
+<ol>
+<li>Chinese Wikipedia</li>
+</ol>
+<p><code>https://zh.wikipedia.org/w</code></p>
+<ol>
+<li>Chinese Wiktionary</li>
+</ol>
+<p><code>https://zh.wiktionary.org/w</code></p>
 
   </article>
 </div>
