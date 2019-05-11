@@ -162,7 +162,7 @@
 <li><p>如果b==1，那么x=0，算法结束</p>
 </li>
 <li><p>若gcd(a, p) != 1，令d=gcd(a, p)，若d不能整除b，则无解，算法结束，否则继续</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如当x=1，a=4，p=8，b=3时，代入公式有4 mod 8和3 mod 8，此时d = gcd(a, p) = 4，说明a与p有因子为4，但是d不能整除b，说明b中没有共同因子，同样mod同一个数，没有共同因子，那么说明方程无解</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">例如当x=1，a=4，p=8，b=3时，代入公式有4 mod 8和3 mod 8，此时d = gcd(a, p) = 4，</span><br><span class="line">说明a与p有因子为4，但是d不能整除b，说明b中没有共同因子，同样mod同一个数，没有共同因子，那么说明方程无解</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>把一个a提取出来，$a^{x} \equiv b(\bmod p)$变成$a*a^{x-1} \equiv b(\bmod p)$</p>
 <p>同时除以d得$a^{x-1} * \frac{a}{d} \equiv \frac{b}{d}\left(\bmod \frac{p}{d}\right)$</p>
