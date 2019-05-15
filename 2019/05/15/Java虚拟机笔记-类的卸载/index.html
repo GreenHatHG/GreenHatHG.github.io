@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-类的卸载 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 111 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 83 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1557878876000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1557878876000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-类的卸载</h1>
+    <p>jvm类的卸载</p>
+<a id="more"></a>
+<p>当<code>MySample</code>类被加载，连接和初始化后，它的生命周期就开始了。当代表<code>MySample</code>类的<code>Class</code>对象不再被引用，即不可触及时，<code>Class</code>对象就会结束生命周期，<code>MySample</code>类在方法区内的数据也会被卸载，从而结束<code>MySample</code>类的生命周期。</p>
+<p>一个类何时结束生命周期，取决于代表它的Class对象何时结束生命周期。</p>
+<hr>
+<p>由Java虚拟机自带的加载器所加载的类，在虚拟机的生命周期中，始终不会被卸载。Java虚拟机自带的类加器包括根类加载器，扩展类加载器和系统类加载器。Java虚拟机本身会始终引用这些类加载器，而这些类加载器则会始引用它们所加载的类的<code>Class</code>对象，因此这<code>Class</code>对象终是可及的。</p>
+<p>由用户自定义的类加载器所加载的类是可以被卸载的。</p>
+<hr>
+<p>Sample类中由<code>loader1</code>加载。在类加载器的内部实现中，用一个Java集合来存放所加载类的引用。另一方面，一个<code>Class</code>对象总是会引用它的类加载器，调用<code>Class</code>对象的<code>getClasslodar()</code>方法，就能获得它的类加载器。此可见，代表<code>Sample</code>类的<code>Class</code>实例与<code>loader1</code>之间为双向关取关系。<br>一个类的实例总是引用代表这个类的<code>C1ass</code>对象。在<code>Object</code>类中定义了<code>getClass()</code><br>方法，这个方法返回代表对象所属类的<code>Class</code>对象的引用。此外，所有的Java类都有<br>一个静态属性class.它引用代表这个类的Class对象。</p>
+<h1 id="验证类的卸载"><a href="#验证类的卸载" class="headerlink" title="验证类的卸载"></a>验证类的卸载</h1><p>添加<code>-XX:+TraceClassUnloading</code>参数后可以看到类的卸载信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用户自定义类加载器必须继承ClassLoader类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String classLoaderName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//类的扩展名</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String fileExtension = <span class="string">".class"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  String path;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPath</span><span class="params">(String path)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.path = path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomClassLoader</span><span class="params">(String classLoaderName)</span></span>&#123;</span><br><span class="line">        <span class="comment">//使用方法getSystemClassLoader（）返回的ClassLoader作为父类加载器创建新的类加载器</span></span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.classLoaderName = classLoaderName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CustomClassLoader</span><span class="params">(String classLoaderName, ClassLoader parent)</span></span>&#123;</span><br><span class="line">        <span class="comment">//使用指定的父类加载器创建新的类加载器以进行委派</span></span><br><span class="line">        <span class="keyword">super</span>(parent);</span><br><span class="line">        <span class="keyword">this</span>.classLoaderName = classLoaderName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String className) <span class="keyword">throws</span> ClassNotFoundException&#123;</span><br><span class="line">        System.out.println(<span class="string">"findClass invoked: "</span> + className);</span><br><span class="line">        System.out.println(<span class="string">"class loader name: "</span> + <span class="keyword">this</span>.classLoaderName);</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">this</span>.loadClassDate(className);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.defineClass(className, data, <span class="number">0</span>, data.length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] loadClassDate(String name)&#123;</span><br><span class="line">        InputStream is = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">null</span>;</span><br><span class="line">        ByteArrayOutputStream baos = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//转换为磁盘对应的地址</span></span><br><span class="line">            name = name.replace(<span class="string">"."</span>, <span class="string">"/"</span>);</span><br><span class="line">            is = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="keyword">this</span>.path+ name + <span class="keyword">this</span>.fileExtension));</span><br><span class="line">            baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> ch = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>((ch = is.read()) != -<span class="number">1</span>)&#123;</span><br><span class="line">                baos.write(ch);</span><br><span class="line">            &#125;</span><br><span class="line">            data = baos.toByteArray();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                is.close();</span><br><span class="line">                baos.close();</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        CustomClassLoader loader1 = <span class="keyword">new</span> CustomClassLoader(<span class="string">"loader1"</span>);</span><br><span class="line">        loader1.setPath(<span class="string">"/home/cc/test/"</span>);</span><br><span class="line">        Class&lt;?&gt; clazz = loader1.loadClass(<span class="string">"indi.greenhat.jvm.Test"</span>);</span><br><span class="line">        Object object = clazz.newInstance();</span><br><span class="line">        System.out.println(object);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"-----------------"</span>);</span><br><span class="line">        loader1 = <span class="keyword">null</span>;</span><br><span class="line">        clazz = <span class="keyword">null</span>;</span><br><span class="line">        object = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         *运行垃圾回收器。</span></span><br><span class="line"><span class="comment">		 *调用gc方法表明，Java虚拟机花费了回收未使用对象的努力，以使其当前占用的内存可以快速重用。</span></span><br><span class="line"><span class="comment">         *当控件从方法调用返回时，Java虚拟机已经尽力从所有丢弃的对象中回收空间。</span></span><br><span class="line"><span class="comment">         *等于Runtime.getRuntime().gc();</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        System.gc();</span><br><span class="line">        System.out.println(<span class="string">"-----------------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">findClass invoked: indi.greenhat.jvm.Test</span><br><span class="line">class loader name: loader1</span><br><span class="line">indi.greenhat.jvm.Test@<span class="number">677327</span>b6</span><br><span class="line">-----------------</span><br><span class="line">[Unloading class indi.greenhat.jvm.Test 0x0000000100061028]</span><br><span class="line">-----------------</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/05/15/Java虚拟机笔记-类的卸载/";
+    this.page.identifier = 1557878876;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
