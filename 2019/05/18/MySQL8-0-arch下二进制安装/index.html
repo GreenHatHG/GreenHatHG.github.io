@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    MySQL8.0-arch下二进制安装 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  MySQL,arch
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 113 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 84 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1558167299000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1558167299000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>MySQL8.0-arch下二进制安装</h1>
+    <p>二进制安装可控，方便</p>
+<a id="more"></a>
+<p>参考：</p>
+<p><a href="https://linuxops.org/blog/mysql/mysql8.html" target="_blank" rel="noopener"><a href="https://linuxops.org/blog/mysql/mysql8.html" target="_blank" rel="noopener">https://linuxops.org/blog/mysql/mysql8.html</a></a></p>
+<p><a href="https://www.kancloud.cn/lengyueguang/linux/660448" target="_blank" rel="noopener">https://www.kancloud.cn/lengyueguang/linux/660448</a></p>
+<p>官方文档：</p>
+<p><a href="https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html" target="_blank" rel="noopener"><a href="https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/8.0/en/binary-installation.html</a></a></p>
+<h1 id="下载二进制包"><a href="#下载二进制包" class="headerlink" title="下载二进制包"></a>下载二进制包</h1><p>选择一个镜像站下载，查找起来比较方便，因为官网没有提供国内的源，所以挑了一个比较快的。</p>
+<p><a href="http://mysql.inspire.net.nz/Downloads" target="_blank" rel="noopener">http://mysql.inspire.net.nz/Downloads</a></p>
+<p>然后下载<code>mysql-xxxx-linux-glibcxx-xx.xx</code>就行了</p>
+<p>比如<a href="http://mysql.inspire.net.nz/Downloads/MySQL-8.0/mysql-8.0.15-linux-glibc2.12-i686.tar.xz" target="_blank" rel="noopener">http://mysql.inspire.net.nz/Downloads/MySQL-8.0/mysql-8.0.15-linux-glibc2.12-i686.tar.xz</a></p>
+<h1 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h1><p>解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf mysql-8.0.15-linux-glibc2.12-x86_64.tar.xz</span><br></pre></td></tr></table></figure>
+<p>移动到<code>~/opt</code>（可选）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv  mysql-8.0.15-linux-glibc2.12-x86_64 ~/opt/mysql</span><br></pre></td></tr></table></figure>
+<h1 id="配置用户和组（可选，这里用默认个人账号）"><a href="#配置用户和组（可选，这里用默认个人账号）" class="headerlink" title="配置用户和组（可选，这里用默认个人账号）"></a>配置用户和组（可选，这里用默认个人账号）</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql  </span><br><span class="line">useradd -r -g mysql -s /bin/false mysql</span><br></pre></td></tr></table></figure>
+<h1 id="主配置文件"><a href="#主配置文件" class="headerlink" title="主配置文件"></a>主配置文件</h1><p>log配置：<a href="https://segmentfault.com/a/1190000003072237" target="_blank" rel="noopener"><a href="https://segmentfault.com/a/1190000003072237" target="_blank" rel="noopener">https://segmentfault.com/a/1190000003072237</a></a></p>
+<p>创建数据存放文件夹</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/opt/mysqlData/data</span><br><span class="line">mkdir -p ~/opt/mysqlData/log</span><br><span class="line">chmod 750 ~/opt/mysqlData/data ~/opt/mysqlData/log</span><br></pre></td></tr></table></figure>
+<p>创建并编辑配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>mkdir -p /home/cc/opt/mysql/etc</span><br><span class="line"><span class="meta">#</span> vim /home/cc/opt/mysql/etc/my.cnf</span><br><span class="line">[mysql]</span><br><span class="line"><span class="meta">#</span> 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line"><span class="meta">#</span> 设置mysql的安装目录</span><br><span class="line">basedir=/home/cc/opt/mysql</span><br><span class="line"><span class="meta">#</span> 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=/home/cc/opt/mysqlData/data</span><br><span class="line">character-set-server=utf8</span><br><span class="line"><span class="meta">#</span> 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"><span class="meta">#</span>log</span><br><span class="line"><span class="meta">#</span>记录启动、运行或停止mysqld时出现的问题</span><br><span class="line">log-error=/home/cc/opt/mysqlData/log/error.log</span><br><span class="line"><span class="meta">#</span>是指执行超过多久的sql会被log下来，这里是2秒</span><br><span class="line">long_query_time=2</span><br><span class="line"><span class="meta">#</span>记录所有执行时间超过long_query_time秒的所有查询或不使用索引的查询</span><br><span class="line">log-slow-queries=/home/cc/opt/mysqlData/log/slowquery.log</span><br><span class="line"><span class="meta">#</span>记录所有更改数据的语句，还用于复制</span><br><span class="line">log_bin=/home/cc/opt/mysqlData/log/log_bin.log</span><br></pre></td></tr></table></figure>
+<p>MySQL配置文件条目很多，这边我们设置了常用的必须的一些配置项，如上，我们设置了<code>mysql</code>的监听端口、socket、安装目录、数据库文件存放目录等等配置。</p>
+<p>MySQL的配置也是分段配置的，每一个段都有一个名称，例如上面的配置<code>[mysql]</code> 配置了mysql工具的默认设置，<code>[mysqld]</code>则为MySQL服务器的配置</p>
+<p>MySQL配置项众多，对于每一个配置项官方都提供了一个默认值，如果你不确定使用它，可以不在配置文件中体现，这样MySQL会读取默认配置。</p>
+<p>当然，如果你无法确定MySQL提供了那些配置，或者不确定配置项的名称，你可以通过<code>mysqld --verbose --help</code> 命令查看，配合<code>grep</code>你会快速找到你想要的内容。</p>
+<hr>
+<p>在MySQL8.0中，默认的密码认证插件更换为<code>caching_sha2_password</code>，一些老的客户端和程序并不支持这种认证插件，所以为了兼容性，我们可能需要将认证插件修改为<code>mysql_native_password</code></p>
+<p>在配置文件中指定<code>default-authentication-plugin = mysql_native_password</code>，以后创建的用户都将使用<code>mysql_native_password</code>来验证，但是之前的账户并不会更改验证插件。</p>
+<hr>
+<h1 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yay -S libtinfo5</span><br><span class="line">sudo pacman -S numactl</span><br></pre></td></tr></table></figure>
+<h1 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h1><p>装好了MySQL，也写好了配置文件，这个时候你并不能直接通过<code>mysqld</code>来启动MySQL。</p>
+<p>因为还缺少系统必须的表，所以要通过命令先初始化MySQL，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize-insecure  --basedir=/home/cc/opt/mysql --datadir=/home/cc/opt/mysqlData/data</span><br></pre></td></tr></table></figure>
+<p>初始化命令中<code>--initialize-insecure</code>告诉mysql不需要帮我生成root密码，这个时候mysql的root用户是没有密码的，你需要尽快修改它。</p>
+<p>如果没有指定这个参数，MySQL会生成一个随机的密码，并且会告诉你密码存放在哪个文件中。</p>
+<h1 id="配置启动mysqld服务"><a href="#配置启动mysqld服务" class="headerlink" title="配置启动mysqld服务"></a>配置启动mysqld服务</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>sudo vim /usr/lib/systemd/system/mysqld.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=MySQL Server</span><br><span class="line">After=network.target</span><br><span class="line">After=syslog.target</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=cc</span><br><span class="line">Group=cc</span><br><span class="line">Type=notify</span><br><span class="line">TimeoutSec=0</span><br><span class="line">PermissionsStartOnly=true</span><br><span class="line">ExecStart=/home/cc/mysql/bin/mysqld --basedir=/home/cc/opt/mysql --datadir=/home/cc/opt/mysqlData/data</span><br><span class="line">LimitNOFILE = 10000</span><br><span class="line">Restart=always</span><br><span class="line">RestartPreventExitStatus=1</span><br><span class="line">Environment=MYSQLD_PARENT_PID=1</span><br><span class="line">PrivateTmp=false</span><br></pre></td></tr></table></figure>
+<p>接着</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable mysqld.service</span><br><span class="line">sudo systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
+<h1 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码'</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/05/18/MySQL8-0-arch下二进制安装/";
+    this.page.identifier = 1558167299;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
