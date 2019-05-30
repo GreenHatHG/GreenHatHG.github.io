@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-getProperty | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 114 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 84 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1559120365000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1559120365000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-getProperty</h1>
+    <p>类加载器的命名空间</p>
+<a id="more"></a>
+<h1 id="System-getProperty"><a href="#System-getProperty" class="headerlink" title="System.getProperty()"></a>System.getProperty()</h1><p>参考：<a href="https://www.jianshu.com/p/9b262628e041" target="_blank" rel="noopener"><a href="https://www.jianshu.com/p/9b262628e041" target="_blank" rel="noopener">https://www.jianshu.com/p/9b262628e041</a></a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取指定键指示的系统属性</span></span><br><span class="line"><span class="comment">         * 首先，如果存在安全管理器，会调用其checkPropertiesAccess无参方法，有可能抛出安全异常</span></span><br><span class="line"><span class="comment">         * 当前系统属性集会通过Property对象返回（对象有getProperty()方法）</span></span><br><span class="line"><span class="comment">         * 如果当前没有系统属性集，会创建并初始化系统属性集。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">//获得根类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"sun.boot.class.path"</span>));</span><br><span class="line">        <span class="comment">//获得扩展类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"java.ext.dirs"</span>));</span><br><span class="line">        <span class="comment">//获得系统类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"java.class.path"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/resources.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/rt.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jsse.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jce.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/charsets.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jfr.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/classes</span><br><span class="line"></span><br><span class="line">/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext:/usr/java/packages/lib/ext</span><br><span class="line"></span><br><span class="line">/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/charsets.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/deploy.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/cldrdata.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/dnsns.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/jaccess.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/jfxrt.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/localedata.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/nashorn.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/sunec.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/sunjce_provider.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/sunpkcs11.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/ext/zipfs.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/javaws.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jce.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jfr.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jfxswt.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/jsse.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/management-agent.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/plugin.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/resources.jar:/usr/lib/jvm/java-<span class="number">8</span>-jdk/jre/lib/rt.jar:/home/cc/IdeaProjects/test/out/production/test:/home/cc/opt/idea-IU-<span class="number">191.7141</span>.44/lib/idea_rt.jar</span><br></pre></td></tr></table></figure>
+<p>从这里可以看到<code>System.getProperty()</code>主要能够拿到一些关于Java的系统属性，如：java版本，java的vendor，操作系统版本等等。另外，还能够运行java命令时，通过-D参数来指定系统属性</p>
+<h1 id="样例1"><a href="#样例1" class="headerlink" title="样例1"></a>样例1</h1><p>从上面可以到根类加载器的一个加载目录有<code>/usr/lib/jvm/java-8-jdk/jre/classes</code>，然后我们可以把一个<code>.class</code>放在这个目录下，尝试去让根类加载器去加载它。</p>
+<p>我们用自定义类加载器去加载<code>indi.greenhat.jvm.Sample1</code>，把其<code>.class</code>文件复制到刚刚那个目录</p>
+<p><img src="/2019/05/29/Java虚拟机笔记-getProperty/1.png" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        CustomClassLoader loader1 = <span class="keyword">new</span> CustomClassLoader(<span class="string">"loder1"</span>);</span><br><span class="line">        loader1.setPath(<span class="string">"/home/cc/Test"</span>);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; clazz = loader1.loadClass(<span class="string">"indi.greenhat.jvm.Sample1"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(clazz.getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，最终该类是由根类加载器加载，这正好也对应了双亲委派机制。</p>
+<h1 id="样例2"><a href="#样例2" class="headerlink" title="样例2"></a>样例2</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.crypto.provider.AESKeyGenerator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        AESKeyGenerator aesKeyGenerator = <span class="keyword">new</span> AESKeyGenerator();</span><br><span class="line">        System.out.println(aesKeyGenerator.getClass().getClassLoader());</span><br><span class="line">        System.out.println(Test.class.getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sun.misc.Launcher$ExtClassLoader@<span class="number">12</span>a3a380</span><br><span class="line">sun.misc.Launcher$AppClassLoader@<span class="number">18</span>b4aac2</span><br></pre></td></tr></table></figure>
+<p><code>AESKeyGenerator</code>该类定义在扩展类加载器所对应的目录下，所有有扩展类加载器加载的，而<code>Test</code>类则是由系统类加载器加载的。</p>
+<p>上面说过，可以通过-D参数来指定系统属性。</p>
+<p><img src="/2019/05/29/Java虚拟机笔记-getProperty/3.png" alt=""></p>
+<p>我们通过-D改变扩展类的加载器寻找的目录，然后就会抛出异常。</p>
+<p>正好说明了<code>AESKeyGenerator</code>类是由扩展类加载器加载的。</p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/05/29/Java虚拟机笔记-getProperty/";
+    this.page.identifier = 1559120365;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
