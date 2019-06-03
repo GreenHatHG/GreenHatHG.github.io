@@ -92,7 +92,7 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 116 </a>
+        <a href="/archives" class="header-toolbar-right"> 117 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
@@ -139,6 +139,7 @@
     <p>jvm类加载器双亲委派机制</p>
 <a id="more"></a>
 <p>并不是所有的jvm虚拟机都使用这个机制，只是大部分，比如还有使用osgi的。</p>
+<p>双亲委任模型不是一个强制性的约束模型，而是一个建议型的类加载器实现方式。在Java的世界中大部分的类加载器都遵循者模型</p>
 <h1 id="类加载器的双亲委派机制"><a href="#类加载器的双亲委派机制" class="headerlink" title="类加载器的双亲委派机制"></a>类加载器的双亲委派机制</h1><p>在双亲委派机制中，各个加载器按照父子关系形成了树形结构（逻辑意义），除了根类加载器之外，其余的类加载器都有且有一个父加载器</p>
 <p><img src="/2019/05/03/Java虚拟机笔记-类加载器双亲委派机制/1.png" alt=""></p>
 <p>根类加载器和扩展类加载器只能加载指定路径的里面的类，而系统类加载器一般可以加载我们工程中所定义的类</p>
@@ -171,6 +172,14 @@
 <li>可以确保Java核心类库所提供的类不会被定义的类所替代。</li>
 <li>不同的类加载器可以为相同名称(<code>binaryname</code>)的类创建额外的命名空间。相同名称的类可以并存在Java虚拟机中，只需要用不同的类加载器来加载他们即可。不同类加载器所加载的类之间是不兼容的，这就相当于在Java虚拟机内部创建了一个又一个相互隔离的Java类空间，这类技术在很多框架中都得到了实际应用。</li>
 </ol>
+<h1 id="破坏"><a href="#破坏" class="headerlink" title="破坏"></a>破坏</h1><p>参考：<a href="https://juejin.im/post/5a59f2296fb9a01ca871eb8c" target="_blank" rel="noopener">深入理解 Tomcat（四）Tomcat 类加载器之为何违背双亲委派模型</a></p>
+<p>到目前为止，双亲委派模型有过3次大规模的“被破坏”的情况。</p>
+<h2 id="第一次"><a href="#第一次" class="headerlink" title="第一次"></a>第一次</h2><p>在双亲委派模型出现之前——-即JDK1.2发布之前。</p>
+<h2 id="第二次"><a href="#第二次" class="headerlink" title="第二次"></a>第二次</h2><p>是这个模型自身的缺陷导致的。我们说，双亲委派模型很好的解决了各个类加载器的基础类的统一问题（越基础的类由越上层的加载器进行加载），基础类之所以称为“基础”，是因为它们总是作为被用户代码调用的API， 但没有绝对，<strong>如果基础类调用会用户的代码</strong>怎么办呢？</p>
+<p>这不是没有可能的。一个典型的例子就是JNDI服务，JNDI现在已经是Java的标准服务，它的代码由启动类加载器去加载（在JDK1.3时就放进去的rt.jar）,但它需要调用由独立厂商实现并部署在应用程序的ClassPath下的JNDI接口提供者（SPI， Service Provider Interface）的代码，但启动类加载器不可能“认识“这些代码啊。因为这些类不在rt.jar中，但是启动类加载器又需要加载。怎么办呢？</p>
+<p>为了解决这个问题，Java设计团队只好引入了一个不太优雅的设计：<strong>线程上下文类加载器（Thread Context ClassLoader）</strong>。这个类加载器可以通过java.lang.Thread类的setContextClassLoader方法进行设置。如果创建线程时还未设置，它将会从父线程中继承一个，如果在应用程序的全局范围内都没有设置过多的话，那这个类加载器默认即使应用程序类加载器。</p>
+<p>嘿嘿，有了线程上下文加载器，JNDI服务使用这个线程上下文加载器去加载所需要的SPI代码，也就是父类加载器请求子类加载器去完成类加载的动作，这种行为实际上就是打通了双亲委派模型的层次结构来逆向使用类加载器，实际上已经违背了双亲委派模型的一般性原则。但这无可奈何，Java中所有涉及SPI的加载动作基本胜都采用这种方式。例如JNDI，<strong>JDBC</strong>，JCE，JAXB，JBI等。</p>
+<h2 id="第三次"><a href="#第三次" class="headerlink" title="第三次"></a>第三次</h2><p>为了实现热插拔，热部署，模块化，意思是添加一个功能或减去一个功能不用重启，只需要把这模块连同类加载器一起换掉就实现了代码的热替换。</p>
 
   </article>
 </div>

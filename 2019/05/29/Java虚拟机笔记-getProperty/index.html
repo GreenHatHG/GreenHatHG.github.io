@@ -92,7 +92,7 @@
     <ul class="header-toolbar">
       <li class="clearfix">
         <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 116 </a>
+        <a href="/archives" class="header-toolbar-right"> 117 </a>
       </li>
       <li>
         <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
@@ -136,8 +136,7 @@
 
   <article class="post-content">
     <h1>Java虚拟机笔记-getProperty</h1>
-    <p>类加载器的命名空间</p>
-<a id="more"></a>
+    <p>System.getProperty<br><a id="more"></a></p>
 <h1 id="System-getProperty"><a href="#System-getProperty" class="headerlink" title="System.getProperty()"></a>System.getProperty()</h1><p>参考：<a href="https://www.jianshu.com/p/9b262628e041" target="_blank" rel="noopener"><a href="https://www.jianshu.com/p/9b262628e041" target="_blank" rel="noopener">https://www.jianshu.com/p/9b262628e041</a></a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 获取指定键指示的系统属性</span></span><br><span class="line"><span class="comment">         * 首先，如果存在安全管理器，会调用其checkPropertiesAccess无参方法，有可能抛出安全异常</span></span><br><span class="line"><span class="comment">         * 当前系统属性集会通过Property对象返回（对象有getProperty()方法）</span></span><br><span class="line"><span class="comment">         * 如果当前没有系统属性集，会创建并初始化系统属性集。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">//获得根类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"sun.boot.class.path"</span>));</span><br><span class="line">        <span class="comment">//获得扩展类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"java.ext.dirs"</span>));</span><br><span class="line">        <span class="comment">//获得系统类加载器系统属性</span></span><br><span class="line">        System.out.println(System.getProperty(<span class="string">"java.class.path"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出</p>
@@ -158,6 +157,13 @@
 <p><img src="/2019/05/29/Java虚拟机笔记-getProperty/3.png" alt=""></p>
 <p>我们通过-D改变扩展类的加载器寻找的目录，然后就会抛出异常。</p>
 <p>正好说明了<code>AESKeyGenerator</code>类是由扩展类加载器加载的。</p>
+<h1 id="java-ext-dirs"><a href="#java-ext-dirs" class="headerlink" title="java.ext.dirs"></a>java.ext.dirs</h1><p>如果将<code>java.ext.dirs</code>目录指定到含有某个类的.class的文件夹中，尝试用扩展类加载器加载，这样是不行的。</p>
+<p>因为扩展类加载器查找的<code>.jar</code>文件。</p>
+<p>所以可以运用<code>jar</code>命令将<code>.class</code>文件打包成jar包，例如</p>
+<p><code>jar cvf test.jar test.class</code></p>
+<h1 id="sun-boot-class-path"><a href="#sun-boot-class-path" class="headerlink" title="sun.boot.class.path"></a>sun.boot.class.path</h1><p>如果我们修改<code>sun.boot.class.path</code>对应的路径则会抛出异常。</p>
+<p>因为<code>Object</code>类是每个类的父类，如果父类都没有了，那么不用说别的了。</p>
+<p><img src="/2019/05/29/Java虚拟机笔记-getProperty/4.png" alt=""></p>
 
   </article>
 </div>
