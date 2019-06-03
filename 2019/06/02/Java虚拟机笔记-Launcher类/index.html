@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-Launcher类 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 118 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 85 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1559465777000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1559465777000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-Launcher类</h1>
+    <p>Launcher类部分内容分析<br> <a id="more"></a></p>
+<h1 id="三种类加载器之间的关系"><a href="#三种类加载器之间的关系" class="headerlink" title="三种类加载器之间的关系"></a>三种类加载器之间的关系</h1><ol>
+<li><p>内建于JVM中的启动类加载器会加载<code>java.lang.ClassLoder</code>以及其他Java平台类，当JVM启动时，一块特殊的机器码会运行，它会加载扩展类加载器与系统类加载器，这块特殊的机器码叫做启动类加载器（Bootstrap）。</p>
+</li>
+<li><p>启动类加载器不是Java类，而其他的加载器则都是Java类，启动类加载器是特定于平台的机器指令，它负责开启整个过程。</p>
+</li>
+<li><p>所有类加载器（除了启动类加载器）都被实现为Java类。不过，总归要有一个组件来加载第一个Java类加载器，从而让整个加载过程能够顺利进行下去，加载第一个纯Java类加载器就是启动类加载器的职责。</p>
+</li>
+<li><p>启动类加载器还会负责加载供JRE正常运行所需要的基本组件，这包括<code>java.util</code>与<code>java.lang</code>包中的类等等。</p>
+</li>
+</ol>
+<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(ClassLoader.class.getClassLoader());</span><br><span class="line"><span class="comment">//输出null</span></span><br></pre></td></tr></table></figure>
+<p>但是不能直接获取扩展类加载器和系统类加载器，因为没有声明这两个类为public</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">     <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">AppClassLoader</span> <span class="keyword">extends</span> <span class="title">URLClassLoader</span></span>&#123;</span><br><span class="line">         ...</span><br><span class="line">     &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ExtClassLoader</span> <span class="keyword">extends</span> <span class="title">URLClassLoader</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是我们可以用Launcher类的类加载器验证</p>
+<p>​<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Launcher.class.getClassLoader());</span><br><span class="line"><span class="comment">//输出null</span></span><br></pre></td></tr></table></figure></p>
+<p>所以扩展类加载器和系统类加载器也是由启动类加载器就加载的。</p>
+<h1 id="getSystemClassLoader"><a href="#getSystemClassLoader" class="headerlink" title="getSystemClassLoader"></a>getSystemClassLoader</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ClassLoader <span class="title">getSystemClassLoader</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>jdk8文档中有下面内容：</p>
+<blockquote>
+<p>If the system property “java.system.class.loader” is defined when this method is first invoked then the value of that property is taken to be the name of a class that will be returned as the system class loader. The class is loaded using the default system class loader and must define a public constructor that takes a single parameter of type ClassLoader which is used as the delegation parent. An instance is then created using this constructor with the default system class loader as the parameter. The resulting class loader is defined to be the system class loader</p>
+</blockquote>
+<p>如果在首次调用此方法时定义了系统属性“java.system.class.loader”，那么该属性的值将被视为系统类加载器返回的类的名称。使用默认的系统类加载器加载该类，并且必须定义一个公共构造函数，该构造函数接受类型为ClassLoader的单个参数，该参数用作委托父类。然后使用此构造函数创建一个实例，并使用默认的系统类加载器作为参数。生成的类加载器被定义为系统类加载器。</p>
+<p>那么就是说，如果我们想要更改系统类加载器为自定义类加载器，一是得改变<code>java.system.class.loader</code>，二是在我们的自定义类加载器中添加一个参数为ClassLoader的构造函数</p>
+<hr>
+<p>首先，未更改<code>java.system.class.loade</code>时，输出其值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//indi.greenhat.jvm.Test.java</span></span><br><span class="line">System.out.println(System.getProperty(<span class="string">"java.system.class.loader"</span>));</span><br><span class="line"><span class="comment">//输出null</span></span><br></pre></td></tr></table></figure>
+<p>可以发现此时该属性值为null，如果我们不加上面所说的构造函数，直接更改属性值去加载别的类，那么会抛出异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Djava.system.class.loader=indi.greenhat.jvm.CustomClassLoader               indi.greenhat.jvm.Test</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/02/Java虚拟机笔记-Launcher类/1.png" alt=""></p>
+<p>在CustomClassLoader中加入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">CustomClassLoader</span><span class="params">(ClassLoader parent)</span></span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(parent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后就会输出</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">indi.greenhat.jvm.CustomClassLoader</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/06/02/Java虚拟机笔记-Launcher类/";
+    this.page.identifier = 1559465777;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
