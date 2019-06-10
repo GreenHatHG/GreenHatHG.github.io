@@ -7,12 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-    MOOC学习python爬虫之简单实战 | 葵花妈妈开课辣
+    记-迁移arch到不同硬盘 | 葵花妈妈开课辣
   </title>
   <meta name="description" content="孩子xx老不x怎么办，多半是x了">
   
   <meta name="keywords" content="
-  python,爬虫,MOOC
+  arch
   ">
   
   <meta name="author" content="GreenHatHG">
@@ -128,26 +128,33 @@
     <i class="fa fa-user-o"></i>
     GreenHatHG
 
-    <span class="post-date float-right" title="{{moment(1537783351000).format('MMM DD, YYYY, h:mm:ss A')}}">
+    <span class="post-date float-right" title="{{moment(1560095035000).format('MMM DD, YYYY, h:mm:ss A')}}">
       <i class="fa fa-pencil-square-o"></i>
-      {{moment(1537783351000).fromNow()}}
+      {{moment(1560095035000).fromNow()}}
     </span>
   </h3>
 
   <article class="post-content">
-    <h1>MOOC学习python爬虫之简单实战</h1>
-    <p>简单抓取京东，亚马逊，搜索引擎信息，ip归属地查询</p>
+    <h1>记-迁移arch到不同硬盘</h1>
+    <p>迁移sata固态硬盘中的arch到空的nvme固态硬盘里面</p>
 <a id="more"></a>
-<h1 id="京东"><a href="#京东" class="headerlink" title="京东"></a>京东</h1><p>无意外，status_code返回202</p>
-<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-%E4%BA%AC%E4%B8%9C.png"></p>
-<h1 id="天猫"><a href="#天猫" class="headerlink" title="天猫"></a>天猫</h1><p>status_code返回503。模拟一波head</p>
-<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-%E5%A4%A9%E7%8C%AB.png"></p>
-<h1 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E6%8E%A5%E5%8F%A3.png"></p>
-<p>google:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.google.com/search?q=keyword</span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-%E7%99%BE%E5%BA%A6.png"></p>
-<h1 id="爬取网页图片并且保存"><a href="#爬取网页图片并且保存" class="headerlink" title="爬取网页图片并且保存"></a>爬取网页图片并且保存</h1><p><img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-%E5%9B%BE%E7%89%87%E7%88%AC%E5%8F%96.png"></p>
-<h1 id="IP地址归属地自动查询"><a href="#IP地址归属地自动查询" class="headerlink" title="IP地址归属地自动查询"></a>IP地址归属地自动查询</h1><p> <img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/python-ip.png"></p>
+<h1 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h1><p><strong>记原本sata固态硬盘为/dev/sda，nvme固态固态为/dev/nvme</strong></p>
+<p>原sata硬盘分区为，启动方式为uefi</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/         --&gt; /dev/sda1</span><br><span class="line">/home     --&gt; /dev/sda2</span><br><span class="line">swap      --&gt; /dev/sda3</span><br><span class="line">/boot/efi --&gt; /dev/sda4</span><br></pre></td></tr></table></figure>
+<p>则我们需要在新的nvme固态硬盘同样分四个区，并且分别格式化为对应的格式，新的硬盘分区不能小于旧的硬盘分区。</p>
+<p>那么迁移过来我们的分区如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/         --&gt; /dev/nvme1 (ext4)</span><br><span class="line">/home     --&gt; /dev/nvme2 (ext4)</span><br><span class="line">swap      --&gt; /dev/nvme3 (linux-swap)</span><br><span class="line">/boot/efi --&gt; /dev/nvme4 (fat32)</span><br></pre></td></tr></table></figure>
+<h1 id="linux-livecd"><a href="#linux-livecd" class="headerlink" title="linux livecd"></a>linux livecd</h1><p>原系统是哪个发行版，则最好用对应发行版的livecd。所以在此准备了个arch linux的livecd</p>
+<p><strong>原本是用manjaro linuxcd的，后来发现有挺多的问题，转换为arch linux的livecd后一路顺畅。</strong></p>
+<h1 id="livecd操作"><a href="#livecd操作" class="headerlink" title="livecd操作"></a>livecd操作</h1><p>接着进入linuxcd后联网。</p>
+<p>这里因为之前在manjaro livecd的时候不小心把boot分区弄没了，所以现在的思路就是复制/和/home分区后，然后<code>arch-chroot</code>进去后弄grub，所以。</p>
+<h2 id="dd拷贝"><a href="#dd拷贝" class="headerlink" title="dd拷贝"></a>dd拷贝</h2><p>拷贝对应的分区，因为dd的会把对应硬盘uuid也拷贝过去，所以不需要更改<code>/etc/fstab</code>文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/sda1 of=/dev/nvme1</span><br><span class="line">dd if=/dev/sda2 of=/dev/nvme2</span><br><span class="line"></span><br><span class="line">e2fsck -f /dev/nvme1</span><br><span class="line">resize2f /dev/nvme1</span><br><span class="line">e2fsck -f /dev/nvme2</span><br><span class="line">resize2f /dev/nvme2</span><br></pre></td></tr></table></figure>
+<h2 id="操作boot分区"><a href="#操作boot分区" class="headerlink" title="操作boot分区"></a>操作boot分区</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /mnt/home</span><br><span class="line">mkdir -p /mnt/boot/efi</span><br><span class="line"></span><br><span class="line">mount /dev/nvme1 /mnt</span><br><span class="line">mount /dev/nvme2 /mnt/home</span><br><span class="line">mount /dev/nvme4 /mnt/boot/efi</span><br></pre></td></tr></table></figure>
+<h2 id="arch-chroot"><a href="#arch-chroot" class="headerlink" title="arch-chroot"></a>arch-chroot</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br><span class="line">pacman -Sy</span><br><span class="line">pacman -S grub efibootmgr linux</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/mnt/boot/efi --bootloader-id=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line">pacman -S amd-ucode</span><br><span class="line"><span class="meta">#</span>注意此处需要安装linux包，因为部分boot分区也在linux包里面</span><br></pre></td></tr></table></figure>
+<h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">umount -R /mnt</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>然后就可以了</p>
+<p><img src="/2019/06/09/记-迁移arch到不同硬盘/1.png" alt=""></p>
 
   </article>
 </div>
@@ -160,8 +167,8 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://greenhathg.github.io/2018/09/24/MOOC学习python爬虫之简单实战/";
-    this.page.identifier = 1537783351;
+    this.page.url = "https://greenhathg.github.io/2019/06/09/记-迁移arch到不同硬盘/";
+    this.page.identifier = 1560095035;
   };
 
   (function() {
