@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-线程上下文加载器 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 123 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 85 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1560171442000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1560171442000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-线程上下文加载器</h1>
+    <p> 线程上下文加载器</p>
+<a id="more"></a>
+<h1 id="线程上下文类加载器重要性"><a href="#线程上下文类加载器重要性" class="headerlink" title="线程上下文类加载器重要性"></a>线程上下文类加载器重要性</h1><p>首先我们看两行输出语句，第一个是输出Thread对象的上下文类加载器，而第二个是输出Thread类的加载器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * currentThread():</span></span><br><span class="line"><span class="comment">         * 返回对当前正在执行的线程对象的引用</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * getContextClassLoader():</span></span><br><span class="line"><span class="comment">         * 返回此Thread的上下文ClassLoader</span></span><br><span class="line"><span class="comment">         * 上下文ClassLoader由线程的创建者提供，供加载类和资源时在此线程中运行的代码使用</span></span><br><span class="line"><span class="comment">         * 如果未设置，则默认为父线程的ClassLoader上下文</span></span><br><span class="line"><span class="comment">         * 原始线程的上下文ClassLoader通常设置为用于加载应用程序的类加载器</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        System.out.println(Thread.currentThread().getContextClassLoader());</span><br><span class="line"></span><br><span class="line">        System.out.println(Thread.class.getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sun.misc.Launcher$AppClassLoader@<span class="number">18</span>b4aac2</span><br><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+<p>我们先看null，表示的是启动类加载器，因为Thread类是位于Java核心包里面，所以当然是由启动类加载器加载的。</p>
+<p>解释第一条例子前先看一点概念：</p>
+<ul>
+<li><strong>当前类加载器（Current ClassLoader）</strong></li>
+</ul>
+<p>每个类都会使用自己的类加载器（即加载自身的类加载器）来去加载其他类（指的是所依赖的类），如果ClasssX引用了ClassY，那么ClassX的类加载器就会去加载ClassY（前提是ClassY尚未被加载）</p>
+<ul>
+<li><strong>线程上文类加载器（Context ClassLoader）</strong></li>
+</ul>
+<ol>
+<li><p>线程上下文加载器是从JDK1.2开始引入的，类Thread中的<code>getContextClassLoader</code>与<code>setContextClassLoader(ClassLoader cl)</code>分别用来获取和设置上下文类加载器</p>
+</li>
+<li><p>如果没有通过<code>setContextClassLoader(ClassLoader cl)</code>进行设置的话，线程将继承其父线程的上下文类加载器。</p>
+</li>
+<li><p>Java应用运行时的初始线程的上下文类加载器是系统类加载器。在线程中运行的代码可以通过该类加载器来加载类与资源。</p>
+</li>
+<li><p>线程上文类加载器重要性：</p>
+</li>
+</ol>
+<p>其实很简单，<strong>就是为了解决类加载器命名空间的限制</strong>。在双亲委托机制下，类加载是由下至上的，即下层的类加载器会委托上层进行加载。在SPI（Service Provider Interface）场景下，<strong>有些接口是Java核心库提供的，并且是由启动类加载器来加载的，而这些接口的实现却来自不同的jar包（实现厂商提供），Java的启动类加载器是不会加载其它来源的Jar包</strong>，这样传统的双亲委托机制无法满足SPI要求。通过给当前线程设置上下文类加载器，就可以由其负责加载接口实现的类。</p>
+<p>就好像JDBC：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(driverClass);</span><br><span class="line">Connection con = DriverManager.getConnection(dataBase, usrName, passWord);</span><br><span class="line">stm = con.createStatement();</span><br></pre></td></tr></table></figure>
+<p>一些接口是本来已经存在于JDK中，而驱动包（接口的实现）则是厂商提供的。</p>
+<p><strong>所以，父ClassLoader可以使用当前线程<code>Thread.currentThread().getContextLoader()</code>所指定的ClassLoader加载的类。这样就改变了父ClassLoader不能使用子ClassLoader或是其他没有直接父子关系的ClassLoader加载的类的情况，即改变了双亲委派模型。</strong></p>
+<p>当高层提供了统一的接口让底层去实现，同时又要在高层加载（或实例化）底层的类时，就必须要通过线程上下文类加载器来帮助高层的ClassLoader找到并加载该类。</p>
+<hr>
+<p><strong>线程上下文加载器就是当前线程的Current Loader</strong></p>
+<p>因为Java应用运行时的初始线程的上下文类加载器是系统类加载器，所以第一行输出的是系统类加载器</p>
+<p>为什么呢？</p>
+<p>从Launcher类的构造函数就可以看出，默认是设置为系统类加载器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Launcher</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   	...	</span><br><span class="line">       <span class="comment">//用于启动应用程序的类加载器</span></span><br><span class="line">       loader = AppClassLoader.getAppClassLoader(extcl);</span><br><span class="line">	...</span><br><span class="line">       <span class="comment">// 为原始线程设置上下文类加载器。</span></span><br><span class="line">       Thread.currentThread().setContextClassLoader(loader);</span><br><span class="line">    	...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="线程上下文类加载器使用"><a href="#线程上下文类加载器使用" class="headerlink" title="线程上下文类加载器使用"></a>线程上下文类加载器使用</h1><p>线程上下文类加载器的一般使用模式：（获取—使用—还原）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader classLoader = Thread.currentThread().getContextClassLoader();</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    Thread.currentThread().setContextClassLoader(customerLoader);</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用了Thread.currentThread().getContextClassLoader()</span></span><br><span class="line"><span class="comment">     * 获取当前线程上下文类加载器做某些事情</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    myMethod(); </span><br><span class="line">&#125; <span class="keyword">finally</span>&#123;</span><br><span class="line">    Thread,currentThread().setContextClassLoader(classLoader); <span class="comment">//还原，以供下次使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/06/10/Java虚拟机笔记-线程上下文加载器/";
+    this.page.identifier = 1560171442;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
