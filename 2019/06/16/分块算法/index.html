@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    分块算法 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  分块
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 124 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 86 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1560653560000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1560653560000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>分块算法</h1>
+    <p>分块算法</p>
+<a id="more"></a>
+<h1 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h1><ul>
+<li><p>其实，分块是一种思想，而不是一种数据结构，<strong>整体维护，局部暴力</strong></p>
+</li>
+<li><p>分块算法实质上是一种是通过分成多块后在每块上打标记以实现快速区间修改，区间查询的一种算法。其均摊时间复杂度为$O(\sqrt{n})$，在$n=10^5$时，由于常数小，跟线段树可能差不多。</p>
+</li>
+<li><p>分块算法相较于各种树形数据结构，具有简便易写，方便调试等多种优点。在同等数据规模下，如 1e5 ，其时间效率并不会低太多，在考试时反而是一种有力的得分方法。</p>
+</li>
+</ul>
+<h1 id="基本操作及性质"><a href="#基本操作及性质" class="headerlink" title="基本操作及性质"></a>基本操作及性质</h1><p>为了使得其有着最稳定的时间复杂度，我们经常把一个长度为 n 的序列分为 $\sqrt{n}$个大小为$\sqrt{n}$的块，如果 n 不是完全平方数，则序列最右端会多出一个角块（其实是根据均值不等式，这样划分是时间复杂度最小的）</p>
+<p>如下图，就是一种序列的分块：</p>
+<p><img src="/2019/06/16/分块算法/1.jpg" alt=""></p>
+<p>该长度为 10 的序列被分为了 4 块，前三块的大小为 $\sqrt{10}$的近似值 3 ，最后一个角块大小为 1</p>
+<hr>
+<p>而我们要记录的一个值，就是每个序号代表的数，属于哪一块</p>
+<p>如上图， 1,2,3就属于第一块， 4,5,6就属于第二块，7,8,9就属于第三块，10 就属于第四块</p>
+<p>可以得到获取每一个序号的所在块的代码是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n;<span class="comment">//总个数</span></span><br><span class="line"><span class="keyword">int</span> block=<span class="built_in">sqrt</span>(n);<span class="comment">//每一块大小</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//belong[i]：第i个数所在块的编号</span></span><br><span class="line">    belong[i]=(i<span class="number">-1</span>)/block+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="区间最值"><a href="#区间最值" class="headerlink" title="区间最值"></a>区间最值</h1><p>但是，如何用分块来维护区间最值？</p>
+<p>我们举个例子:</p>
+<p>给定一个长的为n数列，求出任意区间$[l,r]$的最大值$(1&lt;=l,r&lt;=n)(l&lt;=r)$</p>
+<p><img src="/2019/06/16/分块算法/2.png" alt=""></p>
+<p><strong>我们现在给每个点上加了一个权值，每个块维护一下块内最大值</strong></p>
+<p>当我们查询任意一个区间$ [l,r]$时：</p>
+<ul>
+<li><p>如果$l$所在的块与$r$所在的块相同，如$[1,2]$，则直接暴力查询即可，时间复杂度  $O(\sqrt{n})$（每块有 $\sqrt{n}$个数，角块除外）</p>
+</li>
+<li><p>若其不在一个块但是块是相邻的，一样是暴力查询，时间复杂度$O(\sqrt{n})$</p>
+</li>
+<li>若其块不相邻，如$[1,10]$，我们先处理两边的边块角块，先暴力查询$1$和$10$所在的块内最大值，最后直接查询中间块内最大值即可，时间复杂度$O(\sqrt{n})$（因为我们已经统计了个每个块的最大值了，所以查询中间块的最大值即是$O(\sqrt{n})$，最终加起来还是$O(\sqrt{n})$）</li>
+</ul>
+<h1 id="区间修改"><a href="#区间修改" class="headerlink" title="区间修改"></a>区间修改</h1><p>对于整块修改，我们打个加法标记，即当前块增加了多少，最大值相应的就增加了多少</p>
+<p>所以总时间复杂度也是$O(\sqrt{n})$</p>
+<h1 id="分块的实质"><a href="#分块的实质" class="headerlink" title="分块的实质"></a>分块的实质</h1><p>分块其实是一种树形结构，它是一种只有三层的树，形态如下：</p>
+<p><img src="/2019/06/16/分块算法/3.png" alt=""></p>
+<p>第一层为整个序列，第二层为$\sqrt{n}$个大小为$\sqrt{n}$的序列(近似)，第三层为$n$个大小为$1$的序列</p>
+<h1 id="分块与树状数组，线段树对比"><a href="#分块与树状数组，线段树对比" class="headerlink" title="分块与树状数组，线段树对比"></a>分块与树状数组，线段树对比</h1><p>树状数组和线段树的效率均为$O(nlogn)$，树状数组常数较小，分块效率为$O(n\sqrt{n})$</p>
+<p>一般树状数组常数优秀的话可以承受到1e6的数据范围</p>
+<p>线段树可以承受5e5的数据范围</p>
+<p>分块可以承受5e4的数据范围，常数优秀的话可以承受1e5的数据范围</p>
+<p>树状数组最难理解，代码实现最简单</p>
+<p>线段树较易理解，代码实现最复杂，常数较之树状数组会比较大</p>
+<p>分块易理解，代码实现难度适中，复杂度较高</p>
+<p>所以请根据实际情况选择不同的算法</p>
+<h1 id="分块基本模板"><a href="#分块基本模板" class="headerlink" title="分块基本模板"></a>分块基本模板</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1E5</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * num:分块个数</span></span><br><span class="line"><span class="comment"> * belong[i]:i属于哪一块</span></span><br><span class="line"><span class="comment"> * L[i]:i这块的左端点位置</span></span><br><span class="line"><span class="comment"> * R[i]:右端点位置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">int</span> num, belong[MAXN], L[MAXN], R[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="comment">//对序列进行分块</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> block = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    num = n / block;</span><br><span class="line">    <span class="comment">//不是完全数，加一个角块</span></span><br><span class="line">    <span class="keyword">if</span>(n % block)</span><br><span class="line">        num++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= num; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        L[i] = (i<span class="number">-1</span>)*block+<span class="number">1</span>;</span><br><span class="line">        R[i] = i*block;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//处理多出来那个，角块</span></span><br><span class="line">    R[num] = n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        belong[i] = (i<span class="number">-1</span>)/block+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a href="https://www.luogu.org/blog/48265/qian-tan-ji-chu-gen-hao-suan-fa-fen-kuai" target="_blank" rel="noopener">浅谈基础根号算法——分块</a></p>
+<p><a href="https://oi-wiki.org/ds/square-root-decomposition/" target="_blank" rel="noopener">OIWIKI-分块思想</a></p>
+<p><a href="https://www.cnblogs.com/henry-1202/p/10124856.html" target="_blank" rel="noopener">分块入门与分块的经典应用</a></p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/06/16/分块算法/";
+    this.page.identifier = 1560653560;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
