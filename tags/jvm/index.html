@@ -153,7 +153,7 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">125</span></a>
+      <a href="/archives">Posts <span class="counter">126</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
@@ -164,6 +164,29 @@
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/">Java虚拟机笔记-JDBC驱动加载机制</a></h2>
+          <p>
+              通过JDBC驱动加载理解线程上下文加载器 
+  
+   JDBC   JDBC 提供了独立于数据库的统一 API ， MySQL ， Oracle 等数据库公司都可以基于这个标准接口来进行开发。包括 java .sql 包下的 Driver ， Connection ， Statement ， ...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/jvm/">jvm</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 1 </span>
+            <span>Published {{moment(1561102748000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/06/11/Java虚拟机笔记-ServiceLoader/">Java虚拟机笔记-ServiceLoader</a></h2>
@@ -627,22 +650,6 @@
 
 
 <script src="/js/main.js"></script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
