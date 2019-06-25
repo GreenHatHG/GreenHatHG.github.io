@@ -153,12 +153,12 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">126</span></a>
+      <a href="/archives">Posts <span class="counter">128</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
     <li class="selected">
-      <a href="/tags">Tags <span class="counter">88</span></a></li>
+      <a href="/tags">Tags <span class="counter">89</span></a></li>
   </ul>
 </nav>
 
@@ -232,6 +232,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

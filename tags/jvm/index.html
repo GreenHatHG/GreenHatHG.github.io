@@ -153,17 +153,41 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">126</span></a>
+      <a href="/archives">Posts <span class="counter">128</span></a>
     </li>
     <li class="">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
     <li class="selected">
-      <a href="/tags">Tags <span class="counter">88</span></a></li>
+      <a href="/tags">Tags <span class="counter">89</span></a></li>
   </ul>
 </nav>
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/06/23/Java虚拟机笔记-字节码格式/">Java虚拟机笔记-字节码格式</a></h2>
+          <p>
+              .class文件 
+  
+ Java从刚开始的时候就有两套 规范，一个是Java语言规范，另外一个是Java虚拟机规范，Java语言规范只是规定了Java语言相关的约束以及规则，而虚拟机规范则才是真正从跨平台的角度去设计的 
+   Java语言的平台无关性  在虚拟机出现之前，程序要想正确运行在...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/jvm/">jvm</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 1 </span>
+            <span>Published {{moment(1561254128000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/">Java虚拟机笔记-JDBC驱动加载机制</a></h2>
@@ -650,6 +674,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

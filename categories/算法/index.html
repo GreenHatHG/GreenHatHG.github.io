@@ -153,17 +153,43 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">126</span></a>
+      <a href="/archives">Posts <span class="counter">128</span></a>
     </li>
     <li class="selected">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
     <li class="">
-      <a href="/tags">Tags <span class="counter">88</span></a></li>
+      <a href="/tags">Tags <span class="counter">89</span></a></li>
   </ul>
 </nav>
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/06/23/莫队算法/">莫队算法</a></h2>
+          <p>
+             算法 
+ 莫队算法 
+  
+   简述  莫队算法使用分块的思想，可以解决一类离线区间询问问题 
+ 莫队算法（ mo&amp;#39;s algorithm ）一般分为两类，一是莫队维护区间答案，二是维护区间内的数据结构。当然也有树上莫队，带修改莫队、二维莫队等等 
+   普通莫队  莫队的精髓就在于，离...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/莫队/">莫队</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 1 </span>
+            <span>Published {{moment(1561276178000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/06/16/分块算法/">分块算法</a></h2>
@@ -1032,6 +1058,22 @@ euler(x) =x\times(1-\frac{1}{p_1})\times(1-\frac{1}{p_2}...
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
