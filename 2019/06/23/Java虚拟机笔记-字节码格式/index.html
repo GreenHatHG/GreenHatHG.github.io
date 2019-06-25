@@ -154,16 +154,40 @@
 <p>在linux下我们可以用<code>hexyl</code>工具在终端下查看文件的16进制表示，或者使用<code>vim -b filename</code>然后键入<code>%!xxd -g1</code>命令查看</p>
 <p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/2.png" alt=""></p>
 <p>可以看到，Class文件是一组以8位字节（由八个二进制数位组成的字节，通常可表示一个字符，即2个字符占一个字节。因为2的4次方表示16，）为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在Class文件之中，中间没有添加任何分隔符，这使得整个Class文件中存储的内容几乎 全部是程序运行的必要数据，没有空隙存在。当遇到需要占用8位字节以上空间的数据项 时，则会按照高位在前的方式分割成若干个8位字节进行存储。</p>
-<h2 id="魔数与Class文件的版本"><a href="#魔数与Class文件的版本" class="headerlink" title="魔数与Class文件的版本"></a>魔数与Class文件的版本</h2><p><strong>每个Class文件的头4个字节称为魔数（0xCAFEBABE），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件。</strong></p>
+<h2 id="魔数（Magic-Number）"><a href="#魔数（Magic-Number）" class="headerlink" title="魔数（Magic Number）"></a>魔数（Magic Number）</h2><p><strong>每个Class文件的头4个字节称为魔数（0xCAFEBABE），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件。</strong></p>
 <p>很多文件存储标准中都使用魔数来进行身份识别， 譬如图片格式，如gif或者jpeg等在文件头中都存有魔数。使用魔数而不是扩展名来进行识别 主要是基于安全方面的考虑，因为文件扩展名可以随意地改动。文件格式的制定者可以自由 地选择魔数值，只要这个魔数值还没有被广泛采用过同时又不会引起混淆即可。</p>
-<hr>
-<p>紧接着魔数的4个字节存储的是Class文件的版本号：第5和第6个字节是次版本号（<code>Minor Version</code>），第7和第8个字节是主版本号（<code>Major Version</code>）。<strong>Java的版本号是从45开始的</strong>，JDK 1.1之后的每个JDK大版本发布主版本号向上加1（JDK 1.0～1.1使用了45.0～45.3的 版本号），高版本的JDK能向下兼容以前版本的Class文件，但不能运行以后版本的Class文 件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的Class文件。</p>
+<h2 id="Class文件的版本"><a href="#Class文件的版本" class="headerlink" title="Class文件的版本"></a>Class文件的版本</h2><p>紧接着魔数的4个字节存储的是Class文件的版本号：第5和第6个字节是次版本号（<code>Minor Version</code>），第7和第8个字节是主版本号（<code>Major Version</code>）。<strong>Java的版本号是从45开始的</strong>，JDK 1.1之后的每个JDK大版本发布主版本号向上加1（JDK 1.0～1.1使用了45.0～45.3的 版本号），高版本的JDK能向下兼容以前版本的Class文件，但不能运行以后版本的Class文 件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的Class文件。</p>
 <p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/3.png" alt=""></p>
-<p>从上面反编译的结果可以看到 <code>minor version: 0 major version: 52</code>，或者<code>0x34</code>，正好52对应了jdk1.8</p>
+<p>从上面反编译的结果可以看到 <code>minor version: 0 major version: 52</code>，或者<code>0x34</code>，正好52对应了jdk1.8，</p>
+<p>最后面的0为次版本号</p>
+<p> <strong>Class文件版本号</strong></p>
+<p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/4.png" alt=""></p>
+<h2 id="常量池（Constant-Pool）"><a href="#常量池（Constant-Pool）" class="headerlink" title="常量池（Constant Pool）"></a>常量池（Constant Pool）</h2><p>紧接着主次版本号之后的是常量池入口</p>
+<p>常量池可以理解为<strong>Class文件之中的资源仓库</strong>，它是Class文件结构中与其他项目关联最多的数据类型，也是占用Class文件空间最大的数据项目之一，同时它还是在Class文件中第一个出现的表类型数据项目。</p>
+<p><strong>常量池中主要存放两大类常量：字面量（<code>Literal</code>）和符号引用（<code>Symbolic References</code>）。</strong></p>
+<ul>
+<li>字面量比较接近于Java语言层面的常量概念，如文本字符串、声明为final的常量值等。</li>
+<li>而符号引用则属于编译原理方面的概念，包括了下面三类常量：<ul>
+<li>类和接口的全限定名（<code>Fully Qualified Name</code>） </li>
+<li>字段的名称和描述符（<code>Descriptor</code>） </li>
+<li>方法的名称和描述符</li>
+</ul>
+</li>
+</ul>
+<p><em>Java代码在进行<code>Javac</code>编译的时候，并不像C和C++那样有“连接”这一步骤，而是在虚拟机加载Class文件的时候进行动态连接。也就是说，<strong>在Class文件中不会保存各个方法、字段的最终内存布局信息</strong>，因此这些字段、方法的符号引用不经过运行期转换的话无法得到真正的内存入口地址，也就无法直接被虚拟机使用。当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析、翻译到具体的内存地址之中。</em></p>
+<hr>
+<p>常量池的总体结构：<strong>Java类所对应的常量池主要由常量池数量与常量池数组这两部分共同组成</strong>。<strong>常量池数量紧跟在主版本号后面</strong>，占据2个字节（<code>u2</code>类型数据）；<strong>常量池数组则紧跟在常量池数量之后</strong>。常量池数组与一般数组不同的是，<strong>常量池数组中不同的元素的类型、结构都是是不同的，长度当然也就不同</strong>；但是，<strong>每一种元素的第一个数据都是一个<code>u1</code>类型</strong>，该字节是个标志位，占据1个字节，JVM在解析常量池时，会根据这个<code>u1</code>类型来获取元素的具体类型。</p>
+<hr>
+<p>由上面的16进制图可以看到，常量池数量为<code>0x18</code>，即24个常量，我们也可以看反编译的结果：<code>#1～#23</code></p>
+<p>值得注意的是，<code>常量池数组中的元素个数=常量池数-1（其中0暂时不使用）</code>，目的是满足某些常量池索引值的数据在特定情况下需要表达<code>不引用任何一个常量池</code>的含义；根本原因在于，索引为0也是一个常量（保留常量），只不过它不位于常量表中，这个常量就对应<code>null</code>值；所以，常量池的索引从1开始而非0开始。</p>
+<h2 id="常量池中数据类型结构"><a href="#常量池中数据类型结构" class="headerlink" title="常量池中数据类型结构"></a>常量池中数据类型结构</h2><p>常量池中的每一项常量都是一个表，在 JDK 7 之前共有 11 种结构不同的表，在 JDK 7 中为了更好的支持动态语言调用，又增加了3种。都是<code>CONSTANT</code>开头，<code>info</code>结尾<img src="/2019/06/23/Java虚拟机笔记-字节码格式/5.png" alt=""></p>
+<p>其中 <code>CONSTANT_Utf8_info</code> 类型的常量，它的 <code>length</code> 值说明了这个 UTF-8 编码的字符串长度是多少字节，<code>bytes</code> 的值为长度为 <code>length</code> 字节的 UTF-8 缩略编码表示的字符串</p>
+<p><em>由于 Class 文件中方法、字段等都需要引用 <code>CONSTANT_Utf8_info</code> 型常量来描述名称，所以 <code>CONSTANT_Utf8_info</code> 型常量的最大长度也就是 Java 中方法、字段名的最大长度，即 <code>u2</code> 的 65535，也就是说最大 65535 字节，即 64KB。</em></p>
 <p>参考：</p>
 <p><a href="https://zhuanlan.zhihu.com/p/45003974" target="_blank" rel="noopener">Java虚拟机—Class文件结构 - 知乎</a></p>
 <p><a href="https://juejin.im/post/5aca2c366fb9a028c97a5609" target="_blank" rel="noopener">轻松看懂Java字节码 - 掘金</a></p>
 <p>《深入理解java虚拟机（第二版 周志明）》</p>
+<p><a href="[https://blog.nekolr.com/2018/04/18/%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/](https://blog.nekolr.com/2018/04/18/类文件结构/">类文件结构 | nekolr’s blog</a>)</p>
 
   </article>
 </div>
