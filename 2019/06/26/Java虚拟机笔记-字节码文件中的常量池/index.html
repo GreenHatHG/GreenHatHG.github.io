@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    Java虚拟机笔记-字节码文件中的常量池 | 葵花妈妈开课辣
+  </title>
+  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
+  
+  <meta name="keywords" content="
+  jvm
+  ">
+  
+  <meta name="author" content="GreenHatHG">
+
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-116672888-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives" class="header-toolbar-right"> 129 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
+        <a href="/tags" class="header-toolbar-right"> 89 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories" class="header-toolbar-right"> 18 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">葵花妈妈开课辣</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    GreenHatHG
+
+    <span class="post-date float-right" title="{{moment(1561551457000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      <i class="fa fa-pencil-square-o"></i>
+      {{moment(1561551457000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>Java虚拟机笔记-字节码文件中的常量池</h1>
+    <p>常量池（Constant Pool）</p>
+<a id="more"></a>
+<h1 id="常量池（Constant-Pool）"><a href="#常量池（Constant-Pool）" class="headerlink" title="常量池（Constant Pool）"></a>常量池（Constant Pool）</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.bytecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.a = a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/1.png" alt=""></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#20         // java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">   #2 = Fieldref           #3.#21         // indi/greenhat/bytecode/Test1.a:I</span><br><span class="line">   #3 = Class              #22            // indi/greenhat/bytecode/Test1</span><br><span class="line">   #4 = Class              #23            // java/lang/Object</span><br><span class="line">   #5 = Utf8               a</span><br><span class="line">   #6 = Utf8               I</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               LocalVariableTable</span><br><span class="line">  #12 = Utf8               this</span><br><span class="line">  #13 = Utf8               Lindi/greenhat/bytecode/Test1;</span><br><span class="line">  #14 = Utf8               getA</span><br><span class="line">  #15 = Utf8               ()I</span><br><span class="line">  #16 = Utf8               setA</span><br><span class="line">  #17 = Utf8               (I)V</span><br><span class="line">  #18 = Utf8               SourceFile</span><br><span class="line">  #19 = Utf8               Test1.java</span><br><span class="line">  #20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">  #21 = NameAndType        #5:#6          // a:I</span><br><span class="line">  #22 = Utf8               indi/greenhat/bytecode/Test1</span><br><span class="line">  #23 = Utf8               java/lang/Object</span><br></pre></td></tr></table></figure>
+<p>紧接着主次版本号之后的是常量池入口</p>
+<p>常量池可以理解为<strong>Class文件之中的资源仓库</strong>，它是Class文件结构中与其他项目关联最多的数据类型，也是占用Class文件空间最大的数据项目之一，同时它还是在Class文件中第一个出现的表类型数据项目。</p>
+<p><strong>常量池中主要存放两大类常量：字面量（<code>Literal</code>）和符号引用（<code>Symbolic References</code>）。</strong></p>
+<ul>
+<li>字面量比较接近于Java语言层面的常量概念，如文本字符串、声明为final的常量值等。</li>
+<li>而符号引用则属于编译原理方面的概念，包括了下面三类常量：<ul>
+<li>类和接口的全限定名（<code>Fully Qualified Name</code>） </li>
+<li>字段的名称和描述符（<code>Descriptor</code>） </li>
+<li>方法的名称和描述符</li>
+</ul>
+</li>
+</ul>
+<p><em>Java代码在进行<code>Javac</code>编译的时候，并不像C和C++那样有“连接”这一步骤，而是在虚拟机加载Class文件的时候进行动态连接。也就是说，<strong>在Class文件中不会保存各个方法、字段的最终内存布局信息</strong>，因此这些字段、方法的符号引用不经过运行期转换的话无法得到真正的内存入口地址，也就无法直接被虚拟机使用。当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析、翻译到具体的内存地址之中。</em></p>
+<hr>
+<p>常量池的总体结构：<strong>Java类所对应的常量池主要由常量池数量与常量池数组这两部分共同组成</strong>。<strong>常量池数量紧跟在主版本号后面</strong>，占据2个字节（<code>u2</code>类型数据）；<strong>常量池数组则紧跟在常量池数量之后</strong>。常量池数组与一般数组不同的是，<strong>常量池数组中不同的元素的类型、结构都是是不同的，长度当然也就不同</strong>；但是，<strong>每一种元素的第一个数据都是一个<code>u1</code>类型</strong>，该字节是个标志位，占据1个字节，JVM在解析常量池时，会根据这个<code>u1</code>类型来获取元素的具体类型。</p>
+<hr>
+<p>由上面的16进制图可以看到，常量池数量为<code>0x18</code>，即24个常量，我们也可以看反编译的结果：<code>#1～#23</code></p>
+<p>值得注意的是，<code>常量池数组中的元素个数=常量池数-1（其中0暂时不使用）</code>，目的是满足某些常量池索引值的数据在特定情况下需要表达<code>不引用任何一个常量池</code>的含义；根本原因在于，索引为0也是一个常量（保留常量），只不过它不位于常量表中，这个常量就对应<code>null</code>值；所以，常量池的索引从1开始而非0开始。</p>
+<h1 id="常量池中数据类型结构"><a href="#常量池中数据类型结构" class="headerlink" title="常量池中数据类型结构"></a>常量池中数据类型结构</h1><p>常量池中的每一项常量都是一个表，在 JDK 7 之前共有 11 种结构不同的表，在 JDK 7 中为了更好的支持动态语言调用，又增加了3种。都是<code>CONSTANT</code>开头，<code>info</code>结尾<img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/home/cc/blog_md/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/5.png" alt=""></p>
+<p>其中 <code>CONSTANT_Utf8_info</code> 类型的常量，它的 <code>length</code> 值说明了这个 UTF-8 编码的字符串长度是多少字节，<code>bytes</code> 的值为长度为 <code>length</code> 字节的 UTF-8 缩略编码表示的字符串</p>
+<p><em>由于 Class 文件中方法、字段等都需要引用 <code>CONSTANT_Utf8_info</code> 型常量来描述名称，所以 <code>CONSTANT_Utf8_info</code> 型常量的最大长度也就是 Java 中方法、字段名的最大长度，即 <code>u2</code> 的 65535，也就是说最大 65535 字节，即 64KB。</em></p>
+<h1 id="分析常量池中的数值"><a href="#分析常量池中的数值" class="headerlink" title="分析常量池中的数值"></a>分析常量池中的数值</h1><p>从<code>0a</code>开始，<code>0x0a</code>的十进制为10，因为每一个元素的第一个数据都是一个标志位，查<code>数据类型结构</code>表得u1为10的常量：</p>
+<p><img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/2.png" alt=""></p>
+<p>发现其后面两个值都是索引值，其对应的十六进制为<code>00 04 00 14</code>，转换为十进制分别是4和20，那么4和20分别是</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#4 = Class              #23            // java/lang/Object</span><br><span class="line">#20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">#23 = Utf8               java/lang/Object</span><br><span class="line">#7 = Utf8               &lt;init&gt;</span><br><span class="line">#8 = Utf8               ()V</span><br></pre></td></tr></table></figure>
+<p>所以第一个元素<code>0a 00 04 00 14</code>代表的是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#1 = Methodref          #4.#20         // java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span><br></pre></td></tr></table></figure>
+<p>那么<code>&lt;init&gt;</code>和<code>:()v</code>代表什么呢？</p>
+<hr>
+<p>在JVM规范中，每个变量/字段都有描述信息，描述信息主要的作用是描述字段的数据类型、方法的参数列表（包括数量、类型与顺序）与返回值。根据描述符规则，<strong>基本数据类型和代表无返回值的void类型都用一个大写字符来表示，对象类型则使用字符工加对象的全限定名称来表示</strong>。为了压缩字节码文件的体积，对于基本数据类型，JVM都只使用一个大写字母来表示，如下所示：</p>
+<p><code>B-byte，C-char，D-double，F-float，I-int，J-long，S-short，Z-boolean，V-void，L-对象类型</code>，如<code>Ljava/lang/String</code></p>
+<p>对于数组类型来说，每一个维度使用一个前置的<code>[</code>来表示，如<code>int[]</code>被记录为<code>[I</code>，<code>String[][]</code>被记录为<code>[[Ljava/lang/string</code></p>
+<p>用描述符描述方法时，按照先参数列表，后返回值的顺序来描述。参数列表按照参数的严格顺序放在一组<code>()</code>之内，如方法：<code>String name(int id，String name)</code>的描述符为：<code>(I,Ljava/lang/String)Ljava/lang/String</code></p>
+<hr>
+<p>回归正题，<code>&lt;init&gt;</code>表示类的构造方法，<code>()v</code>：括号里面内容为空，则代表该方法没有参数，v则代表是<code>void</code>类型，那么连起来就是代表没有参数返回值为<code>void</code>的构造函数，因为我们没有定义这个构造方法，所以这个构造方法是自动生成的，其父类是<code>object</code>类</p>
+<hr>
+<p>接着，<code>0x09</code>的十进制为9，也刚好有两个索引值：<code>00 03 00 15</code>，转换为十进制分别是<code>3和21</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#2 = Fieldref           #3.#21         // indi/greenhat/bytecode/Test1.a:I</span><br><span class="line">#3= Class              #22            // indi/greenhat/bytecode/Test1</span><br><span class="line">#22 = Utf8               indi/greenhat/bytecode/Test1</span><br></pre></td></tr></table></figure>
+<p>正好对应的是样例类，<code>a：I</code>说明有个属性为a，类型是<code>int</code></p>
+<hr>
+<p>对应一些字符串的常量可以将其转换为ascii码查看其值，比如</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#10 = Utf8               LineNumberTable</span><br></pre></td></tr></table></figure>
+<p>其对应的十六进制为</p>
+<p><code>0f 4c 69 6e 65 4e 75 6d 62 65 72</code></p>
+<p><img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/3.png" alt=""></p>
+<p>使用的工具：<a href="http://www.ab126.com/goju/1711.html" target="_blank" rel="noopener">ASCII 在线转换器-ASCII码-十六进制-二进制-十进制-字符串-ascii查询器-懒人计算器</a></p>
+<hr>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">#21 = NameAndType        #5:#6          // a:I</span><br></pre></td></tr></table></figure>
+<p><code>CONSTANT_NameAndType_info</code>确定唯一的成员变量，比如上面的#20表明是无参的构造方法，<code>a:I</code>代表是<code>int a</code></p>
+
+  </article>
+</div>
+
+
+    
+<div class="container disqus-container">
+  <div id="disqus_thread"></div>
+</div>
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://greenhathg.github.io/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/";
+    this.page.identifier = 1561551457;
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://greenhathg.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="https://greenhathg.github.io" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2018 GreenHatHG</li>
+      <li><a href="https://greenhathg.github.io">Home</a></li>
+      
+      <li><a href="https://github.com/GreenHatHG">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
+      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+<script>
+  (function() {
+    var cx = '008487550618970634524:xm_ncoukzmu';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+      '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+
+
+
+<script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
