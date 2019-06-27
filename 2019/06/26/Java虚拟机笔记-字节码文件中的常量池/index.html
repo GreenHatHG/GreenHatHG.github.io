@@ -159,7 +159,8 @@
 <hr>
 <p>由上面的16进制图可以看到，常量池数量为<code>0x18</code>，即24个常量，我们也可以看反编译的结果：<code>#1～#23</code></p>
 <p>值得注意的是，<code>常量池数组中的元素个数=常量池数-1（其中0暂时不使用）</code>，目的是满足某些常量池索引值的数据在特定情况下需要表达<code>不引用任何一个常量池</code>的含义；根本原因在于，索引为0也是一个常量（保留常量），只不过它不位于常量表中，这个常量就对应<code>null</code>值；所以，常量池的索引从1开始而非0开始。</p>
-<h1 id="常量池中数据类型结构"><a href="#常量池中数据类型结构" class="headerlink" title="常量池中数据类型结构"></a>常量池中数据类型结构</h1><p>常量池中的每一项常量都是一个表，在 JDK 7 之前共有 11 种结构不同的表，在 JDK 7 中为了更好的支持动态语言调用，又增加了3种。都是<code>CONSTANT</code>开头，<code>info</code>结尾<img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/home/cc/blog_md/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/5.png" alt=""></p>
+<h1 id="常量池中数据类型结构"><a href="#常量池中数据类型结构" class="headerlink" title="常量池中数据类型结构"></a>常量池中数据类型结构</h1><p>常量池中的每一项常量都是一个表，在 JDK 7 之前共有 11 种结构不同的表，在 JDK 7 中为了更好的支持动态语言调用，又增加了3种。都是<code>CONSTANT</code>开头，<code>info</code>结尾</p>
+<p><img src="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/4.png" alt=""></p>
 <p>其中 <code>CONSTANT_Utf8_info</code> 类型的常量，它的 <code>length</code> 值说明了这个 UTF-8 编码的字符串长度是多少字节，<code>bytes</code> 的值为长度为 <code>length</code> 字节的 UTF-8 缩略编码表示的字符串</p>
 <p><em>由于 Class 文件中方法、字段等都需要引用 <code>CONSTANT_Utf8_info</code> 型常量来描述名称，所以 <code>CONSTANT_Utf8_info</code> 型常量的最大长度也就是 Java 中方法、字段名的最大长度，即 <code>u2</code> 的 65535，也就是说最大 65535 字节，即 64KB。</em></p>
 <h1 id="分析常量池中的数值"><a href="#分析常量池中的数值" class="headerlink" title="分析常量池中的数值"></a>分析常量池中的数值</h1><p>从<code>0a</code>开始，<code>0x0a</code>的十进制为10，因为每一个元素的第一个数据都是一个标志位，查<code>数据类型结构</code>表得u1为10的常量：</p>
