@@ -153,7 +153,7 @@
     <li class="">
       <a href="/">Overview</a></li>
     <li class="">
-      <a href="/archives">Posts <span class="counter">129</span></a>
+      <a href="/archives">Posts <span class="counter">130</span></a>
     </li>
     <li class="selected">
       <a href="/categories">Categories <span class="counter">18</span></a></li>
@@ -164,6 +164,33 @@
 
     <div class="body-secondary">
       <ul class="archive-list">
+        
+        <li class="archive-list-item">
+          <h2><a href="/2019/07/02/SQL中的EXISTS/">SQL中的EXISTS</a></h2>
+          <p>
+             SQL中的EXISTS与SQL中的NOT EXISTS 
+  
+   从 SQL 中基础的 WHERE 字句开始  有一学生信息表 
+      1       SELECT Sno, Sname FROM Student WHERE Sdept = &amp;apos;IS&amp;apos;;       
+...
+          </p>
+          <ul class="tag-list clearfix">
+            
+            <li class="tag-list-item"><a href="/tags/数据库/">数据库</a></li>
+            
+            <li class="tag-list-item"><a href="/tags/Mysql/">Mysql</a></li>
+            
+          </ul>
+          <div class="post-info">
+            <span>
+              
+              <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
+              
+            </span>
+            <span><i class="fa fa-tag"></i> 2 </span>
+            <span>Published {{moment(1562032343000).fromNow()}}</span>
+          </div>
+        </li>
         
         <li class="archive-list-item">
           <h2><a href="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/">Java虚拟机笔记-字节码文件中的常量池</a></h2>
@@ -802,22 +829,6 @@
 
 
 <script src="/js/main.js"></script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
