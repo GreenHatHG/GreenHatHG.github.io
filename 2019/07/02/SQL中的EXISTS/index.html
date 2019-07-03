@@ -211,10 +211,12 @@
 </ol>
 <h1 id="NOT-EXISTS关键字"><a href="#NOT-EXISTS关键字" class="headerlink" title="NOT EXISTS关键字"></a><code>NOT EXISTS</code>关键字</h1><p>与<code>EXISTS</code>关键字相对的是<code>NOT EXISTS</code>，作用与 <code>EXISTS</code>正相反，<strong>当子查询的结果为空集时，返回 <code>True</code>，反之返回 <code>False</code>。也就是所谓的 ”若不存在“。</strong></p>
 <p>对于下面的查询要求，只能通过<code>NOT EXISTS</code>关键字来实现，因为 <code>SQL</code> 中并未直接提供关系代数中的除法功能。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询选修了全部课程的学生的姓名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询选修了全部课程的学生的姓名</li>
+</ul>
 <p>可以通过以下步骤的思路来实现：</p>
 <ol>
-<li>先取 <code>Studen</code>t 表中的第一个元组，得到其 <code>Sno</code> 列的值。也就是获取到学生对应的学号</li>
+<li>先取 <code>Student</code> 表中的第一个元组，得到其 <code>Sno</code> 列的值。也就是获取到学生对应的学号</li>
 <li>再取<code>Course</code>表中的第一个元组，得到其<code>Cno</code> 列的值。也就是获取到课程对应的课程号</li>
 <li><p>根据 <code>Sno</code> 与 <code>Cno</code> 的值，遍历 <code>SC</code> 表中的所有记录（也就是选课记录）。若对于某个 <code>Sno</code>和 <code>Cno</code>的值来说，<strong>在 <code>SC</code> 表中找不到相应的记录，则说明该 <code>Sno</code> 对应的学生没有选修该 <code>Cno</code> 对应的课程。</strong></p>
 </li>
@@ -228,9 +230,13 @@
 <p>其中第一个 <code>NOT EXISTS</code>对第四步，第二个 <code>NOT EXISTS</code>对应第三步。</p>
 <hr>
 <p>同理，对于类似的查询要求</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询被所有学生选修的课程的课名</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询被所有学生选修的课程的课名</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT Cname FROM Course WHERE NOT EXISTS</span><br><span class="line">	(SELECT * FROM Stuent WHERE NOT EXISTS</span><br><span class="line">    	(SELECT * FROM SC WHERE</span><br><span class="line">        	Sno=Student.Sno AND Cno=Course.Cno));</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查询选修了95001号学生选修的全部课程的学生的学号</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询选修了95001号学生选修的全部课程的学生的学号</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT Sno FROM SC X WHERE NOT EXISTS</span><br><span class="line">	(SELECT * FROM SC Y WHERE Y.Sno=&apos;95001&apos; AND NOT EXISTS</span><br><span class="line">    	(SELECT * FROM SC Z WHERE </span><br><span class="line">        	Z.Sno=X.Sno AND Z.Cno=Y.Cno));</span><br></pre></td></tr></table></figure>
 <p>参考：</p>
 <p><a href="https://zhuanlan.zhihu.com/p/20005249" target="_blank" rel="noopener">SQL 中的 EXISTS 到底做了什么？ - 知乎</a></p>
@@ -303,6 +309,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>

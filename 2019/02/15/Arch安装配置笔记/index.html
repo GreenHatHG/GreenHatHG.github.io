@@ -409,6 +409,7 @@
 </ol>
 <p><code>https://zh.wiktionary.org/w</code></p>
 <h2 id="16进制查看器"><a href="#16进制查看器" class="headerlink" title="16进制查看器"></a>16进制查看器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacmam -S ghex   #查看功能</span><br><span class="line">pacman -S okteta #修改功能</span><br></pre></td></tr></table></figure>
+<h2 id="离线文档管理"><a href="#离线文档管理" class="headerlink" title="离线文档管理"></a>离线文档管理</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S zeal</span><br><span class="line"><span class="meta">#</span>第三方源：https://zealusercontributions.now.sh/</span><br></pre></td></tr></table></figure>
 
   </article>
 </div>
@@ -478,6 +479,22 @@
 
 
 <script src="/js/main.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
 </html>
