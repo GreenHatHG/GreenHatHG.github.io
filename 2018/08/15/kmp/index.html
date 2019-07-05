@@ -1,142 +1,540 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    kmp | 葵花妈妈开课辣
-  </title>
-  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
-  
-  <meta name="keywords" content="
-  KMP,字符串
-  ">
-  
-  <meta name="author" content="GreenHatHG">
+<!-- comment -->
 
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>kmp | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="KMP是一个非常实用的字符串匹配算法">
+
+<!-- Keywords -->
+<meta name="keywords" content=", KMP, 字符串">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="kmp | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2018/08/15/kmp/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="KMP是一个非常实用的字符串匹配算法">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2018-08-15T15:03:11.000Z">
+    <meta property="article:modified_time" content="2018-08-15T15:03:11.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", KMP, 字符串"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-116672888-1', 'auto');
-  ga('send', 'pageview');
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2018/08/15/kmp/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2018/08/15/kmp/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2018/08/15/kmp/"
+    },
+    "headline": "kmp | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2018-08-15T15:03:11.000Z",
+    "dateModified": "2019-04-05T06:58:44.831Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", KMP, 字符串",
+    "description": "KMP是一个非常实用的字符串匹配算法"
+}
 </script>
 
 
-  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <!-- ### Custom Head ### -->
+    
+
+
 </head>
 
-<body id="replica-app">
+    <body>
+        
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+            
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
 
-      <ul class="navbar-nav float-left">
+    <p class="text-center header-slogan">
         
-        <li><a href="/archives">Archives</a></li>
+            
+                葵花妈妈开课啦
+            
         
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
+    </p>
 
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
         </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        
 
-<div class="main-container">
-  <header class="header-wrapper desktop-only">
-  <div class="container header-site-detail">
-    <ul class="header-toolbar">
-      <li class="clearfix">
-        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 130 </a>
-      </li>
-      <li>
-        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
-        <a href="/tags" class="header-toolbar-right"> 89 </a>
-      </li>
-      <li>
-        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories" class="header-toolbar-right"> 18 </a>
-      </li>
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=kmp" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=kmp&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=kmp" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB0ElEQVR42u3a2w6CMBCEYd7/pfWWmHZnVjRppz83JqjtR1LKHrheCx4XKFCgQA1QV3HcfzP6/ef37v+m84CKQQ0X3eB85wJmn9U8oLJQnxOMzo8mGMFmC72aB9RZqNFECuhcJKhzUQrobI6gzkNVg1UDjqBqI30cJYBaHuVuek8/f5bNgFoaJYsO4gGsArq/VF1ALY2qFqKbYKrEVY0PKg9VJQdVEloVP2ZJRRU4gspAqcBOFWCrRKO7sYLKQlWJgvOgni32VpENVAyqWsBu0OYEf7KpBCoGpTY4tZmqYqy70YLKQDlBnCpMqHHcGwdUBsrdICuMs8CrTRNUFspNEDpNIbc5YHccQG2FUgUKZ8E6SYc1FqhIlNNsrBau80Bv7eigtkSpgoTTTFJAK1AEFYHqFPI7Lw2qJKTdhAS1LUqd6zS5u4U4UHmoDqjbWLKaUqCiUJ2CvfqvU1BrFThAbYlyXpJXTW03sLOK+6C2RamjU6h3X9SZjgUqAmW9aNws1qrA0do8QW2Nelqw/6ZZCSof5TyQ3cCuCwV1Hko1rN0bRF0kqPNQqiD2bXEWVCaqkzC4hf/qBgCVjVJFCFXUcF9CVQ93UBmolQ5QoECBuh1vZywPvnY1RgIAAAAASUVORK5CYII=" alr="QRCode">
+        </li>
+        
+
     </ul>
-    <h2 class="header-title">
-      <i class="fa fa-book text-muted"></i>
-      <a href="/">葵花妈妈开课辣</a>
-      
-      
-    </h2>
-  </div>
-
-  <div class="container">
-    <div class="header-tab-wrapper clearfix">
-      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
-      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
-      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
-      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
-      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
-    </div>
-  </div>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
 </header>
 
+            
+    <!-- ## Post ## -->
+    
+    
 
-<div class="post-container container">
-  <h3>
-    <i class="fa fa-user-o"></i>
-    GreenHatHG
 
-    <span class="post-date float-right" title="{{moment(1534345391000).format('MMM DD, YYYY, h:mm:ss A')}}">
-      <i class="fa fa-pencil-square-o"></i>
-      {{moment(1534345391000).fromNow()}}
-    </span>
-  </h3>
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">kmp</h1>
 
-  <article class="post-content">
-    <h1>kmp</h1>
-    <p><strong>KMP是一个非常实用的字符串匹配算法</strong></p>
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2018-08-15</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=kmp&url=https://greenhathg.github.io/2018/08/15/kmp/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=kmp&url=https://greenhathg.github.io/2018/08/15/kmp/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2018/08/15/kmp/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2018/08/15/kmp/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2018/08/15/kmp/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2018/08/15/kmp/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2018/08/15/kmp/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB0ElEQVR42u3a2w6CMBCEYd7/pfWWmHZnVjRppz83JqjtR1LKHrheCx4XKFCgQA1QV3HcfzP6/ef37v+m84CKQQ0X3eB85wJmn9U8oLJQnxOMzo8mGMFmC72aB9RZqNFECuhcJKhzUQrobI6gzkNVg1UDjqBqI30cJYBaHuVuek8/f5bNgFoaJYsO4gGsArq/VF1ALY2qFqKbYKrEVY0PKg9VJQdVEloVP2ZJRRU4gspAqcBOFWCrRKO7sYLKQlWJgvOgni32VpENVAyqWsBu0OYEf7KpBCoGpTY4tZmqYqy70YLKQDlBnCpMqHHcGwdUBsrdICuMs8CrTRNUFspNEDpNIbc5YHccQG2FUgUKZ8E6SYc1FqhIlNNsrBau80Bv7eigtkSpgoTTTFJAK1AEFYHqFPI7Lw2qJKTdhAS1LUqd6zS5u4U4UHmoDqjbWLKaUqCiUJ2CvfqvU1BrFThAbYlyXpJXTW03sLOK+6C2RamjU6h3X9SZjgUqAmW9aNws1qrA0do8QW2Nelqw/6ZZCSof5TyQ3cCuCwV1Hko1rN0bRF0kqPNQqiD2bXEWVCaqkzC4hf/qBgCVjVJFCFXUcF9CVQ93UBmolQ5QoECBuh1vZywPvnY1RgIAAAAASUVORK5CYII=" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HDU-1711-Number-Sequence"><span class="post-toc-number">1.</span> <span class="post-toc-text">HDU - 1711 Number Sequence</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#HDU-1358-Period—-求循环节还有次数"><span class="post-toc-number">2.</span> <span class="post-toc-text">HDU 1358 Period—-求循环节还有次数</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p><strong>KMP是一个非常实用的字符串匹配算法</strong></p>
 <a id="more"></a>
 <p>推荐网站：</p>
 <p><a href="https://www.cnblogs.com/yjiyjige/p/3263858.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjiyjige/p/3263858.html</a> <a href="https://blog.csdn.net/starstar1992/article/details/54913261/" target="_blank" rel="noopener">https://blog.csdn.net/starstar1992/article/details/54913261/</a></p>
@@ -149,76 +547,182 @@
 <h1 id="HDU-1358-Period—-求循环节还有次数"><a href="#HDU-1358-Period—-求循环节还有次数" class="headerlink" title="HDU 1358 Period—-求循环节还有次数"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1358" target="_blank" rel="noopener">HDU 1358 Period—-求循环节还有次数</a></h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">字符编号从<span class="number">1</span>开始，那么<span class="keyword">if</span>(i%(i-next[i])==<span class="number">0</span>)，则i前面的串为一个轮回串，其中轮回子串出现i/(i-next[i])次。</span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> Judge Status : Accepted	 Language : C++</span></span><br><span class="line"><span class="comment"> Submit Time：2018-08-17 11:42:23			</span></span><br><span class="line"><span class="comment"> Exe.Time:171MS	 Exe.Memory：6308K</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1000000</span> + <span class="number">10</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> type;</span><br><span class="line">type pattern[MAXN];</span><br><span class="line"><span class="keyword">int</span> prefix[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_prefix</span><span class="params">(<span class="keyword">int</span> len_pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">-1</span>;</span><br><span class="line">    prefix[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; len_pattern)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(j == <span class="number">-1</span> || pattern[i] == pattern[j])</span><br><span class="line">        &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">            prefix[i] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            j = prefix[j];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> len_pattern)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len_pattern; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = i - prefix[i];</span><br><span class="line">        <span class="keyword">if</span>(i % tmp == <span class="number">0</span> &amp;&amp; i / tmp &gt; <span class="number">1</span>)</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" "</span> &lt;&lt; i / tmp &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> n, cas = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; n &amp;&amp; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; pattern;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Test case #"</span> &lt;&lt; cas++ &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        get_prefix(n);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        for(int i = 1; i &lt;= n; i++)</span></span><br><span class="line"><span class="comment">            cout &lt;&lt; prefix[i] &lt;&lt; " ";</span></span><br><span class="line"><span class="comment">        cout &lt;&lt; endl;</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        solve(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Test:</span></span><br><span class="line"><span class="comment">3</span></span><br><span class="line"><span class="comment">aaa</span></span><br><span class="line"><span class="comment">12</span></span><br><span class="line"><span class="comment">aabaabaabaab</span></span><br><span class="line"><span class="comment">0</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Output array of prefix(1 &lt;= i &lt;= n):</span></span><br><span class="line"><span class="comment">Test case #1</span></span><br><span class="line"><span class="comment">0 1 2 </span></span><br><span class="line"><span class="comment">Test case #2</span></span><br><span class="line"><span class="comment">0 1 0 1 2 3 4 5 6 7 8 9 </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
-  </article>
-</div>
+                    </article>
+                    
 
 
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-04-05");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2018-08-15T15:03:11.000Z" itemprop="datePublished">2018-08-15</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-04-05T06:58:44.831Z" itemprop="dateModified">2019-04-05</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href="/categories/算法/">算法</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/KMP/" rel="tag">#&nbsp;KMP</a>
+
+<a class="post-tags-list-item" href="/tags/字符串/" rel="tag">#&nbsp;字符串</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
     
-<div class="container disqus-container">
-  <div id="disqus_thread"></div>
+        <li class="page-item page-prev">
+            <a href="/2018/09/16/mySQL-deepin15-7环境下的配置/" rel="prev">
+                <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">MySQL--deepin15.7环境下的配置</div>
+            </a>
+        </li>
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2018/08/02/DP/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">DP</div>
+            </a>
+        </li>
+    
+</ul>
 </div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
 
 <script>
-  var disqus_config = function() {
-    this.page.url = "https://greenhathg.github.io/2018/08/15/kmp/";
-    this.page.identifier = 1534345391;
-  };
-
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://greenhathg.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
 
 
 
-
-
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="https://greenhathg.github.io" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2018 GreenHatHG</li>
-      <li><a href="https://greenhathg.github.io">Home</a></li>
-      
-      <li><a href="https://github.com/GreenHatHG">Github</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
-    </div>
-    </div>
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
     
-  </footer>
-</div>
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
 
 
-<script>
-  (function() {
-    var cx = '008487550618970634524:xm_ncoukzmu';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-      '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
 </script>
 
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
-<script src="/js/main.js"></script>
 
-<script type="text/x-mathjax-config">
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -235,4 +739,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
+
 </html>

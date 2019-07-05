@@ -1,437 +1,772 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
-
-
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    葵花妈妈开课辣
-  </title>
-  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
-  
-  <meta name="author" content="GreenHatHG">
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-116672888-1', 'auto');
-  ga('send', 'pageview');
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
 </script>
 
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
 
-  
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>标签: 图论 | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="">
+
+<!-- Keywords -->
+<meta name="keywords" content="">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="标签: 图论 | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/tags/图论/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="blog">
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/tags/图论/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
 </head>
 
-<body id="replica-app">
+    <body>
+        
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+            
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAAAAAB0L9x7AAABkklEQVR42u3a0W7EIAxE0fz/T7evVRTPjDcrMNXNSyvtBk4lF9vA9TPguUCAAHEE4hLP44t/PlPvJOOCmIuoJrtP6j6/I9S4IOYj7oFTDVgF2n3SaFwQxyKqwZP3Qfw/hEtWKoBBnI2QiaaAdRavV1kUxHKEKkjf/PxatQ1iKSJqXIuGKG2YvtKVg1iGcAGWNDyqUVINEYhzEAnoadOkCuLydxAjEWowt2hVAamCFsR8hP2iKV6TwIwWKxBjEN3N86QwTgIVxGyEKkSSpNT5Loj5CFe0qo0RO0kRtCBmI54WoGRzVDU46gCmTGAgxiCSTc+0KHZ/zMcH9iCWIlxAJZc60uK33RCD2IJwja9LQmlh1P7vALENkTS9KlCTw9pWFgWxHeEa3WSjNTmsjQ9dQGxHJIdwMrgaRe7Hh7MgliK6F4UVJAlmEGcg0onSwxVXQIM4A9G90OM2x15nURBjETYJBQe6UQIDcQzCXuLrFjIgjkGoBNa58PnqsheIMYh0oyxdzJILISDmInY+IECAGI34BR0AKRh8WEgAAAAAAElFTkSuQmCC" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            <div class="container">
+    <div class="main-container">
+        <main>
+            <!-- # Title # -->
+            <h2 class="page-title">标签 : 图论</h2>
+            <!-- # Post List # -->
+            <div class="post-stream-container">
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/04/13/HDU1217-Arbitrage-Flody变形/" rel="bookmark">HDU1217-Arbitrage-Flody变形</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        HDU1217-Arbitrage
+    <a href="/2019/04/13/HDU1217-Arbitrage-Flody变形/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-04-14</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/水题/">水题</a>
+        
+        
+    </div>
+
+                </div>
+            
         </div>
-      </div>
+</article>
 
-      <ul class="navbar-nav float-left">
-        
-        <li><a href="/archives">Archives</a></li>
-        
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
-        </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
-        </li>
-      </ul>
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/04/12/HDU1518-Square-DFS/" rel="bookmark">HDU1518-Square-DFS</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        HDU1518—-Square
+    <a href="/2019/04/12/HDU1518-Square-DFS/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-04-12</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/水题/">水题</a>
+        
+        
     </div>
-  </div>
-</nav>
 
-<div class="main-container">
-  
+                </div>
+            
+        </div>
+</article>
 
-<div class="container-lg">
-  
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
-<div class="blog-intro">
-  <div class="blog-intro-user">
-    <img class="avatar" src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg">
-    <div class="user-name">
-      <div class="blog-title">葵花妈妈开课辣</div>
-      <div class="blog-author">GreenHatHG</div>
-        <ul class="user-detail mobile-only">
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/03/28/牛客283H-Dij-链式向前星-快速幂/" rel="bookmark">牛客283H-Dij-链式向前星-快速幂</a></h2>
+
+
+<p class="mb-0 card-body">
     
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Guang Zhou
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:1239776759@qq.com">1239776759@qq.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://greenhathg.github.io">https://greenhathg.github.io</a>
-    </li>
-  </ul>
+        Dijkstra—链式向前星—快速幂
+    <a href="/2019/03/28/牛客283H-Dij-链式向前星-快速幂/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-03-28</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
     </div>
-    <div class="blog-description">
-      孩子xx老不x怎么办，多半是x了
+
+                </div>
+            
+        </div>
+</article>
+
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/03/26/图论之存图方式/" rel="bookmark">图论之存图方式</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        邻接矩阵，邻接表，链式向前星
+    <a href="/2019/03/26/图论之存图方式/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-03-26</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
     </div>
-  </div>
 
-  <ul class="user-detail desktop-only">
-    
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Guang Zhou
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:1239776759@qq.com">1239776759@qq.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://greenhathg.github.io">https://greenhathg.github.io</a>
-    </li>
-  </ul>
+                </div>
+            
+        </div>
+</article>
 
-  <div class="social-media desktop-only">
-    <h4>Social Media</h4>
-    <ul>
-      
-      <li class="social-media-item"><a href="https://github.com/GreenHatHG" target="_blank"><i class="fa fa-github"></i></a></li>
-      
-    </ul>
-  </div>
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/03/23/图着色问题/" rel="bookmark">图着色问题</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        洛谷P2819图的m着色问题, POJ 1129 Channel Allocation
+    <a href="/2019/03/23/图着色问题/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-03-23</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/水题/">水题</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/02/22/L2-001紧急救援-dijkstra变形-记录路径/" rel="bookmark">L2-001紧急救援-dijkstra变形-记录路径</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        L2-001紧急救援
+    <a href="/2019/02/22/L2-001紧急救援-dijkstra变形-记录路径/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-02-22</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/水题/">水题</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/02/19/图论之最短路/" rel="bookmark">图论之最短路</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        Floyd，Dijkstra， Spfa
+    <a href="/2019/02/19/图论之最短路/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-02-19</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                
+                    
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/02/19/图论之最小生成树/" rel="bookmark">图论之最小生成树</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        prim算法，kruskal算法，POJ1251入门题目
+    <a href="/2019/02/19/图论之最小生成树/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-02-19</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                
+            </div>
+        </main>
+        
+
+    </div>
 </div>
-
-
-  <div class="blog-detail">
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
     
-<nav class="blog-detail-nav desktop-only">
-  <ul class="clearfix">
-    <li class="">
-      <a href="/">Overview</a></li>
-    <li class="">
-      <a href="/archives">Posts <span class="counter">130</span></a>
-    </li>
-    <li class="">
-      <a href="/categories">Categories <span class="counter">18</span></a></li>
-    <li class="selected">
-      <a href="/tags">Tags <span class="counter">89</span></a></li>
-  </ul>
-</nav>
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
 
-    <div class="body-secondary">
-      <ul class="archive-list">
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/04/13/HDU1217-Arbitrage-Flody变形/">HDU1217-Arbitrage-Flody变形</a></h2>
-          <p>
-             HDU1217-Arbitrage 
-  
-    HDU1217        1       Time Limit: 2000/1000 MS (Java/Others)    Memory Limit: 65536/32768 K (Java/Others)       
-  Problem...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/最短路/">最短路</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/水题/"><i class="fa fa-folder-open"></i> 水题</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 2 </span>
-            <span>Published {{moment(1555173646000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/04/12/HDU1518-Square-DFS/">HDU1518-Square-DFS</a></h2>
-          <p>
-             HDU1518—-Square 
-  
-   题目  链接： HDU1518  
-   
-   分析  参考： https://blog.csdn.net/guodongxiaren/article/details/23126997  
- 题意就是好多棍子，看能不能拼成正方形。主要注意的有几点： ...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/DFS/">DFS</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/水题/"><i class="fa fa-folder-open"></i> 水题</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 2 </span>
-            <span>Published {{moment(1555080466000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/03/28/牛客283H-Dij-链式向前星-快速幂/">牛客283H-Dij-链式向前星-快速幂</a></h2>
-          <p>
-             Dijkstra—链式向前星—快速幂    
-   题目  链接： 牛客283H-图论一顿套模版  
-   
-   
-   解析  题目求的是乘积，但是又因为 W一定是2的整数次幂。 所以我们可以将乘法换为加法， 2^x * 2^y = 2^(x+y)  
- 只要我们求出 x+y 的最小值，那么对...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/最短路/">最短路</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/快速幂/">快速幂</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 3 </span>
-            <span>Published {{moment(1553772694000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/03/26/图论之存图方式/">图论之存图方式</a></h2>
-          <p>
-             邻接矩阵，邻接表，链式向前星 
-  
- 参考： 
-  ACM图论之存图方式  
-   邻接矩阵  邻接矩阵是三种存图方式中最简单也最为暴力的一种存图方式了。 
-   存图思想  使用一个矩阵来描述一个图，对于矩阵的第i行第j列的值，表示编号为i的顶点到编号为j的顶点的权值 
-   代码实现  对于...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1553588936000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/03/23/图着色问题/">图着色问题</a></h2>
-          <p>
-             洛谷P2819图的m着色问题, POJ 1129 Channel Allocation 
-  
-    模板题—洛谷P2819图的m着色问题     
-      1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   1...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/水题/"><i class="fa fa-folder-open"></i> 水题</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1553313253000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/02/22/L2-001紧急救援-dijkstra变形-记录路径/">L2-001紧急救援-dijkstra变形-记录路径</a></h2>
-          <p>
-             L2-001紧急救援 
-  
-   题目   L2-001紧急救援  
-   
-   解析       1   2   3   4   5   6   7   8   9   10   11   12   13   14   15   16   17   18   19   20   21   2...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/最短路/">最短路</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/天梯赛/">天梯赛</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/水题/"><i class="fa fa-folder-open"></i> 水题</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 3 </span>
-            <span>Published {{moment(1550826775000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/02/19/图论之最小生成树/">图论之最小生成树</a></h2>
-          <p>
-             prim算法，kruskal算法，POJ1251入门题目 
-  
- 参考： https://blog.csdn.net/qq_40306845/article/details/81540626  
-   模板题目    poj1251—Jungle Roads    
- 题意：给你n个点，右n-1...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/最小生成树/">最小生成树</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 2 </span>
-            <span>Published {{moment(1550540324000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2019/02/19/图论之最短路/">图论之最短路</a></h2>
-          <p>
-             Floyd，Dijkstra， Spfa 
-  
- 
- Dijkstra：适用于权值为非负的图的单源最短路径，用斐波那契堆的复杂度O(E+VlgV) 
- BellmanFord：适用于权值有负值的图的单源最短路径，并且能够检测负圈，复杂度O(VE) 
-  SPFA：适用于权值有负值，且没有负圈的图...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/图论/">图论</a></li>
-            
-            <li class="tag-list-item"><a href="/tags/最短路/">最短路</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 2 </span>
-            <span>Published {{moment(1550540324000).fromNow()}}</span>
-          </div>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
-</div>
 
-</div>
 
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="https://greenhathg.github.io" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2018 GreenHatHG</li>
-      <li><a href="https://greenhathg.github.io">Home</a></li>
-      
-      <li><a href="https://github.com/GreenHatHG">Github</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
-    </div>
-    </div>
-    
-  </footer>
-</div>
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
 
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
 
 <script>
-  (function() {
-    var cx = '008487550618970634524:xm_ncoukzmu';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-      '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
 </script>
 
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
-<script src="/js/main.js"></script>
 
-<script type="text/x-mathjax-config">
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -448,4 +783,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
+
 </html>

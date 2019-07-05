@@ -1,142 +1,540 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    Java虚拟机笔记-字节码格式 | 葵花妈妈开课辣
-  </title>
-  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
-  
-  <meta name="keywords" content="
-  jvm
-  ">
-  
-  <meta name="author" content="GreenHatHG">
+<!-- comment -->
 
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>Java虚拟机笔记-字节码格式 | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content=" .class文件">
+
+<!-- Keywords -->
+<meta name="keywords" content=", jvm">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="Java虚拟机笔记-字节码格式 | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content=" .class文件">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-06-23T01:42:08.000Z">
+    <meta property="article:modified_time" content="2019-06-23T01:42:08.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", jvm"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-116672888-1', 'auto');
-  ga('send', 'pageview');
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/"
+    },
+    "headline": "Java虚拟机笔记-字节码格式 | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2019-06-23T01:42:08.000Z",
+    "dateModified": "2019-07-05T02:52:41.821Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", jvm",
+    "description": " .class文件"
+}
 </script>
 
 
-  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <!-- ### Custom Head ### -->
+    
+
+
 </head>
 
-<body id="replica-app">
+    <body>
+        
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+            
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
 
-      <ul class="navbar-nav float-left">
+    <p class="text-center header-slogan">
         
-        <li><a href="/archives">Archives</a></li>
+            
+                葵花妈妈开课啦
+            
         
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
+    </p>
 
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
         </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        
 
-<div class="main-container">
-  <header class="header-wrapper desktop-only">
-  <div class="container header-site-detail">
-    <ul class="header-toolbar">
-      <li class="clearfix">
-        <a href="/archives" class="header-toolbar-left"><i class="fa fa-file-text"></i> Posts </a>
-        <a href="/archives" class="header-toolbar-right"> 130 </a>
-      </li>
-      <li>
-        <a href="/tags" class="header-toolbar-left"><i class="fa fa-tags"></i> Tags </a>
-        <a href="/tags" class="header-toolbar-right"> 89 </a>
-      </li>
-      <li>
-        <a href="/categories" class="header-toolbar-left"><i class="fa fa-folder-open"></i> Categories </a>
-        <a href="/categories" class="header-toolbar-right"> 18 </a>
-      </li>
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=Java虚拟机笔记-字节码格式" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=Java虚拟机笔记-字节码格式&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=Java虚拟机笔记-字节码格式" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACOUlEQVR42u3b0W7CMAxGYd7/pberSahq/B+XsrH49AZUoP0iNa1jm8fXP9geIkWKFPkByEexnf7waf/q+z/vn/cfj0fOK3IukmIIgLzH5xU5Gnm8cAnqbMJUk6U67umARYpsIle46jORIu9AHvevbsyr11+ZOCK3Q1YHo5NrNYgqULklChK5HbJaEL3z9bbVositkDFpBAKHarKQxdfLWTWRWyGrC7kKDKoEQEos0EGKFEmTTjSwSAu3KhErcjZydQKStKeL/oQ8TYCJHIukD/90I0+JhG4yTORMZPdmmyYRudHj74kciUwXeicIJslUkrQSKTLhqkChSrrSAuoyOBY5FllhaSCbCgOpgI+DXpFjkd0kKWmYS4O5VKUVuS2SFOA7zaCvBtQi5yLJQokGGqnImRqe4mpR5AhkJ2joJk+rJhOUVBA5Fokf+KEpKRWRSMNofOKIHIEkzZmdwJg0eZIGEpEzkWkRlQ7eCTrSeS5VH0RuiaSJJ7J4qyYcaS5ZThyRI5G00JkakzqLvHKyihyJpEFup5GJTBr0QBApEizYSTGANJi0/qAhcjSyUzAiE4EmqC53/YncFpkaPrpNINXnZNKInIvsLsSuFp3IwEWKTBdyCmDThLkygFgREzkC2W0qok0haTCrgYsUmYrtqaiUgKT56XLXn8iRyE4CKzXFx6BCpMgGkjQhETAuKIgcjayChbTwT0nY1FTSbqgTuT2y8+CnTZ0kqGgFvSLHID95EylSpMg/3L4BQy9WBPCQs1QAAAAASUVORK5CYII=" alr="QRCode">
+        </li>
+        
+
     </ul>
-    <h2 class="header-title">
-      <i class="fa fa-book text-muted"></i>
-      <a href="/">葵花妈妈开课辣</a>
-      
-      
-    </h2>
-  </div>
-
-  <div class="container">
-    <div class="header-tab-wrapper clearfix">
-      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
-      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
-      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
-      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
-      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
-    </div>
-  </div>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
 </header>
 
+            
+    <!-- ## Post ## -->
+    
+    
 
-<div class="post-container container">
-  <h3>
-    <i class="fa fa-user-o"></i>
-    GreenHatHG
 
-    <span class="post-date float-right" title="{{moment(1561254128000).format('MMM DD, YYYY, h:mm:ss A')}}">
-      <i class="fa fa-pencil-square-o"></i>
-      {{moment(1561254128000).fromNow()}}
-    </span>
-  </h3>
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">Java虚拟机笔记-字节码格式</h1>
 
-  <article class="post-content">
-    <h1>Java虚拟机笔记-字节码格式</h1>
-    <p> .class文件</p>
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2019-06-23</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=Java虚拟机笔记-字节码格式&url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=Java虚拟机笔记-字节码格式&url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACOUlEQVR42u3b0W7CMAxGYd7/pberSahq/B+XsrH49AZUoP0iNa1jm8fXP9geIkWKFPkByEexnf7waf/q+z/vn/cfj0fOK3IukmIIgLzH5xU5Gnm8cAnqbMJUk6U67umARYpsIle46jORIu9AHvevbsyr11+ZOCK3Q1YHo5NrNYgqULklChK5HbJaEL3z9bbVositkDFpBAKHarKQxdfLWTWRWyGrC7kKDKoEQEos0EGKFEmTTjSwSAu3KhErcjZydQKStKeL/oQ8TYCJHIukD/90I0+JhG4yTORMZPdmmyYRudHj74kciUwXeicIJslUkrQSKTLhqkChSrrSAuoyOBY5FllhaSCbCgOpgI+DXpFjkd0kKWmYS4O5VKUVuS2SFOA7zaCvBtQi5yLJQokGGqnImRqe4mpR5AhkJ2joJk+rJhOUVBA5Fokf+KEpKRWRSMNofOKIHIEkzZmdwJg0eZIGEpEzkWkRlQ7eCTrSeS5VH0RuiaSJJ7J4qyYcaS5ZThyRI5G00JkakzqLvHKyihyJpEFup5GJTBr0QBApEizYSTGANJi0/qAhcjSyUzAiE4EmqC53/YncFpkaPrpNINXnZNKInIvsLsSuFp3IwEWKTBdyCmDThLkygFgREzkC2W0qok0haTCrgYsUmYrtqaiUgKT56XLXn8iRyE4CKzXFx6BCpMgGkjQhETAuKIgcjayChbTwT0nY1FTSbqgTuT2y8+CnTZ0kqGgFvSLHID95EylSpMg/3L4BQy9WBPCQs1QAAAAASUVORK5CYII=" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Java语言的平台无关性"><span class="post-toc-number">1.</span> <span class="post-toc-text">Java语言的平台无关性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#JVM的语言无关性"><span class="post-toc-number">2.</span> <span class="post-toc-text">JVM的语言无关性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Class文件结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">Class文件结构</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总体概况"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">总体概况</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字节码中的数据类型"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">字节码中的数据类型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#魔数（Magic-Number）"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">魔数（Magic Number）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Class文件的版本"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">Class文件的版本</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常量池"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">常量池</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#访问标志"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">访问标志</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类索引、-父类索引与接口索引集合"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">类索引、 父类索引与接口索引集合</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#字段表集合"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">字段表集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#access-flags"><span class="post-toc-number">3.8.1.</span> <span class="post-toc-text">access_flags</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#name-index与descripor-index"><span class="post-toc-number">3.8.2.</span> <span class="post-toc-text">name_index与descripor_index</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#attribute-count"><span class="post-toc-number">3.8.3.</span> <span class="post-toc-text">attribute_count</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#方法表集合"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">方法表集合</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Code属性"><span class="post-toc-number">3.9.1.</span> <span class="post-toc-text">Code属性</span></a></li></ol></li></ol></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p> .class文件</p>
 <a id="more"></a>
 <p>Java从刚开始的时候就有两套 规范，一个是Java语言规范，另外一个是Java虚拟机规范，Java语言规范只是规定了Java语言相关的约束以及规则，而虚拟机规范则才是真正从跨平台的角度去设计的</p>
 <h1 id="Java语言的平台无关性"><a href="#Java语言的平台无关性" class="headerlink" title="Java语言的平台无关性"></a>Java语言的平台无关性</h1><p>在虚拟机出现之前，程序要想正确运行在计算机上，首先要将代码编译成二进制本地机器码，而这个过程是和电脑的操作系统OS、CPU指令集强相关的，所以可能代码只能在某种特定的平台下运行，而换一个平台或操作系统就无法正确运行了。随着虚拟机的出现，直接将程序编译成机器码，已经不再是唯一的选择了。越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储格式。Java就是这样一种语言。“一次编写，到处运行”于是成立Java的宣传口号。</p>
@@ -157,6 +555,7 @@
 <p>一个class文件的结构：</p>
 <p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/2.jpg" alt=""></p>
 <p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/7.png" alt=""></p>
+<p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/9.png" alt=""></p>
 <h2 id="字节码中的数据类型"><a href="#字节码中的数据类型" class="headerlink" title="字节码中的数据类型"></a>字节码中的数据类型</h2><p>Class字节码中有两种数据类型 </p>
 <ul>
 <li>字节数据直接量：这是基本的数据类型。共细分为u1，u2， u4，u8四种，分别代表连续的1个字节、2个字节、4个字节、8个字节组成的整体数据。</li>
@@ -206,82 +605,236 @@
 <p><code>00 06</code>为<code>descripor_index</code>，表示的是<code>I</code></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#6 = Utf8               I</span><br></pre></td></tr></table></figure>
 <p><code>00 00</code>表示<code>attribute_count</code>的值为0</p>
+<h2 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h2><p>Class文件存储格式中对方法的描述与对字段的描述几乎采用了完全一致的方式</p>
+<ul>
+<li>方法表结构：</li>
+</ul>
+<p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/8.png" alt=""></p>
+<ul>
+<li><code>attribute_info</code>结构：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info&#123;</span><br><span class="line">    u2 attribute_name_index;  <span class="comment">//属性名的索引</span></span><br><span class="line">    u4 attribute_length;   <span class="comment">//属性的长度</span></span><br><span class="line">    u1 info[attribute_length];  <span class="comment">//具体的信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>访问标志：</li>
+</ul>
+<p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/4.jpg" alt=""></p>
+<hr>
+<p><code>00 03</code>为方法表的数量，转换为十进制有3个，也就是</p>
+<ol>
+<li><code>getA()</code></li>
+<li><code>setA()</code></li>
+<li>编译器自动生成的默认构造方法</li>
+</ol>
+<p><code>00 01</code>为<code>ACC_public</code>访问标志</p>
+<p><code>00 07</code>和<code>00 08</code>为常量池索引，分别表示<code>name_index</code>与<code>descripor_index</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#7 = Utf8               &lt;init&gt;</span><br><span class="line">#8 = Utf8               ()V</span><br></pre></td></tr></table></figure>
+<p><code>00 01</code>为<code>attribute_count</code>，也就是说共有一个属性表</p>
+<p><code>00 09</code>为<code>attribute_info</code>里面的<code>attribute_name_index</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#9 = Utf8               Code</span><br></pre></td></tr></table></figure>
+<p>方法里的Java代码， 经过编译器编译成字节码指令后， 存放在方法属性表集合中一个名为<code>Code</code>的属性里面</p>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span></span>;</span><br><span class="line">  descriptor: ()I</span><br><span class="line">  flags: ACC_PUBLIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: getfield      #2                  // Field a:I</span><br><span class="line">       <span class="number">4</span>: ireturn</span><br><span class="line">    LineNumberTable:</span><br><span class="line">      line <span class="number">7</span>: <span class="number">0</span></span><br><span class="line">    LocalVariableTable:</span><br><span class="line">      Start  Length  Slot  Name   Signature</span><br><span class="line">          <span class="number">0</span>       <span class="number">5</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lindi/greenhat/bytecode/Test1;</span><br></pre></td></tr></table></figure>
+<p><code>00 00 00 38</code>为<code>attribute_length</code>，转换为十进制为56，也就是说会用56个字节作为<code>code</code>里面的值</p>
+<h3 id="Code属性"><a href="#Code属性" class="headerlink" title="Code属性"></a>Code属性</h3><p><strong>Java程序方法体中的代码经过<code>Javac</code>编译器处理后， 最终变为字节码指令存储在<code>Code</code>属性内</strong>。 <code>Code</code>属性出现在方法表的属性集合之中， 但并非所有的方法表都必须存在这个属性， 譬如接口或者抽象类中的方法就不存在<code>Code</code>属性， 如果方法表有<code>Code</code>属性存在， 那么它的结构如下所示：</p>
+<p><img src="/2019/06/23/Java虚拟机笔记-字节码格式/5.jpg" alt=""></p>
+<ul>
+<li><p><code>attribute_name_index</code>是一项指向<code>CONSTANT_Utf8_info</code>型常量的索引， 常量值固定为<code>Code</code>， 它代表了该属性的属性名称</p>
+</li>
+<li><p><code>attribute_length</code>指示了属性值的长度， 由于属性名称索引与属性长度一共为6字节， 所以属性值的长度固定为整个属性表长度减去6个字节</p>
+</li>
+<li><p><code>max_stack</code>代表了操作数栈(<code>Operand Stacks</code>)深度的最大值。 在方法执行的任意时刻，操作数栈都不会超过这个深度。 虚拟机运行的时候需要根据这个值来分配栈帧(<code>Stack Frame</code>)中的操作栈深度</p>
+</li>
+<li><p><code>max_locals</code>代表了局部变量表所需的存储空间。</p>
+<p><em>在这里， <code>max_locals</code>的单位是<code>Slot</code>,<code>Slot</code>是虚拟机为局部变量分配内存所使用的最小单位。 对于<code>byte</code>，<code>char</code>，<code>float</code>，<code>int</code>，<code>short</code>，<code>boolean</code>和<code>returnAddress</code>等长度不超过32位的数据类型， 每个局部变量占用1个<code>Slot</code>， 而<code>double</code>和<code>long</code>这两种64位的数据类型则需要两个<code>Slot</code>来存放</em></p>
+</li>
+<li><p><code>code_length</code>和<code>code</code>用来存储Java源程序编译后生成的字节码指令。<code>code_length</code>代表字节码长度， <code>code</code>是用于存储字节码指令的一系列字节流</p>
+<p> <em>既然叫字节码指令， 那么每个指令就是一个u1类型的单字节， 当虚拟机读取到code中的一个字节码时， 就可以对应找出这个字节码代表的是什么指令， 并且可以知道这条指令后面是否需要跟随参数， 以及参数应当如何理解</em></p>
+<p><em>关于<code>code_length</code>， 有一件值得注意的事情， 虽然它是一个u4类型的长度值， 理论上最大<br>值可以达到<code>2^32-1</code>， 但是虚拟机规范中明确限制了一个方法不允许超过65535条字节码指令，<br>即它实际只使用了u2的长度， 如果超过这个限制， Javac编译器也会拒绝编译。 一般来讲， 编<br>写Java代码时只要不是刻意去编写一个超长的方法来为难编译器， 是不太可能超过这个最大<br>值的限制。 但是， 某些特殊情况， 例如在编译一个很复杂的JSP文件时， 某些JSP编译器会把<br>JSP内容和页面输出的信息归并于一个方法之中， 就可能因为方法生成字节码超长的原因而<br>导致编译失败</em></p>
+</li>
+<li><p><code>exception_table</code>用来存放的是异常处理的信息，每个<code>exception_table</code>表项由<code>start_pc</code>，<code>end_pc</code>，<code>handler_pc</code>以及<code>catch_type</code>组成</p>
+</li>
+</ul>
 <p>参考：</p>
 <p><a href="https://zhuanlan.zhihu.com/p/45003974" target="_blank" rel="noopener">Java虚拟机—Class文件结构 - 知乎</a></p>
 <p><a href="https://juejin.im/post/5aca2c366fb9a028c97a5609" target="_blank" rel="noopener">轻松看懂Java字节码 - 掘金</a></p>
-<p>《深入理解java虚拟机（第二版 周志明）》</p>
 <p><a href="https://blog.nekolr.com/2018/04/18/%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" target="_blank" rel="noopener">类文件结构 | nekolr’s blog</a></p>
+<p><a href="https://lijiankun24.com/%E8%AE%A4%E8%AF%86-class-%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84/" target="_blank" rel="noopener">认识 .class 文件的字节码结构 | 一些无处安放的代码和故事</a></p>
+<p>《深入理解java虚拟机（第二版 周志明）》</p>
 
-  </article>
-</div>
+                    </article>
+                    
 
 
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-07-05");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-06-23T01:42:08.000Z" itemprop="datePublished">2019-06-23</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-07-05T02:52:41.821Z" itemprop="dateModified">2019-07-05</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href="/categories/读书笔记/">读书笔记</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/jvm/" rel="tag">#&nbsp;jvm</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
     
-<div class="container disqus-container">
-  <div id="disqus_thread"></div>
+        <li class="page-item page-prev">
+            <a href="/2019/06/23/莫队算法/" rel="prev">
+                <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">莫队算法</div>
+            </a>
+        </li>
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">Java虚拟机笔记-JDBC驱动加载机制</div>
+            </a>
+        </li>
+    
+</ul>
 </div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
 
 <script>
-  var disqus_config = function() {
-    this.page.url = "https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/";
-    this.page.identifier = 1561254128;
-  };
-
-  (function() {
-    var d = document, s = d.createElement('script');
-    s.src = 'https://greenhathg.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-  })();
-</script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
 
 
 
-
-
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="https://greenhathg.github.io" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2018 GreenHatHG</li>
-      <li><a href="https://greenhathg.github.io">Home</a></li>
-      
-      <li><a href="https://github.com/GreenHatHG">Github</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
-    </div>
-    </div>
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
     
-  </footer>
-</div>
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
 
 
-<script>
-  (function() {
-    var cx = '008487550618970634524:xm_ncoukzmu';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-      '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
 </script>
 
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
-<script src="/js/main.js"></script>
 
-<script type="text/x-mathjax-config">
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -298,4 +851,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
+
 </html>

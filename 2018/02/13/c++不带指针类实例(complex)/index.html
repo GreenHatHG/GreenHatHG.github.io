@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>一步一步写出c++不带指针类实例(标准库complex部分) | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="总共有19步">
+
+<!-- Keywords -->
+<meta name="keywords" content=", 写c++实例">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="一步一步写出c++不带指针类实例(标准库complex部分) | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="总共有19步">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2018-02-13T12:54:21.000Z">
+    <meta property="article:modified_time" content="2018-02-13T12:54:21.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", 写c++实例"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/"
+    },
+    "headline": "一步一步写出c++不带指针类实例(标准库complex部分) | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2018-02-13T12:54:21.000Z",
+    "dateModified": "2019-04-05T06:58:44.831Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", 写c++实例",
+    "description": "总共有19步"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
+</head>
+
+    <body>
+        
+
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=一步一步写出c++不带指针类实例(标准库complex部分)" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=一步一步写出c++不带指针类实例(标准库complex部分)&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=一步一步写出c++不带指针类实例(标准库complex部分)" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACP0lEQVR42u2aQVLDQAwE8/9Pw5WClaZlAgSrfUkqa2/aVZY8Gunx9g+Oh5BCCinkC0A+muPj+pcNDr+frqfnHq8Tci3k8aE9QH7+PJ2b1qtzTjxC7oY8Bczpoa++k72qGyrPFVLI5sE+Jecu+VdroxsSUsgmcLr1TkikhC+kkFOBkURtdT1N/E9RQULeDpIk4J/4fGq1KORtIC8ZSUXxTwPqV1w1If8t5ETMEiFBEjoRv0LuhSRBcVpL4rdL3J2AQdEt5O0hH+GYmvPdzY4MMSGFbIKgCwBqHqSXQpvMhVwHmUykThTg5FzsGQ0rIVdBUiOpCxJiUpGGfSkwhFwJORG33TVXGgTlDQu5EpL+cZWAydBIStz4jSPkCkgKNxUaxESIJoOQayEnZnwlEjrTiwqM9o0j5GpIUuSn4EnCOBlaQu6FJAUWMUrpsHG3t5BC0sZkErm0UUqGQ9pCTMgVkN1DnQQEHUQiBhd2MIRcATlpgE4CaTqcJ6SQkyGR7xRjE9NVSCGvvPjTUBwxCUijS8idkNQISGuk2d6ZVpcMKyFvDZkKqEmTkxhbRLAIuRcymfhpoI4MzJEAitWikKsgJ0PDCSiJETzYLORKSNLwpGKBFnFpfyF3Q1Kj6jvQqWFQvjyEXAs5CZhpwUYH8KI5IOQ6yMlD3xn9E9F8WfQKuR5yMsjUmVGoEZ8mUYVcD9mJCWLEkgRe3pSQqyFpQU+aRtREfZroFfJ2kJPhjiR2O5OLiGchhXzlQ0ghhRTyD493sgVWBI8raYcAAAAASUVORK5CYII=" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    
+    
+
+
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">一步一步写出c++不带指针类实例(标准库complex部分)</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2018-02-13</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/c/">c++</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=一步一步写出c++不带指针类实例(标准库complex部分)&url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=一步一步写出c++不带指针类实例(标准库complex部分)&url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2018/02/13/c++不带指针类实例(complex)/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACP0lEQVR42u2aQVLDQAwE8/9Pw5WClaZlAgSrfUkqa2/aVZY8Gunx9g+Oh5BCCinkC0A+muPj+pcNDr+frqfnHq8Tci3k8aE9QH7+PJ2b1qtzTjxC7oY8Bczpoa++k72qGyrPFVLI5sE+Jecu+VdroxsSUsgmcLr1TkikhC+kkFOBkURtdT1N/E9RQULeDpIk4J/4fGq1KORtIC8ZSUXxTwPqV1w1If8t5ETMEiFBEjoRv0LuhSRBcVpL4rdL3J2AQdEt5O0hH+GYmvPdzY4MMSGFbIKgCwBqHqSXQpvMhVwHmUykThTg5FzsGQ0rIVdBUiOpCxJiUpGGfSkwhFwJORG33TVXGgTlDQu5EpL+cZWAydBIStz4jSPkCkgKNxUaxESIJoOQayEnZnwlEjrTiwqM9o0j5GpIUuSn4EnCOBlaQu6FJAUWMUrpsHG3t5BC0sZkErm0UUqGQ9pCTMgVkN1DnQQEHUQiBhd2MIRcATlpgE4CaTqcJ6SQkyGR7xRjE9NVSCGvvPjTUBwxCUijS8idkNQISGuk2d6ZVpcMKyFvDZkKqEmTkxhbRLAIuRcymfhpoI4MzJEAitWikKsgJ0PDCSiJETzYLORKSNLwpGKBFnFpfyF3Q1Kj6jvQqWFQvjyEXAs5CZhpwUYH8KI5IOQ6yMlD3xn9E9F8WfQKuR5yMsjUmVGoEZ8mUYVcD9mJCWLEkgRe3pSQqyFpQU+aRtREfZroFfJ2kJPhjiR2O5OLiGchhXzlQ0ghhRTyD493sgVWBI8raYcAAAAASUVORK5CYII=" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#流程："><span class="post-toc-number">1.</span> <span class="post-toc-text">流程：</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p>总共有19步<br><a id="more"></a></p>
+<h3 id="流程："><a href="#流程：" class="headerlink" title="流程："></a>流程：</h3><ol>
+<li>首先先养成防卫式习惯，在头文件中加入下面三行，防止重复包含(行2,3,19)</li>
+<li>然后写出主体（行4,5,18）</li>
+<li>考虑下这个复数需要什么数据，当然这个数据应该放在私有部分(private)。<br> 复数有实部虚部，可得出private变量的定义（行15,16）</li>
+<li>接下来考虑需要什么函数来实现，这些函数当然需要操作在复数身上，然后<br> 函数是对外发表的，所以放在public里面（行7，行8）</li>
+<li>首先任何一个class都有构造函数，然后构造函数的语法是什么？<br> 构造函数名称与class名称相同，没有返回类型。接着，一个构造函数应该接收什么参数？<br> 在这个例子中，有实部虚部，我们就应该有实部虚部的参数，然后我们就考量要不要默认值。</li>
+<li>我们还要考虑这个函数的传递是按值传递还是按引用传递？<br> 这个函数中传值或者传引用区别不大，所以随便选择一个</li>
+<li>还得想到构造函数有个很特别的语法—初始列，一般最好运用初始列</li>
+<li>然后考虑构造函数还需要干什么，这个例子已经不需要什么操作，在别的地方可能要在构造函数中分配一些内存，开个窗口，或者开个文件等等（行9,10）</li>
+<li>接下来考虑这个class要实现什么功能，在这个例子中，我们实现复数的加法。<br> 对于该函数有两种选择，一种是成为成员函数，另一种则是非成员函数，这两种选择都可以，这里我们选择第一种。（行12）</li>
+<li>还需要准备什么函数呢？需要两个函数去取得private里面实部和虚部的值。对于一个函数，我们考虑是否要加const，在这里只是要取实虚部的值，所以要加const保证安全。（行13,14）</li>
+<li>接下来在class本体外实现复数的加法，先把函数首部除参数之外的东西写出来(complex::operator += )，然后再思考参数是什么？<br>+=，一定有个左边有个右边，由于该函数是一个成员函数，是作用在左边身上，所以左边就有一个隐藏的参数放进来，不知道在参数列表第几个位置，反正就是一定有，所以在参数里面就写右边就好。（行12）</li>
+<li>首先我们要考虑传引用，所以加&amp;，那要不要加const？+=是左边动，右边不动，所以要加const。<br>然后考虑返回值类型，显而易见+=得到左边的是一个复数，所以是complex类型，那么要不要传引用？由于左边本来就存在，不是在函数里面才定义的，所以可以传引用。<br>由于这个函数是在class本体之外，为了提高效率，所以加个inline，至于最终会不会变成内联函数，这个就要看编译器</li>
+<li>然后补充完整函数主体（行22-33）</li>
+<li>然后我们多了三个加法，复数+复数，复数+实数，实数+复数，是在本体外，为什么？（行42-54）<br>如果放在class里面，就只能实现一种加法</li>
+<li>接着考虑输出功能，举个例子，要输出complex c1(9,8)。<br>这里可能需要&lt;&lt;操作符重载，操作符&lt;&lt;只能作用在左边，那么就意味着得是c1 &lt;&lt; cout;为了避免这种情况，我们需要重载运算符，实现cout &lt;&lt; c1;（行56-61）</li>
+<li>由于该重载函数不是成员函数，所以不需要complex::，由于该函数要实现cout &lt;&lt; c1，所以左边是cout，左边参数就得是“cout类型”，查手册得cout属于class ostream（得包含头文件&lt; iostream &gt;，同理右边是complex。<br>然后考虑传引用，class complex和class ostream都是很大东西，传引用速度快。然后考虑要不要加const，右边作用于左边，右边肯定不变，加const，那么左边呢？<br>左边会改变，状态会改变，所以不能加const</li>
+<li>接着考虑返回值对于cout &lt;&lt; c1这种情况，可以设置为void，但是对于cout &lt;&lt; c1 &lt;&lt; endl这种情况呢？</li>
+<li>当cout &lt;&lt; c1执行完毕之后，应该传回一种想cout这种东西让&lt;&lt; endl继续执行，那cout是什么东西，ostream，所以返回值最好设置为ostream。ostream是本来就有的，所以可以传引用</li>
+<li>最后补全函数<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">本体</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _COMPLEX_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _COMPLEX_</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="keyword">complex</span> (<span class="keyword">double</span> r = <span class="number">0</span>, <span class="keyword">double</span> i = <span class="number">0</span>)</span><br><span class="line">  : re (r), im (i)</span><br><span class="line">  &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">complex</span>&amp; <span class="keyword">operator</span> += (<span class="keyword">const</span> <span class="keyword">complex</span>&amp;);</span><br><span class="line">  <span class="function"><span class="keyword">double</span> real <span class="title">const</span> <span class="params">()</span> </span>&#123; <span class="keyword">return</span> re;&#125; <span class="comment">//函数完整，是inline</span></span><br><span class="line">  <span class="function"><span class="keyword">double</span> imag <span class="title">const</span> <span class="params">()</span> </span>&#123; <span class="keyword">return</span> im;&#125; <span class="comment">//inline</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="keyword">double</span> re, im;</span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">complex</span>&amp; _doapl (<span class="keyword">complex</span>*, <span class="keyword">const</span> <span class="keyword">complex</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">本体外</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">complex</span>&amp;</span><br><span class="line">_doapl(<span class="keyword">complex</span>* ths, <span class="keyword">const</span> <span class="keyword">complex</span> &amp; r) <span class="comment">//左边变，右边不变，所以左边不要const</span></span><br><span class="line">&#123;</span><br><span class="line">  ths-&gt;re += r.re;</span><br><span class="line">  ths-&gt;im += r.im;</span><br><span class="line">  <span class="keyword">return</span> *ths;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">complex</span>&amp;</span><br><span class="line"><span class="keyword">complex</span>::<span class="keyword">operator</span> += (<span class="keyword">const</span> <span class="keyword">complex</span> &amp; r)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> _doapl (<span class="keyword">this</span>, r); <span class="comment">//让_doapl实现加法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">complex</span> <span class="comment">//不能传引用</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; x, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">complex</span>(real(x) + real(y),</span><br><span class="line">                imag(x) + imag(y)); <span class="comment">//类名称+小括号创建临时对象</span></span><br><span class="line">&#125;<span class="comment">//复数+复数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; x, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">complex</span>(real(x) + y,</span><br><span class="line">                 imag(y));</span><br><span class="line">&#125;<span class="comment">//复数+实数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">complex</span></span><br><span class="line"><span class="keyword">operator</span> + (<span class="keyword">const</span> <span class="keyword">complex</span>&amp; x, <span class="keyword">const</span> <span class="keyword">complex</span>&amp; y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">complex</span>(x + real(y),</span><br><span class="line">                imag(y));</span><br><span class="line">&#125;<span class="comment">//实数+复数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line">ostream&amp;</span><br><span class="line"><span class="keyword">operator</span> &lt;&lt; (ostream&amp; os, <span class="keyword">const</span> <span class="keyword">complex</span> &amp; x)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> os &lt;&lt; <span class="string">'('</span> &lt;&lt; real(x) &lt;&lt; imag(x) &lt;&lt; <span class="string">')'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-04-05");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2018-02-13T12:54:21.000Z" itemprop="datePublished">2018-02-13</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-04-05T06:58:44.831Z" itemprop="dateModified">2019-04-05</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href="/categories/c/">c++</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/写c-实例/" rel="tag">#&nbsp;写c++实例</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+        <li class="page-item page-prev">
+            <a href="/2018/02/13/一步一步写出c++带指针类实例(标准库string部分)/" rel="prev">
+                <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">一步一步写出c++带指针类实例(标准库string部分)</div>
+            </a>
+        </li>
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2018/02/13/一道优先队列习题/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">一道优先队列习题</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+</script>
+
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+
+
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>

@@ -1,561 +1,922 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>
-    葵花妈妈开课辣
-  </title>
-  <meta name="description" content="孩子xx老不x怎么办，多半是x了">
-  
-  <meta name="author" content="GreenHatHG">
+<!-- comment -->
 
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
 
-  <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="">
+
+<!-- Keywords -->
+<meta name="keywords" content="">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="blog">
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-116672888-1', 'auto');
-  ga('send', 'pageview');
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/">
+
+    <!-- ### Structured Data ### -->
+    
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Blog",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    "url": "https://greenhathg.github.io",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io"
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": "",
+    "description": ""
+}
 </script>
 
 
-  
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
 </head>
 
-<body id="replica-app">
+    <body>
+        
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+            
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
-        </div>
-      </div>
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
 
-      <ul class="navbar-nav float-left">
+    <p class="text-center header-slogan">
         
-        <li><a href="/archives">Archives</a></li>
+            
+                葵花妈妈开课啦
+            
         
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
+    </p>
 
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
         </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
         </li>
-        <li class="user-nav-logo">
-          <a><img src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg"> <i class="fa fa-caret-down"></i></a>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
         </li>
-      </ul>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIQAAACECAAAAAB0L9x7AAABgElEQVR42u3ayw6DMAxE0fz/T7fbCsWZMaDEri4bqqqFs7ASPzI+Ba4BAgSIFoixuH5/E32O/mc9F0RZxDRoJi++PiT6vf1cEKURs8BS37v32f9B9Easgi1a2ED8N8LZjK4gEP0R0UYTvWgFeX0XBbEdoRLWpxvX42wbxFaELFonSa4KvterchBbEatAUhCVAK0WNRC1ESpJUU0Sd3GyNzAQRxFOEywCZRJca8UEUQaRefmdJCZMmkGURWSb5WpBU40UEH0Q2UXobiMFRG1EppmaaZQ8zrZBHENkiuBMsbNqvoOojVCLjzOodRqo6YIYxFGEc1AjCjQ3CbInPyDKIVQB5Axpok3PDkwQpRDOkF5tYuqAEIheCHV3DnE4myKIughnEKcaI8vm2FvDWRDbEG5zI9NgcxvtIOoiMkmKE4QqmQHRA+EeAFRFkXtACER/hDN8SxdEIFoj3KJGDWJA9EGopobdNB9DFlYg6iMyBy9UQaQWOhD1EScvECBAlEZ8AfFh+irbHGo6AAAAAElFTkSuQmCC" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            <div class="container">
+    <div class="main-container">
+        <main>
+            <div class="post-stream-container">
+                <!-- # Post List # -->
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/07/02/SQL中的EXISTS/" rel="bookmark">SQL中的EXISTS</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        SQL中的EXISTS与SQL中的NOT EXISTS
+    <a href="/2019/07/02/SQL中的EXISTS/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-07-02</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
     </div>
-  </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/" rel="bookmark">Java虚拟机笔记-字节码文件中的常量池</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        常量池（Constant Pool）
+    <a href="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-26</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/23/莫队算法/" rel="bookmark">莫队算法</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        莫队算法
+    <a href="/2019/06/23/莫队算法/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-23</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/23/Java虚拟机笔记-字节码格式/" rel="bookmark">Java虚拟机笔记-字节码格式</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+         .class文件
+    <a href="/2019/06/23/Java虚拟机笔记-字节码格式/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-23</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/" rel="bookmark">Java虚拟机笔记-JDBC驱动加载机制</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+         通过JDBC驱动加载理解线程上下文加载器
+    <a href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-21</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/20/Mysql外键与级联操作/" rel="bookmark">Mysql外键与级联操作</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        外键与级联更新删除
+    <a href="/2019/06/20/Mysql外键与级联操作/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-20</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/16/分块算法/" rel="bookmark">分块算法</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        分块算法
+    <a href="/2019/06/16/分块算法/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-16</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/11/Java虚拟机笔记-ServiceLoader/" rel="bookmark">Java虚拟机笔记-ServiceLoader</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        ServiceLoader-javaDoc
+    <a href="/2019/06/11/Java虚拟机笔记-ServiceLoader/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-11</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/10/Java虚拟机笔记-线程上下文加载器/" rel="bookmark">Java虚拟机笔记-线程上下文加载器</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+         线程上下文加载器
+    <a href="/2019/06/10/Java虚拟机笔记-线程上下文加载器/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-10</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+                    
+                        
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+<article class="post-entry container px-0 card">
+        <div class="columns col-gapless">
+            
+                <div class="column col-12">
+                    
+    <h2 class="h5 mb-0 card-header"><a class="card-title" href="/2019/06/09/在ArchLinux中使用最新的内核模块监控Ryzen温度/" rel="bookmark">在ArchLinux中使用最新的内核模块监控Ryzen温度</a></h2>
+
+
+<p class="mb-0 card-body">
+    
+        AMD Ryzen Temperatures
+    <a href="/2019/06/09/在ArchLinux中使用最新的内核模块监控Ryzen温度/">阅读全文</a>
+</p>
+
+
+
+
+    <!-- Date & Category -->
+    <div class="card-footer post-entry-info text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <time>2019-06-09</time>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/教程/">教程</a>
+        
+        
+    </div>
+
+                </div>
+            
+        </div>
+</article>
+
+                    
+                
+            </div>
+        </main>
+        
+<nav>
+<ul class="pagination">
+    
+    
+        <li class="page-item page-next">
+            <a href="/page/2/" rel="next">
+                <span class="page-item-title">下一页</span>
+                <span class="page-item-subtitle"><i class="icon icon-forward" aria-hidden="true"></i></span>
+            </a>
+        </li>
+    
+</ul>
 </nav>
 
-<div class="main-container">
-  
 
-<div class="container-lg">
-  
-
-<div class="blog-intro">
-  <div class="blog-intro-user">
-    <img class="avatar" src="https://ws1.sinaimg.cn/large/0072Lfvtly1fzdl0fooxzj30dq0b6n0g.jpg">
-    <div class="user-name">
-      <div class="blog-title">葵花妈妈开课辣</div>
-      <div class="blog-author">GreenHatHG</div>
-        <ul class="user-detail mobile-only">
-    
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Guang Zhou
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:1239776759@qq.com">1239776759@qq.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://greenhathg.github.io">https://greenhathg.github.io</a>
-    </li>
-  </ul>
     </div>
-    <div class="blog-description">
-      孩子xx老不x怎么办，多半是x了
-    </div>
-  </div>
-
-  <ul class="user-detail desktop-only">
-    
-    <li>
-      <i class="fa fa-map-marker"></i>
-      Guang Zhou
-    </li>
-    
-    <li>
-      <i class="fa fa-envelope-o"></i>
-      <a href="mailto:1239776759@qq.com">1239776759@qq.com</a>
-    </li>
-    
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="https://greenhathg.github.io">https://greenhathg.github.io</a>
-    </li>
-  </ul>
-
-  <div class="social-media desktop-only">
-    <h4>Social Media</h4>
-    <ul>
-      
-      <li class="social-media-item"><a href="https://github.com/GreenHatHG" target="_blank"><i class="fa fa-github"></i></a></li>
-      
-    </ul>
-  </div>
 </div>
 
-
-  <div class="blog-detail">
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
     
-<nav class="blog-detail-nav desktop-only">
-  <ul class="clearfix">
-    <li class="selected">
-      <a href="/">Overview</a></li>
-    <li class="">
-      <a href="/archives">Posts <span class="counter">130</span></a>
-    </li>
-    <li class="">
-      <a href="/categories">Categories <span class="counter">18</span></a></li>
-    <li class="">
-      <a href="/tags">Tags <span class="counter">89</span></a></li>
-  </ul>
-</nav>
-
-    <div class="body-secondary">
-      <p class="right-title">Recent post</p>
-      <ul class="recent-post clearfix">
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
         
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/07/02/SQL中的EXISTS/">SQL中的EXISTS</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               SQL中的EXISTS与SQL中的NOT EXISTS 
-  
-   从 SQL 中基础的 WHE
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 2 </span>
-            </p>
-          </div>
-        </li>
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
         
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/">Java虚拟机笔记-字节码文件中的常量池</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               常量池（Constant Pool） 
-  
-   常量池（Constant Pool）     
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
+            <span>|</span>
         
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/06/23/莫队算法/">莫队算法</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               莫队算法 
-  
-   简述  莫队算法使用分块的思想，可以解决一类离线区间询问问题 
- 莫队算法
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/算法/"><i class="fa fa-folder-open"></i> 算法</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/06/23/Java虚拟机笔记-字节码格式/">Java虚拟机笔记-字节码格式</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                .class文件 
-  
- Java从刚开始的时候就有两套 规范，一个是Java语言规范，另外一
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/">Java虚拟机笔记-JDBC驱动加载机制</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-                通过JDBC驱动加载理解线程上下文加载器 
-  
-   JDBC   JDBC 提供了独立于数据
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 1 </span>
-            </p>
-          </div>
-        </li>
-        
-        <li class="recent-post-item">
-          <div class="clearfix">
-            <h5 class="post-title text-ellipsis">
-              <i class="fa fa-bars"></i>
-              <a href="/2019/06/20/Mysql外键与级联操作/">Mysql外键与级联操作</a>
-            </h5>
-            <p class="post-description text-ellipsis desktop-only">
-               外键与级联更新删除 
-  
- 之前没用过外键与级联更新，所以总结一下，用的数据库版本： 
-  my
-            </p>
-            <p class="post-info desktop-only">
-              <span>
-                
-                  <a class="category-link" href="/categories/读书笔记/"><i class="fa fa-folder-open"></i> 读书笔记</a>
-                
-              </span>
-              <span><i class="fa fa-tag"></i> 2 </span>
-            </p>
-          </div>
-        </li>
-        
-      </ul>
-      <div class="calendar-container" id="calendar">
-  <div class="calendar">
-    <h3>
-      {{posts.length}} contributions in the last year
-    </h3>
-    <div class="calendar-graph-container">
-      <div class="calendar-graph">
-        <svg width="676" height="104" @mouseout="mouseoverDate=null">
-          <g transform="translate(16, 20)">
-            <g v-for="week in calendar" :transform="week.transform">
-              <rect v-for="day in week.days" :x="day.x" :y="day.y" :fill="day.fill" @click="selectedDate=day.date" @mouseover="mouseoverDate=day.date" :class="{active:selectedDate===day.date}" data-count="{{day.posts.length}}" data-date="{{day.date}}" class="day" width="10" height="10"/>
-            </g>
-
-            <text v-for="month in monthLabels" :x="month.x" y="-5" class="month">{{month.text}}
-            </text>
+    </span>
 
 
-            <text text-anchor="start" class="wday" dx="-14" dy="8" style="display: none;">S
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="20">Mon</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="32" style="display: none;">T
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="44">Wed</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="57" style="display: none;">T
-            </text>
-            <text text-anchor="start" class="wday" dx="-14" dy="69">Fri</text>
-            <text text-anchor="start" class="wday" dx="-14" dy="81" style="display: none;">S
-            </text>
-          </g>
-        </svg>
-        <div class="svg-tip svg-tip-one-line" v-bind:style="{ top: svgtip.top, left: svgtip.left, display: svgtip.display}">
-          <strong>{{svgtip.text}}</strong> on
-          {{moment(mouseoverDate).format('MMM DD, YYYY')}}
-        </div>
-      </div>
-      <div class="calendar-footer clearfix">
-      <span>
-        <a href="#">Learn how we count contributions.</a>
-      </span>
-        <div class="calendar-legend">
-          <span>Less</span>
-          <ul class="legend">
-            <li style="background-color: #eee"></li>
-            <li style="background-color: #d6e685"></li>
-            <li style="background-color: #8cc665"></li>
-            <li style="background-color: #44a340"></li>
-            <li style="background-color: #1e6823"></li>
-          </ul>
-          <span>More</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <h3>Contribution activity</h3>
-  <div class="contribution-list">
-    <ul>
-      <li v-for="post in posts | filterBy selectedDate in 'date'">
-        <a href="{{post.url}}">{{post.title}}
-        </a>
-        <span>{{post.date}}</span>
-      </li>
-    </ul>
-  </div>
-</div>
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
 
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
 
 <script>
-  var posts = [{"date":"2018-07-07","title":"CodeForces水一水","url":"https://greenhathg.github.io/2018/07/07/CodeForces/"},{"date":"2018-07-16","title":"讲个笑话","url":"https://greenhathg.github.io/2018/07/16/讲个笑话/"},{"date":"2018-07-19","title":"对一个整数处理","url":"https://greenhathg.github.io/2018/07/19/对一个整数处理/"},{"date":"2018-08-02","title":"DP","url":"https://greenhathg.github.io/2018/08/02/DP/"},{"date":"2018-08-15","title":"kmp","url":"https://greenhathg.github.io/2018/08/15/kmp/"},{"date":"2018-09-16","title":"MySQL--deepin15.7环境下的配置","url":"https://greenhathg.github.io/2018/09/16/mySQL-deepin15-7环境下的配置/"},{"date":"2018-09-18","title":"JDBC之PreparedStatement对象执行SQL语句","url":"https://greenhathg.github.io/2018/09/18/JDBC之PreparedStatement对象执行SQL语句/"},{"date":"2018-09-18","title":"JDBC入门","url":"https://greenhathg.github.io/2018/09/18/JDBC入门/"},{"date":"2018-09-22","title":"挑战程序设计--POJ1852(Ants)思维","url":"https://greenhathg.github.io/2018/09/22/挑战程序设计-POJ1852-Ants-思维/"},{"date":"2018-09-22","title":"挑战程序设计--- 任意四个数字为定和","url":"https://greenhathg.github.io/2018/09/22/挑战程序设计-任意四个数字为定和/"},{"date":"2018-09-23","title":"MOOC学习python爬虫学习之入门","url":"https://greenhathg.github.io/2018/09/23/MOOC学习python爬虫学习之入门/"},{"date":"2018-09-23","title":"MOOC学习python爬虫学习之Requests","url":"https://greenhathg.github.io/2018/09/23/MOOC学习python爬虫学习之Requests/"},{"date":"2018-09-23","title":"挑战程序设计竞赛---POJ3253切木板","url":"https://greenhathg.github.io/2018/09/23/挑战程序设计竞赛-POJ3253切木板/"},{"date":"2018-09-23","title":"挑战程序设计竞赛---区间问题（选择最多的工作量）贪心","url":"https://greenhathg.github.io/2018/09/23/挑战程序设计竞赛-区间问题（选择最多的工作量）贪心/"},{"date":"2018-09-24","title":"MOOC学习python爬虫之简单实战","url":"https://greenhathg.github.io/2018/09/24/MOOC学习python爬虫之简单实战/"},{"date":"2018-09-24","title":"MOOC学习python爬虫之beautifulsoup","url":"https://greenhathg.github.io/2018/09/24/MOOC学习python爬虫之beautifulsoup/"},{"date":"2018-09-25","title":"MOOC学习python爬虫之中国大学排名","url":"https://greenhathg.github.io/2018/09/25/MOOC学习python爬虫之中国大学排名/"},{"date":"2018-09-29","title":"挑战程序设计竞赛---poj2431(贪心+优先队列)","url":"https://greenhathg.github.io/2018/09/29/挑战程序设计竞赛-poj2431-贪心-优先队列/"},{"date":"2018-09-30","title":"java基于URL网络编程--获取网页HTML","url":"https://greenhathg.github.io/2018/09/30/java基于URL网络编程-获取网页HTML/"},{"date":"2018-10-27","title":"字符串常见算法--kmp，E-kmp，manacher，ac自动机","url":"https://greenhathg.github.io/2018/10/27/字符串常见算法-kmp，E-kmp，mancher，ac自动机/"},{"date":"2018-11-22","title":"大数模板","url":"https://greenhathg.github.io/2018/11/22/大数模板/"},{"date":"2018-11-24","title":"n1配置","url":"https://greenhathg.github.io/2018/11/24/n1配置/"},{"date":"2019-01-25","title":"文件测试testCast","url":"https://greenhathg.github.io/2019/01/25/文件测试testCast/"},{"date":"2019-01-26","title":"博弈论","url":"https://greenhathg.github.io/2019/01/26/博弈论/"},{"date":"2019-01-28","title":"平衡三进制","url":"https://greenhathg.github.io/2019/01/28/平衡三进制/"},{"date":"2019-01-29","title":"日常wa于模拟题","url":"https://greenhathg.github.io/2019/01/29/日常wa于模拟题/"},{"date":"2019-01-30","title":"牛客--applese的回文串","url":"https://greenhathg.github.io/2019/01/30/牛客-applese的回文串/"},{"date":"2019-02-03","title":"模运算","url":"https://greenhathg.github.io/2019/02/03/模运算/"},{"date":"2019-02-03","title":"欧几里得","url":"https://greenhathg.github.io/2019/02/03/欧几里得/"},{"date":"2019-02-03","title":"欧拉函数","url":"https://greenhathg.github.io/2019/02/03/欧拉函数/"},{"date":"2019-02-03","title":"素数筛快速幂","url":"https://greenhathg.github.io/2019/02/03/素数筛快速幂/"},{"date":"2019-02-05","title":"Applese-涂颜色","url":"https://greenhathg.github.io/2019/02/05/Applese-涂颜色/"},{"date":"2019-02-05","title":"出题","url":"https://greenhathg.github.io/2019/02/05/出题/"},{"date":"2019-02-06","title":"区间或和","url":"https://greenhathg.github.io/2019/02/06/区间或和/"},{"date":"2019-02-12","title":"Rinne Loves Math","url":"https://greenhathg.github.io/2019/02/12/Rinne-Loves-Math/"},{"date":"2019-02-15","title":"Arch安装配置笔记","url":"https://greenhathg.github.io/2019/02/15/Arch安装配置笔记/"},{"date":"2019-02-15","title":"进制的应用","url":"https://greenhathg.github.io/2019/02/15/进制的应用/"},{"date":"2019-02-17","title":"模拟除法","url":"https://greenhathg.github.io/2019/02/17/模拟除法/"},{"date":"2019-02-17","title":"配上模拟的vector","url":"https://greenhathg.github.io/2019/02/17/配上模拟的vector/"},{"date":"2019-02-19","title":"图论之最小生成树","url":"https://greenhathg.github.io/2019/02/19/图论之最小生成树/"},{"date":"2019-02-19","title":"图论之最短路","url":"https://greenhathg.github.io/2019/02/19/图论之最短路/"},{"date":"2019-02-21","title":"自译之函数式编程的好处","url":"https://greenhathg.github.io/2019/02/21/自译之函数式编程的好处/"},{"date":"2019-02-22","title":"L2-001紧急救援-dijkstra变形-记录路径","url":"https://greenhathg.github.io/2019/02/22/L2-001紧急救援-dijkstra变形-记录路径/"},{"date":"2019-02-27","title":"chroot方法恢复grub信息","url":"https://greenhathg.github.io/2019/02/27/chroot方法恢复grub信息/"},{"date":"2019-03-06","title":"PTA-L2-025-分而治之-vector-思维","url":"https://greenhathg.github.io/2019/03/06/PTA-L2-025-分而治之-vector-思维/"},{"date":"2019-03-06","title":"PTA-L2-028-vector-思维","url":"https://greenhathg.github.io/2019/03/06/PTA-L2-028-vector-思维/"},{"date":"2019-03-11","title":"弱鸡小总结","url":"https://greenhathg.github.io/2019/03/11/弱鸡小总结/"},{"date":"2019-03-15","title":"CodeForces-236B-求因子个数","url":"https://greenhathg.github.io/2019/03/15/CodeForces-236B-求因子个数/"},{"date":"2019-03-16","title":"FZU-1649-PrimeNumberOrNot-大素数判断","url":"https://greenhathg.github.io/2019/03/16/FZU-1649-PrimeNumberOrNot-大素数判断/"},{"date":"2019-03-17","title":"L2-016-dfs","url":"https://greenhathg.github.io/2019/03/17/L2-016-dfs/"},{"date":"2019-03-19","title":"Java虚拟机规范(JavaSE8)笔记--java虚拟机结构","url":"https://greenhathg.github.io/2019/03/19/Java虚拟机规范-JavaSE8-笔记-java虚拟机结构/"},{"date":"2019-03-23","title":"图着色问题","url":"https://greenhathg.github.io/2019/03/23/图着色问题/"},{"date":"2019-03-26","title":"图论之存图方式","url":"https://greenhathg.github.io/2019/03/26/图论之存图方式/"},{"date":"2019-03-28","title":"牛客283H-Dij-链式向前星-快速幂","url":"https://greenhathg.github.io/2019/03/28/牛客283H-Dij-链式向前星-快速幂/"},{"date":"2019-04-12","title":"HDU1518-Square-DFS","url":"https://greenhathg.github.io/2019/04/12/HDU1518-Square-DFS/"},{"date":"2019-04-13","title":"HDU1217-Arbitrage-Flody变形","url":"https://greenhathg.github.io/2019/04/13/HDU1217-Arbitrage-Flody变形/"},{"date":"2019-04-14","title":"HDU1024-m子段和的最大值","url":"https://greenhathg.github.io/2019/04/14/HDU1024-m子段和的最大值/"},{"date":"2019-04-14","title":"hdu-1231最大连续子序列和-dp-记录位置","url":"https://greenhathg.github.io/2019/04/14/hdu-1231最大连续子序列和-dp-记录位置/"},{"date":"2019-04-17","title":"BSGS算法","url":"https://greenhathg.github.io/2019/04/17/BSGS算法/"},{"date":"2019-04-17","title":"Java虚拟机笔记-java虚拟机类加载","url":"https://greenhathg.github.io/2019/04/17/Java虚拟机笔记-java虚拟机类加载/"},{"date":"2019-04-19","title":"2019中山大学程序设计竞赛-重现赛-补两道水题","url":"https://greenhathg.github.io/2019/04/19/2019中山大学程序设计竞赛-重现赛-补两道水题/"},{"date":"2019-04-19","title":"EXBSGS算法","url":"https://greenhathg.github.io/2019/04/19/EXBSGS算法/"},{"date":"2019-04-19","title":"一些STL知识填坑","url":"https://greenhathg.github.io/2019/04/19/一些STL知识填坑/"},{"date":"2019-04-23","title":"Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符","url":"https://greenhathg.github.io/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/"},{"date":"2019-04-24","title":"线段树入门","url":"https://greenhathg.github.io/2019/04/24/线段树入门/"},{"date":"2019-04-25","title":"Java虚拟机笔记-接口初始化规则","url":"https://greenhathg.github.io/2019/04/25/Java虚拟机笔记-接口初始化规则/"},{"date":"2019-04-25","title":"Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析","url":"https://greenhathg.github.io/2019/04/25/Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析/"},{"date":"2019-04-25","title":"RMQ之ST表实现","url":"https://greenhathg.github.io/2019/04/25/RMQ之ST表实现/"},{"date":"2019-04-26","title":"单调队列","url":"https://greenhathg.github.io/2019/04/26/单调队列/"},{"date":"2019-04-29","title":"单调栈","url":"https://greenhathg.github.io/2019/04/29/单调栈/"},{"date":"2019-05-03","title":"Java虚拟机笔记-java虚拟机类加载2","url":"https://greenhathg.github.io/2019/05/03/Java虚拟机笔记-java虚拟机类加载2/"},{"date":"2019-05-03","title":"Java虚拟机笔记-类加载器双亲委托派制","url":"https://greenhathg.github.io/2019/05/03/Java虚拟机笔记-类加载器双亲委派机制/"},{"date":"2019-05-04","title":"Java虚拟机笔记-ClassLoder部分文档解读","url":"https://greenhathg.github.io/2019/05/04/Java虚拟机笔记-ClassLoder部分文档解读/"},{"date":"2019-05-04","title":"Java虚拟机笔记-类加载器双亲委托派制2","url":"https://greenhathg.github.io/2019/05/04/Java虚拟机笔记-类加载器双亲委托派制2/"},{"date":"2019-05-06","title":"容斥与抽屉定理","url":"https://greenhathg.github.io/2019/05/06/容斥与抽屉定理/"},{"date":"2019-05-09","title":"Java虚拟机笔记-自定义类加载器","url":"https://greenhathg.github.io/2019/05/09/Java虚拟机笔记-自定义类加载器/"},{"date":"2019-05-11","title":"线段树模板","url":"https://greenhathg.github.io/2019/05/11/线段树模板/"},{"date":"2019-05-15","title":"Java虚拟机笔记-类的卸载","url":"https://greenhathg.github.io/2019/05/15/Java虚拟机笔记-类的卸载/"},{"date":"2019-05-17","title":"Java虚拟机笔记-类加载器的命名空间","url":"https://greenhathg.github.io/2019/05/17/Java虚拟机笔记-类加载器的命名空间/"},{"date":"2019-05-18","title":"MySql8-arch下二进制安装","url":"https://greenhathg.github.io/2019/05/18/MySql8-arch下二进制安装/"},{"date":"2019-05-29","title":"Java虚拟机笔记-getProperty","url":"https://greenhathg.github.io/2019/05/29/Java虚拟机笔记-getProperty/"},{"date":"2019-05-30","title":"Java设计模式-工厂模式","url":"https://greenhathg.github.io/2019/05/30/Java设计模式-工厂模式/"},{"date":"2019-05-31","title":"Java设计模式-工厂模式Java实现","url":"https://greenhathg.github.io/2019/05/31/Java设计模式-工厂模式Java实现/"},{"date":"2019-06-02","title":"Java虚拟机笔记-类加载器与web容器与OSGi","url":"https://greenhathg.github.io/2019/06/02/Java虚拟机笔记-类加载器与web容器与OSGi/"},{"date":"2019-06-02","title":"Java虚拟机笔记-Launcher类","url":"https://greenhathg.github.io/2019/06/02/Java虚拟机笔记-Launcher类/"},{"date":"2019-06-03","title":"Java设计模式-代理模式","url":"https://greenhathg.github.io/2019/06/03/Java设计模式-代理模式/"},{"date":"2019-06-09","title":"记-迁移arch到不同硬盘","url":"https://greenhathg.github.io/2019/06/09/记-迁移arch到不同硬盘/"},{"date":"2019-06-09","title":"在ArchLinux中使用最新的内核模块监控Ryzen温度","url":"https://greenhathg.github.io/2019/06/09/在ArchLinux中使用最新的内核模块监控Ryzen温度/"},{"date":"2019-06-10","title":"Java虚拟机笔记-线程上下文加载器","url":"https://greenhathg.github.io/2019/06/10/Java虚拟机笔记-线程上下文加载器/"},{"date":"2019-06-11","title":"Java虚拟机笔记-ServiceLoader","url":"https://greenhathg.github.io/2019/06/11/Java虚拟机笔记-ServiceLoader/"},{"date":"2019-06-16","title":"分块算法","url":"https://greenhathg.github.io/2019/06/16/分块算法/"},{"date":"2019-06-20","title":"Mysql外键与级联操作","url":"https://greenhathg.github.io/2019/06/20/Mysql外键与级联操作/"},{"date":"2019-06-21","title":"Java虚拟机笔记-JDBC驱动加载机制","url":"https://greenhathg.github.io/2019/06/21/Java虚拟机笔记-JDBC驱动加载机制/"},{"date":"2019-06-23","title":"莫队算法","url":"https://greenhathg.github.io/2019/06/23/莫队算法/"},{"date":"2019-06-23","title":"Java虚拟机笔记-字节码格式","url":"https://greenhathg.github.io/2019/06/23/Java虚拟机笔记-字节码格式/"},{"date":"2019-06-26","title":"Java虚拟机笔记-字节码文件中的常量池","url":"https://greenhathg.github.io/2019/06/26/Java虚拟机笔记-字节码文件中的常量池/"},{"date":"2019-07-02","title":"SQL中的EXISTS","url":"https://greenhathg.github.io/2019/07/02/SQL中的EXISTS/"}];
-  var today = moment().format('YYYY-MM-DD');
-  var oneYearAgo = moment(today).subtract(1, 'years');
-  posts = posts.filter(function(post) {
-    return new Date(post.date) > oneYearAgo;
-  });
-  var monthLabels = [];
-  var monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var calendar = getCalendar(posts);
-
-  var dateRange = {
-    start: moment(oneYearAgo).format('MMM D, YYYY'),
-    end: moment().format('MMM D, YYYY')
-  }
-
-  var app = new Vue({
-    el: '#calendar',
-    data: {
-      posts: posts,
-      selectedDate: null,
-      calendar: calendar,
-      dateRange: dateRange,
-      mouseoverDate: null,
-      moment: moment,
-      monthLabels: monthLabels
-    },
-    created: function() {
-      this.selectedDate = 'none';
-    },
-    methods: {},
-    computed: {
-      svgtip: function() {
-        var date = this.mouseoverDate;
-        var display = date ? 'block' : 'none';
-        if (date) {
-          var coordinator = getIndexByDate(date);
-          var x = coordinator[0];
-          var y = coordinator[1];
-          var len = this.calendar[x].days[y].posts.length;
-          var text = len ? len + ' contributions' : 'No contributions';
-          var left = coordinator[0] * 12 - 37 + 'px';
-          coordinator[1] = coordinator[0] ? coordinator[1] : coordinator[1] + oneYearAgo.day();
-          var top = coordinator[1] * 12 + 12 - 32 + 'px';
-        }
-        return {
-          text: text,
-          left: left,
-          top: top,
-          display: display
-        }
-      }
-    }
-  });
-
-  function getCalendar(posts) {
-    // raw calendar
-    var maxCount = 0;
-    var tmr = new Date();
-    tmr.setDate(tmr.getDate() + 1);
-    var tmrStr = tmr.toISOString().slice(0, 10);
-    var date = new Date();
-    date.setYear(date.getFullYear() - 1); // start date is a year ago;
-    var calendar = [];
-    while (date.toISOString().slice(0, 10) !== tmrStr) {
-      var day = date.getDay();
-      if (day === 0 || calendar.length === 0) {
-        var x = calendar.length * 13;
-        calendar.push({
-          transform: 'translate(' + x + ',0)',
-          days: []
-        })
-      }
-
-      calendar[calendar.length - 1].days.push({
-        x: 14 - calendar.length,
-        y: day * 12,
-        date: date.toISOString().slice(0, 10),
-        posts: []
-      });
-
-      if (day === 0 && date.getDate() < 8) {
-        monthLabels.push({
-          x: 14 - calendar.length + x,
-          text: monthName[date.getMonth() - 1]
-        })
-      }
-
-      date.setDate(date.getDate() + 1);
-    }
-
-    // handle post info
-    posts.forEach(function(post) {
-      var x = getIndexByDate(post.date)[0];
-      var y = getIndexByDate(post.date)[1];
-
-      calendar[x].days[y].posts.push({
-        title: post.title,
-        url: post.url
-      });
-
-      var len = calendar[x].days[y].posts.length;
-      maxCount = Math.max(len, maxCount);
-    })
-
-    // handle fill color
-    calendar.forEach(function(week) {
-      week.days.forEach(function(day) {
-        day.fill = getColorByLength(day.posts.length, maxCount);
-      })
-    })
-
-    return calendar;
-  }
-
-  function getIndexByDate(date) {
-    date = moment(date);
-    var firstColumnLen = 7 - oneYearAgo.day();
-    var days = date.diff(oneYearAgo, 'days');
-
-    var x = days > firstColumnLen - 1 ? Math.ceil((days - firstColumnLen + 1) / 7) : 0;
-    var y = days > firstColumnLen - 1 ? date.day() : date.day() - oneYearAgo.day();
-    return [x, y];
-  }
-
-  function getColorByLength(len, max) {
-    var colors = ['#eee', '#d6e685', '#8cc665', '#44a340', '#1e6823'];
-    var colorsLen = colors.length - 1;
-    var color = len ? colors[0] : colors[1];
-    var interval = max / colorsLen;
-    if (max < colorsLen) {
-      color = colors[len];
-    } else {
-      color = colors[Math.ceil(len / interval)];
-    }
-    return color;
-  }
-
-</script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
 
 
-    </div>
-  </div>
-</div>
 
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="https://greenhathg.github.io" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2018 GreenHatHG</li>
-      <li><a href="https://greenhathg.github.io">Home</a></li>
-      
-      <li><a href="https://github.com/GreenHatHG">Github</a></li>
-      
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica">Replica</a>
-      by <a href="//github.com/sabrinaluo">Hiitea</a> ❤ Powered by Hexo
-    </div>
-    </div>
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
     
-  </footer>
-</div>
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
 
 
-<script>
-  (function() {
-    var cx = '008487550618970634524:xm_ncoukzmu';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-      '//cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
 </script>
 
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
 
 
-<script src="/js/main.js"></script>
 
-<script type="text/x-mathjax-config">
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -572,4 +933,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 </body>
+
 </html>

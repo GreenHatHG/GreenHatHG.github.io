@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>STL之stack, queue以及priority_queue | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="栈、队列、优先队列基本总结">
+
+<!-- Keywords -->
+<meta name="keywords" content=", STL, priority_queue, queue, stack">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="STL之stack, queue以及priority_queue | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="栈、队列、优先队列基本总结">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2018-02-13T02:31:11.000Z">
+    <meta property="article:modified_time" content="2018-02-13T02:31:11.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", STL, priority_queue, queue, stack"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/"
+    },
+    "headline": "STL之stack, queue以及priority_queue | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2018-02-13T02:31:11.000Z",
+    "dateModified": "2019-04-05T06:58:44.831Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", STL, priority_queue, queue, stack",
+    "description": "栈、队列、优先队列基本总结"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
+</head>
+
+    <body>
+        
+
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=STL之stack, queue以及priority_queue" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=STL之stack, queue以及priority_queue&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=STL之stack, queue以及priority_queue" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACPklEQVR42u2b0U7DQAwE8/8/Da8VxN5x2ooST16gKMlNpbNvvTbH1z+4DiGFFFLID4A8muvxnsd7z56tPv9a+OTecl0h10KebtpmAfp7BUfXFXI3ZLXpSQD9XKT7Amfvr4JNSCEpZLf4GfBZshZSyFdAVgBVIk8CQ0ghrwiMqajtgMmzQgqZCqJ3/nxZtSjkrSCjadQIianw7QLtKVdNyFtBdhuZ3kOLtsrsKkWzkCshaWGfXl597kA7AS2kkEngElGbzFLSQIgCQ8g1kGSTp0TfBUz3fDQHhFwF2T1EEi8VGzTRCylkl5C7YowGEWk4lQeEkGshk9leBdSpUC0OALqOkEJOCntqPJHDoSy+UkdMyNtDphfTRnsSvyTh40JMyFtDdsmUmlW0SZ8CtBQYQq6CnBhQnVlADAFiuuLoFvK2kFcHP6og6IQuCVIhhUxCYWoSEKFBB/eE3AmZDCbakCJGweRvQu6GpKZANzRChW0SJ0IKmYQGhUgDJ1RwRGUu5ArIrihKDVFyIEyg2xNHyBWQ7aDGkf9hKBX/tEiLzSYhV0HSjT/5MiQIowkr5HrIlHQnhRVt7KNBESFXQ3aigBoGV4InCgwh10BOmp6p0ZmEQ9ewQtWikCsgp0VXAk6GwlODIkKugZwaql1zPg1CXQ4cIddBpsG4BJYOgS5ILxdiQq6FTAukphQVyU8FjpCrIJPxTwZEaFNASCGTwCBmFk3ktFgTUsiJkXSAi5qpaQBKyJ2Qn3wJKaSQQv7h9Q3VmjYkh5wEhAAAAABJRU5ErkJggg==" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    
+    
+
+
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">STL之stack, queue以及priority_queue</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2018-02-13</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/STL/">STL</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=STL之stack, queue以及priority_queue&url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=STL之stack, queue以及priority_queue&url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2018/02/13/STL之stack, queue以及priority queue/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACPklEQVR42u2b0U7DQAwE8/8/Da8VxN5x2ooST16gKMlNpbNvvTbH1z+4DiGFFFLID4A8muvxnsd7z56tPv9a+OTecl0h10KebtpmAfp7BUfXFXI3ZLXpSQD9XKT7Amfvr4JNSCEpZLf4GfBZshZSyFdAVgBVIk8CQ0ghrwiMqajtgMmzQgqZCqJ3/nxZtSjkrSCjadQIianw7QLtKVdNyFtBdhuZ3kOLtsrsKkWzkCshaWGfXl597kA7AS2kkEngElGbzFLSQIgCQ8g1kGSTp0TfBUz3fDQHhFwF2T1EEi8VGzTRCylkl5C7YowGEWk4lQeEkGshk9leBdSpUC0OALqOkEJOCntqPJHDoSy+UkdMyNtDphfTRnsSvyTh40JMyFtDdsmUmlW0SZ8CtBQYQq6CnBhQnVlADAFiuuLoFvK2kFcHP6og6IQuCVIhhUxCYWoSEKFBB/eE3AmZDCbakCJGweRvQu6GpKZANzRChW0SJ0IKmYQGhUgDJ1RwRGUu5ArIrihKDVFyIEyg2xNHyBWQ7aDGkf9hKBX/tEiLzSYhV0HSjT/5MiQIowkr5HrIlHQnhRVt7KNBESFXQ3aigBoGV4InCgwh10BOmp6p0ZmEQ9ewQtWikCsgp0VXAk6GwlODIkKugZwaql1zPg1CXQ4cIddBpsG4BJYOgS5ILxdiQq6FTAukphQVyU8FjpCrIJPxTwZEaFNASCGTwCBmFk3ktFgTUsiJkXSAi5qpaQBKyJ2Qn3wJKaSQQv7h9Q3VmjYkh5wEhAAAAABJRU5ErkJggg==" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、stack"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、stack</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、queue"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、queue</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、priority-queue"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、priority_queue</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p>栈、队列、优先队列基本总结<br><a id="more"></a></p>
+<h3 id="一、stack"><a href="#一、stack" class="headerlink" title="一、stack"></a>一、stack</h3><ol>
+<li>要使用stack，必须要包含头文件&lt; stack &gt;</li>
+<li>实际上stack只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持back(), push_back(), pop_back()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt; <span class="keyword">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt;st;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&lt;/div&gt;</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/stack%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="70%" height="70%">
+</div>
+
+<p>stack内部存放元素所用的实际容器，缺省采用deque。之所以采用deque，而非vector，是因为deque移除元素时会释放内存。</p>
+<ol>
+<li>stack核心接口：</li>
+</ol>
+<ul>
+<li>push()：将一个元素置入stack内</li>
+<li>top():返回栈顶元素，但是并不移除它</li>
+<li>pop():从stack移除元素，但是并不将它返回</li>
+<li>empty():检查底层容器是否为空，当栈为空时返回true</li>
+<li>size():返回容纳的元素数</li>
+</ul>
+<p><em>如果stack内没有元素，则执行top()和pop()会导致未定义的行为，可以采用成员函数size()和empty()来检验容器是否为空</em></p>
+<ol>
+<li>stack简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line">    st.push(<span class="number">1</span>);</span><br><span class="line">    st.push(<span class="number">2</span>);</span><br><span class="line">    st.push(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    st.top() = <span class="number">77</span>;</span><br><span class="line">    st.push(<span class="number">4</span>);</span><br><span class="line">    st.push(<span class="number">5</span>);</span><br><span class="line">    st.pop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!st.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; st.top() &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">        st.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出: <span class="number">3</span> <span class="number">2</span> <span class="number">4</span> <span class="number">77</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多了解stack:<br><a href="http://zh.cppreference.com/w/cpp/container/stack" target="_blank" rel="noopener">stack- C++ Reference</a></p>
+<h3 id="二、queue"><a href="#二、queue" class="headerlink" title="二、queue"></a>二、queue</h3><ol>
+<li>要使用queue，必须包含头文件&lt; queue &gt;</li>
+<li>实际上queue只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持stack，只要它们支持front(), back(), push_back(), pop_front()等动作就行。例如你可以使用vector或list来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt; <span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; &gt; buffer;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>&lt;/div&gt;</p>
+<div align="center">
+<img src="https://raw.githubusercontent.com/GreenHatHG/blog_image/master/queue%E5%86%85%E9%83%A8%E6%8E%A5%E5%8F%A3.png" width="80%" height="80%">
+</div>
+
+<ol>
+<li>queue核心接口:</li>
+</ol>
+<ul>
+<li>push():入队，将一个元素置入队列末端中</li>
+<li>front():返回第一个被置入的元素，但并不移除</li>
+<li>back():返回最后一个元素，但并不移除</li>
+<li>pop():出队，移除队列中第一个元素，但并不返回</li>
+<li>empty():判断队列是否为空，队列为空时，返回true</li>
+<li>size():返回容纳的元素数</li>
+</ul>
+<p><em>如果queue之内没有元素，则front(), back(), pop()的执行行为会导致未定义行为。</em></p>
+<ol>
+<li>queue简单实例:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">queue</span>&lt;<span class="built_in">string</span>&gt; q;</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"These "</span>);</span><br><span class="line">   q.push(<span class="string">"are "</span>);</span><br><span class="line">   q.push(<span class="string">"more than"</span>);</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   q.push(<span class="string">"four "</span>);</span><br><span class="line">   q.push(<span class="string">"words!"</span>);</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front();</span><br><span class="line">   q.pop();</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; q.front() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   q.pop();</span><br><span class="line"></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"number pf elements in the queue: "</span> &lt;&lt; q.size() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">These are four words!</span><br><span class="line">number pf elements in the <span class="built_in">queue</span>: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多了解queue:<br><a href="http://zh.cppreference.com/w/cpp/container/queue" target="_blank" rel="noopener">queue- C++ Reference</a></p>
+<h3 id="三、priority-queue"><a href="#三、priority-queue" class="headerlink" title="三、priority_queue"></a>三、priority_queue</h3><ol>
+<li>要使用priority_queue，必须包含头文件&lt; queue &gt;</li>
+<li>实际上priority_queue只是很单纯地把各项操作转化为内部容器的对应调用，可以使用任何序列式容器来支持priority_queue，只要它们支持随机存取迭代器和front(), push_back(), pop_front()等动作就行。由于priority_queue需要用到STL的heap算法，所以其内部容器必须支持随机存取迭代器。例如你可以使用deque来容纳元素：<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::priority_queue&lt; <span class="keyword">float</span>, <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">float</span>&gt; &gt; pbuffer;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>优先队列与队列的差别在于优先队列不是按照入队的顺序出队，而是按照队列中元素的优先权顺序出队（默认为大者优先，也可以通过指定算子来指定自己的优先顺序），如果同时存在若干个数值最大的元素，无法确知究竟哪个会入选。</li>
+<li>priority_queue模板类有三个模板参数，默认容器为vector，默认算子为less，即小的往前排，大的往后排（出队时序列尾的元素出队）<br><em>一点要注意的是priority_queue中的三个参数，后两个可以省去，因为有默认参数，不过如果，有第三个参数的话，必定要写第二个参数。</em></li>
+<li><p>定义priority_queue的示例代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">priority_queue&lt;<span class="keyword">int</span>&gt; q1;</span><br><span class="line">priority_queue&lt; pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &gt;q2; <span class="comment">//注意在两个尖括号之间一定要保留空格</span></span><br><span class="line">priority_queue&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt;q3; <span class="comment">//定义小的先出队</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>priority_queue与queue基本操作相同。接口有empty(), size(), top(), push(), pop()等等</p>
+</li>
+</ul>
+<ol>
+<li><p>priority_queue简单示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showpq</span><span class="params">(priority_queue &lt;<span class="keyword">int</span>&gt; gq)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; g = gq;</span><br><span class="line">    <span class="keyword">while</span> (!g.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">'\t'</span> &lt;&lt; g.top();</span><br><span class="line">        g.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    priority_queue &lt;<span class="keyword">int</span>&gt; gquiz;</span><br><span class="line">    gquiz.push(<span class="number">10</span>);</span><br><span class="line">    gquiz.push(<span class="number">30</span>);</span><br><span class="line">    gquiz.push(<span class="number">20</span>);</span><br><span class="line">    gquiz.push(<span class="number">5</span>);</span><br><span class="line">    gquiz.push(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"The priority queue gquiz is : "</span>;</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.size() : "</span> &lt;&lt; gquiz.size();</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.top() : "</span> &lt;&lt; gquiz.top();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"\ngquiz.pop() : "</span>;</span><br><span class="line">    gquiz.pop();</span><br><span class="line">    showpq(gquiz);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">程序输出：</span><br><span class="line">The priority <span class="built_in">queue</span> gquiz is :     <span class="number">30</span>    <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br><span class="line"></span><br><span class="line">gquiz.size() : <span class="number">5</span></span><br><span class="line">gquiz.top() : <span class="number">30</span></span><br><span class="line">gquiz.pop() :     <span class="number">20</span>    <span class="number">10</span>    <span class="number">5</span>    <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>算子：<br> 默认为使用less算子。<br> 如果要定义自己的比较算子，则必须自己重载 operator&lt; 或者自己写仿函数，<br> 优先队列试图将两个元素x 和y 代入比较运算符(对less 算子，调用x<y，对greater 算子，调用x="">y)，若结果为真，则x 排在y 前面，y 将先于x 出队，反之，则将y 排在x 前面，x 将先出队。<br> 下面程序是针对结构体的，对数据的比较是通过对结构体重载operator()。（转自<a href="http://blog.csdn.net/morewindows/article/details/6976468" target="_blank" rel="noopener">博客</a>）<br> 程序功能是模拟排队过程，每人有姓名和优先级，优先级相同则比较姓名，开始有5个人进入队列，然后队头2个人出队，再有3个人进入队列，最后所有人都依次出队，程序会输出离开队伍的顺序。<br>自定义算子可参考：</y，对greater></p>
+<p><a href="https://www.cnblogs.com/flipped/p/5691430.html" target="_blank" rel="noopener">优先队列priority_queue的比较函数</a></p>
+</li>
+</ol>
+<p><a href="https://blog.csdn.net/u014644714/article/details/68924863" target="_blank" rel="noopener">优先级队列priority_queue之比较函数</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//by MoreWindows( http://blog.csdn.net/MoreWindows )</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//结构体</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">char</span> szName[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span>  priority;</span><br><span class="line">	Node(<span class="keyword">int</span> nri, <span class="keyword">char</span> *pszName)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">strcpy</span>(szName, pszName);</span><br><span class="line">		priority = nri;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//结构体的比较方法 改写operator()</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NodeCmp</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">const</span> Node &amp;na, <span class="keyword">const</span> Node &amp;nb)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (na.priority != nb.priority)</span><br><span class="line">			<span class="keyword">return</span> na.priority &lt;= nb.priority;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">strcmp</span>(na.szName, nb.szName) &gt; <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintfNode</span><span class="params">(Node &amp;na)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s %d\n"</span>, na.szName, na.priority);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//优先级队列默认是使用vector作容器，底层数据结构为堆。</span></span><br><span class="line">	priority_queue&lt;Node, <span class="built_in">vector</span>&lt;Node&gt;, NodeCmp&gt; a;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//有5个人进入队列</span></span><br><span class="line">	a.push(Node(<span class="number">5</span>, <span class="string">"小谭"</span>));</span><br><span class="line">	a.push(Node(<span class="number">3</span>, <span class="string">"小刘"</span>));</span><br><span class="line">	a.push(Node(<span class="number">1</span>, <span class="string">"小涛"</span>));</span><br><span class="line">	a.push(Node(<span class="number">5</span>, <span class="string">"小王"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//队头的2个人出队</span></span><br><span class="line">	PrintfNode(a.top());</span><br><span class="line">	a.pop();</span><br><span class="line">	PrintfNode(a.top());</span><br><span class="line">	a.pop();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"--------------------\n"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//再进入3个人</span></span><br><span class="line">	a.push(Node(<span class="number">2</span>, <span class="string">"小白"</span>));</span><br><span class="line">	a.push(Node(<span class="number">2</span>, <span class="string">"小强"</span>));</span><br><span class="line">	a.push(Node(<span class="number">3</span>, <span class="string">"小新"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//所有人都依次出队</span></span><br><span class="line">	<span class="keyword">while</span> (!a.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		PrintfNode(a.top());</span><br><span class="line">		a.pop();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多了解priority_queue:<br><a href="http://zh.cppreference.com/w/cpp/container/priority_queue" target="_blank" rel="noopener">priority_queue- C++ Reference</a></p>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-04-05");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2018-02-13T02:31:11.000Z" itemprop="datePublished">2018-02-13</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-04-05T06:58:44.831Z" itemprop="dateModified">2019-04-05</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href="/categories/STL/">STL</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/STL/" rel="tag">#&nbsp;STL</a>
+
+<a class="post-tags-list-item" href="/tags/priority-queue/" rel="tag">#&nbsp;priority_queue</a>
+
+<a class="post-tags-list-item" href="/tags/queue/" rel="tag">#&nbsp;queue</a>
+
+<a class="post-tags-list-item" href="/tags/stack/" rel="tag">#&nbsp;stack</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+        <li class="page-item page-prev">
+            <a href="/2018/02/13/一道优先队列习题/" rel="prev">
+                <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">一道优先队列习题</div>
+            </a>
+        </li>
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2018/02/12/STL之二分/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">STL之二分法四个函数及两道对应习题</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+</script>
+
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+
+
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>
