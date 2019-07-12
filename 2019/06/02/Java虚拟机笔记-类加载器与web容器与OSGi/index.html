@@ -540,8 +540,8 @@ window.oldVersion = [
 <p><a href="https://juejin.im/post/5a59f2296fb9a01ca871eb8c" target="_blank" rel="noopener">深入理解 Tomcat（四）Tomcat 类加载器之为何违背双亲委派模型</a></p>
 <h1 id="类加载器与Web容器"><a href="#类加载器与Web容器" class="headerlink" title="类加载器与Web容器"></a>类加载器与Web容器</h1><p>对于运行在<code>Java EE™</code>容器中的 Web 应用来说，类加载器的实现方式与一般的 Java 应用有所不同。不同的 Web 容器的实现方式也会有所不同。</p>
 <h2 id="Apache-Tomcat"><a href="#Apache-Tomcat" class="headerlink" title="Apache Tomcat"></a>Apache Tomcat</h2><p>以<code>Apache Tomcat</code>来说，每个 Web 应用都有一个对应的类加载器实例。<strong>该类加载器也使用代理模式，所不同的是它是首先尝试去加载某个类，如果找不到再代理给父类加载器。这与一般类加载器的顺序是相反的</strong>。这是 <code>Java Servlet</code>规范中的推荐做法，其目的是使得 Web 应用自己的类的优先级高于 Web 容器提供的类。<strong>这种代理模式的一个例外是：Java 核心库的类是不在查找范围之内的。这也是为了保证 Java 核心库的类型安全。</strong></p>
-<p><img src="/.io//2.png" alt=""></p>
-<h2 id="Tomcat加载过程"><a href="#Tomcat加载过程" class="headerlink" title="Tomcat加载过程"></a>Tomcat加载过程</h2><p><img src="/.io//1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/06/02/Java虚拟机笔记-类加载器与web容器与OSGi/2.png" alt=""></p>
+<h2 id="Tomcat加载过程"><a href="#Tomcat加载过程" class="headerlink" title="Tomcat加载过程"></a>Tomcat加载过程</h2><p><img src="//greenhathg.github.io/2019/06/02/Java虚拟机笔记-类加载器与web容器与OSGi/1.png" alt=""></p>
 <p>我们看到，前面3个类加载和默认的一致，<code>CommonClassLoader</code>，<code>CatalinaClassLoader</code>，<code>SharedClassLoader</code>和<code>WebappClassLoader</code>则是Tomcat自己定义的类加载器，它们分别加载<code>/common/*</code>、<code>/server/*</code>、<code>/shared/*</code>（在tomcat 6之后已经合并到根目录下的lib目录下）和<code>/WebApp/WEB-INF/*</code>中的Java类库。其中<code>WebApp</code>类加载器和Jsp类加载器通常会存在多个实例，<strong>每一个Web应用程序</strong>对应一个WebApp类加载器，每一个JSP文件对应一个Jsp类加载器。</p>
 <ul>
 <li>commonLoader：Tomcat最基本的类加载器，加载路径中的class可以被Tomcat容器本身以及各个Webapp访问；</li>
@@ -564,7 +564,7 @@ window.oldVersion = [
 </ul>
 <h1 id="类加载器与-OSGi"><a href="#类加载器与-OSGi" class="headerlink" title="类加载器与 OSGi"></a>类加载器与 OSGi</h1><p><code>OSGi™</code>是 Java 上的动态模块系统。它为开发人员提供了面向服务和基于组件的运行环境，并提供标准的方式用来管理软件的生命周期。OSGi 已经被实现和部署在很多产品上，在开源社区也得到了广泛的支持。Eclipse 就是基于 OSGi 技术来构建的。</p>
 <p>OSGi 中的每个模块（bundle）都包含 Java 包和类。模块可以声明它所依赖的需要导入（import）的其它模块的 Java 包和类（通过 <code>Import-Package</code>），也可以声明导出（export）自己的包和类，供其它模块使用（通过 <code>Export-Package</code>）。也就是说需要能够隐藏和共享一个模块中的某些 Java 包和类。这是通过 OSGi 特有的类加载器机制来实现的。<strong>OSGi 中的每个模块都有对应的一个类加载器。它负责加载模块自己包含的 Java 包和类。当它需要加载 Java 核心库的类时（以 <code>java</code>开头的包和类），它会代理给父类加载器（通常是启动类加载器）来完成。当它需要加载所导入的 Java 类时，它会代理给导出此 Java 类的模块来完成加载</strong>。模块也可以显式的声明某些 Java 包和类，必须由父类加载器来加载。只需要设置系统属性 <code>org.osgi.framework.bootdelegation</code>的值即可。</p>
-<h2 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h2><p><img src="/.io//3.png" alt=""></p>
+<h2 id="加载过程"><a href="#加载过程" class="headerlink" title="加载过程"></a>加载过程</h2><p><img src="//greenhathg.github.io/2019/06/02/Java虚拟机笔记-类加载器与web容器与OSGi/3.png" alt=""></p>
 <p>假设有两个模块 bundleA 和 bundleB，它们都有自己对应的类加载器 classLoaderA 和 classLoaderB。在 bundleA 中包含类 <code>com.bundleA.Sample</code>，并且该类被声明为导出的，也就是说可以被其它模块所使用的。bundleB 声明了导入 bundleA 提供的类 <code>com.bundleA.Sample</code>，并包含一个类 <code>com.bundleB.NewSample</code>继承自 <code>com.bundleA.Sample</code>。在 bundleB 启动的时候，其类加载器 classLoaderB 需要加载类 <code>com.bundleB.NewSample</code>，进而需要加载类 <code>com.bundleA.Sample</code>。由于 bundleB 声明了类 <code>com.bundleA.Sample</code>是导入的，classLoaderB 把加载类 <code>com.bundleA.Sample</code>的工作代理给导出该类的 bundleA 的类加载器 classLoaderA。classLoaderA 在其模块内部查找类 <code>com.bundleA.Sample</code>并定义它，所得到的类 <code>com.bundleA.Sample</code>实例就可以被所有声明导入了此类的模块使用。对于以 <code>java</code>开头的类，都是由父类加载器来加载的。如果声明了系统属性 <code>org.osgi.framework.bootdelegation=com.example.core.*</code>，那么对于包 <code>com.example.core</code>中的类，都是由父类加载器来完成的。</p>
 <hr>
 <p>OSGi 模块的这种类加载器结构，使得一个类的不同版本可以共存在 Java 虚拟机中，带来了很大的灵活性。不过它的这种不同，也会给开发人员带来一些麻烦，尤其当模块需要使用第三方提供的库的时候。</p>
@@ -740,22 +740,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

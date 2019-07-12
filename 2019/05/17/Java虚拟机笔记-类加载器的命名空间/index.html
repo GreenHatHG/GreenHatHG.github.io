@@ -552,11 +552,11 @@ window.oldVersion = [
 <hr>
 <p>目录结构：</p>
 <p><strong>已经把Sample1.class删除</strong></p>
-<p><img src="/.io//2.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/17/Java虚拟机笔记-类加载器的命名空间/2.png" alt=""></p>
 <p>同时<code>/home/cc/test</code>目录下这个几个类的class文件</p>
-<p><img src="/.io//3.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/17/Java虚拟机笔记-类加载器的命名空间/3.png" alt=""></p>
 <p>输出：</p>
-<p><img src="/.io//1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/17/Java虚拟机笔记-类加载器的命名空间/1.png" alt=""></p>
 <hr>
 <p><code>Sample2在Sample1里面</code>，所以<code>Sample2</code>是由<code>Sample1</code>的加载器加载的，因为在项目目录下面没有<code>Sample1.class</code>，所以只能由自定义类加载器加载，如上图输出。</p>
 <p>虽然<code>Sample1</code>是由自定义类加载器加载的，但是根据双亲委派机制，加载<code>Sample2</code>时先委派给父加载器，又因为项目目录下有<code>Sample2.class</code>，所以父加载器加载成功，所以<code>Sample2</code>是由系统类加载器加载的。</p>
@@ -737,22 +737,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

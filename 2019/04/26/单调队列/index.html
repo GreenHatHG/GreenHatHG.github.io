@@ -537,7 +537,7 @@ window.oldVersion = [
                         <p>单调队列及其优化dp</p>
 <a id="more"></a>
 <h1 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h1><p><strong><a href="http://poj.org/problem?id=2823" target="_blank" rel="noopener">poj2823—Sliding Window</a></strong></p>
-<p><img src="/.io//timu.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/timu.png" alt=""></p>
 <p>大意：给你一个长度为N的数组，一个长为K的滑动的窗体从最左移至最右端，你只能见到窗口的K个数，每次窗体向右移动一位，你的任务是找出窗体每个时刻中的最大值与最小值</p>
 <h2 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h2><p>优先队列能够进行排序，窗口往右一位，就把一个元素放到队列里面，然后每次取队首元素，如果队首元素的id在这个框的范围内的话，那么就取队首，如果不是的话那么就出队，找下一个队首元素，时间复杂度为O(nlogn)</p>
 <h2 id="对优先队列改良—单调队列O-n"><a href="#对优先队列改良—单调队列O-n" class="headerlink" title="对优先队列改良—单调队列O(n)"></a>对优先队列改良—单调队列O(n)</h2><p><strong>基本思想：同样维护队首元素作为答案，去掉多余的元素（维护单调性）</strong></p>
@@ -577,11 +577,11 @@ window.oldVersion = [
 <p>上面单调<strong>递减</strong>队列满足：</p>
 <p><code>A[i+1]&gt;A[i]&gt;A[i-1] &amp;&amp; B[i-1]&gt;B[i]&gt;B[i+1]（R&gt;i&gt;L）</code></p>
 <p>单调队列里面的每一个元素一般用一个二元组(id, val)来表示，每次从队尾入队，删除队尾的无用元素，保证编号递增，值递减</p>
-<p><img src="/.io//1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/1.png" alt=""></p>
 <p>如上图，当有一元素A要入队时，为了保证队中的单调性，需要删除队尾两个元素，A才能入队，单调性得到了保证，删除队尾的那两个元素，就是上面说的“无用元素”</p>
 <hr>
 <p>下面举例是怎么工作的，刚开始只有[1,1]，所以二元组的值为(1,1)，接着扩大区间，第二个元素元素准备入队，此时3要比-1大，所以去掉队尾元素，然后判断队首元素id属不属于当前区间，是的话就取队首为最大值，否则去掉队首，直到满足条件。如果准备入队的元素小于队尾的元素，直接入队，然后判断队首是不是属于当前区间，接着取最大值，不是则去队首。</p>
-<p><img src="/.io//2.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/2.png" alt=""></p>
 <p><strong>每个元素都只会进队和出队一次，故时间复杂度为O(n)</strong></p>
 <p><strong>本质作用：在运行的过程中能够快速需求前k个或后k个中的最值</strong></p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>参考：<a href="http://zory.coding.me/posts/e1c7.html" target="_blank" rel="noopener">http://zory.coding.me/posts/e1c7.html</a></p>
@@ -593,10 +593,10 @@ window.oldVersion = [
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f[i] = min(f[j] | Low[i] &lt;= j &lt;= Up[i]) + a[i]</span><br></pre></td></tr></table></figure>
 <p>Low和Up是关于i的单调不下降函数（因为是求min，队首为最小值）</p>
 <p>例如下面举例<code>Low[i] &lt;= j &lt;= Up[i]</code>为阴影，那么求i+1的时候，阴影的左右端点不能往左移动，这样才能用单调队列求解，因为单调队列一直都是从头处理到尾，如果返回的时间复杂度就可能不是O(logn)了</p>
-<p><img src="/.io//3.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/3.png" alt=""></p>
 <h2 id="单调队列优化多重背包实例"><a href="#单调队列优化多重背包实例" class="headerlink" title="单调队列优化多重背包实例"></a>单调队列优化多重背包实例</h2><p><strong><a href="http://codevs.cn/problem/5429/" target="_blank" rel="noopener">Codevs5249</a></strong></p>
-<p><img src="/.io//timu2.png" alt=""></p>
-<p><img src="/.io//timu1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/timu2.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/26/单调队列/timu1.png" alt=""></p>
 <p>参考：<a href="https://blog.csdn.net/ylsoi/article/details/80238116" target="_blank" rel="noopener">https://blog.csdn.net/ylsoi/article/details/80238116</a></p>
 <p>题意：</p>
 <p>你有一个容量为M的背包，和N种物品。<br>每种物品都有三个属性，vi，wi，与ci，分别表示这种物品的体积、价值和件数。<br>你的任务是，从这些所给物品中，选出若干件，其体积之和不能超过背包容量，并且使所选物品的权值的和最大。</p>
@@ -777,22 +777,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

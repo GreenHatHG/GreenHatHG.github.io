@@ -539,7 +539,7 @@ window.oldVersion = [
 <p>并不是所有的jvm虚拟机都使用这个机制，只是大部分，比如还有使用osgi的。</p>
 <p>双亲委任模型不是一个强制性的约束模型，而是一个建议型的类加载器实现方式。在Java的世界中大部分的类加载器都遵循者模型</p>
 <h1 id="类加载器的双亲委派机制"><a href="#类加载器的双亲委派机制" class="headerlink" title="类加载器的双亲委派机制"></a>类加载器的双亲委派机制</h1><p>在双亲委派机制中，各个加载器按照父子关系形成了树形结构（逻辑意义），除了根类加载器之外，其余的类加载器都有且有一个父加载器</p>
-<p><img src="/.io//1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/03/Java虚拟机笔记-类加载器双亲委派机制/1.png" alt=""></p>
 <p>根类加载器和扩展类加载器只能加载指定路径的里面的类，而系统类加载器一般可以加载我们工程中所定义的类</p>
 <ul>
 <li><p>根类加载器：由c++实现，不是<code>ClassLoader</code>子类</p>
@@ -551,7 +551,7 @@ window.oldVersion = [
 <ul>
 <li>系统类加载器：由<code>sun.misc.Launcher$AppClassLoader</code>实现</li>
 </ul>
-<h1 id="过程实例"><a href="#过程实例" class="headerlink" title="过程实例"></a>过程实例</h1><p><img src="/.io//2.png" alt=""></p>
+<h1 id="过程实例"><a href="#过程实例" class="headerlink" title="过程实例"></a>过程实例</h1><p><img src="//greenhathg.github.io/2019/05/03/Java虚拟机笔记-类加载器双亲委派机制/2.png" alt=""></p>
 <p>Loder1与Loader2是用户自定义的类加载器，两者之间又形成了父子关系</p>
 <ol>
 <li><p>Loder1想要加载我们编写的Sample类，根据类加载器的双亲委派机制，并不是由Loader1直接加载到虚拟机当中，而是把加载任务委派给Loader1的父亲系统类加载器，系统类加载器再将任务委派给扩展类加载器，同理，扩展类加载器将任务最终委派给根类加载器</p>
@@ -752,22 +752,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

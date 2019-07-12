@@ -542,7 +542,7 @@ window.oldVersion = [
 <p>从这里可以看到<code>System.getProperty()</code>主要能够拿到一些关于Java的系统属性，如：java版本，java的vendor，操作系统版本等等。另外，还能够运行java命令时，通过-D参数来指定系统属性</p>
 <h1 id="样例1"><a href="#样例1" class="headerlink" title="样例1"></a>样例1</h1><p>从上面可以到根类加载器的一个加载目录有<code>/usr/lib/jvm/java-8-jdk/jre/classes</code>，然后我们可以把一个<code>.class</code>放在这个目录下，尝试去让根类加载器去加载它。</p>
 <p>我们用自定义类加载器去加载<code>indi.greenhat.jvm.Sample1</code>，把其<code>.class</code>文件复制到刚刚那个目录</p>
-<p><img src="/.io//1.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/29/Java虚拟机笔记-getProperty/1.png" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.jvm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        CustomClassLoader loader1 = <span class="keyword">new</span> CustomClassLoader(<span class="string">"loder1"</span>);</span><br><span class="line">        loader1.setPath(<span class="string">"/home/cc/Test"</span>);</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; clazz = loader1.loadClass(<span class="string">"indi.greenhat.jvm.Sample1"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(clazz.getClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">null</span></span><br></pre></td></tr></table></figure>
@@ -552,7 +552,7 @@ window.oldVersion = [
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sun.misc.Launcher$ExtClassLoader@<span class="number">12</span>a3a380</span><br><span class="line">sun.misc.Launcher$AppClassLoader@<span class="number">18</span>b4aac2</span><br></pre></td></tr></table></figure>
 <p><code>AESKeyGenerator</code>该类定义在扩展类加载器所对应的目录下，所有有扩展类加载器加载的，而<code>Test</code>类则是由系统类加载器加载的。</p>
 <p>上面说过，可以通过-D参数来指定系统属性。</p>
-<p><img src="/.io//3.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/29/Java虚拟机笔记-getProperty/3.png" alt=""></p>
 <p>我们通过-D改变扩展类的加载器寻找的目录，然后就会抛出异常。</p>
 <p>正好说明了<code>AESKeyGenerator</code>类是由扩展类加载器加载的。</p>
 <h1 id="java-ext-dirs"><a href="#java-ext-dirs" class="headerlink" title="java.ext.dirs"></a>java.ext.dirs</h1><p>如果将<code>java.ext.dirs</code>目录指定到含有某个类的.class的文件夹中，尝试用扩展类加载器加载，这样是不行的。</p>
@@ -561,7 +561,7 @@ window.oldVersion = [
 <p><code>jar cvf test.jar test.class</code></p>
 <h1 id="sun-boot-class-path"><a href="#sun-boot-class-path" class="headerlink" title="sun.boot.class.path"></a>sun.boot.class.path</h1><p>如果我们修改<code>sun.boot.class.path</code>对应的路径则会抛出异常。</p>
 <p>因为<code>Object</code>类是每个类的父类，如果父类都没有了，那么不用说别的了。</p>
-<p><img src="/.io//4.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/05/29/Java虚拟机笔记-getProperty/4.png" alt=""></p>
 
                     </article>
                     
@@ -736,22 +736,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

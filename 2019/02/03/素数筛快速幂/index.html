@@ -85,7 +85,7 @@ window.oldVersion = [
 <meta name="description" content="素数筛快速幂">
 
 <!-- Keywords -->
-<meta name="keywords" content=", 数论, 快速幂, 素数筛, 快速乘">
+<meta name="keywords" content=", 数论, 素数筛, 快速幂, 快速乘">
 
 <!-- Disable Fucking Bloody Baidu Tranformation -->
 <meta http-equiv="Cache-Control" content="no-transform">
@@ -230,7 +230,7 @@ window.oldVersion = [
     <meta property="article:published_time" content="2019-02-03T09:01:04.000Z">
     <meta property="article:modified_time" content="2019-02-03T09:01:04.000Z">
     <meta property="article:author" content="GreenHatHG">
-    <meta property="og:article:tag" content=", 数论, 快速幂, 素数筛, 快速乘"> 
+    <meta property="og:article:tag" content=", 数论, 素数筛, 快速幂, 快速乘"> 
 
 
 
@@ -306,7 +306,7 @@ window.oldVersion = [
         "query-input": "required name=search_term_string"
     },
     
-    "keywords": ", 数论, 快速幂, 素数筛, 快速乘",
+    "keywords": ", 数论, 素数筛, 快速幂, 快速乘",
     "description": "素数筛快速幂"
 }
 </script>
@@ -540,7 +540,7 @@ window.oldVersion = [
 <p>这种方法比较好理解，初始时，假设全部都是素数，当找到一个素数时，显然这个素数乘上另外一个数之后都是合数(注意上面的i*i ,  比 i*2 要快点 )，把这些合数都筛掉，即算法名字的由来。</p>
 <p>但仔细分析能发现，这种方法会造成重复筛除合数，影响效率。比如10，在i=2的时候，k=2*15筛了一次；在i=5，k=5*6 的时候又筛了一次。所以，也就有了快速线性筛法。</p>
 <h2 id="快速线性筛法"><a href="#快速线性筛法" class="headerlink" title="快速线性筛法"></a>快速线性筛法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;    </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> N = <span class="number">200000</span>;   </span><br><span class="line"><span class="keyword">long</span> prime[N] = &#123;<span class="number">0</span>&#125;,num_prime = <span class="number">0</span>;    </span><br><span class="line"><span class="keyword">int</span> isNotPrime[N] = &#123;<span class="number">1</span>, <span class="number">1</span>&#125;;   </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>    </span></span><br><span class="line"><span class="function"></span>&#123;     </span><br><span class="line">     	<span class="keyword">for</span>(<span class="keyword">long</span> i = <span class="number">2</span> ; i &lt; N ; i ++)       </span><br><span class="line">       	&#123;            </span><br><span class="line">		<span class="keyword">if</span>(!isNotPrime[i])               </span><br><span class="line">	 		prime[num_prime++]=i;  </span><br><span class="line">		<span class="comment">//关键处1        </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">long</span> j = <span class="number">0</span> ; j &lt; num_prime &amp;&amp; i * prime[j] &lt;  N ; j ++)</span><br><span class="line">    		&#123;               </span><br><span class="line">		      	isNotPrime[i * prime[j]] = <span class="number">1</span>;  </span><br><span class="line">	  			<span class="keyword">if</span>( !(i % prime[j] ) )  <span class="comment">//关键处2                  </span></span><br><span class="line">					<span class="keyword">break</span>;           </span><br><span class="line">			&#125;    </span><br><span class="line">		&#125;        </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="两者对比"><a href="#两者对比" class="headerlink" title="两者对比"></a>两者对比</h2><p><img src="/.io//duibi.jpg" alt=""></p>
+<h2 id="两者对比"><a href="#两者对比" class="headerlink" title="两者对比"></a>两者对比</h2><p><img src="//greenhathg.github.io/2019/02/03/素数筛快速幂/duibi.jpg" alt=""></p>
 <p>由上述数据不难看出，快速线性筛法的效率基本比普通筛法求素数的效率高一倍，说明这的确是一种比较可靠的关于求素数优化的算法~！</p>
 <p>参考:</p>
 <p><a href="https://blog.csdn.net/dinosoft/article/details/5829550" target="_blank" rel="noopener">https://blog.csdn.net/dinosoft/article/details/5829550</a></p>
@@ -595,9 +595,9 @@ window.oldVersion = [
 
 <a class="post-tags-list-item" href="/tags/数论/" rel="tag">#&nbsp;数论</a>
 
-<a class="post-tags-list-item" href="/tags/快速幂/" rel="tag">#&nbsp;快速幂</a>
-
 <a class="post-tags-list-item" href="/tags/素数筛/" rel="tag">#&nbsp;素数筛</a>
+
+<a class="post-tags-list-item" href="/tags/快速幂/" rel="tag">#&nbsp;快速幂</a>
 
 <a class="post-tags-list-item" href="/tags/快速乘/" rel="tag">#&nbsp;快速乘</a>
 
@@ -734,22 +734,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>

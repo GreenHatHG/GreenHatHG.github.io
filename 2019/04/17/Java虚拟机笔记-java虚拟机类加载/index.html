@@ -549,7 +549,7 @@ window.oldVersion = [
 <p>OSGi服务平台向Java提供服务，这些服务使Java成为软件集成和软件开发的首选环境。Java提供在多个平台支持产品的可移植性。OSGi技术提供允许应用程序使用精炼、可重用和可协作的组件构建的标准化原语，这些组件能够组装进一个应用和部署中。</p>
 </blockquote>
 <h1 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h1><p>类从被加载到虚拟机内存中开始，直到卸载出内存为止，它的整个生命周期包括了： <strong>加载、验证、准备、解析、初始化、使用和卸载</strong> 这7个阶段。其中， <strong>验证、准备和解析这三个部分统称为连接（linking）</strong> 。</p>
-<p><img src="/.io//jiazai.jpg" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/04/17/Java虚拟机笔记-java虚拟机类加载/jiazai.jpg" alt=""></p>
 <h1 id="类进行初始化的情况"><a href="#类进行初始化的情况" class="headerlink" title="类进行初始化的情况"></a>类进行初始化的情况</h1><p>什么情况下需要开始类加载过程的第一个阶段:”加载”。虚拟机规范中并没强行约束，这点可以交给虚拟机的的具体实现自由把握，但是对于<strong>初始化阶段虚拟机规范是严格规定了有且只有5种情况，如果类未初始化会对类进行初始化</strong>。</p>
 <p><strong>初始化不等同于赋值，所以是先进行初始化然后再进行赋值的</strong></p>
 <ol>
@@ -768,22 +768,6 @@ console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c 
 <!-- ### Custom Footer ### -->
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
-</body>
+    </body>
 
 </html>
