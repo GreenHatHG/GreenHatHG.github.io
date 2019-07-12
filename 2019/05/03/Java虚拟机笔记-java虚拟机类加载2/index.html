@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -536,7 +536,7 @@ window.oldVersion = [
                     <article id="post-content">
                         <p>继续学习jvm类的加载</p>
 <a id="more"></a>
-<p><img src="/2019/05/03/Java虚拟机笔记-java虚拟机类加载2/1.jpg" alt=""></p>
+<p><img src="/.io//1.jpg" alt=""></p>
 <h1 id="类的加载"><a href="#类的加载" class="headerlink" title="类的加载"></a>类的加载</h1><ol>
 <li><p>类一定是由类加载器加载但是</p>
 </li>
@@ -570,7 +570,7 @@ window.oldVersion = [
 <li>系统(System)类加载器：也称为应用类加载器．它的父加载器为扩展类加<br>载器。它从环境变量<code>classpath</code>或者系统属性<code>java.class.path</code>所指定的目录中加<br>载类，它是用户自定义的类加载器的默认父加载器。系统类加载器是纯Java<br>类，是<code>java.lang.ClassLoader</code>类的子类。</li>
 </ol>
 <h2 id="简略加载过程"><a href="#简略加载过程" class="headerlink" title="简略加载过程"></a>简略加载过程</h2><p>参考：<a href="https://javacodes.cn/464.html" target="_blank" rel="noopener">https://javacodes.cn/464.html</a></p>
-<p><img src="/2019/05/03/Java虚拟机笔记-java虚拟机类加载2/2.png" alt=""></p>
+<p><img src="/.io//2.png" alt=""></p>
 <ul>
 <li>如果一个类加载器收到了类加载的请求，它不会先自己尝试处理这个请求，而是委派给它的父类加载器，所有的请求最终都会传送到顶层的启动类加载器</li>
 <li>只有当父类反馈自己无法完成该请求（它的搜索范围中没有找到所需的类，即抛出<code>ClassNotFoundException</code>）时，子加载器才会尝试自己加载。</li>
@@ -651,7 +651,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/读书笔记/">读书笔记</a>
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
 
 </span>
 
@@ -705,7 +705,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

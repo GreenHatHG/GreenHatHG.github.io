@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -536,7 +536,7 @@ window.oldVersion = [
                     <article id="post-content">
                         <p>HDU1024-Max Sum Plus Plus</p>
 <a id="more"></a>
-<h1 id="HDU1024"><a href="#HDU1024" class="headerlink" title="HDU1024"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1024" target="_blank" rel="noopener">HDU1024</a></h1><p><img src="/2019/04/14/HDU1024-m子段和的最大值/timu.png" alt=""></p>
+<h1 id="HDU1024"><a href="#HDU1024" class="headerlink" title="HDU1024"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1024" target="_blank" rel="noopener">HDU1024</a></h1><p><img src="/.io//timu.png" alt=""></p>
 <h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>在n个数中选出m组数, 每组数连续且不能相交,使得这m组的和是所有m组数中最大的。</p>
 <p>每组数也可以叫做每一段</p>
 <p>例如:</p>
@@ -551,7 +551,7 @@ window.oldVersion = [
 </ul>
 <p>然后比较上面两种情况，取最大的。即</p>
 <p><code>dp[i][j] = max(dp[i][j-1]+a[j], dp[i-1][t]+a[j])</code></p>
-<p><img src="/2019/04/14/HDU1024-m子段和的最大值/1.png" alt="HDU1024-m子段和的最大值/1.png"></p>
+<p><img src="/.io//1.png" alt="HDU1024-m子段和的最大值/1.png"></p>
 <p>如图，要求<code>dp[3][6]</code>，只需比较他左边的那个，和上面那一行圈起来的之中最大的数，再加上a[ j ] 即为<code>dp[3][6]</code> 的值。</p>
 <p><strong>优化</strong></p>
 <ol>
@@ -591,7 +591,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/水题/">水题</a>
+<a class="post-categories-list-item" href='/categories/水题/'>水题</a>
 
 </span>
 
@@ -645,7 +645,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

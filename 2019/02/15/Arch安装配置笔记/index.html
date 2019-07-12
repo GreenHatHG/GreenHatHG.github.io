@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -556,7 +556,7 @@ window.oldVersion = [
 </ul>
 <h1 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h1><h2 id="检测分区情况"><a href="#检测分区情况" class="headerlink" title="检测分区情况"></a>检测分区情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
 <h2 id="分区-1"><a href="#分区-1" class="headerlink" title="分区"></a>分区</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cfdisk /dev/sdx</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/02/15/Arch安装配置笔记/fenqu.png" alt=""></p>
+<p><img src="/.io//fenqu.png" alt=""></p>
 <h2 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h2><ol>
 <li>格式化成<code>ext4</code></li>
 </ol>
@@ -624,7 +624,7 @@ window.oldVersion = [
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S linux-lts</span><br></pre></td></tr></table></figure>
 <p>卸载原内核</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> pacman -Q | grep linux</span><br><span class="line">archlinux-appstream-data 20190424-1</span><br><span class="line">archlinux-keyring 20190123-2</span><br><span class="line">archlinuxcn-keyring 20190422-1</span><br><span class="line">libutil-linux 2.33.2-1</span><br><span class="line">linux 5.0.10.arch1-1</span><br><span class="line">linux-api-headers 5.0.7-1</span><br><span class="line">linux-firmware 20190424.4b6cf2b-1</span><br><span class="line">linux-lts 4.19.37-1</span><br><span class="line">util-linux 2.33.2-1</span><br><span class="line"><span class="meta">$</span> pacman -R linux</span><br><span class="line"><span class="meta">$</span>  sudo grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
-<h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><p><img src="/2019/02/15/Arch安装配置笔记/3.png" alt=""></p>
+<h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><p><img src="/.io//3.png" alt=""></p>
 <ol>
 <li><p>安装<code>xorg</code></p>
 <p><code>Xorg</code>是<code>Linux</code>下的一个著名的开源图形服务，我们的桌面环境需要<code>Xorg</code>的支持。</p>
@@ -719,7 +719,7 @@ window.oldVersion = [
 <li><p>配置系统字体</p>
 </li>
 </ol>
-<p><img src="/2019/02/15/Arch安装配置笔记/2.png" alt=""></p>
+<p><img src="/.io//2.png" alt=""></p>
 <ol>
 <li>使GTK程序能够显示彩色Emoji</li>
 </ol>
@@ -761,7 +761,7 @@ window.oldVersion = [
 </ol>
 <h2 id="显卡"><a href="#显卡" class="headerlink" title="显卡"></a>显卡</h2><p><a href="https://wiki.archlinux.org/index.php/Xorg" target="_blank" rel="noopener">https://wiki.archlinux.org/index.php/Xorg</a></p>
 <p><code>pacman -S xf86-video-amdgpu mesa</code></p>
-<h2 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h2><p><img src="/2019/02/15/Arch安装配置笔记/1.png" alt=""></p>
+<h2 id="美化"><a href="#美化" class="headerlink" title="美化"></a>美化</h2><p><img src="/.io//1.png" alt=""></p>
 <ol>
 <li>主题Materia KDE</li>
 </ol>
@@ -785,7 +785,7 @@ window.oldVersion = [
 <ol>
 <li>桌面添加网络监视器</li>
 </ol>
-<p><img src="/2019/02/15/Arch安装配置笔记/4.png" alt=""></p>
+<p><img src="/.io//4.png" alt=""></p>
 <h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><ol>
 <li><code>systemd-backlight@backlight:acpi_video0.service failed</code></li>
 </ol>
@@ -839,7 +839,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/Linux/">Linux</a>
+<a class="post-categories-list-item" href='/categories/Linux/'>Linux</a>
 
 </span>
 
@@ -862,9 +862,9 @@ window.oldVersion = [
     <!-- Prev Nav -->
     
         <li class="page-item page-prev">
-            <a href="/2019/02/15/进制的应用/" rel="prev">
+            <a href="/2019/02/17/模拟除法/" rel="prev">
                 <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
-                <div class="page-item-subtitle">进制的应用</div>
+                <div class="page-item-subtitle">模拟除法</div>
             </a>
         </li>
     
@@ -872,9 +872,9 @@ window.oldVersion = [
     <!-- Next Nav -->
     
         <li class="page-item page-next">
-            <a href="/2019/02/12/Rinne-Loves-Math/" rel="next">
+            <a href="/2019/02/15/进制的应用/" rel="next">
                 <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
-                <div class="page-item-subtitle">Rinne Loves Math</div>
+                <div class="page-item-subtitle">进制的应用</div>
             </a>
         </li>
     
@@ -893,7 +893,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -541,13 +541,13 @@ window.oldVersion = [
 <li>求出某一个区间里面所有元素之和，(query操作)</li>
 <li>修改某个元素的值，(update操作)</li>
 </ul>
-<h3 id="暴力解决和前缀和"><a href="#暴力解决和前缀和" class="headerlink" title="暴力解决和前缀和"></a>暴力解决和前缀和</h3><p>对区间[L,R]（长度为n）取和，并且更新一个元素i的值，采用暴力解决方法<br><img src="/2019/04/24/线段树入门/1.png" alt=""></p>
+<h3 id="暴力解决和前缀和"><a href="#暴力解决和前缀和" class="headerlink" title="暴力解决和前缀和"></a>暴力解决和前缀和</h3><p>对区间[L,R]（长度为n）取和，并且更新一个元素i的值，采用暴力解决方法<br><img src="/.io//1.png" alt=""></p>
 <p>可得</p>
 <ul>
 <li>query(L,R)时间复杂度为O(n)</li>
 <li>update(i)时间复杂度为O(1)</li>
 </ul>
-<p>如果区间范围很大，再加上多次操作，暴力取和明显会超时，可以采用前缀和方式优化查询<br>sum_arr[0]=arr[0]<br>sum_arr[1]=arr[0]+arr[1]<br>sum_arr[2]=arr[0]+arr[1]+arr[2]<br><img src="/2019/04/24/线段树入门/2.png" alt=""><br>这样，假如我们想得到区间[2,4]的和，我们可以用sum_arr[4]-sum_arr[1]计算到</p>
+<p>如果区间范围很大，再加上多次操作，暴力取和明显会超时，可以采用前缀和方式优化查询<br>sum_arr[0]=arr[0]<br>sum_arr[1]=arr[0]+arr[1]<br>sum_arr[2]=arr[0]+arr[1]+arr[2]<br><img src="/.io//2.png" alt=""><br>这样，假如我们想得到区间[2,4]的和，我们可以用sum_arr[4]-sum_arr[1]计算到</p>
 <ul>
 <li>query(L,R)时间复杂度减小为O(1)</li>
 <li>因为改变一个值后，要同时更新后面的sum_arr数组，所以update(i)时间复杂度增大为O(n)</li>
@@ -607,8 +607,8 @@ window.oldVersion = [
 </tbody>
 </table>
 </div>
-<p>树根保存的是区间[1-6]中元素的和，其左孩子保存区间[1-3]所有元素的和，右孩子则是[4-6]<br><img src="/2019/04/24/线段树入门/3.png" alt=""><br>它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。<br>其划分区间方法类似于二分</p>
-<p><img src="/2019/04/24/线段树入门/4.png" alt=""></p>
+<p>树根保存的是区间[1-6]中元素的和，其左孩子保存区间[1-3]所有元素的和，右孩子则是[4-6]<br><img src="/.io//3.png" alt=""><br>它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。<br>其划分区间方法类似于二分</p>
+<p><img src="/.io//4.png" alt=""></p>
 <p>然后给每个叶子结点赋值</p>
 <div class="table-container">
 <table>
@@ -634,7 +634,7 @@ window.oldVersion = [
 </tbody>
 </table>
 </div>
-<p><img src="/2019/04/24/线段树入门/5.png" alt=""></p>
+<p><img src="/.io//5.png" alt=""></p>
 <p>接着由孩子结点构成双亲结点</p>
 <div class="table-container">
 <table>
@@ -660,10 +660,10 @@ window.oldVersion = [
 </tbody>
 </table>
 </div>
-<p><img src="/2019/04/24/线段树入门/6.png" alt=""></p>
-<h2 id="回到原题"><a href="#回到原题" class="headerlink" title="回到原题"></a>回到原题</h2><p>如何找到[2-5]这个区间的和<br><img src="/2019/04/24/线段树入门/7.png" alt=""><br><strong>根节点记录的是[1-6]的和，可以把[3-6]分成两半，左边找的是[3],右边是[4-6]，右边可以直接得到[4-6]的和为27，而[3]可以通过[1-3]得到和为5，最终结果为27+5=32。</strong><br>这样子可以省掉很多搜索的时间，最坏情况是把整棵树都搜索一遍，时间复杂度为O(logn)</p>
-<p>那么如何更新呢，假如我们想把第5个元素由9变成5<br><img src="/2019/04/24/线段树入门/8.png" alt=""><br><strong>我们先找到9那个结点，然后把其值变为6，接着顺着一条路从下往上一直更新。</strong><br>同样，更新的时间复杂度也是O(logn)</p>
-<h2 id="线段树的实现"><a href="#线段树的实现" class="headerlink" title="线段树的实现"></a>线段树的实现</h2><p>由于线段树是用二叉树结构储存的，而且是近乎完全二叉树的，所以我使用了数组tree来存储<br><strong>数组下标从1开始，同时添加虚结点使其变成完全二叉树</strong><br><img src="/2019/04/24/线段树入门/9.png" alt=""></p>
+<p><img src="/.io//6.png" alt=""></p>
+<h2 id="回到原题"><a href="#回到原题" class="headerlink" title="回到原题"></a>回到原题</h2><p>如何找到[2-5]这个区间的和<br><img src="/.io//7.png" alt=""><br><strong>根节点记录的是[1-6]的和，可以把[3-6]分成两半，左边找的是[3],右边是[4-6]，右边可以直接得到[4-6]的和为27，而[3]可以通过[1-3]得到和为5，最终结果为27+5=32。</strong><br>这样子可以省掉很多搜索的时间，最坏情况是把整棵树都搜索一遍，时间复杂度为O(logn)</p>
+<p>那么如何更新呢，假如我们想把第5个元素由9变成5<br><img src="/.io//8.png" alt=""><br><strong>我们先找到9那个结点，然后把其值变为6，接着顺着一条路从下往上一直更新。</strong><br>同样，更新的时间复杂度也是O(logn)</p>
+<h2 id="线段树的实现"><a href="#线段树的实现" class="headerlink" title="线段树的实现"></a>线段树的实现</h2><p>由于线段树是用二叉树结构储存的，而且是近乎完全二叉树的，所以我使用了数组tree来存储<br><strong>数组下标从1开始，同时添加虚结点使其变成完全二叉树</strong><br><img src="/.io//9.png" alt=""></p>
 <div class="table-container">
 <table>
 <thead>
@@ -692,7 +692,7 @@ window.oldVersion = [
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> value; <span class="comment">//节点对应区间的权值（不唯一，也可以代表区间最大值等）</span></span><br><span class="line">    <span class="keyword">int</span> left, right; <span class="comment">//区间[left, right]</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> <span class="title">tree</span>[1000];</span></span><br><span class="line"><span class="keyword">int</span> father[<span class="number">100</span>]; <span class="comment">//记录某个点的序号，方便查找对应的数组下标</span></span><br></pre></td></tr></table></figure>
 <h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Build_tree(<span class="number">1</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"><span class="comment">//为区间[left, right]建立一个以top为祖先的线段树，top为根节点下标</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Build_tree</span><span class="params">(<span class="keyword">int</span> top, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[top].left = left; <span class="comment">//写入第index个结点的左区间</span></span><br><span class="line">    tree[top].right = right; <span class="comment">//写入第index个结点的右区间</span></span><br><span class="line">    tree[top].value = <span class="number">0</span>; <span class="comment">//每个区间的值初始化为0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left == right)	<span class="comment">//区间长度为0时，赋值并且结束递归</span></span><br><span class="line">    &#123;</span><br><span class="line">    	tree[top].value = arr[left];</span><br><span class="line">        father[left] = top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (right + left) / <span class="number">2</span>; <span class="comment">//取区间中点</span></span><br><span class="line">    <span class="keyword">int</span> left_node = top * <span class="number">2</span>; <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = top * <span class="number">2</span> + <span class="number">1</span>;  <span class="comment">//右孩子下标</span></span><br><span class="line">    Build_tree(left_node, left, mid);  <span class="comment">//往左孩子方向继续建立线段树</span></span><br><span class="line">    Build_tree(right_node, mid + <span class="number">1</span>, right);  <span class="comment">//往右孩子方向继续建立线段树</span></span><br><span class="line">    <span class="comment">//更新结点值为左右孩子的和</span></span><br><span class="line">    tree[top].value = tree[left_node].value + tree[right_node].value; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>更新数组的第5个元素的值为6，直接在树里面更新该结点的值后，然后从父结点往上更新，直到更新到了根结点。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[father[<span class="number">5</span>]].value = <span class="number">6</span>;</span><br><span class="line">    Update(father[<span class="number">5</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">int</span> index)</span>	<span class="comment">//index为要修改那个点的数组下标</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> father_node = index / <span class="number">2</span>; <span class="comment">//父结点下标</span></span><br><span class="line">    <span class="keyword">int</span> left_node = father_node * <span class="number">2</span>;   <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = father_node * <span class="number">2</span> + <span class="number">1</span>;   <span class="comment">//右孩子下标</span></span><br><span class="line">    tree[father_node].value = tree[left_node].value + tree[right_node].value; <span class="comment">//更新值</span></span><br><span class="line">    <span class="keyword">if</span>(father_node == <span class="number">1</span>) <span class="comment">//找到树的根结点，终止退出</span></span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    Update(father_node); <span class="comment">//递归更新，由父结点往上找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="查询-L-R-区间"><a href="#查询-L-R-区间" class="headerlink" title="查询[L,R]区间"></a>查询[L,R]区间</h3><p><img src="/2019/04/24/线段树入门/6.png" alt=""><br>先查询左子树：</p>
+<h3 id="查询-L-R-区间"><a href="#查询-L-R-区间" class="headerlink" title="查询[L,R]区间"></a>查询[L,R]区间</h3><p><img src="/.io//6.png" alt=""><br>先查询左子树：</p>
 <ol>
 <li>如果满足条件3 &gt;= L,则要查询的区间有涉及左子树，例如查询[1,2]，[2,4]<ul>
 <li>如果满足3 &gt;= R,则要查询的区间完全在左子树，例如[1,2]，这时候要查询的区间不变</li>
@@ -700,7 +700,7 @@ window.oldVersion = [
 </ul>
 </li>
 </ol>
-<p><img src="/2019/04/24/线段树入门/6.png" alt="90%"><br>同理再查询右子树：</p>
+<p><img src="/.io//6.png" alt="90%"><br>同理再查询右子树：</p>
 <ol>
 <li>如果满足条件R &gt;= 4,则要查询的区间有涉及右子树，例如查询[4,6]，[2,5]<ul>
 <li>如果满足L &gt;= 4,则要查询的区间完全在右子树，例如[4,6]，这时候要查询的区间不变</li>
@@ -709,9 +709,9 @@ window.oldVersion = [
 </li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从index开始查询，所以index一般为树的根结点,查询的区间是[L,R]，结果保留在ans里面</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> L, <span class="keyword">int</span> R, <span class="keyword">int</span>&amp; ans)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree[index].left == L &amp;&amp; tree[index].right == R)&#123; <span class="comment">//找到了一个完全重合的区间</span></span><br><span class="line">        ans += tree[index].value;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left_node = index*<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L &lt;= tree[left_node].right)&#123; <span class="comment">//左区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(R &lt;= tree[left_node].right) <span class="comment">//全包含于左区间，查询区间不变</span></span><br><span class="line">        	Query(left_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，左端点不变，右端点变为左孩子的右区间端点</span></span><br><span class="line">        	Query(left_node, L, tree[left_node].right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> right_node = left_node + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(R &gt;= tree[right_node].left)&#123; <span class="comment">//右区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(L &gt;= tree[right_node].left) <span class="comment">//全包含于右区间，查询区间不变</span></span><br><span class="line">        	Query(right_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，与上同理</span></span><br><span class="line">        	Query(right_node, tree[right_node].left, R, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/24/线段树入门/10.PNG" alt=""></p>
-<h2 id="模板题HDU1754"><a href="#模板题HDU1754" class="headerlink" title="模板题HDU1754"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1754" target="_blank" rel="noopener">模板题HDU1754</a></h2><p><img src="/2019/04/24/线段树入门/timu.png" alt=""></p>
-<p>936MS    8336K（注意，线段树需要空间比较大，数组开小可能会wa或者TLE，一般为4n）<br><img src="/2019/04/24/线段树入门/11.PNG" alt=""></p>
+<p><img src="/.io//10.PNG" alt=""></p>
+<h2 id="模板题HDU1754"><a href="#模板题HDU1754" class="headerlink" title="模板题HDU1754"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1754" target="_blank" rel="noopener">模板题HDU1754</a></h2><p><img src="/.io//timu.png" alt=""></p>
+<p>936MS    8336K（注意，线段树需要空间比较大，数组开小可能会wa或者TLE，一般为4n）<br><img src="/.io//11.PNG" alt=""></p>
 <h2 id="线段树部分优化"><a href="#线段树部分优化" class="headerlink" title="线段树部分优化"></a>线段树部分优化</h2><ol>
 <li><code>a*2</code>可以用<code>a&lt;&lt;1</code>代替，<code>a/2</code>可以用<code>a&gt;&gt;1</code>代替。（位运算其实就是直接对在内存中的二进制数据进行操作，因此处理数据的速度非常快）</li>
 <li>因为下标为a的节点的左儿子下标为<code>a*2</code>，右儿子下标为<code>a*2+1</code>，所以可以</li>
@@ -753,7 +753,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/算法/">算法</a>
+<a class="post-categories-list-item" href='/categories/算法/'>算法</a>
 
 </span>
 
@@ -807,7 +807,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

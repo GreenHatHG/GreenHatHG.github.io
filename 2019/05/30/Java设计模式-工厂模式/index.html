@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -576,13 +576,13 @@ window.oldVersion = [
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PizzaIngredientFctory</span> <span class="title">implemets</span> <span class="title">PizzaIngredientFctory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Dough <span class="title">CreateDough</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> NYDough();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Sauce <span class="title">CreateSauce</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> NYDough();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p> 工厂模式已经清晰了，所有工厂模式都用来封装对象的创建，它通过让子类决定该创建的对象是什么，来达到将对象创建的过程封装的目的。</p>
 <h1 id="三种对比"><a href="#三种对比" class="headerlink" title="三种对比"></a>三种对比</h1><h2 id="简单工厂模式-1"><a href="#简单工厂模式-1" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><p>简单工厂模式是类的创建模式，又叫做静态工厂方法（<code>Static Factory Method</code>）模式。简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例。<br>结构如下：</p>
-<p><img src="/2019/05/30/Java设计模式-工厂模式/1.webp" alt=""></p>
+<p><img src="/.io//1.webp" alt=""></p>
 <h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>模式的核心是工厂类。这个类含有必要的判断逻辑，可以决定在什么时候创建哪一个产品类的实例。而客户端则可以免除直接创建对象的责任（比如那个店长）。简单工厂模式通过这种做法实现了对责任的分割。</p>
 <h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>这个工厂类集中了所以的创建逻辑，当有复杂的多层次等级结构时，所有的业务逻辑都在这个工厂类中实现。什么时候它不能工作了，整个系统都会受到影响。并且简单工厂模式违背了开闭原则（对扩展的开放，对修改的关闭）。</p>
 <h2 id="工厂模式方法-1"><a href="#工厂模式方法-1" class="headerlink" title="工厂模式方法"></a>工厂模式方法</h2><p>首先，在工厂方法模式中，核心的工厂类不再负责所有产品的创建，而是将具体创建的工作交给子类去做.这个核心类则摇身一变，成为了一个抽象工厂角色，仅负责给出具体工厂子类必须实现的接口，而不接触哪一个产品类应当被实例化这种细节。</p>
 <p>这种进一步抽象化的结果，使这种工厂方法模式可以用来予许系统在不修改具体工厂角色的情况下引进新的产品，也就遵循了开闭原则。</p>
 <p>结构如下：</p>
-<p><img src="/2019/05/30/Java设计模式-工厂模式/2.webp" alt=""></p>
+<p><img src="/.io//2.webp" alt=""></p>
 <hr>
 <ol>
 <li><p>抽象工厂利用多态的优势将具体的产品的实例化放在具体工厂中实现。</p>
@@ -594,7 +594,7 @@ window.oldVersion = [
 </ol>
 <h2 id="抽象工厂模式-1"><a href="#抽象工厂模式-1" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p><code>抽象工厂模式</code>是所有形态的工厂模式中最为抽象和最具一般性的一种形态。<code>抽象工厂模式</code>可以向客户端提供一个接口，使得客户端在不必指定产品的具体类型的情况下，创建多个产品族中的产品对象。这就是抽象工厂的用意。</p>
 <p>结构如下：</p>
-<p><img src="/2019/05/30/Java设计模式-工厂模式/3.webp" alt=""></p>
+<p><img src="/.io//3.webp" alt=""></p>
 <h1 id="倒置原则"><a href="#倒置原则" class="headerlink" title="倒置原则"></a>倒置原则</h1><p>倒置原则：要依赖抽象，不要依赖具体类，这个原则说明了高层组件不能依赖底层组件，而且不管高层或底层组件，都应该依赖于抽象。</p>
 <p>让我们再回顾一下上面的例子，PizzaStore就是高层组件，而Pizza就是底层组件，而且前者依赖后者，很清晰。那么，要符合这个原则，我们应该怎么做呢？现在我们来倒置你的思考方式：</p>
 <ol>
@@ -650,7 +650,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/读书笔记/">读书笔记</a>
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
 
 </span>
 
@@ -704,7 +704,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

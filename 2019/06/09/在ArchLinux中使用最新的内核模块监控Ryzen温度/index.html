@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -545,7 +545,7 @@ window.oldVersion = [
 <p>具体流程：</p>
 <h1 id="确定modules"><a href="#确定modules" class="headerlink" title="确定modules"></a>确定modules</h1><p><code>Ryzen</code>板上一般有两种模块。他们是<code>it87</code>和<code>nct6775</code>。旧的主板一般是前者，新的一般是后者，具体的可以搜索下，本次使用的<code>MSI B450 TOMAHAWK</code>属于后者</p>
 <h1 id="具体命令"><a href="#具体命令" class="headerlink" title="具体命令"></a>具体命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S linux-headers</span><br><span class="line">yay -S nct6775-master-dkms-git</span><br><span class="line">sudo vim /etc/modules-load.d/modules.conf</span><br><span class="line"><span class="meta">#</span>往文件里面添加"nct6775"</span><br><span class="line">sudo modprobe nct6775</span><br><span class="line">sudo reboot</span><br><span class="line">sensors</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/06/09/在ArchLinux中使用最新的内核模块监控Ryzen温度/1.png" alt=""></p>
+<p><img src="/.io//1.png" alt=""></p>
 
                     </article>
                     
@@ -576,7 +576,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/教程/">教程</a>
+<a class="post-categories-list-item" href='/categories/教程/'>教程</a>
 
 </span>
 
@@ -630,7 +630,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

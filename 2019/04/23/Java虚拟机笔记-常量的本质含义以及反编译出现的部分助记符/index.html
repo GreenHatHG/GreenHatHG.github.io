@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -552,9 +552,9 @@ window.oldVersion = [
 <p><strong>常量在编译阶段会存入到调用这个常量的方法所在的类的常量池中，本质上，调用类并没有直接引用到定义常量的类，因此并不会触发定义常量的类的初始化</strong></p>
 <p><strong>注意：这里指的是将常量放到了<code>Main</code>的常量池中，之后<code>Main</code>与<code>MyParent2</code>就没有任何关系了.</strong></p>
 <p>甚至可以将<code>MyParent2</code>的class文件删除</p>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/1.png" alt=""></p>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/2.png" alt=""></p>
-<h1 id="对样例2反编译"><a href="#对样例2反编译" class="headerlink" title="对样例2反编译"></a>对样例2反编译</h1><p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/3.png" alt=""></p>
+<p><img src="/.io//1.png" alt=""></p>
+<p><img src="/.io//2.png" alt=""></p>
+<h1 id="对样例2反编译"><a href="#对样例2反编译" class="headerlink" title="对样例2反编译"></a>对样例2反编译</h1><p><img src="/.io//3.png" alt=""></p>
 <p>对样例2反编译后我们可以看到一些助记符以及code那里的一些构造方法,下面看一些助记符(操作码)</p>
 <ul>
 <li><p>gestatic：得到out这个对象,本身out这个对象是一个静态成员变量</p>
@@ -565,30 +565,30 @@ window.oldVersion = [
 <p>将代码改为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        System.out.println(MyParent2.S);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyParent2</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">short</span> S = <span class="number">7</span>;</span><br><span class="line">    <span class="keyword">static</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Myparent2 static block"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>然后反编译</p>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/4.png" alt=""></p>
+<p><img src="/.io//4.png" alt=""></p>
 <p>可以看到其他的相同，出现一个新的名叫<code>bipush</code>的助记符</p>
 <ul>
 <li>bipush：表示将单字节(-128~127)的常量值推送到栈顶</li>
 </ul>
 <p>改为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">128</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/5.png" alt=""></p>
+<p><img src="/.io//5.png" alt=""></p>
 <ul>
 <li>sipush：表示将一个短整型的常量值(-32768~32767)推送到栈顶</li>
 </ul>
 <p>改为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> i = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/6.png" alt=""></p>
+<p><img src="/.io//6.png" alt=""></p>
 <ul>
 <li>iconst_1：表示将int型1推送至栈顶(<code>iconst_m1~iconst_5</code>)</li>
 </ul>
 <h1 id="助记符"><a href="#助记符" class="headerlink" title="助记符"></a>助记符</h1><p>助记符在<code>jt.jar</code>包有相关的类实现</p>
 <p>比如<code>ICONST</code>，在包<code>com.sun.org.apache.bcel.internal.generic</code>里面</p>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/7.png" alt=""></p>
+<p><img src="/.io//7.png" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ICONST</span> <span class="keyword">extends</span> <span class="title">Instruction</span></span></span><br><span class="line"><span class="class">  <span class="keyword">implements</span> <span class="title">ConstantPushInstruction</span>, <span class="title">TypedInstruction</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Empty constructor needed for the Class.newInstance() statement in</span></span><br><span class="line"><span class="comment">   * Instruction.readInstruction(). Not to be used otherwise.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  ICONST() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">ICONST</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(com.sun.org.apache.bcel.internal.Constants.ICONST_0, (<span class="keyword">short</span>)<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((i &gt;= -<span class="number">1</span>) &amp;&amp; (i &lt;= <span class="number">5</span>))</span><br><span class="line">      opcode = (<span class="keyword">short</span>)(com.sun.org.apache.bcel.internal.Constants.ICONST_0 + i); <span class="comment">// Even works for i == -1</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> ClassGenException(<span class="string">"ICONST can be used only for value between -1 and 5: "</span> +</span><br><span class="line">                                  i);</span><br><span class="line">    value = i;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到，它<code>icosnt</code>只有[-1,5]</p>
 <p>再比如<code>sipush</code></p>
-<p><img src="/2019/04/23/Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符/8.png" alt=""></p>
+<p><img src="/.io//8.png" alt=""></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SIPUSH</span> <span class="keyword">extends</span> <span class="title">Instruction</span> <span class="keyword">implements</span> <span class="title">ConstantPushInstruction</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">short</span> b;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Empty constructor needed for the Class.newInstance() statement in</span></span><br><span class="line"><span class="comment">   * Instruction.readInstruction(). Not to be used otherwise.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  SIPUSH() &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">SIPUSH</span><span class="params">(<span class="keyword">short</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(com.sun.org.apache.bcel.internal.Constants.SIPUSH, (<span class="keyword">short</span>)<span class="number">3</span>);</span><br><span class="line">    <span class="keyword">this</span>.b = b;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
                     </article>
@@ -620,7 +620,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/读书笔记/">读书笔记</a>
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
 
 </span>
 
@@ -674,7 +674,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

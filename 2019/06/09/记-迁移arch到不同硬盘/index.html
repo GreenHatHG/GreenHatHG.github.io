@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -552,7 +552,7 @@ window.oldVersion = [
 <h2 id="arch-chroot"><a href="#arch-chroot" class="headerlink" title="arch-chroot"></a>arch-chroot</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arch-chroot /mnt</span><br><span class="line">pacman -Sy</span><br><span class="line">pacman -S grub efibootmgr linux</span><br><span class="line">grub-install --target=x86_64-efi --efi-directory=/mnt/boot/efi --bootloader-id=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br><span class="line">pacman -S amd-ucode</span><br><span class="line"><span class="meta">#</span>注意此处需要安装linux包，因为部分boot分区也在linux包里面</span><br></pre></td></tr></table></figure>
 <h2 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">umount -R /mnt</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 <p>然后就可以了</p>
-<p><img src="/2019/06/09/记-迁移arch到不同硬盘/1.png" alt=""></p>
+<p><img src="/.io//1.png" alt=""></p>
 
                     </article>
                     
@@ -583,7 +583,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/教程/">教程</a>
+<a class="post-categories-list-item" href='/categories/教程/'>教程</a>
 
 </span>
 
@@ -637,7 +637,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

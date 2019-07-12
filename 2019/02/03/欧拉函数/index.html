@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -529,7 +529,7 @@ window.oldVersion = [
                     
                         
                             <div id="post-toc">
-                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#欧拉函数"><span class="post-toc-number">1.</span> <span class="post-toc-text">欧拉函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#欧拉函数公式"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">欧拉函数公式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性质"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">性质</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#延伸"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">延伸</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#应用"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">应用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模板"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">模板</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#直接求小于n-且与n互质的个数（欧拉函数模板）"><span class="post-toc-number">1.0.5.0.1.</span> <span class="post-toc-text">直接求小于n,且与n互质的个数（欧拉函数模板）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#筛选模板-求-1-n-之间每个数的质因数的个数"><span class="post-toc-number">1.0.5.0.2.</span> <span class="post-toc-text">筛选模板:求[1,n]之间每个数的质因数的个数</span></a></li></ol></li></ol></li></ol><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#欧拉降幂"><span class="post-toc-number">2.</span> <span class="post-toc-text">欧拉降幂</span></a></li>
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#欧拉函数"><span class="post-toc-number">1.</span> <span class="post-toc-text">欧拉函数</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#欧拉函数公式"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">欧拉函数公式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性质"><span class="post-toc-number">1.0.2.</span> <span class="post-toc-text">性质</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#延伸"><span class="post-toc-number">1.0.3.</span> <span class="post-toc-text">延伸</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#应用"><span class="post-toc-number">1.0.4.</span> <span class="post-toc-text">应用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模板"><span class="post-toc-number">1.0.5.</span> <span class="post-toc-text">模板</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#直接求小于n-且与n互质的个数（欧拉函数模板）"><span class="post-toc-number">1.0.5.0.1.</span> <span class="post-toc-text">直接求小于n,且与n互质的个数（欧拉函数模板）</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#筛选模板-求-1-n-之间每个数的质因数的个数"><span class="post-toc-number">1.0.5.0.2.</span> <span class="post-toc-text">筛选模板:求[1,n]之间每个数的质因数的个数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#欧拉降幂"><span class="post-toc-number">2.</span> <span class="post-toc-text">欧拉降幂</span></a></li></ol>
                             </div>
                         
                     
@@ -539,7 +539,7 @@ window.oldVersion = [
 <h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><p>对正整数n，欧拉函数是小于n的正整数中与n互质的数的数目。例如φ(8)=4，因为1,3,5,7均和8互质。</p>
 <h3 id="欧拉函数公式"><a href="#欧拉函数公式" class="headerlink" title="欧拉函数公式"></a>欧拉函数公式</h3><script type="math/tex; mode=display">
 euler(x) =x\times(1-\frac{1}{p_1})\times(1-\frac{1}{p_2})\times......\times(1-\frac{1}{p_n})</script><p><em>(其中p1, p2……pn为x的所有质因数，x是不为0的整数)</em></p>
-<p><img src="/2019/02/03/欧拉函数/数论/ohiexample.png" alt=""></p>
+<p><img src="/.io//ohiexample.png" alt=""></p>
 <p><strong>注意：</strong></p>
 <p><code>φ(1) = 1</code>（唯一和1互质的数(小于等于1)就是1本身）。 (注意：每种质因数只一个。比如 <script type="math/tex">12 = 2\times2\times3</script> 那么 <script type="math/tex">φ(12) = 12\times (1-\frac{1}{2}) \times (1-\frac{1}{3})=4  )</script></p>
 <h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
@@ -598,7 +598,7 @@ A^Bmod\ C=A^{ Bmod\varphi(C)+\varphi(C) }mod\ C</script><p>$\varphi()$为欧拉�
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/算法/">算法</a>
+<a class="post-categories-list-item" href='/categories/算法/'>算法</a>
 
 </span>
 
@@ -656,7 +656,7 @@ A^Bmod\ C=A^{ Bmod\varphi(C)+\varphi(C) }mod\ C</script><p>$\varphi()$为欧拉�
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -545,7 +545,7 @@ window.oldVersion = [
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">If a particular concrete provider class is named in more than one configuration file, or is named in the same configuration file more than once, then the duplicates are ignored. </span><br><span class="line">如果一个特定的具体提供程序类在多个配置文件中命名，或者在同一配置文件中多次命名，则忽略重复的配置文件。</span><br><span class="line">The configuration file naming a particular provider need not be in the same jar file or other distribution unit as the provider itself.</span><br><span class="line">命名特定提供者的配置文件不必与提供程序本身位于同一jar文件或其他分发单元中。</span><br><span class="line">The provider must be accessible from the same class loader that was initially queried to locate the configuration file; note that this is not necessarily the class loader from which the file was actually loaded.</span><br><span class="line">提供程序必须可以从与定位寻找配置文件的类加载器加载; 请注意，这不一定是实际加载文件的类加载器。</span><br></pre></td></tr></table></figure>
 <hr>
 <p>从这里我们可以看出，<code>ServiceLoader</code>是从<code>META-INF/services</code>来定位jar包的，然后读取文件中的限定名</p>
-<p><img src="/2019/06/11/Java虚拟机笔记-ServiceLoader/1.png" alt=""></p>
+<p><img src="/.io//1.png" alt=""></p>
 <p>所以上面就的输出正好验证了这一个</p>
 <hr>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Providers are located and instantiated lazily, that is, on demand. </span><br><span class="line">提供者可以延迟地定位和实例化，即按需提供。</span><br><span class="line">A service loader maintains a cache of the providers that have been loaded so far.</span><br><span class="line">服务加载器会维护到目前为止已经加载的提供程序的缓存</span><br><span class="line">Each invocation of the iterator method returns an iterator that first yields all of the elements of the cache, in instantiation order, and then lazily locates and instantiates any remaining providers, adding each one to the cache in turn.The cache can be cleared via the reload method.</span><br><span class="line">每次调用iterator方法都会返回一个迭代器，首先按照实例化顺序生成缓存的所有元素，然后延迟地定位和实例化任何剩余的提供程序，依次将每个元素添加到缓存中。 缓存可以通过reload方法清除。</span><br></pre></td></tr></table></figure>
@@ -594,7 +594,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/读书笔记/">读书笔记</a>
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
 
 </span>
 
@@ -648,7 +648,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->

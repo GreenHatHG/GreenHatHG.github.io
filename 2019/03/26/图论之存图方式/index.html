@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-    <head><meta name="generator" content="Hexo 3.8.0">
+    <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <!--
         © SukkaW
@@ -572,7 +572,7 @@ window.oldVersion = [
 <h2 id="存图思想-1"><a href="#存图思想-1" class="headerlink" title="存图思想"></a>存图思想</h2><p><strong>邻接矩阵</strong>对于每个顶点使用<strong>定长的数组</strong>来存储以该点出发的边的情况。第i个数组的第j个值存储的是从顶点i到顶点j的边的权值。</p>
 <p>而<strong>邻接表</strong>则是对于每个顶点使用<strong>不定长的链表</strong>来存储以该点出发的边的情况。<strong>因此对于第i个链表的第j个值实际上存储的是从编号为i的顶点出发的第j条边的情况</strong>。</p>
 <p><strong>一般来说，如果有边权的话，邻接表的链表存储的是一个结构体，这个结构体存储该边的终点以及边权</strong></p>
-<p><img src="/2019/03/26/图论之存图方式/links&amp;matrix.png" alt=""></p>
+<p><img src="/.io//links&amp;matrix.png" alt=""></p>
 <h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><p>在ACM题目中，动态的数据结构一般是不被推荐的，因为动态开辟内存比较消耗时间，且写起来复杂容易出错。<br>大部分情况我们使用<strong>C++STL里的vector</strong>作为链表来实现图的邻接表。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vector实现的邻接表的定义</span></span><br><span class="line"><span class="comment">// 不考虑边权，存储类型为int型</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; e[V];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 邻接表的初始化操作</span></span><br><span class="line"><span class="comment">// 将起点为`i`的边链表全部清空</span></span><br><span class="line">e[i].clear();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边</span></span><br><span class="line"><span class="comment">// 新增顶点`i`到顶点`j`的边</span></span><br><span class="line">e[i].push_back(j);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询边</span></span><br><span class="line">e[i][<span class="number">0</span>];    <span class="comment">// 查询以`i`为起点的第一条边i-&gt;e[i][0]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;(<span class="keyword">int</span>)e[i].size(); ++j) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e[i][j] == k) &#123;     <span class="comment">// 查询边`i-&gt;k`</span></span><br><span class="line">        <span class="comment">// do something.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
@@ -675,7 +675,7 @@ window.oldVersion = [
 <span class="post-categories-list mt-2">
 
 
-<a class="post-categories-list-item" href="/categories/算法/">算法</a>
+<a class="post-categories-list-item" href='/categories/算法/'>算法</a>
 
 </span>
 
@@ -729,7 +729,7 @@ window.oldVersion = [
             <!-- ### Footer ### -->
             <footer class="text-center">
     <!-- footer copyright -->
-    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year=""></span>
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
         <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
     </p>
     <!-- footer custom text -->
