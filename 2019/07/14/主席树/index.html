@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>主席树 | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="主席树又名可持久化线段树">
+
+<!-- Keywords -->
+<meta name="keywords" content=", 主席树">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="主席树 | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2019/07/14/主席树/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="主席树又名可持久化线段树">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-07-14T16:15:46.000Z">
+    <meta property="article:modified_time" content="2019-07-14T16:15:46.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", 主席树"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2019/07/14/主席树/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2019/07/14/主席树/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2019/07/14/主席树/"
+    },
+    "headline": "主席树 | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2019-07-14T16:15:46.000Z",
+    "dateModified": "2019-07-14T18:51:30.800Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", 主席树",
+    "description": "主席树又名可持久化线段树"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
+</head>
+
+    <body>
+        
+
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=主席树" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=主席树&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=主席树" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB0klEQVR42u3by47DIAxA0fz/T7erSl2AfZ2iCpybzUxfcCoRsA29XhtelyhRokQNUFdwjd7zeVx5Hvcjqg1qOOgGHWTQGZL0I6ofKmowQ2Y42o+o56BGwDtfRpSoEW72+mygi3ouKlwogxuABIjLowRR26Oihlf+XZbNiNoadasQUYT8peoiahtU1jCZTGevkXZE9UPNPhB1HnU8a2M06NHkKeo4VFaImE2C2eMZLAr+RPVDRRNnlExmSScpyIrqgyILc5aIRoFd1o6onihShCBJK9l8RJOnqKNRdICSgmoUFGbvEdUHFSWaJDnNNrxLC7+oFqgoecyCPDrYaaAnqg8qC+QqSSWF4Q0jUcehKodsSLGVFENQ5CnqWBQp4pMCLN0EwFUXUceiCKayGUQnWDR5ijoWRQtm5BAgCRxLyaio41Bkwc0SULJRhAJGUS1QJLgnASDZDEg3yEW1QNGDfL9uUJJih6geKDIB0kWbTLKi+qOqgzGaFGlghw/giDoWFQ3wLKiLimv0C4nqiSID8+4PNJZECaLaoLL/swJbaeCLegSKFNIqgd7yu0/UtqhoQaYHcLKbJCqAiOqFIodqSKGVFnGng15UC9ROlyhRokR9XW8NtAC/q0e0SgAAAABJRU5ErkJggg==" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    
+    
+
+
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">主席树</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2019-07-15</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/算法/">算法</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=主席树&url=https://greenhathg.github.io/2019/07/14/主席树/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=主席树&url=https://greenhathg.github.io/2019/07/14/主席树/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/07/14/主席树/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/07/14/主席树/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/07/14/主席树/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/07/14/主席树/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/07/14/主席树/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB0klEQVR42u3by47DIAxA0fz/T7erSl2AfZ2iCpybzUxfcCoRsA29XhtelyhRokQNUFdwjd7zeVx5Hvcjqg1qOOgGHWTQGZL0I6ofKmowQ2Y42o+o56BGwDtfRpSoEW72+mygi3ouKlwogxuABIjLowRR26Oihlf+XZbNiNoadasQUYT8peoiahtU1jCZTGevkXZE9UPNPhB1HnU8a2M06NHkKeo4VFaImE2C2eMZLAr+RPVDRRNnlExmSScpyIrqgyILc5aIRoFd1o6onihShCBJK9l8RJOnqKNRdICSgmoUFGbvEdUHFSWaJDnNNrxLC7+oFqgoecyCPDrYaaAnqg8qC+QqSSWF4Q0jUcehKodsSLGVFENQ5CnqWBQp4pMCLN0EwFUXUceiCKayGUQnWDR5ijoWRQtm5BAgCRxLyaio41Bkwc0SULJRhAJGUS1QJLgnASDZDEg3yEW1QNGDfL9uUJJih6geKDIB0kWbTLKi+qOqgzGaFGlghw/giDoWFQ3wLKiLimv0C4nqiSID8+4PNJZECaLaoLL/swJbaeCLegSKFNIqgd7yu0/UtqhoQaYHcLKbJCqAiOqFIodqSKGVFnGng15UC9ROlyhRokR9XW8NtAC/q0e0SgAAAABJRU5ErkJggg==" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常见应用"><span class="post-toc-number">2.</span> <span class="post-toc-text">常见应用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结构"><span class="post-toc-number">3.</span> <span class="post-toc-text">结构</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#建树过程"><span class="post-toc-number">4.</span> <span class="post-toc-text">建树过程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#查找"><span class="post-toc-number">5.</span> <span class="post-toc-text">查找</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#POJ2104-K-th-Number"><span class="post-toc-number">6.</span> <span class="post-toc-text">POJ2104 K-th Number</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p>主席树又名可持久化线段树</p>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>传统意义上的主席树就是可持久化线段树，什么叫可持久化呢？就是这棵树啊，<strong>可以记录每一次修改的内容</strong>，换句话说，就是可以访问这棵树的历史记录。</p>
+<h1 id="常见应用"><a href="#常见应用" class="headerlink" title="常见应用"></a>常见应用</h1><ul>
+<li>区间/树上路径第 K 大</li>
+<li>区间不同数的个数</li>
+</ul>
+<p><strong>很多问题如果用线段树处理的话需要采用离线思想，若用主席树则可直接在线处理。故很多时候离线线段树求解可以转化为在线主席树求解。</strong></p>
+<p>注意，主席树本质就是线段树，变化就在其实现可持久化，后一刻可以参考前一刻的状态，二者共同部分很多<strong>。一颗线段树的节点维护的是当前节点对应区间的信息，倘若每次区间都不一样，就会给处理带来一些困难</strong>。有时可以直接细分区间然后合并，此种情况线段树可以直接搞定；但有时无法通过直接划分区间来求解，如频繁询问区间第k小元素，当然，此问题有比较特殊的数据结构-划分树。其实还有一个叫做归并树，是根据归并排序实现的，每个节点保存的是该区间归并排序后的序列，因此，时间、空间复杂度都及其高， 所以一般不推荐去用。当然，主席树也是可以解决的。</p>
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>由若干棵线段树组成（若是权值线段树通常需先对数据离散化），按照输入顺序，每插入一个数保存一份当前版本的线段树。也就是说，<strong>对于 n 个数的输入数据，它会保存 n 棵线段树</strong>。</p>
+<h1 id="建树过程"><a href="#建树过程" class="headerlink" title="建树过程"></a>建树过程</h1><p>下面我们以求区间第 K 大的实例来讲解一下如何建立主席树。</p>
+<p><strong>比如有4个数500 30 6000 9432424，求区间$[2,4]$第2小的数。</strong></p>
+<p>我们可以对区间离散化，离散化变成2 1 3 4</p>
+<blockquote>
+<p>离散化：当数据只与它们之间的相对大小有关，而与具体是多少无关时，可以进行离散化。</p>
+</blockquote>
+<p>主席树就是很多线段树的总体，而这些线段树就是按给定序列的所有前缀建立的。所以我们定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">T[i]表示第i棵线段树的根节点编号，L[i]表示节点i的左子节点编号，R[i]表示节点i的右子节点编号，sum[i]表示节点i对应区间中数的个数。</span><br></pre></td></tr></table></figure>
+<p>接着，从T[0]开始建立空树，之后依次加入第i个数建立T[i]。 </p>
+<p><strong>注意，如果我们直接以序列的所有前缀建立线段树肯定会MLE，这里主席树最精妙的地方就出来了。我们建立的这些线段树的结构，维护的区间是相同的，主席树充分利用了这些线段树中的相同部分，大大减少了空间消耗，达到优化目的。</strong></p>
+<hr>
+<p>按照新数组建立权值线段树，初始为空</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/1.png" alt=""></p>
+<p><strong>图中每个节点上面为节点编号，节点下面为对应区间，节点中数为区间中含有的数的个数</strong></p>
+<hr>
+<p>接下来我们需要按照输入顺序依次插入数据，首先插入2</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/8.png" alt=""></p>
+<p><strong>我们知道，更新一个叶节点只会影响根节点到该叶节点的一条路径，故只需修改该路径上的信息即可，那么其他的部分就可以共用，不同的部分只需要新建节点即可</strong></p>
+<p>因为上一颗树的最大节点编号为7，所以这颗根节点编号为8。</p>
+<p>因为要插入数据为2，根据线段树特点，共三个节点受到影响，受到影响的节点则重新创建节点，那么对应的编号也会变，如上图的编号为9和10的节点，其他节点没有影响的话则继续用上一个节点的信息，不需要改变。</p>
+<p>精简后的树如下面所示</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/2.png" alt=""></p>
+<p><em>省略部分节点信息</em></p>
+<hr>
+<p>接着插入1</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/3.png" alt=""></p>
+<hr>
+<p>插入3</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/4.png" alt=""></p>
+<hr>
+<p>插入4</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/5.png" alt=""></p>
+<hr>
+<p>下面为所有线段树组合成主席树</p>
+<p><img src="//greenhathg.github.io/2019/07/14/主席树/7.png" alt=""></p>
+<p>从图中应该可以看出主席树是怎么充分利用这些线段树的相同结构来减少空间消耗的。当要新建一个线段树时最多只需要新增$log2n$个节点，相当于只更新了一条链，其它节点与它的前一个线段树公用。</p>
+<p>至此，主席树建树完成，时间复杂度$O(nlog2n)$。</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><p>建完主席树后我们看看它是怎么查找区间$[2,4]$第2小的数的。 </p>
+<p>T[i]表示处理完前i个数之后所形成的线段树，即具有了前缀和的性质，那么$T[r] - T[l-1]$即表示处理的$[l, r]$区间。当要查询区间$[1,3]$的时候，我们只要将T[3] 和T[0]节点相减即可得到要处理的线段树</p>
+<p>这样我们得到区间$[l, r]$的数要查询第k大就很容易了，设左节点中存的个数为cnt，当$k&lt;=cnt$时，我们直接查询左儿子中第k小的数即可，如果$k&gt;cnt$，我们只要去查右儿子中第$k-cnt$小的数即可，这边是一道很简单的线段树了。</p>
+<p><em>离散化的过程已经排序，所以上面的查找方法类似于二分查找</em></p>
+<h1 id="POJ2104-K-th-Number"><a href="#POJ2104-K-th-Number" class="headerlink" title="POJ2104 K-th Number"></a><a href="http://poj.org/problem?id=2104" target="_blank" rel="noopener">POJ2104 K-th Number</a></h1><p><img src="//greenhathg.github.io/2019/07/14/主席树/9.png" alt=""></p>
+<p>题目大意：</p>
+<p>就是很简单的给出一个长为n的序列a，然后给出m个询问，每次给出三个数x,y,k，然后需要我们求出在序列a的区间$[x,y]$中，第k大的数是哪个。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Problem: 2104		User: heigua</span></span><br><span class="line"><span class="comment">Memory: 22072K		Time: 1250MS</span></span><br><span class="line"><span class="comment">Language: C++		Result: Accepted</span></span><br><span class="line"><span class="comment">2019-07-15 02:47:22</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">100001</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本代码中所有数据均按从下标 1 开始存放</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 主席树中的线段树结点，sum 表示此区间内元素个数</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> sum, l, r;</span><br><span class="line">&#125; hjt[MAXN*<span class="number">40</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[MAXN], sorted[MAXN], num;    <span class="comment">// sorted: 离散化后的数组 num: 离散化后的数组长度</span></span><br><span class="line"><span class="keyword">int</span> root[MAXN], cnt;    <span class="comment">// root: 主席树中用来保存每棵线段树树根的数组 cnt: 线段树结点数（用于数组方式动态开点）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找离散化之后的下标</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetIdx</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> lower_bound(sorted+<span class="number">1</span>, sorted+<span class="number">1</span>+num, v) - sorted;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cnt = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建结点</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">CreateNode</span><span class="params">(<span class="keyword">int</span> sum, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> idx = ++cnt;</span><br><span class="line">    hjt[idx].sum = sum;</span><br><span class="line">    hjt[idx].l = l;</span><br><span class="line">    hjt[idx].r = r;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> idx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新建一棵线段树，只沿更新路径新建出较上个版本有修改的结点</span></span><br><span class="line"><span class="comment">// 调用参数</span></span><br><span class="line"><span class="comment">// root: 插入后新生成的线段树的根结点会赋值到 root 中存储</span></span><br><span class="line"><span class="comment">// pre_rt: 上一棵线段树的根</span></span><br><span class="line"><span class="comment">// pos: 本次要插入的数在线段树中的位置</span></span><br><span class="line"><span class="comment">// l, r: 递归参数。默认填写 1, num</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Insert</span><span class="params">(<span class="keyword">int</span> &amp;root, <span class="keyword">int</span> pre_rt, <span class="keyword">int</span> pos, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 动态创建结点，直接根据上一个版本复制对应的结点，sum+1</span></span><br><span class="line">    root = CreateNode(hjt[pre_rt].sum+<span class="number">1</span>, hjt[pre_rt].l, hjt[pre_rt].r);</span><br><span class="line">    <span class="keyword">if</span>(l == r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> m = (l+r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(pos &lt;= m)</span><br><span class="line">        Insert(hjt[root].l, hjt[pre_rt].l, pos, l, m);</span><br><span class="line">    <span class="keyword">else</span> Insert(hjt[root].r, hjt[pre_rt].r, pos, m+<span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本函数适用于查询区间 [l, r] 中的第 k 小。通常需要自行变通</span></span><br><span class="line"><span class="comment">// 调用参数</span></span><br><span class="line"><span class="comment">// s, e: 要查询区间所需的两个线段树的根，如要查询区间 [l, r]，则传入 root[l-1], root[r]</span></span><br><span class="line"><span class="comment">// k: 要查询区间第几小</span></span><br><span class="line"><span class="comment">// l, r: 递归参数。默认填写 1, num</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e, <span class="keyword">int</span> k, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l == r) <span class="keyword">return</span> l;</span><br><span class="line">    <span class="keyword">int</span> m = (l+r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> sum = hjt[hjt[e].l].sum - hjt[hjt[s].l].sum;    <span class="comment">// 计算左子树的元素数量</span></span><br><span class="line">    <span class="keyword">if</span>(k &lt;= sum)    <span class="comment">// 如果 k &lt;= sum，则 k 在左子树，否则在右子树</span></span><br><span class="line">        <span class="keyword">return</span> Query(hjt[s].l, hjt[e].l, k, l, m);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> Query(hjt[s].r, hjt[e].r, k-sum, m+<span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, l, r, k;</span><br><span class="line">    <span class="keyword">while</span>(~ <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;m)) &#123;</span><br><span class="line">        Init();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; ++i) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span><br><span class="line">            sorted[i] = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        sort(sorted+<span class="number">1</span>, sorted+<span class="number">1</span>+n);    <span class="comment">// 按值排序</span></span><br><span class="line">        num = unique(sorted+<span class="number">1</span>, sorted+<span class="number">1</span>+n) - (sorted+<span class="number">1</span>);    <span class="comment">// 去重，返回去重后的元素数量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; ++i) &#123;    <span class="comment">// 按顺序插入，建立 n 棵权值线段树</span></span><br><span class="line">            Insert(root[i], root[i<span class="number">-1</span>], GetIdx(a[i]), <span class="number">1</span>, num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;l, &amp;r, &amp;k);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, sorted[Query(root[l<span class="number">-1</span>], root[r], k, <span class="number">1</span>, num)]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：</p>
+<p><a href="https://www.jvruo.com/archives/171/" target="_blank" rel="noopener">【蒟蒻数据结构】主席树 - 蒟蒻のBLOG</a></p>
+<p><a href="https://dreamer.blue/blog/post/2018/03/01/aiabs_hjt.dream" target="_blank" rel="noopener">算法有点甜之主席树 - bLue’s blog</a></p>
+<p><a href="http://www.fdlly.com/p/182447363.html" target="_blank" rel="noopener">主席树（静态） 图文讲解让你一次就懂 hdu2665为例</a></p>
+<p><a href="https://www.cnblogs.com/zyf0163/p/4749042.html" target="_blank" rel="noopener">树状结构之主席树 - 殇雪 - 博客园</a></p>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-07-15");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-07-14T16:15:46.000Z" itemprop="datePublished">2019-07-15</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href='/categories/算法/'>算法</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/主席树/" rel="tag">#&nbsp;主席树</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2019/07/02/SQL中的EXISTS/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">SQL中的EXISTS</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+</script>
+
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+
+
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>
