@@ -281,7 +281,7 @@ window.oldVersion = [
     },
     
     "datePublished": "2019-05-18T08:14:59.000Z",
-    "dateModified": "2019-05-18T11:21:07.577Z",
+    "dateModified": "2019-07-20T04:29:45.758Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -555,7 +555,7 @@ window.oldVersion = [
 <p>创建数据存放文件夹</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p ~/opt/mysqlData/data</span><br><span class="line">mkdir -p ~/opt/mysqlData/log</span><br><span class="line">chmod 750 ~/opt/mysqlData/data ~/opt/mysqlData/log</span><br></pre></td></tr></table></figure>
 <p>创建并编辑配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>mkdir -p /home/cc/opt/mysql/etc</span><br><span class="line"><span class="meta">#</span> vim /home/cc/opt/mysql/etc/my.cnf</span><br><span class="line">[mysql]</span><br><span class="line"><span class="meta">#</span> 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8</span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line"><span class="meta">#</span> 设置mysql的安装目录</span><br><span class="line">basedir=/home/cc/opt/mysql</span><br><span class="line"><span class="meta">#</span> 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=/home/cc/opt/mysqlData/data</span><br><span class="line">character-set-server=utf8</span><br><span class="line"><span class="meta">#</span> 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"><span class="meta">#</span>log</span><br><span class="line"><span class="meta">#</span>记录启动、运行或停止mysqld时出现的问题</span><br><span class="line">log-error=/home/cc/opt/mysqlData/log/error.log</span><br><span class="line"><span class="meta">#</span>是指执行超过多久的sql会被log下来，这里是2秒</span><br><span class="line">long_query_time=2</span><br><span class="line"><span class="meta">#</span>记录所有执行时间超过long_query_time秒的所有查询或不使用索引的查询</span><br><span class="line">log-slow-queries=/home/cc/opt/mysqlData/log/slowquery.log</span><br><span class="line"><span class="meta">#</span>记录所有更改数据的语句，还用于复制</span><br><span class="line">log_bin=/home/cc/opt/mysqlData/log/log_bin.log</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>mkdir -p /home/cc/opt/mysql/etc</span><br><span class="line"><span class="meta">#</span> vim /home/cc/opt/mysql/etc/my.cnf</span><br><span class="line">[mysql]</span><br><span class="line"><span class="meta">#</span> 设置mysql客户端默认字符集</span><br><span class="line">default-character-set=utf8mb4</span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line"><span class="meta">#</span> 设置mysql的安装目录</span><br><span class="line">basedir=/home/cc/opt/mysql</span><br><span class="line"><span class="meta">#</span> 设置mysql数据库的数据的存放目录</span><br><span class="line">datadir=/home/cc/opt/mysqlData/data</span><br><span class="line">character-set-server=utf8mb4</span><br><span class="line"><span class="meta">#</span> 创建新表时将使用的默认存储引擎</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line"><span class="meta">#</span>log</span><br><span class="line"><span class="meta">#</span>记录启动、运行或停止mysqld时出现的问题</span><br><span class="line">log-error=/home/cc/opt/mysqlData/log/error.log</span><br><span class="line"><span class="meta">#</span>是指执行超过多久的sql会被log下来，这里是2秒</span><br><span class="line">long_query_time=2</span><br><span class="line"><span class="meta">#</span>记录所有执行时间超过long_query_time秒的所有查询或不使用索引的查询</span><br><span class="line">log-slow-queries=/home/cc/opt/mysqlData/log/slowquery.log</span><br><span class="line"><span class="meta">#</span>记录所有更改数据的语句，还用于复制</span><br><span class="line">log_bin=/home/cc/opt/mysqlData/log/log_bin.log</span><br></pre></td></tr></table></figure>
 <p>MySQL配置文件条目很多，这边我们设置了常用的必须的一些配置项，如上，我们设置了<code>mysql</code>的监听端口、socket、安装目录、数据库文件存放目录等等配置。</p>
 <p>MySQL的配置也是分段配置的，每一个段都有一个名称，例如上面的配置<code>[mysql]</code> 配置了mysql工具的默认设置，<code>[mysqld]</code>则为MySQL服务器的配置</p>
 <p>MySQL配置项众多，对于每一个配置项官方都提供了一个默认值，如果你不确定使用它，可以不在配置文件中体现，这样MySQL会读取默认配置。</p>
@@ -582,7 +582,7 @@ window.oldVersion = [
 
     <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
     <script>
-        var dateUpdate = Date.parse("2019-05-18");
+        var dateUpdate = Date.parse("2019-07-20");
         var nowDate = new Date();
         var a = nowDate.getTime();
         var b = a - dateUpdate;
@@ -596,6 +596,8 @@ window.oldVersion = [
 
 
 <p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-05-18T08:14:59.000Z" itemprop="datePublished">2019-05-18</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-07-20T04:29:45.758Z" itemprop="dateModified">2019-07-20</time>
 
 </p>
 <p class="post-footer-info mb-0 pt-2">
