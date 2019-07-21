@@ -281,7 +281,7 @@ window.oldVersion = [
     },
     
     "datePublished": "2019-07-19T14:09:22.000Z",
-    "dateModified": "2019-07-19T14:40:32.114Z",
+    "dateModified": "2019-07-21T03:28:15.214Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -548,7 +548,7 @@ window.oldVersion = [
 <li>比如ST表、树状数组、线段树</li>
 <li><strong>子树求和-&gt;区间求和</strong></li>
 </ul>
-<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历到x这个节点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	start[x] = ++dfs_clock;</span><br><span class="line">	vis[x] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//遍历y的子节点</span></span><br><span class="line">	<span class="keyword">for</span>(every y connected to x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!vis[y])</span><br><span class="line">            dfs(y);</span><br><span class="line">    &#125;</span><br><span class="line">    end[x] = dfs_clock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//遍历到x这个节点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	start[x] = ++dfs_clock;</span><br><span class="line">	vis[x] = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">//遍历x的子节点</span></span><br><span class="line">	<span class="keyword">for</span>(every y connected to x)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!vis[y])</span><br><span class="line">            dfs(y);</span><br><span class="line">    &#125;</span><br><span class="line">    end[x] = dfs_clock;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h1><p>给一棵n个节点的树，以1为根，每个节点有权值value[i]，共有m个询问，每个问题要求给出x这个点的子树的权值和。N&lt;=1000000, M &lt;= 1000000, value[i] &lt;= 1e9</p>
 <hr>
 <p>做法:</p>
@@ -580,9 +580,11 @@ window.oldVersion = [
 <li>深度为dep的数组中，属于x的子树的就一定会是连续的一段，用二分法即可求出。</li>
 <li>变形：询问x的子树中，距离x为y的点有多少个。</li>
 </ul>
+<hr>
 <p>参考:</p>
 <p><a href="https://www.luogu.org/blog/P6174/dfs-xu-ru-men" target="_blank" rel="noopener">DFS 序入门 - 6174 的星球 - 洛谷博客</a></p>
-<p><a href="[https://acm.sjtu.edu.cn/w/images/3/35/%E6%A0%91%E7%9A%84dfs%E5%BA%8F%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8%EF%BC%88%E9%97%AB%E9%B8%BF%E5%AE%87%EF%BC%89.pdf](https://acm.sjtu.edu.cn/w/images/3/35/树的dfs序及其应用（闫鸿宇）.pdf">树的dfs及其应用</a>)</p>
+<p><a href="https://acm.sjtu.edu.cn/w/images/3/35/树的dfs序及其应用（闫鸿宇）.pdf" target="_blank" rel="noopener">树的dfs及其应用</a></p>
+<hr>
 
                     </article>
                     
@@ -590,7 +592,7 @@ window.oldVersion = [
 
     <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
     <script>
-        var dateUpdate = Date.parse("2019-07-19");
+        var dateUpdate = Date.parse("2019-07-21");
         var nowDate = new Date();
         var a = nowDate.getTime();
         var b = a - dateUpdate;
@@ -604,6 +606,8 @@ window.oldVersion = [
 
 
 <p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-07-19T14:09:22.000Z" itemprop="datePublished">2019-07-19</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-07-21T03:28:15.214Z" itemprop="dateModified">2019-07-21</time>
 
 </p>
 <p class="post-footer-info mb-0 pt-2">
