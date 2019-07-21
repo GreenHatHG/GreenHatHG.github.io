@@ -281,7 +281,7 @@ window.oldVersion = [
     },
     
     "datePublished": "2019-07-16T01:50:18.000Z",
-    "dateModified": "2019-07-16T02:36:19.147Z",
+    "dateModified": "2019-07-21T03:25:16.981Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -529,58 +529,312 @@ window.oldVersion = [
                     
                         
                             <div id="post-toc">
-                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#在JVM的哪块内存中发生垃圾回收"><span class="post-toc-number">1.</span> <span class="post-toc-text">在JVM的哪块内存中发生垃圾回收</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#哪些对象需要被回收"><span class="post-toc-number">2.</span> <span class="post-toc-text">哪些对象需要被回收</span></a></li></ol>
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一览"><span class="post-toc-number">1.</span> <span class="post-toc-text">一览</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#对象被判定为垃圾的标准"><span class="post-toc-number">2.</span> <span class="post-toc-text">对象被判定为垃圾的标准</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#判定对象是否为垃圾的算法"><span class="post-toc-number">3.</span> <span class="post-toc-text">判定对象是否为垃圾的算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引用计数算法"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">引用计数算法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#可达性分析法"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">可达性分析法</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#回收垃圾的算法"><span class="post-toc-number">4.</span> <span class="post-toc-text">回收垃圾的算法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标记-清除算法（Mark-and-Sweep）"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">标记-清除算法（Mark and Sweep）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#复制算法（Copying）"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">复制算法（Copying）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标记-整理算法（Compacting）"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">标记-整理算法（Compacting）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#标记分代收集算法（Generational-Collector）"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">标记分代收集算法（Generational Collector）</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Minor-GC"><span class="post-toc-number">4.4.1.</span> <span class="post-toc-text">Minor GC</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Full-GC"><span class="post-toc-number">4.4.2.</span> <span class="post-toc-text">Full GC</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对比"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">对比</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#垃圾收集器相关名词"><span class="post-toc-number">5.</span> <span class="post-toc-text">垃圾收集器相关名词</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Stop-the-World"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">Stop-the-World</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Safepoint"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">Safepoint</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#常见的垃圾收集器"><span class="post-toc-number">6.</span> <span class="post-toc-text">常见的垃圾收集器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JVM两种运行模式"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">JVM两种运行模式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#年轻代常见的垃圾收集器"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">年轻代常见的垃圾收集器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Serial收集器"><span class="post-toc-number">6.2.1.</span> <span class="post-toc-text">Serial收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ParNew收集器"><span class="post-toc-number">6.2.2.</span> <span class="post-toc-text">ParNew收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Parrallel-Scanvenge收集器"><span class="post-toc-number">6.2.3.</span> <span class="post-toc-text">Parrallel Scanvenge收集器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#老年代常见的垃圾收集器"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">老年代常见的垃圾收集器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Serial-Old收集器"><span class="post-toc-number">6.3.1.</span> <span class="post-toc-text">Serial Old收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Parallel-Old收集器"><span class="post-toc-number">6.3.2.</span> <span class="post-toc-text">Parallel Old收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CMS收集器"><span class="post-toc-number">6.3.3.</span> <span class="post-toc-text">CMS收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#G1收集器"><span class="post-toc-number">6.3.4.</span> <span class="post-toc-text">G1收集器</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JDK11-Epsilon-GC与ZGC"><span class="post-toc-number">6.3.5.</span> <span class="post-toc-text">JDK11:Epsilon GC与ZGC</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对比-1"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">对比</span></a></li></ol></li></ol>
                             </div>
                         
                     
                     <article id="post-content">
                         <p>垃圾回收算法与 JVM 垃圾回收器</p>
 <a id="more"></a>
-<p>要想搞明白垃圾回收，就是要搞明白<strong>四个问题</strong>：</p>
+<h1 id="一览"><a href="#一览" class="headerlink" title="一览"></a>一览</h1><p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/32.png" alt=""></p>
+<h1 id="对象被判定为垃圾的标准"><a href="#对象被判定为垃圾的标准" class="headerlink" title="对象被判定为垃圾的标准"></a>对象被判定为垃圾的标准</h1><p>GC主要是回收Java堆中的对象，即此对象已经没有了价值，就是变成了“垃圾”，那么对象被判定为垃圾的标准是什么呢？——没有被其他对象引用。</p>
+<h1 id="判定对象是否为垃圾的算法"><a href="#判定对象是否为垃圾的算法" class="headerlink" title="判定对象是否为垃圾的算法"></a>判定对象是否为垃圾的算法</h1><h2 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h2><p><strong>主要是判断对象的引用数量</strong></p>
 <ul>
-<li><p>在JVM的哪块内存中发生垃圾回收？</p>
-</li>
-<li><p>哪些对象需要被回收？</p>
-</li>
-<li><p>什么时候回收？</p>
-</li>
-<li><p>怎样回收这些对象？</p>
-</li>
+<li>通过判断对象的引用数量来决定对象是否可以被回收</li>
+<li>每个对象实例都有一个引用计数器，被引用则+1，完成引用则-1</li>
+<li>任何引用计数为0的对象实例都可以被当作垃圾收集</li>
 </ul>
-<h1 id="在JVM的哪块内存中发生垃圾回收"><a href="#在JVM的哪块内存中发生垃圾回收" class="headerlink" title="在JVM的哪块内存中发生垃圾回收"></a>在JVM的哪块内存中发生垃圾回收</h1><p>JVM的内存分区:</p>
-<ol>
-<li><p>程序计数器：当前线程所执行的字节码的行号指示器，控制着程序的分支、循环、跳转、异常处理。是线程私有的。</p>
-</li>
-<li><p>虚拟机栈：为每个方法在执行时创建一个栈帧，用于存储局部变量表、操作数栈栈等。其中局部变量表存储基本数据类型和<strong>对象引用</strong>。是线程私有的。</p>
-</li>
-<li><p>JAVA堆：所有<strong>对象实例</strong>都在堆上分配。所有线程共享此块内存。</p>
-</li>
-<li><p>方法区：所有线程共享的内存区域，用于存储虚拟机加载的类信息、常量、静态变量等。</p>
-</li>
-</ol>
-<p><strong>由于垃圾回收是回收和对象有关的东西，所以主要发生在虚拟机栈和堆中；少部分发生在方法区。</strong></p>
-<p>下图更详细的说明了垃圾回收发生的位置：</p>
-<p>本地方法栈与虚拟机栈相似，经常在一些虚拟机实现中被合并起来。</p>
-<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/1.jpg" alt=""></p>
-<h1 id="哪些对象需要被回收"><a href="#哪些对象需要被回收" class="headerlink" title="哪些对象需要被回收"></a>哪些对象需要被回收</h1><p>其实这个问题很好回答，当然是不用的对象需要被回收啦！但是JVM不知道哪些对象是你不用的。所以就有了另一种判断方法：<strong>不能用的对象就是你不需要用的</strong>，因为你就算想用也用不到，所以必然是不用的对象。</p>
-<p>所以就有了<strong>引用计数法</strong>来判断一个对象是否可以使用。</p>
-<p>引用计数法非常简单——给一个对象添加一个引用计数器，初始值为零，有一个地方引用它时，计数器加一，当一个引用失效时，计数器减一。计数器为零时此对象不可用。</p>
 <p>下面就是对一个引用计数的举例：</p>
 <p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/2.png" alt=""></p>
 <p>引用计数法有一个致命的缺陷，如下图，就是当两个对象相互引用时，这两个对象实际是不可获得的，但是由于引用计数不为零，所以均不会被回收。</p>
 <p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/3.png" alt=""></p>
-<p>为了解决这个问题，就有了可达性分析法：</p>
-<p>算法的思路是通过一系列称为GC Roots的对象作为起始点，从这些节点向下搜索，<strong>当一个对象到GC Roots时没有任何引用链相连，证明此对象是不可用的</strong>。如下图，从GC Root不能到达ObjD ObjF ObjE，所以这三个对象是不可用的。</p>
+<p><strong>优点：执行效率高，程序被影响小</strong><br><strong>缺点：无法解决循环引用问题 导致内存泄漏，所以在 Java 的垃圾回收器中没有使用这种算法</strong></p>
+<h2 id="可达性分析法"><a href="#可达性分析法" class="headerlink" title="可达性分析法"></a>可达性分析法</h2><p><strong>通过判断对象的引用链遍历（从<code>GC Root</code>开始）是否可达来决定对象是否可以被回收。</strong></p>
+<p>如下图，从<code>GC Root</code>不能到达<code>ObjD</code> <code>ObjF</code> <code>ObjE</code>，所以这三个对象是不可用的。</p>
 <p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/4.png" alt=""></p>
-<p>可做GC Roots的对象有 虚拟机栈中引用的对象（本地变量表）、方法区中静态属性引用的对象、方法区中常量引用的对象、本地方法栈中引用的对象（Native对象）。</p>
+<p><strong>可作为GC Root的对象：</strong></p>
+<ul>
+<li>虚拟机栈中引用的对象（栈帧中的本地变量表）</li>
+<li>方法区中的常量引用的对象</li>
+<li>方法区中的类静态属性引用的对象</li>
+<li>本地方法栈中JNI（Native方法）的引用对象</li>
+<li>活跃线程的引用对象</li>
+</ul>
+<h1 id="回收垃圾的算法"><a href="#回收垃圾的算法" class="headerlink" title="回收垃圾的算法"></a>回收垃圾的算法</h1><h2 id="标记-清除算法（Mark-and-Sweep）"><a href="#标记-清除算法（Mark-and-Sweep）" class="headerlink" title="标记-清除算法（Mark and Sweep）"></a>标记-清除算法（Mark and Sweep）</h2><ul>
+<li>标记：从根集合进行扫描，对存活的对象进行标记（可达性分析算法）</li>
+<li>清除：对堆内存从头到尾进行线性遍历，回收不可达的对象内存</li>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/5.jpg" alt=""></p>
+<p>上图是标记/清除算法的示意图，在标记阶段，从对象GC Root 1可以访问到B对象，从B对象又可以访问到E对象，因此从GC Root 1到B、E都是可达的，同理，对象F、G、J、K都是可达对象；到了清除阶段，所有不可达对象都会被回收。</p>
+<p>缺点：</p>
+<ul>
+<li>效率问题</li>
+</ul>
+<p><strong>标记和清除两个阶段的效率都不高</strong>，因为这两个阶段都需要遍历内存中的对象，很多时候内存中的对象实例数量是非常庞大的，这无疑很耗费时间，而且GC时需要停止应用程序，这会导致非常差的用户体验。</p>
+<ul>
+<li>空间问题</li>
+</ul>
+<p>标记清除之后会<strong>产生大量不连续的内存碎片</strong>（从上图可以看出），内存空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾回收动作。</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/6.jpg" alt=""></p>
+<h2 id="复制算法（Copying）"><a href="#复制算法（Copying）" class="headerlink" title="复制算法（Copying）"></a>复制算法（Copying）</h2><ul>
+<li>将可用内存按容量分为对象面和空闲面大小相等的两块</li>
+<li>对象在对象面上创建</li>
+<li>存活的对象被从对象面复制到空闲面</li>
+<li>回收时将对象面所有对象内存清除</li>
+</ul>
+<p>回收前：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/7.jpg" alt=""></p>
+<p>回收后：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/8.jpg" alt=""></p>
+<p>整体上看：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/10.jpg" alt=""></p>
+<p><strong>复制算法每次都是对整个半区进行内存回收，这样就减少了标记对象遍历的时间</strong>，在清除使用区域对象时，不用进行遍历，直接清空整个区域内存，<strong>而且在将存活对象复制到保留区域时也是按地址顺序存储的</strong>，这样就解决了内存碎片的问题，在分配对象内存时不用考虑内存碎片等复杂问题，只需要按顺序分配内存即可。</p>
+<p>优点：</p>
+<ul>
+<li>优化了标记/清除算法的效率低、内存碎片多的问题</li>
+<li>顺序分配内存，简单高效</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>将内存缩小为原来的一半，浪费了一半的内存空间，代价太高；</li>
+<li>如果对象的存活率很高，极端一点的情况假设对象存活率为100%，那么我们需要将所有存活的对象复制一遍，耗费的时间代价也是不可忽视的。</li>
+</ul>
+<p><strong>适用场景</strong>：适用于对象存活率低的场景（年轻代）</p>
+<h2 id="标记-整理算法（Compacting）"><a href="#标记-整理算法（Compacting）" class="headerlink" title="标记-整理算法（Compacting）"></a>标记-整理算法（Compacting）</h2><ul>
+<li>标记：从根集合进行扫描，对存活的对象进行标记</li>
+<li>清除：移动所有存活的对象，且按照内存地址次序依次排列，然后将末端内存地址以后的内存全部回收。</li>
+</ul>
+<p>回收前：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/11.jpg" alt=""></p>
+<p>回收后：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/12.jpg" alt=""></p>
+<p>整体上看：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/13.jpg" alt=""></p>
+<p>可以看到，<strong>回收后可回收对象被清理掉了，存活的对象按规则排列存放在内存中</strong>。这样一来，当我们给新对象分配内存时，jvm只需要持有内存的起始地址即可。标记/整理算法不仅<strong>弥补了标记/清除算法存在内存碎片的问题，也消除了复制算法内存减半的高额代价</strong>，可谓一举两得。但<strong>标记/整理算法的缺点就是效率也不高</strong>，不仅要标记存活对象，还要整理所有存活对象的引用地址，在效率上不如复制算法。</p>
+<p><strong>适用场景</strong>：适用于存活率高的场景（老年代）</p>
+<h2 id="标记分代收集算法（Generational-Collector）"><a href="#标记分代收集算法（Generational-Collector）" class="headerlink" title="标记分代收集算法（Generational Collector）"></a>标记分代收集算法（Generational Collector）</h2><ul>
+<li>垃圾回收算法的组合拳</li>
+<li>按照对象生命周期的不同划分区域以采用不同的垃圾回收算法</li>
+<li>目的：用于提高JVM垃圾回收的效率</li>
+</ul>
+<p>先看堆内存分布：</p>
+<ul>
+<li>jdk6，jdk7</li>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/14.png" alt=""></p>
+<p>大致分为<code>Young Generation</code>年轻代，<code>Old Generation</code>老年代和<code>Permanent Generation</code>永久代这三部分</p>
+<ul>
+<li>jdk8以及之后版本</li>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/15.jpg" alt=""></p>
+<p>永久代被去除掉，如图所示。新加了一个称为”元空间“的空间，它与永久代最大的区别就是元空间使用本地内存，而永久代使用的是<code>JVM</code>内存 </p>
+<p>在jdk6,7,8以及后面的版本中，年轻代和老年代均被保留了下来。<strong>年轻代的对象存活率低，就会采用复制算法，而老年代存活率高，则会采用标记-清除算法，或者标记-整理算法。</strong></p>
 <hr>
-<p>待更</p>
+<p>标记分代收集算法分为<code>Minor GC</code>和<code>Full GC</code>两类</p>
+<hr>
+<h3 id="Minor-GC"><a href="#Minor-GC" class="headerlink" title="Minor GC"></a>Minor GC</h3><p>在年轻代<code>Young space</code>(包括<code>Eden</code>区和<code>Survivor</code>区)中的垃圾回收称之为 <code>Minor GC</code>，所采用的是算法是复制算法。</p>
+<p>年轻代（<code>Young Generation</code>）：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/16.jpg" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/15.png" alt=""></p>
+<p>年轻代几乎是所有Java对象出生的地方，即Java内存的申请和存放都是在这个地方进行的。该区域的对象几乎都是“朝生夕灭”。</p>
+<p>年轻代分为两部分：</p>
+<ul>
+<li><p><code>Eden</code>（伊甸园）区</p>
+<ol>
+<li>正常情况对象刚被创建出来的时候在<code>Eden</code>区，当<code>Eden</code>区内存不足时会放到<code>Survivor</code>区，对象很大时会放入老年代。 </li>
+<li>发生<code>Minor GC</code>后有用对象年龄+1并被放入到<code>Suvivor</code>区 </li>
+<li><code>Eden</code>默认占年轻代8的权重，<code>Survivor</code>区两空间分别占1</li>
+</ol>
+</li>
+<li><p>两个<code>Survivor</code>区（<code>from</code>、<code>to</code>）</p>
+<p>发生<code>Minor GC</code>后有用对象年龄+1，并将存活对象从<code>From</code>使用复制算法到<code>To</code>中，清空<code>From</code>空间，当对象年龄达到一定值后进入老年区（默认15岁时进入）</p>
+</li>
+</ul>
+<hr>
+<p>年轻代垃圾回收的过程演示：</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/17.jpg" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/18.png" alt=""></p>
+<p>首次<code>Minor GC</code>的过程：有用对象年龄+1并被放入到<code>Suvivor</code>区 ，然后清除<code>Eden</code>区</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/19.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/20.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/21.png" alt=""></p>
+<p><code>Eden</code>区再次填满，又会触发一次<code>Minor GC</code>，此时便将其他两个区存活的对象拷贝到<code>S1</code>区中，年龄相对应增加，然后清除<code>Eden</code>和<code>S0</code>区，完成了第二次<code>Minor GC</code>。</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/22.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/23.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/24.png" alt=""></p>
+<p>假设<code>Eden</code>区又满了，<code>S1</code>区有个无用的对象，此时又触发一次<code>Minor GC</code>，将其他区的对象拷贝到<code>S0</code>区，年龄对应增加，拷贝完成后清除<code>Eden</code>和<code>S1</code>区，完成了第三次<code>Minor GC</code></p>
+<hr>
+<p><strong>对象如何晋升为老年代</strong></p>
+<ul>
+<li>经历一定<code>Minor GC</code>次数依然存活的对象</li>
+<li><code>Survivor</code>区放不下的对象</li>
+<li>新生成的大对象（可以设置<code>-XX:+PretenuerSizeThreshold</code>设置大对象大小，超过这个大小的大对象会直接放入老年代）</li>
+</ul>
+<p><strong>常用的调优参数</strong></p>
+<ul>
+<li><code>-XX:SurvivorRatio</code>:<code>Eden</code>和<code>Survivor</code>的比值，默认8:1:1</li>
+<li><code>-XX:NewRatio</code>:老年代和年轻代内存的大小比例</li>
+<li><code>-XX:MAXTenuringThreshold</code>:对象从年轻代晋升到老年代进过GC次数的最大阈值</li>
+</ul>
+<h3 id="Full-GC"><a href="#Full-GC" class="headerlink" title="Full GC"></a>Full GC</h3><p>主要对老年代（该区域的对象是“幸存”下来的对象，一般不会再轻易“死亡”）的回收，但同时包含了对年轻代的回收（即包含了<code>Minor GC</code>）。采用的收集算法是标记-清除和标记-整理。相比<code>Minor GC</code>慢，执行频率低。</p>
+<hr>
+<p>老年代：<strong>存放生命周期较长的对象</strong></p>
+<p><strong>触发<code>Full GC</code>的条件</strong></p>
+<ul>
+<li><p>老年代空间不足</p>
+</li>
+<li><p>永久代空间不足（JDK1.8之前）</p>
+</li>
+<li><p><code>CMS GC</code>时出现<code>promotion failed，concurrent mode failure</code></p>
+</li>
+<li><p><code>Minor GC</code>晋升到老年代的平均大小大于老年代的剩余空间</p>
+</li>
+<li><p>调用<code>System.gc()</code>（仅是通知，不保证何时执行）</p>
+</li>
+<li><p>使用<code>RMI</code>来进行<code>RPC</code>或管理的<code>JDK</code>应用，每小时执行1此<code>Full GC</code></p>
+</li>
+</ul>
+<blockquote>
+<p>CMS gc：CMS并行GC收集器</p>
+<p>promotion failed：该问题是在进行Minor GC时，Survivor Space放不下，对象只能放入老年代，而此时老年代也放不下造成的</p>
+<p>RMI：Java远程方法调用，Java编程语言里，一种用于实现远程过程调用的应用程序编程接口</p>
+<p>RPC：远程过程调用，它是一种通过网络从远程计算机程序上请求服务，而不需要了解底层网络技术的协议</p>
+</blockquote>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/33.png" alt=""></p>
+<h1 id="垃圾收集器相关名词"><a href="#垃圾收集器相关名词" class="headerlink" title="垃圾收集器相关名词"></a>垃圾收集器相关名词</h1><h2 id="Stop-the-World"><a href="#Stop-the-World" class="headerlink" title="Stop-the-World"></a>Stop-the-World</h2><p>不管选择哪种GC算法，<code>stop-the-world</code>都是不可避免的。<em><code>Stop-the-world</code></em>意味着从应用中停下来并进入到<code>GC</code>执行过程中去。一旦<code>Stop-the-world</code>发生，除了<code>GC</code>所需的线程外，其他线程都将停止工作，中断了的线程直到<code>GC</code>任务结束才继续它们的任务。<code>GC</code>调优通常就是为了改善<code>stop-the-world</code>的时间。</p>
+<h2 id="Safepoint"><a href="#Safepoint" class="headerlink" title="Safepoint"></a>Safepoint</h2><ul>
+<li>分析过程中对象引用关系不会发生变化的点</li>
+<li>产生<code>Safepoint</code>的地方：方法调用、循环跳转、异常跳转等</li>
+<li>安全点数量要适中（太少会让GC等待太长的时间，太多增加了程序运行的负荷）</li>
+</ul>
+<h1 id="常见的垃圾收集器"><a href="#常见的垃圾收集器" class="headerlink" title="常见的垃圾收集器"></a>常见的垃圾收集器</h1><h2 id="JVM两种运行模式"><a href="#JVM两种运行模式" class="headerlink" title="JVM两种运行模式"></a>JVM两种运行模式</h2><ul>
+<li>Server：重量级级启动，速度较慢，优化更多</li>
+<li>Client：轻量级启动，速度快</li>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/25.png" alt=""></p>
+<h2 id="年轻代常见的垃圾收集器"><a href="#年轻代常见的垃圾收集器" class="headerlink" title="年轻代常见的垃圾收集器"></a>年轻代常见的垃圾收集器</h2><h3 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h3><p>设置<code>-XX:+UseSerialGC</code>可以让年轻代使用该垃圾收集器</p>
+<p><code>Serial</code>收集器是最基本、发展历史最久的收集器，是一个采用复制算法的单线程的年轻代收集器</p>
+<p>特点：</p>
+<ol>
+<li><p>针对年轻代</p>
+</li>
+<li><p>采用复制算法 </p>
+</li>
+<li><p>单线程。 </p>
+<p>它的“单线程”意义： </p>
+<p>​    a. 它只会使用一个CPU或一条线程去完成垃圾收集工作 </p>
+<p>​    b. 它进行垃圾收集时必须暂停其他线程的所有工作，直到它收集结束（<code>STW，Stop The World</code>）。</p>
+</li>
+</ol>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/26.png" alt=""></p>
+<p><strong>应用场景：</strong> <code>Serial</code>收集器是虚拟机运行在<code>Client</code>模式下的默认年轻代收集器 <strong>优点：</strong> 简单高效。对于单个CPU环境而言，<code>Serial</code>收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
+<h3 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h3><p>设置<code>-XX:+UseParNewGC(UseParallelOldGC</code>可以让年轻代使用该垃圾收集器</p>
+<p><code>ParNew</code>收集器其实就是<code>Serial</code>收集器的多线程版本，在可用控制参数、收集算法、<code>Stop The World</code>、对象分配规则、回收策略等都与<code>Serial</code>收集器完全一样。是一个采用复制算法的并行多线程收集器，是一个年轻代收集器。</p>
+<p><strong>特点：</strong> </p>
+<ol>
+<li>与<code>Serial</code>收集器相同的特点： a. 针对年轻代； b. 采用复制算法； c. STW</li>
+<li>主要特点： 多线程。使用多线程进行垃圾收集。</li>
+</ol>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/27.png" alt=""></p>
+<p><strong>应用场景：</strong> 它是<code>Server</code>模式下的虚拟机首选的新生代收集器。但在单个CPU环境中，不会比<code>Serail</code>收集器有更好的效果，因为存在线程交互的开销。</p>
+<h3 id="Parrallel-Scanvenge收集器"><a href="#Parrallel-Scanvenge收集器" class="headerlink" title="Parrallel Scanvenge收集器"></a>Parrallel Scanvenge收集器</h3><p>设置`-xx:+UseParallelGC可以让年轻代使用该垃圾收集器</p>
+<p><code>Parallel Scavenge</code>收集器也是一个采用复制算法的并行多线程收集器，是一个年轻代收集器。<code>Parallel Scavenge</code>收集器因为与吞吐量关系密切，也称为吞吐量收集器</p>
+<blockquote>
+<p>所谓吞吐量的意思就是CPU用于运行用户代码时间与CPU总消耗时间的比值，即吞吐量=运行用户代码时间/（运行用户代码时间+垃圾收集时间），虚拟机总运行100分钟，垃圾收集1分钟，那吞吐量就是99%</p>
+</blockquote>
+<p><strong>特点：</strong></p>
+<ol>
+<li>与<code>ParNew</code>收集器相同的特点： a. 新生代收集器； b. 采用复制算法； c. 多线程收集；</li>
+<li>主要特点： <code>Parallel Scavenge</code>收集器的目标是达一个可控制的吞吐量，而<code>CMS</code>等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间。</li>
+</ol>
+<p><strong>应用场景：</strong> 1.高吞吐量为目标，即减少垃圾收集时间，让用户代码获得更长的运行时间。 2.当应用程序运行在具有多个CPU上，对暂停时间没有特别高的要求时，即程序主要在后台进行计算，而不需要与用户进行太多交互。例如，那些执行批量处理、订单处理、工资支付、科学计算的应用程序</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/28.png" alt=""></p>
+<h2 id="老年代常见的垃圾收集器"><a href="#老年代常见的垃圾收集器" class="headerlink" title="老年代常见的垃圾收集器"></a>老年代常见的垃圾收集器</h2><h3 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h3><p>设置<code>-XX:+UseSerialOldGC</code>可以让老年代使用该垃圾收集器</p>
+<p><code>Serial Old</code> 是 <code>Serial</code>收集器的老年代版本，它同样是一个<strong>单线程收集器</strong>，使用<strong>“标记-整理”（Mark-Compact）</strong>算法。</p>
+<p>收集器的主要意义也是在于给<code>Client</code>模式下的虚拟机使用。如果在<code>Server</code>模式下，它还有两大用途：</p>
+<ul>
+<li>在JDK1.5 以及之前版本（<code>Parallel Old</code>诞生以前）中与<code>Parallel Scavenge</code>收集器搭配使用。</li>
+<li>作为<code>CMS</code>收集器的后备预案，在并发收集发生<strong>Concurrent Mode Failure</strong>时使用。</li>
+</ul>
+<p>它的工作流程与<code>Serial</code>收集器相同。</p>
+<h3 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h3><p>设置<code>-xx:+UseParallelOldGC</code>可以让老年代使用该垃圾收集器</p>
+<hr>
+<p><code>Parallel Old</code>收集器是<code>Parallel Scavenge</code>收集器的老年代版本，使用多线程和“标记-整理”算法。</p>
+<p>在JDK1.6中才开始提供，在此之前，新生代选择了<code>Parallel Scavenge</code>收集器，老年代只能选择<code>Serial Old</code>，因为<code>Parallel Scavenge</code>是多线程收集器，但是到了老年代只能用<code>Serial Old</code>收集器，这样相当于只能在新生代达到提高吞吐量的效果。</p>
+<p>直到老年代也提供了这种以提高吞吐量为主的收集器，新生代使用<code>Parallel Scavenge</code>收集器，老年代使用<code>Parallel Old</code>收集器就形成了以吞吐量优先的收集器组合。在注重吞吐量以及CPU资源敏感的场合，可以优先考虑这种场合。</p>
+<p>它的工作流程与<code>Parallel Scavenge</code>收集器相同。</p>
+<h3 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h3><p>设置<code>-XX:+UseConcMarkSweepGC</code>可以让老年代使用该垃圾收集器</p>
+<p><strong>CMS（Concurrent Mark Sweep）</strong>收集器是一种以<strong>获取最短回收停顿时间</strong>为目标的收集器，它非常符合那些集中在互联网站或者B/S系统的服务端上的Java应用，这些应用都非常重视服务的响应速度。从名字上（“Mark Sweep”）就可以看出它是基于<strong>“标记-清除”</strong>算法实现的。</p>
+<p><code>CMS</code>收集器工作的整个流程：</p>
+<ul>
+<li><p>初始标记：仅仅只是标记一下<code>GC Roots</code>能直接关联到的对象，速度很快，需要<code>Stop The World</code>。并发标记：并发追溯标记，程序不会停顿</p>
+</li>
+<li><p>并发预清理：查找执行并发标记阶段从年轻代晋升到老年代的对象</p>
+</li>
+<li><p>重新标记：暂停虚拟机，扫描CMS堆中的剩余对象。仅仅只是标记一下<code>GC Roots</code>能直接关联到的对象，速度很快，需要<code>Stop The World</code>。</p>
+</li>
+<li><p>并发清理：清理垃圾对象，程序不会停顿</p>
+</li>
+<li><p>并发重置：重置CMS收集器的数据结构</p>
+</li>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/29.png" alt=""></p>
+<p>优点：</p>
+<p>CMS是一款优秀的收集器，它的主要<strong>优点</strong>在名字上已经体现出来了：<strong>并发收集</strong>、<strong>低停顿</strong>，因此CMS收集器也被称为<strong>并发低停顿收集器（Concurrent Low Pause Collector）</strong>。</p>
+<p>缺点：</p>
+<ul>
+<li><p><strong>CMS收集器对CPU资源非常敏感</strong>。在并发标记和并发清除时是和用户线程一起运行的，收集过程中肯定占用了用户程序的CPU资源。默认启动的回收线程数是（cpu数量+3）/4，当cpu数较少的时候，会分掉大部分的cpu去执行收集器线程，影响用户，降低吞吐量。</p>
+</li>
+<li><p><strong>CMS收集器无法处理浮动垃圾</strong>。在并发清除阶段，用户程序并没有停止，所以还会继续产生垃圾，而这部分垃圾只能等待着下一次收集时才能进行回收。</p>
+</li>
+<li><p><strong>CMS收集器会产生空间碎片</strong>。因为CMS收集器是基于“标记-清除”算法实现的，所以在进行大量的垃圾回收时，会产生很多不连续的内存空间。这是使用“标记-清除”算法都会有的缺点。</p>
+</li>
+</ul>
+<h3 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h3><p>设置<code>-XX:+UseG1GC</code>可以让老年代使用该垃圾收集器</p>
+<p>G1（<code>Garbage First</code>）收集器是目前最新的收集器了，<strong>java9以及java10默认的垃圾收集器就是G1。</strong>在<code>JDK6u14</code>中就有<code>Early Access</code>版本的G1收集器提供开发人员试用。到<code>JDK 7u4</code>才算是正是发布。G1是基于“标记-整理”算法来实现的，可以独立的维护新生代以及老年代两个部分</p>
+<p>与其他的GC收集器相比，G1有如下特点：</p>
+<ul>
+<li><p><strong>并行与并发</strong>，G1充分利用多CPU资源来缩短停顿时间，即执行GC过程中用户程序扔可继续执行。</p>
+</li>
+<li><p><strong>分代收集，</strong>虽然G1可以不需要与其他收集器配合就可以独立管理整个GC堆，但分代感念在G1中依然保留，这样可以让G1采用不同的方式来处理年轻代和老年代的对象。</p>
+</li>
+<li><p><strong>空间整合</strong>，因为G1是基于“标记-整理”算法实现的，所以不会产生空间碎片，内存空间很好的整合起来了。</p>
+</li>
+<li><p><strong>可预测的停顿，</strong>这个特点是相对CMS收集器的一个优势，G1可以让使用者明确指定在一个长度为M毫秒的时间片段内，消耗在牢记收集上的时间不得超过N秒。</p>
+</li>
+</ul>
+<p>前面介绍的几个收集器，要么是作用在新生代，要么是作用在老年代，<strong>G1作用于整个堆</strong>，它将整个堆分为多个大小相等的独立区域（<code>Region</code>）,虽然仍保留了分代，但不再是物理隔离，都是一部分<code>Region</code>的集合。</p>
+<p>G1收集器运行过程大致分为以下几步：</p>
+<ul>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记</li>
+<li>筛选回收</li>
+</ul>
+<p><strong>初始标记阶段</strong>和<code>CMS</code>收集器类似，也是仅仅标记一下<code>GC Roots</code>能直接关联到的对象，并且修改<code>TAMS（Next Top at Mark Start）</code>的值，让下一阶段用户程序并发运行时可以在正确的<code>Reginon</code>中创建新对象。<strong>并发标记阶段</strong>是对堆中对象进行可达性分析，找出存活对象，这个阶段可以与用户线程并发进行，而<strong>最终标记阶段</strong>是为了修正在并发标记期间因为用户程序并发运行，而导致标记产生变动的那部分标记记录，这阶段需要用户线程停顿，但是可并发进行。在最后的<strong>筛选回收阶段</strong>首先对各个Region的回收价值和成本进行排序，然后根据用户所期望的GC停顿时间来制定回收计划</p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/30.jpeg" alt=""></p>
+<h3 id="JDK11-Epsilon-GC与ZGC"><a href="#JDK11-Epsilon-GC与ZGC" class="headerlink" title="JDK11:Epsilon GC与ZGC"></a>JDK11:Epsilon GC与ZGC</h3><p><code>Epsilon GC</code>：无操作实验垃圾收集器，处理内存分配但没有实现任何实际的内存回收机制。一旦可用的Java堆耗尽，JVM就会关闭。</p>
+<p><code>Epsilon</code>垃圾回收器和其他的垃圾回收器一样，使用<code>-XX:+UseEpsilonGC</code>开启。</p>
+<hr>
+<p><code>ZGC</code>：Java 11 新加入的ZGC号称可以达到10ms 以下的 GC 停顿</p>
+<h2 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h2><p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/31.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/16/Java虚拟机笔记--垃圾回收/34.png" alt=""></p>
 <hr>
 <p>参考：</p>
-<p><a href="https://zhuanlan.zhihu.com/p/28258571" target="_blank" rel="noopener">垃圾回收算法与 JVM 垃圾回收器综述 - 知乎</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/26386634" target="_blank" rel="noopener">JVM 垃圾回收 - 知乎</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/43211695" target="_blank" rel="noopener">搞定JVM垃圾回收就是这么简单 - 知乎</a></p>
-<p><a href="https://www.ibm.com/developerworks/cn/java/j-lo-JVMGarbageCollection/index.html" target="_blank" rel="noopener">JVM 垃圾回收器工作原理及使用实例介绍</a></p>
+<p><a href="https://juejin.im/post/5d241fcf6fb9a07ecd3d826b" target="_blank" rel="noopener">Java 垃圾回收机制(GC) - 掘金</a></p>
+<p><a href="https://www.cnblogs.com/fangfuhai/p/7203468.html" target="_blank" rel="noopener">Java虚拟机：GC算法深度解析 - 风中程序猿 - 博客园</a></p>
+<p><a href="https://colobu.com/2015/04/07/minor-gc-vs-major-gc-vs-full-gc/" target="_blank" rel="noopener">JVM 垃圾回收 Minor gc vs Major gc vs Full gc | 鸟窝</a></p>
+<p><a href="https://my.oschina.net/shadowolf/blog/1834231" target="_blank" rel="noopener">006. 深入JVM学习—年轻代 - 易冥天 - OSCHINA</a></p>
+<p><a href="https://my.oschina.net/pentakill/blog/3049804" target="_blank" rel="noopener">java 面试知识点笔记（四）垃圾回收 上篇 - 风格源于执着 - OSCHINA</a></p>
+<p><a href="https://segmentfault.com/a/1190000004233812" target="_blank" rel="noopener">[译]GC专家系列1：理解Java垃圾回收 - 牧曦之晨 - SegmentFault 思否</a></p>
+<p><a href="https://www.cnblogs.com/jimoer/p/9038648.html" target="_blank" rel="noopener">JVM学习记录-垃圾收集器 - 纪莫 - 博客园</a></p>
+<p><a href="https://crowhawk.github.io/2017/08/15/jvm_3/" target="_blank" rel="noopener">深入理解JVM(3)——7种垃圾收集器 - 王泽远的博客 | Crow’s Blog</a></p>
+<p><a href="https://juejin.im/post/5bb4866df265da0a914559b5" target="_blank" rel="noopener">java11新特性—Epsilon:A No-Op Garbage Collector - 掘金</a></p>
+<p><a href="https://www.baeldung.com/jvm-epsilon-gc-garbage-collector" target="_blank" rel="noopener">An Introduction to Epsilon GC: A No-Op Experimental Garbage Collector – Baeldung</a></p>
+<p><a href="https://juejin.im/entry/5b86a276f265da435c4402d4" target="_blank" rel="noopener">Java程序员的荣光，听R大论JDK11的ZGC - 后端 - 掘金</a></p>
+<p><a href="https://blog.csdn.net/liujiahan629629/article/details/85215655" target="_blank" rel="noopener">JVM(二)——垃圾回收（GC Garbage Collection） - 学会改变自己——才能突破 - CSDN博客</a></p>
+<hr>
 
                     </article>
                     
@@ -588,7 +842,7 @@ window.oldVersion = [
 
     <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
     <script>
-        var dateUpdate = Date.parse("2019-07-16");
+        var dateUpdate = Date.parse("2019-07-21");
         var nowDate = new Date();
         var a = nowDate.getTime();
         var b = a - dateUpdate;
@@ -602,6 +856,8 @@ window.oldVersion = [
 
 
 <p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-07-16T01:50:18.000Z" itemprop="datePublished">2019-07-16</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-07-21T03:25:16.981Z" itemprop="dateModified">2019-07-21</time>
 
 </p>
 <p class="post-footer-info mb-0 pt-2">
