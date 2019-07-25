@@ -63,7 +63,7 @@ window.oldVersion = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
 <!-- Title -->
-<title>linux上搭建一个本地https测试环境 | GreenHatHG&#39;s Blog</title>
+<title>搭建NginxHttps本地测试环境 | GreenHatHG&#39;s Blog</title>
 
 <!-- favicon -->
 <!-- Favicons -->
@@ -213,12 +213,12 @@ window.oldVersion = [
 
 
     <!-- ### The Open Graph & Twitter Card Protocol ### -->
-    <meta property="og:title" content="linux上搭建一个本地https测试环境 | GreenHatHG&#39;s Blog">
+    <meta property="og:title" content="搭建NginxHttps本地测试环境 | GreenHatHG&#39;s Blog">
 <meta property="og:site_name" content="GreenHatHG&#39;s Blog">
 
 <meta property="og:locale" content="zh-CN">
 
-<meta property="og:url" content="2019/07/25/linux上搭建一个本地https测试环境/">
+<meta property="og:url" content="https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/">
 <meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
 
 <meta property="og:description" content="利用nginx搭建一个https本地可用的域名">
@@ -256,7 +256,7 @@ window.oldVersion = [
 
 
     <!-- ### Canonical link ### -->
-    <link rel="canonical" href="https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/">
+    <link rel="canonical" href="https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/">
 
     <!-- ### Structured Data ### -->
     
@@ -266,14 +266,14 @@ window.oldVersion = [
 <script type="application/ld+json">
 {
     "@context": "http://schema.org",
-    "url": "https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/",
+    "url": "https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/",
     "@type": "BlogPosting",
     "logo": "https://greenhathg.github.io/img/kuihua.png",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/"
+        "@id": "https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/"
     },
-    "headline": "linux上搭建一个本地https测试环境 | GreenHatHG&#39;s Blog",
+    "headline": "搭建NginxHttps本地测试环境 | GreenHatHG&#39;s Blog",
     
     "image": {
         "@type": "ImageObject",
@@ -281,7 +281,7 @@ window.oldVersion = [
     },
     
     "datePublished": "2019-07-25T08:28:25.000Z",
-    "dateModified": "2019-07-25T09:29:31.572Z",
+    "dateModified": "2019-07-25T10:14:43.731Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -388,28 +388,28 @@ window.oldVersion = [
         <!-- Share LinkedIn -->
         
         <li class="menu-item">
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=linux上搭建一个本地https测试环境" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=搭建NginxHttps本地测试环境" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
         </li>
         
 
         <!-- Share QQ -->
         
         <li class="menu-item">
-            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=linux上搭建一个本地https测试环境&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=搭建NginxHttps本地测试环境&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
         </li>
         
 
         <!-- Share Telegram -->
         
         <li class="menu-item">
-            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=linux上搭建一个本地https测试环境" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=搭建NginxHttps本地测试环境" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
         </li>
         
 
         <!-- QRCode -->
         
         <li class="menu-item">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACLUlEQVR42u3c0U7DMAxG4b7/S8MtmpLfx1kRoz69AY0u+ZCazLEN19c/uC6RIkWK/ADkFa7Xe17vf/3Zasyfr+3u2c4rcixy+dAuBq2QO3AaL80rcjZyNTkZbLXAdgtmN/7qdZEiEzJt7rt70oYtUuQdC6daSPQ9IkVSZHezToHDahHtNvNboiCRj0PSTffur7edFkU+ClkmjRpBAznE/UpWTeSjkOlBTht+ChpW41YfDMs5RI5EpgP8Ljgg70s4ChU5E0mToylI2CHTokuJApEiyeKogom0OKrEwHYckSIPikYkaUAKVLgAKnIE8p3FUS0MUnDaHuBEjkd2Eky0CFoVmGKQInIkkh6Uqk2YHNCq94oUmSBkgZBka0o4lMV/kSORneIkbQqpGpnIoU3kXGQ3GKgOX6cbPo6CRD4eSZrn6OIiDfJpMW4TViJHI2lxiRzSqo2/TISJHInsLIYq4EATN+YQORPZDVBPkwOdQFmkyE5RkhQDOgmseOgTORKZmpVIMEuDEZqwFSmSJqdIEuCdwx3qRBU5CpkSUp2mJNpsh+4TKfKwKEQS/7QYL1Jkp8mNPvwE1+5mETkGWV0k6USa5o8S/iJHIquHuVPwJL8sadgTKbLdVHSBf7Rx5T8mIgkskbORqWBEvj8pipaBiUiRsHmJBgq0MWTbICVSJGg2pg0hVcBSBS8iRZIDWKdIXxXgq2BY5Gxk54O/c//peCJnIz/5EilSpMg/vL4BWHeWtRkYkdgAAAAASUVORK5CYII=" alr="QRCode">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACRUlEQVR42u2ay3ICMQwE9/9/OrkmlK1pLVAhVvtCHsbupSwxGvn6+gfjElJIIYX8AMirGL/e8OP3x59X8x/nPs4j+wo5FzItvtpsN3/19/TQ2w9DyNGQq4NdBc7yoC/m7KDIvkIKuZ0cEj0SCyEQhRSSQu4S9y5Br5J+FWRCCtkVGAmCCtn0ZfGUChLyOEiy2DteX1YtCnkUZEcgrBJyJYCT8H25qybkEZDpgJNDn4qzCq4s1oQcCbkSDjthSpJxpxiL+ws5FpIWTnjxUIylgk3I2ZAdMzSBVEFWmQJbs0HI0ZBpgWRqkeKNmldCzoYkAqBK5rRpT/aIAkPIEZCkyKqSdgeePpiQQpKLSbRZnx6KwAk5GzI1L+n/SWOTNA/a1aKQR0ImYVEl/Xj4QbMfu2pCjoPsmk2dBj4SFCRwhDwesjQxG4ediouO2BByJmQSupXZTw0ouk4peoUcBVmJgWcEcNXsvKXMhRwDmZJt1bAkzacEuS3+hBwJSUz4biDQRn7LVRNyDGQSGcR86hhVnQaUkHMhqwTduURCTP90qe7WrT8hj4LsXHi7E2C00IuGlZBjIEnBTppQ1GBoXT4RciRkBUaSPL1UQgIHKXMhj4dMo9MoqkywO81+IWdCXsWoTFZ6aYk057cPKORYyGTIVyYqCRhieMUurZDjIMnB7sLdFSdCCklELp1LmqDU5BdSSBI4yQwgJv8t0SvkOMiOEEhJnhirtwJHyDGQ1Zd+StT0okkSuE+ZA0IeBfnJQ0ghhRTyD8c35ym1pBMPa9EAAAAASUVORK5CYII=" alr="QRCode">
         </li>
         
 
@@ -436,7 +436,7 @@ window.oldVersion = [
                 <!-- # Post Header Info # -->
                 <div class="card-header">
                     
-    <h1 class="card-title h3 mb-2">linux上搭建一个本地https测试环境</h1>
+    <h1 class="card-title h3 mb-2">搭建NginxHttps本地测试环境</h1>
 
 
 
@@ -468,56 +468,56 @@ window.oldVersion = [
     <!-- Share Weibo -->
     
     <li class="menu-item">
-        <a href="http://service.weibo.com/share/share.php?appkey=&title=linux上搭建一个本地https测试环境&url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=搭建NginxHttps本地测试环境&url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
     </li>
     
 
     <!-- Share Twitter -->
     
     <li class="menu-item">
-        <a href="https://twitter.com/intent/tweet?text=linux上搭建一个本地https测试环境&url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        <a href="https://twitter.com/intent/tweet?text=搭建NginxHttps本地测试环境&url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
     </li>
     
 
     <!-- Share Facebook -->
     
     <li class="menu-item">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
     </li>
     
 
     <!-- Share Google+ -->
     
     <li class="menu-item">
-        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
     </li>
     
 
     <!-- Share LinkedIn -->
     
     <li class="menu-item">
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
     </li>
     
 
     <!-- Share QQ -->
     
     <li class="menu-item">
-        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
     </li>
     
 
     <!-- Share Telegram -->
     
     <li class="menu-item">
-        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/07/25/linux上搭建一个本地https测试环境/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
     </li>
     
 
     <!-- QRCode -->
     
     <li class="menu-item">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACLUlEQVR42u3c0U7DMAxG4b7/S8MtmpLfx1kRoz69AY0u+ZCazLEN19c/uC6RIkWK/ADkFa7Xe17vf/3Zasyfr+3u2c4rcixy+dAuBq2QO3AaL80rcjZyNTkZbLXAdgtmN/7qdZEiEzJt7rt70oYtUuQdC6daSPQ9IkVSZHezToHDahHtNvNboiCRj0PSTffur7edFkU+ClkmjRpBAznE/UpWTeSjkOlBTht+ChpW41YfDMs5RI5EpgP8Ljgg70s4ChU5E0mToylI2CHTokuJApEiyeKogom0OKrEwHYckSIPikYkaUAKVLgAKnIE8p3FUS0MUnDaHuBEjkd2Eky0CFoVmGKQInIkkh6Uqk2YHNCq94oUmSBkgZBka0o4lMV/kSORneIkbQqpGpnIoU3kXGQ3GKgOX6cbPo6CRD4eSZrn6OIiDfJpMW4TViJHI2lxiRzSqo2/TISJHInsLIYq4EATN+YQORPZDVBPkwOdQFmkyE5RkhQDOgmseOgTORKZmpVIMEuDEZqwFSmSJqdIEuCdwx3qRBU5CpkSUp2mJNpsh+4TKfKwKEQS/7QYL1Jkp8mNPvwE1+5mETkGWV0k6USa5o8S/iJHIquHuVPwJL8sadgTKbLdVHSBf7Rx5T8mIgkskbORqWBEvj8pipaBiUiRsHmJBgq0MWTbICVSJGg2pg0hVcBSBS8iRZIDWKdIXxXgq2BY5Gxk54O/c//peCJnIz/5EilSpMg/vL4BWHeWtRkYkdgAAAAASUVORK5CYII=" alt="QRCode">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACRUlEQVR42u2ay3ICMQwE9/9/OrkmlK1pLVAhVvtCHsbupSwxGvn6+gfjElJIIYX8AMirGL/e8OP3x59X8x/nPs4j+wo5FzItvtpsN3/19/TQ2w9DyNGQq4NdBc7yoC/m7KDIvkIKuZ0cEj0SCyEQhRSSQu4S9y5Br5J+FWRCCtkVGAmCCtn0ZfGUChLyOEiy2DteX1YtCnkUZEcgrBJyJYCT8H25qybkEZDpgJNDn4qzCq4s1oQcCbkSDjthSpJxpxiL+ws5FpIWTnjxUIylgk3I2ZAdMzSBVEFWmQJbs0HI0ZBpgWRqkeKNmldCzoYkAqBK5rRpT/aIAkPIEZCkyKqSdgeePpiQQpKLSbRZnx6KwAk5GzI1L+n/SWOTNA/a1aKQR0ImYVEl/Xj4QbMfu2pCjoPsmk2dBj4SFCRwhDwesjQxG4ediouO2BByJmQSupXZTw0ouk4peoUcBVmJgWcEcNXsvKXMhRwDmZJt1bAkzacEuS3+hBwJSUz4biDQRn7LVRNyDGQSGcR86hhVnQaUkHMhqwTduURCTP90qe7WrT8hj4LsXHi7E2C00IuGlZBjIEnBTppQ1GBoXT4RciRkBUaSPL1UQgIHKXMhj4dMo9MoqkywO81+IWdCXsWoTFZ6aYk057cPKORYyGTIVyYqCRhieMUurZDjIMnB7sLdFSdCCklELp1LmqDU5BdSSBI4yQwgJv8t0SvkOMiOEEhJnhirtwJHyDGQ1Zd+StT0okkSuE+ZA0IeBfnJQ0ghhRTyD8c35ym1pBMPa9EAAAAASUVORK5CYII=" alt="QRCode">
     </li>
     
 
@@ -551,38 +551,38 @@ window.oldVersion = [
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">本机：Arch Linux x86_64 5.2.2-arch1-1-ARCH</span><br><span class="line">Docker： Docker version 18.09.8-ce, build 0dd43dd87f</span><br><span class="line">Nginx：stable-alpine</span><br></pre></td></tr></table></figure>
 <h1 id="安装mkcert"><a href="#安装mkcert" class="headerlink" title="安装mkcert"></a>安装mkcert</h1><p>其他系统的安装方法可以看<code>github</code>上面的介绍，本次按照的是<code>Arch</code>系统的安装方法。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S nss</span><br><span class="line">yay -S mkcert</span><br></pre></td></tr></table></figure>
-<h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><ol>
+<h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><ul>
 <li><p>生成CA（certificate authority，即证书颁发机构），运行下面的命令可以在<code>~/.local/share/mkcert/</code>生成<code>rootCA.pem</code>和<code>rootCA-key.pem</code>a两个文件，这个命令只需运行一次，因为生成的CA可以反复使用；</p>
 <p>使用<code>mkcert -install</code>命令即可</p>
 </li>
-</ol>
-<p><img src="linux上搭建一个本地https测试环境/1.png" alt=""></p>
-<ol>
+</ul>
+<p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/1.png" alt=""></p>
+<ul>
 <li><p>创建自签名证书，例如要为域名：<code>hehe.com</code>和IP：<code>127.0.0.1</code>创建证书，可以使用如下的命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert hehe.com 127.0.0.1</span><br></pre></td></tr></table></figure>
-<p>上述命令会自动使用第1步创建的<code>CA</code>生成证书文件，其中<code>xxx.pem</code>为证书，<code>xxx-key.pem</code>为私钥，你也可以使用<code>-cert-file</code>和<code>-key-file</code>两个参数设置生成文件的文件名。</p>
-<p><em>注意：为了便于管理，建议在单独目录下生成本地证书及密钥</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkcert hehe.com 127.0.0.1</span><br></pre></td></tr></table></figure>
+<p>上述命令会自动使用第1步创建的<code>CA</code>生成证书文件，其中<code>xxx.pem</code>为证书，<code>xxx-key.pem</code>为私钥，你也可以使    用<code>-cert-file</code>和<code>-key-file</code>两个参数设置生成文件的文件名。</p>
+<p>注意：为了便于管理，建议在单独目录下生成本地证书及密钥*</p>
 </li>
-</ol>
-<p><img src="linux上搭建一个本地https测试环境/2.png" alt=""></p>
+</ul>
+<p><img src="搭建一个本地https测试环境/2.png" alt=""></p>
 <p>生成了证书和私钥以后，就可以在web服务器开启https了</p>
 <h1 id="Nginx开启https"><a href="#Nginx开启https" class="headerlink" title="Nginx开启https"></a>Nginx开启https</h1><h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>首先我们需要拉取一个镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:stable-alpine</span><br></pre></td></tr></table></figure>
-<p><img src="linux上搭建一个本地https测试环境/3.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/3.png" alt=""></p>
 <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p><strong>需要说明的是，在<code>nginx docker</code>里面，<code>Nginx</code>配置文件在<code>/etc/nginx</code>，静态资源在<code>/usr/share/nginx/html</code></strong></p>
 <p>这里准备一个<code>Nginx</code>文件<code>default.conf</code></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       443;</span><br><span class="line">    server_name  hehe.com;</span><br><span class="line"></span><br><span class="line">    ssl on;</span><br><span class="line">    # 相对于/etc/nginx</span><br><span class="line">    ssl_certificate hehe.com+1.pem;</span><br><span class="line">    ssl_certificate_key hehe.com+1-key.pem;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="启用"><a href="#启用" class="headerlink" title="启用"></a>启用</h2><p>然后启用镜像，启动镜像的过程中可以配置映射，映射我们的静态资源文件夹，端口映射以及<code>https</code>文件映射</p>
-<p><img src="linux%E4%B8%8A%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0https%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83/4.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/4.png" alt=""></p>
 <p>更多可参考：<a href="https://hub.docker.com/_/nginx" target="_blank" rel="noopener">nginx - Docker Hub</a></p>
 <p>这里本地静态资源文件夹目录为<code>/home/cc/vue/ACMRecentContests_UI/dist</code>，<code>default.con</code>和两个秘钥分别是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/home/cc/https/hehe.com+1-key.pem</span><br><span class="line">/home/cc/https/hehe.com+1.pem</span><br><span class="line">/home/cc/https/default.conf</span><br></pre></td></tr></table></figure>
 <p>所以我们可以映射如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run --name nginx -d \</span><br><span class="line">-v nginx -v /home/cc/vue/ACMRecentContests_UI/dist:/usr/share/nginx/html:ro \</span><br><span class="line">-v /home/cc/https/hehe.com+1.pem:/etc/nginx/hehe.com+1.pem \</span><br><span class="line">-v /home/cc/https/hehe.com+1-key.pem:/etc/nginx/hehe.com+1-key.pem \</span><br><span class="line">-v /home/cc/https/default.conf:/etc/nginx/conf.d/default.conf \</span><br><span class="line">-p 9091:80 -p 9092:443 nginx:stable-alpttps://aeric.io/post/mkcert-valid-https-certificates-for-local</span><br></pre></td></tr></table></figure>
-<p><img src="linux上搭建一个本地https测试环境/5.png" alt=""></p>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="Chrome75"><a href="#Chrome75" class="headerlink" title="Chrome75"></a>Chrome75</h2><p><img src="linux上搭建一个本地https测试环境/6.png" alt=""></p>
-<h2 id="Firefox69"><a href="#Firefox69" class="headerlink" title="Firefox69"></a>Firefox69</h2><p><img src="linux上搭建一个本地https测试环境/7.png" alt=""></p>
-<h1 id="关于docker-nginx的其他命令"><a href="#关于docker-nginx的其他命令" class="headerlink" title="关于docker nginx的其他命令"></a>关于docker nginx的其他命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>启动</span><br><span class="line">docker start nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>停止</span><br><span class="line">docker stop nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入</span><br><span class="line">docker exec -it nginx sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>删除容器，需要先停止</span><br><span class="line">docker rm nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>删除镜像</span><br><span class="line">docker rmi nginx:stable-alpine</span><br></pre></td></tr></table></figure>
+<p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/5.png" alt=""></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="Chrome75"><a href="#Chrome75" class="headerlink" title="Chrome75"></a>Chrome75</h2><p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/6.png" alt=""></p>
+<h2 id="Firefox69"><a href="#Firefox69" class="headerlink" title="Firefox69"></a>Firefox69</h2><p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/7.png" alt=""></p>
+<h1 id="关于docker-nginx的其他命令"><a href="#关于docker-nginx的其他命令" class="headerlink" title="关于docker nginx的其他命令"></a>关于docker nginx的其他命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动</span></span><br><span class="line">docker start nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">停止</span></span><br><span class="line">docker stop nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">进入</span></span><br><span class="line">docker exec -it nginx sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">删除容器，需要先停止</span></span><br><span class="line">docker rm nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">删除镜像</span></span><br><span class="line">docker rmi nginx:stable-alpine</span><br></pre></td></tr></table></figure>
 <hr>
 <p>参考：</p>
 <p><a href="https://aeric.io/post/mkcert-valid-https-certificates-for-localhost/" target="_blank" rel="noopener">mkcert:本地有效的https证书-吕啸腾的博客</a></p>
