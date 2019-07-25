@@ -281,7 +281,7 @@ window.oldVersion = [
     },
     
     "datePublished": "2019-07-25T08:28:25.000Z",
-    "dateModified": "2019-07-25T10:14:43.731Z",
+    "dateModified": "2019-07-25T10:49:47.814Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -564,7 +564,7 @@ window.oldVersion = [
 <p>注意：为了便于管理，建议在单独目录下生成本地证书及密钥*</p>
 </li>
 </ul>
-<p><img src="搭建一个本地https测试环境/2.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/2.png" alt=""></p>
 <p>生成了证书和私钥以后，就可以在web服务器开启https了</p>
 <h1 id="Nginx开启https"><a href="#Nginx开启https" class="headerlink" title="Nginx开启https"></a>Nginx开启https</h1><h2 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h2><p>首先我们需要拉取一个镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:stable-alpine</span><br></pre></td></tr></table></figure>
@@ -582,7 +582,7 @@ window.oldVersion = [
 <p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/5.png" alt=""></p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="Chrome75"><a href="#Chrome75" class="headerlink" title="Chrome75"></a>Chrome75</h2><p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/6.png" alt=""></p>
 <h2 id="Firefox69"><a href="#Firefox69" class="headerlink" title="Firefox69"></a>Firefox69</h2><p><img src="//greenhathg.github.io/2019/07/25/搭建NginxHttps本地测试环境/7.png" alt=""></p>
-<h1 id="关于docker-nginx的其他命令"><a href="#关于docker-nginx的其他命令" class="headerlink" title="关于docker nginx的其他命令"></a>关于docker nginx的其他命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">启动</span></span><br><span class="line">docker start nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">停止</span></span><br><span class="line">docker stop nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">进入</span></span><br><span class="line">docker exec -it nginx sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">删除容器，需要先停止</span></span><br><span class="line">docker rm nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">删除镜像</span></span><br><span class="line">docker rmi nginx:stable-alpine</span><br></pre></td></tr></table></figure>
+<h1 id="关于docker-nginx的其他命令"><a href="#关于docker-nginx的其他命令" class="headerlink" title="关于docker nginx的其他命令"></a>关于docker nginx的其他命令</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>启动</span><br><span class="line">docker start nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>停止</span><br><span class="line">docker stop nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>进入</span><br><span class="line">docker exec -it nginx sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>删除容器，需要先停止</span><br><span class="line">docker rm nginx</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>删除镜像</span><br><span class="line">docker rmi nginx:stable-alpine</span><br></pre></td></tr></table></figure>
 <hr>
 <p>参考：</p>
 <p><a href="https://aeric.io/post/mkcert-valid-https-certificates-for-localhost/" target="_blank" rel="noopener">mkcert:本地有效的https证书-吕啸腾的博客</a></p>
