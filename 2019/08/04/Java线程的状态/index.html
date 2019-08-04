@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>Java线程的状态 | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="线程的6种状态，sleep与wait的区别">
+
+<!-- Keywords -->
+<meta name="keywords" content=", 多线程, Java">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="Java线程的状态 | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2019/08/04/Java线程的状态/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="线程的6种状态，sleep与wait的区别">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-08-04T01:09:33.000Z">
+    <meta property="article:modified_time" content="2019-08-04T01:09:33.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", 多线程, Java"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2019/08/04/Java线程的状态/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2019/08/04/Java线程的状态/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2019/08/04/Java线程的状态/"
+    },
+    "headline": "Java线程的状态 | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2019-08-04T01:09:33.000Z",
+    "dateModified": "2019-08-04T13:50:52.462Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", 多线程, Java",
+    "description": "线程的6种状态，sleep与wait的区别"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
+</head>
+
+    <body>
+        
+
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+        <a href="/collection/" class="navbar-link">收藏</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=Java线程的状态" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=Java线程的状态&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=Java线程的状态" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB4klEQVR42u3ay47CMBBE0fz/T8MWIXdVNUHIbm42zDADOZH86rKvx4bXBQoUKFAL1CWu8sPF398/+/o/yX1AzUFVN65+V/h30ApYfi+oUaiqka5eK6DqDO4+oP4PlfysYKBAVe+rAfWnDR3U9qjqhqsvUQNp0klurxJAbY9SC/pvvn6tmgG1NcqGDkVjrjpE2sBvpS6gtkaphqg6gypA04YOaiZKhRZuMlaBWRWKyE4BagQq+WAVvjpIp3AFNRNVwVQDVQ+iJvjlQ4IagXKbPd2QXm0KuEUjqBmodAB0xYEL/F0nATUHlQb5blMoLTpkpwA1BpU00LQwSAoQu8gDdTSqO8G6gdSFafGEDOpo1CcLO1c4uAk52nEAdSRK3dRtdCfhrJuU7SoB1JEoFUa4TYDkpvGDgBqBcsFEd4GXHAArJ3lQo1AqeO0cZnabSrIABjUKZQ/HhBtDaaOPB09Qx6LcoJcUFG4yvrUJCep4VBKWJYdNkzAN1CxUUjwkBUJ6UFBO9qBGoKKDxo2wQh20aA2eoI5GJeF+GqqqhqzeBzUPlQyKLuhPDnG1UxdQI1FJgOFgSYAG6n9RXezHhyVAHY1KB0RXmCYb4aDmozohhFvouY0C9eCgZqB2ukCBAgXq5XoC9kQPvncwSNUAAAAASUVORK5CYII=" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    
+    
+
+
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">Java线程的状态</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2019-08-04</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=Java线程的状态&url=https://greenhathg.github.io/2019/08/04/Java线程的状态/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=Java线程的状态&url=https://greenhathg.github.io/2019/08/04/Java线程的状态/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/08/04/Java线程的状态/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/08/04/Java线程的状态/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/08/04/Java线程的状态/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/08/04/Java线程的状态/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/08/04/Java线程的状态/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB4klEQVR42u3ay47CMBBE0fz/T8MWIXdVNUHIbm42zDADOZH86rKvx4bXBQoUKFAL1CWu8sPF398/+/o/yX1AzUFVN65+V/h30ApYfi+oUaiqka5eK6DqDO4+oP4PlfysYKBAVe+rAfWnDR3U9qjqhqsvUQNp0klurxJAbY9SC/pvvn6tmgG1NcqGDkVjrjpE2sBvpS6gtkaphqg6gypA04YOaiZKhRZuMlaBWRWKyE4BagQq+WAVvjpIp3AFNRNVwVQDVQ+iJvjlQ4IagXKbPd2QXm0KuEUjqBmodAB0xYEL/F0nATUHlQb5blMoLTpkpwA1BpU00LQwSAoQu8gDdTSqO8G6gdSFafGEDOpo1CcLO1c4uAk52nEAdSRK3dRtdCfhrJuU7SoB1JEoFUa4TYDkpvGDgBqBcsFEd4GXHAArJ3lQo1AqeO0cZnabSrIABjUKZQ/HhBtDaaOPB09Qx6LcoJcUFG4yvrUJCep4VBKWJYdNkzAN1CxUUjwkBUJ6UFBO9qBGoKKDxo2wQh20aA2eoI5GJeF+GqqqhqzeBzUPlQyKLuhPDnG1UxdQI1FJgOFgSYAG6n9RXezHhyVAHY1KB0RXmCYb4aDmozohhFvouY0C9eCgZqB2ukCBAgXq5XoC9kQPvncwSNUAAAAASUVORK5CYII=" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程的状态"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程的状态</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初识6种状态"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">初识6种状态</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6种状态解释"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">6种状态解释</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#初始-NEW"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">初始(NEW)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行-RUNNABLE"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">运行(RUNNABLE)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#阻塞-BLOCKED"><span class="post-toc-number">1.2.3.</span> <span class="post-toc-text">阻塞(BLOCKED)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#等待-WAITING"><span class="post-toc-number">1.2.4.</span> <span class="post-toc-text">等待(WAITING)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#超时等待-TIMED-WAITING"><span class="post-toc-number">1.2.5.</span> <span class="post-toc-text">超时等待(TIMED_WAITING)</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#终止-TERMINATED"><span class="post-toc-number">1.2.6.</span> <span class="post-toc-text">终止(TERMINATED)</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sleep与wait的区别"><span class="post-toc-number">2.</span> <span class="post-toc-text">sleep与wait的区别</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p>线程的6种状态，sleep与wait的区别</p>
+<a id="more"></a>
+<h1 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h1><h2 id="初识6种状态"><a href="#初识6种状态" class="headerlink" title="初识6种状态"></a>初识6种状态</h2><p>由jdk8中的<code>java.lang.Thread.State</code>可知，</p>
+<p><img src="//greenhathg.github.io/2019/08/04/Java线程的状态/4.png" alt=""></p>
+<p>线程有6个状态</p>
+<ul>
+<li>NEW<br>尚未启动的线程处于此状态。</li>
+<li>RUNNABLE<br>在Java虚拟机中执行的线程处于此状态。</li>
+<li>BLOCKED<br>被阻塞等待监视器锁定的线程处于此状态。</li>
+<li>WAITING<br>正在等待另一个线程执行特定动作的线程处于此状态。</li>
+<li>TIMED_WAITING<br>正在等待另一个线程执行动作达到指定等待时间的线程处于此状态。</li>
+<li>TERMINATED<br>已退出的线程处于此状态。</li>
+</ul>
+<p>一个线程可以在给定时间点处于一个状态。 这些状态是不反映任何操作系统线程状态的虚拟机状态。</p>
+<p><code>Thread.State</code>继承关系：</p>
+<blockquote>
+<p>public static enum Thread.State extends Enum<thread.state></thread.state></p>
+<p>java.lang.Object</p>
+<p>​    java.lang.Enum<thread.state></thread.state></p>
+<p>​        java.lang.Thread.State</p>
+</blockquote>
+<p><img src="//greenhathg.github.io/2019/08/04/Java线程的状态/1.png" alt=""></p>
+<p>(图源：<a href="https://www.cnblogs.com/doit8791/p/9067073.html" target="_blank" rel="noopener">Java线程及线程池状态 - 时间朋友 - 博客园</a>)</p>
+<p><img src="//greenhathg.github.io/2019/08/04/Java线程的状态/2.jpg" alt=""></p>
+<p>(图源：<a href="http://www.ishenping.com/ArtInfo/1194756.htmll" target="_blank" rel="noopener">线程状态 - 神评网</a>)</p>
+<h2 id="6种状态解释"><a href="#6种状态解释" class="headerlink" title="6种状态解释"></a>6种状态解释</h2><h3 id="初始-NEW"><a href="#初始-NEW" class="headerlink" title="初始(NEW)"></a>初始(NEW)</h3><p>新创建了一个线程对象，但还没有调用<code>start()</code>方法。</p>
+<p>实现<code>Runnable</code>接口和继承<code>Thread</code>可以得到一个线程类，<code>new</code>一个实例出来，线程就进入了初始状态。</p>
+<h3 id="运行-RUNNABLE"><a href="#运行-RUNNABLE" class="headerlink" title="运行(RUNNABLE)"></a>运行(RUNNABLE)</h3><p><strong><code>Java</code>线程中将就绪（<code>ready</code>）和运行中（<code>running</code>）两种状态笼统的称为“运行”。</strong></p>
+<ul>
+<li><p>线程对象创建后，其他线程(比如<code>main</code>线程）调用了该对象的<code>start()</code>方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取<code>CPU</code>的使用权，此时处于就绪状态（<code>ready</code>）。就绪状态只是说你资格运行，调度程序没有挑选到你，你就永远是就绪状态。除了<code>start()</code>方法让线程进入就绪状态，下面三种情况也可以：</p>
+<ul>
+<li>当前线程<code>sleep()</code>方法结束，其他线程<code>join(</code>)结束，等待用户输入完毕，某个线程拿到对象锁，这些线程也将进入就绪状态。</li>
+<li>当前线程时间片用完了，调用当前线程的<code>yield()</code>方法，当前线程进入就绪状态。</li>
+<li>锁池里的线程拿到对象锁后，进入就绪状态。</li>
+</ul>
+</li>
+<li><p>就绪状态的线程在获得CPU时间片后变为运行中状态（<code>running</code>）。</p>
+</li>
+</ul>
+<h3 id="阻塞-BLOCKED"><a href="#阻塞-BLOCKED" class="headerlink" title="阻塞(BLOCKED)"></a>阻塞(BLOCKED)</h3><p>表示线程阻塞于锁。</p>
+<p>是线程阻塞在进入<code>synchronized</code>关键字修饰的方法或代码块(获取锁)时的状态。</p>
+<h3 id="等待-WAITING"><a href="#等待-WAITING" class="headerlink" title="等待(WAITING)"></a>等待(WAITING)</h3><p>进入该状态的线程需要等待其他线程做出一些特定动作（通知或中断）。</p>
+<p>处于这种状态的线程不会被分配<code>CPU</code>执行时间，它们要等待被显式地唤醒，否则会处于无限期等待的状态。</p>
+<h3 id="超时等待-TIMED-WAITING"><a href="#超时等待-TIMED-WAITING" class="headerlink" title="超时等待(TIMED_WAITING)"></a>超时等待(TIMED_WAITING)</h3><p>该状态不同于<code>WAITING</code>，它可以在指定的时间后自行返回。</p>
+<p><em>处于这种状态的线程不会被分配CPU执行时间，不过无须无限期等待被其他线程显示地唤醒，在达到一定时间后它们会自动唤醒。</em></p>
+<h3 id="终止-TERMINATED"><a href="#终止-TERMINATED" class="headerlink" title="终止(TERMINATED)"></a>终止(TERMINATED)</h3><p>表示该线程已经执行完毕。</p>
+<ol>
+<li><p>当线程的<code>run()</code>方法完成时，或者主线程的<code>main()</code>方法完成时，我们就认为它终止了。这个线程对象也许是活的，但是，它已经不是一个单独执行的线程。线程一旦终止了，就不能复生。</p>
+</li>
+<li><p>在一个终止的线程上调用<code>start()</code>方法，会抛出<code>java.lang.IllegalThreadStateException</code>异常。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span> 2019-08-04 10:52</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">demo01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">attack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Fight"</span>);</span><br><span class="line">        System.out.println(<span class="string">"Current Thread is: "</span> + Thread.currentThread());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread()&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">                attack();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        System.out.println(<span class="string">"Current main thread is: "</span> + Thread.currentThread());</span><br><span class="line">        t.start();</span><br><span class="line">        <span class="comment">//结束线程</span></span><br><span class="line">        t.join();</span><br><span class="line">        <span class="comment">//线程不会复活，抛出异常</span></span><br><span class="line">        t.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Current main thread is: Thread[main,<span class="number">5</span>,main]</span><br><span class="line">Fight</span><br><span class="line">Current Thread is: Thread[Thread-<span class="number">0</span>,<span class="number">5</span>,main]</span><br><span class="line">Exception in thread <span class="string">"main"</span> java.lang.IllegalThreadStateException</span><br><span class="line">	at java.lang.Thread.start(Thread.java:<span class="number">708</span>)</span><br><span class="line">	at thread.demo01.main(demo01.java:<span class="number">24</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="//greenhathg.github.io/2019/08/04/Java线程的状态/3.jpeg" alt=""></p>
+<p>(图源：<a href="http://www.ishenping.com/ArtInfo/1194756.htmll" target="_blank" rel="noopener">Java线程的6种状态及切换(透彻讲解) - 潘建南的博客 - CSDN博客</a>)</p>
+<h1 id="sleep与wait的区别"><a href="#sleep与wait的区别" class="headerlink" title="sleep与wait的区别"></a>sleep与wait的区别</h1><ol>
+<li><p><code>sleep</code>是<code>Thread</code>类的方法,<code>wait</code>是<code>Object</code>类中定义的方法</p>
+</li>
+<li><p><code>sleep</code>可以在任何地方使用； 而<code>wait</code>只能在<code>synchronize</code>方法或者<code>synchronize</code>块中使用</p>
+</li>
+<li><strong><code>Thread.sleep</code>只会让出<code>CPU</code>，不会导致锁行为的改变；<code>Object.wait</code>不仅让出<code>CPU</code>，还会释放已经占有的同步资源锁</strong></li>
+</ol>
+<p>总结起来就是：</p>
+<ul>
+<li><code>sleep</code>方法是<code>Thread</code>类里面的，主要的意义就是让当前线程停止执行，让出<code>CPU</code>给其他的线程，但是不会释放对象锁资源以及监控的状态，当指定的时间到了之后又会自动恢复运行状态。</li>
+<li><code>wait</code>方法是<code>Object</code>类里面的，主要的意义就是让线程放弃当前的对象的锁，进入等待此对象的等待锁定池，只有针对此对象调动<code>notify</code>方法后本线程才能够进入对象锁定池准备获取对象锁进入运行状态。</li>
+</ul>
+<hr>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/pange1991/article/details/53860651" target="_blank" rel="noopener">Java线程的6种状态及切换(透彻讲解) - 潘建南的博客 - CSDN博客</a></p>
+<hr>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-08-04");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-08-04T01:09:33.000Z" itemprop="datePublished">2019-08-04</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/多线程/" rel="tag">#&nbsp;多线程</a>
+
+<a class="post-tags-list-item" href="/tags/Java/" rel="tag">#&nbsp;Java</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2019/07/27/LCA(最近公共祖先)/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">LCA(最近公共祖先)</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+</script>
+
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+
+
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>
