@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+    <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <!--
+        © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+        Version: 1.3.3
+    -->
+    <script>
+window.lsVersion = "1.3.3",
+window.oldVersion = [
+    
+        
+            "0.2.0","0.0.1","0.1.0","1.0.0","1.0.1","1.1.0","1.1.1","1.2.0","1.3.0","1.3.2"
+        
+    
+]
+</script>
+
+    <!-- ### DNS Prefetch ### -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+
+
+
+
+<!-- analytics -->
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+
+    <!-- ### Preload ### -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- Title -->
+<title>synchronized保证线程安全 | GreenHatHG&#39;s Blog</title>
+
+<!-- favicon -->
+<!-- Favicons -->
+
+
+
+
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/kuihua.png">
+
+
+<!-- Android Chrome Color -->
+
+
+
+<meta name="format-detection" content="telephone=no">
+
+<!-- Description -->
+<meta name="description" content="ynchronized笔记">
+
+<!-- Keywords -->
+<meta name="keywords" content=", 多线程, Java">
+
+<!-- Disable Fucking Bloody Baidu Tranformation -->
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+    <!-- ### Import File ### -->
+    
+        <!-- spectre.css -->
+
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css">
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style>
+
+<!-- style.css -->
+
+    <link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    
+        <link rel="stylesheet" href="/css/highlight/github.min.css">
+    
+
+
+
+    
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <!-- ### RSS ### -->
+    
+    
+        <link rel="alternate" type="application/atom+xml" href="/atom.xml">
+    
+
+
+    <!-- ### WebApp ### -->
+    <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="GreenHatHG&#39;s Blog">
+<meta name="msapplication-starturl" content="https://greenhathg.github.io">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GreenHatHG&#39;s Blog">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Manifest Import -->
+
+<!-- Open Search -->
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GreenHatHG&#39;s Blog">
+
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="synchronized保证线程安全 | GreenHatHG&#39;s Blog">
+<meta property="og:site_name" content="GreenHatHG&#39;s Blog">
+
+<meta property="og:locale" content="zh-CN">
+
+<meta property="og:url" content="https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/">
+<meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
+
+<meta property="og:description" content="ynchronized笔记">
+
+<meta name="twitter:card" content="summary">
+
+
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-08-26T00:53:57.000Z">
+    <meta property="article:modified_time" content="2019-08-26T00:53:57.000Z">
+    <meta property="article:author" content="GreenHatHG">
+    <meta property="og:article:tag" content=", 多线程, Java"> 
+
+
+
+
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-116672888-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+
+
+
+
+
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/">
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/",
+    "@type": "BlogPosting",
+    "logo": "https://greenhathg.github.io/img/kuihua.png",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/"
+    },
+    "headline": "synchronized保证线程安全 | GreenHatHG&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://greenhathg.github.io/img/kuihua.png"
+    },
+    
+    "datePublished": "2019-08-26T00:53:57.000Z",
+    "dateModified": "2019-08-27T13:52:20.127Z",
+    "author": {
+        "@type": "Person",
+        "name": "GreenHatHG",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua2.png"
+        },
+        "description": "葵花妈妈开课啦"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "GreenHatHG&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://greenhathg.github.io/img/kuihua.png"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://greenhathg.github.io/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": ", 多线程, Java",
+    "description": "ynchronized笔记"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+
+
+</head>
+
+    <body>
+        
+
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">GreenHatHG&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                葵花妈妈开课啦
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">首页</a>
+    
+    
+        <a href="/archives/" class="navbar-link">归档</a>
+    
+    
+        <a href="/search" class="navbar-link">搜索</a>
+    
+    
+        <a href="/tags/" class="navbar-link">标签</a>
+    
+        <a href="/collection/" class="navbar-link">收藏</a>
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">分享</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=GreenHatHG's Blog&url=https://greenhathg.github.io&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=GreenHatHG's Blog&url=https://greenhathg.github.io&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+        <li class="menu-item">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        </li>
+        
+
+        <!-- Share Google+ -->
+        
+        <li class="menu-item">
+            <a href="https://plus.google.com/share?url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        </li>
+        
+
+        <!-- Share LinkedIn -->
+        
+        <li class="menu-item">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io&title=synchronized保证线程安全" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        </li>
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=synchronized保证线程安全&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+        <li class="menu-item">
+            <a href="https://t.me/share/url?url=https://greenhathg.github.io&text=synchronized保证线程安全" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        </li>
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACOElEQVR42u3a207DQAxF0f7/T8MrKrHPdogEjHdeCqhNVlA98WVeH//geIkUKVLkH0C+muPre6rX9/e///ztwsVnL68rci3y8kvb/P3qQlefITfaXVfkbmR1wRQs75Aq6Dp0daMiRU6Q3WfTg0KkyJ8iu8V6umCLFEmR6WRVQKSb7ZLjx7Igkcch6aL79Otj1aLIo5CxaQQSixgARQLyWFdN5FFIWmARVLeQd/DqvCL3ItMCToKpC7yuUGsLOZErkV2BVX6hbxRY9J9SJhgi1yC7ZnxVvKcgI0VculmRe5EJl5JW2uhKSQcqxESuQpIv+qRA64IqJTAiRU4TXtowJUHSBpjI1Ug69CS/k2FVGuCL3ItEBdGNBlYqxsjQVORO5GTo2RX3d5KJ9AARuRdJLkCaBPRhgAcKIlciR01NUPCn5ilpSogUSZujKaDo4B43w0SuRKbCiW7kTAs2GVSJFEkLo9TU7yApORk3rEQej4xvhI2CyeAq3bzI3Ug6PCdJLRnqp2uIFDkJCrKBfdp0aP9RIlcj6fAoFvRho0jaoBybAyLXIe9u6uwCjDTH4gBU5GokaeBPFmiSrIwDR+SxyHSkhT0lvORcuKsmcgWSJrJpGNo9AOhGUDwAFXk8MhVRKSlIA/ruhnATVeQ65GQwTxpRKTlBwSdSJNwUnxLcaYO2PKdIkYPAiZvhYKO1bSaIXI1MSStpBKRNTOOGrMi1SPrgp8OnSZF3a+OxyKORf/kQKVKkyF88PgF2UvZVsySHhAAAAABJRU5ErkJggg==" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+        <a href="/atom.xml" target="_blank" class="navbar-link">RSS</a>
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    
+    
+
+
+<div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">synchronized保证线程安全</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/kuihua2.png" src="/img/suka-lazyload.gif" alt="GreenHatHG's Avatar">
+        <span>2019-08-26</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/读书笔记/">读书笔记</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">分享本文</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=synchronized保证线程安全&url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=synchronized保证线程安全&url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+    <li class="menu-item">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+    </li>
+    
+
+    <!-- Share Google+ -->
+    
+    <li class="menu-item">
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+    </li>
+    
+
+    <!-- Share LinkedIn -->
+    
+    <li class="menu-item">
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+    </li>
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+    <li class="menu-item">
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/08/26/synchronized保证线程安全/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+    </li>
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACOElEQVR42u3a207DQAxF0f7/T8MrKrHPdogEjHdeCqhNVlA98WVeH//geIkUKVLkH0C+muPre6rX9/e///ztwsVnL68rci3y8kvb/P3qQlefITfaXVfkbmR1wRQs75Aq6Dp0daMiRU6Q3WfTg0KkyJ8iu8V6umCLFEmR6WRVQKSb7ZLjx7Igkcch6aL79Otj1aLIo5CxaQQSixgARQLyWFdN5FFIWmARVLeQd/DqvCL3ItMCToKpC7yuUGsLOZErkV2BVX6hbxRY9J9SJhgi1yC7ZnxVvKcgI0VculmRe5EJl5JW2uhKSQcqxESuQpIv+qRA64IqJTAiRU4TXtowJUHSBpjI1Ug69CS/k2FVGuCL3ItEBdGNBlYqxsjQVORO5GTo2RX3d5KJ9AARuRdJLkCaBPRhgAcKIlciR01NUPCn5ilpSogUSZujKaDo4B43w0SuRKbCiW7kTAs2GVSJFEkLo9TU7yApORk3rEQej4xvhI2CyeAq3bzI3Ug6PCdJLRnqp2uIFDkJCrKBfdp0aP9RIlcj6fAoFvRho0jaoBybAyLXIe9u6uwCjDTH4gBU5GokaeBPFmiSrIwDR+SxyHSkhT0lvORcuKsmcgWSJrJpGNo9AOhGUDwAFXk8MhVRKSlIA/ruhnATVeQ65GQwTxpRKTlBwSdSJNwUnxLcaYO2PKdIkYPAiZvhYKO1bSaIXI1MSStpBKRNTOOGrMi1SPrgp8OnSZF3a+OxyKORf/kQKVKkyF88PgF2UvZVsySHhAAAAABJRU5ErkJggg==" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                            <div id="post-toc">
+                                <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#线程安全"><span class="post-toc-number">1.</span> <span class="post-toc-text">线程安全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#主要诱因"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">主要诱因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决问题根本"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">解决问题根本</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#互斥锁"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">互斥锁</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#定义"><span class="post-toc-number">2.</span> <span class="post-toc-text">定义</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分类"><span class="post-toc-number">3.</span> <span class="post-toc-text">分类</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#对象锁"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">对象锁</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#类锁"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">类锁</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#同步与非同步混用"><span class="post-toc-number">4.</span> <span class="post-toc-text">同步与非同步混用</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#可重入"><span class="post-toc-number">5.</span> <span class="post-toc-text">可重入</span></a></li></ol>
+                            </div>
+                        
+                    
+                    <article id="post-content">
+                        <p>synchronized笔记</p>
+<a id="more"></a>
+<h1 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h1><h2 id="主要诱因"><a href="#主要诱因" class="headerlink" title="主要诱因"></a>主要诱因</h2><ul>
+<li>存在共享数据(也称临界资源)</li>
+<li>存在多条线程共同操作共享数据</li>
+</ul>
+<h2 id="解决问题根本"><a href="#解决问题根本" class="headerlink" title="解决问题根本"></a>解决问题根本</h2><p><strong>同一时刻有且只有一个线程在操作共享数据，其他线程必须等到该线程处理完数据后再对共享数据进行操作</strong>。所以可以引入互斥锁去解决问题</p>
+<h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><ul>
+<li><p>互斥性：即在同一时间只允许一个线程持有某个对象锁，通过这种特性来实现多线程的协调机制，<strong>这样在同一时间只有一个线程对需要同步的代码块（复合操作）进行访问</strong>。互斥性也称为操作的原子性。</p>
+</li>
+<li><p>可见性：必须确保在锁被释放之前，对共享变量所做的修改，对于随后获得该锁的另一个线程是可见的（即<strong>在获得锁时应获得最新共享变量的值</strong>），否则另一个线程可能是在本地缓存的某个副本上继续操作，从而引起不一致。</p>
+</li>
+</ul>
+<hr>
+<p>在 Java 中，关键字<code>synchronized</code>可以保证<strong>在同一个时刻，只有一个线程可以执行某个方法或者某个代码块</strong>(主要是对方法或者代码块中存在共享数据的操作)，同时我们还应该注意到<code>synchronized</code>另外一个重要的作用，<code>synchronized</code>可<strong>保证一个线程的变化(主要是共享数据的变化)被其他线程所看到</strong>（保证可见性，完全可以替代<code>Volatile</code>功能），这点确实也是很重要的</p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>Java语言的关键字，可用来给<strong>对象</strong>和<strong>方法或者代码块</strong>加锁（<strong>注意，这里加锁是说可以用在对象或代码块上面，但是<code>synchronized</code>锁的是对象，不是代码，重要！！！</strong>），当它锁定一个方法或者一个代码块的时候，同一时刻最多只有一个线程执行这段代码。</p>
+<p>当两个并发线程访问同一个对象object中的这个加锁同步代码块时，一个时间内只能有一个线程得到执行。另一个线程必须等待当前线程执行完这个代码块以后才能执行该代码块。然而，<strong>当一个线程访问object的一个加锁代码块时，另一个线程仍可以访问该object中的非加锁代码块</strong>。</p>
+<h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><p>根据获取的锁的分类：获取对象锁和类锁</p>
+<h2 id="对象锁"><a href="#对象锁" class="headerlink" title="对象锁"></a>对象锁</h2><p>获取对象锁的两种用法：</p>
+<ol>
+<li>同步代码块（<code>synchronized(this)</code>，<code>synchronized(类实例对象)</code>），<strong>锁是小括号()中的实例对象</strong>。</li>
+<li>同步非静态方法（<code>synchronized method</code>），<strong>锁是当前对象的实例对象</strong>。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对某个对象加锁</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Synchronized_01</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">10</span>;</span><br><span class="line">    <span class="comment">//obj指向堆内存种new出来的对象</span></span><br><span class="line">    <span class="comment">//而synchronized锁的在堆内存中new出来的对象，而不是obj的引用</span></span><br><span class="line">    <span class="comment">//如果obj指向别的对象，那么锁的对象就变了</span></span><br><span class="line">    <span class="comment">//也就是说申请锁的时候，申请锁的信息是记录在堆内存对象里面的</span></span><br><span class="line">    <span class="keyword">private</span> Object obj = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//任何线程想要执行下面代码，必须先拿到obj的锁</span></span><br><span class="line">        <span class="comment">//也可以写成sychronized(this)</span></span><br><span class="line">        <span class="keyword">synchronized</span> (obj)&#123;</span><br><span class="line">            count--;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类锁"><a href="#类锁" class="headerlink" title="类锁"></a>类锁</h2><p>获取类锁的两种用法：</p>
+<ol>
+<li>同步代码块（<code>synchronized(类.class)</code>），<strong>锁是小括号()中的类对象</strong>(<code>Class</code>对象)。</li>
+<li>同步静态方法（<code>synchronized static method</code>），<strong>锁是当前对象的类对象</strong>(Class对象)。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Synchronized_02</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//这里等同于synchronized (Synchronized_02.class)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        count--;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//这里不能写(synchronized)</span></span><br><span class="line">        <span class="comment">//因为静态方法没有new对象</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Synchronized_02.class)&#123;</span><br><span class="line">            count--;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" count = "</span> + count);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="同步与非同步混用"><a href="#同步与非同步混用" class="headerlink" title="同步与非同步混用"></a>同步与非同步混用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 同步与非同步混用，出现脏读</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Synchronized_03</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String name;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 余额</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">double</span> balance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String name, <span class="keyword">double</span> balance)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">//放大2个线程的间隔，更加显示错误</span></span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.balance = balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getBalance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.balance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Synchronized_03 account = <span class="keyword">new</span> Synchronized_03();</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;account.set(<span class="string">"zhangsan"</span>, <span class="number">100.0</span>)).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(account.getBalance());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(account.getBalance());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0.0</span><br><span class="line">100.0</span><br></pre></td></tr></table></figure>
+<p>只对写加锁，而不对读加锁，可能产生脏读现象，虽然锁了<code>set()</code>，但是<code>getBalance()</code>并没有。所以正确的思路就是对读和写都加锁。</p>
+<h1 id="可重入"><a href="#可重入" class="headerlink" title="可重入"></a>可重入</h1><p>一个同步方法可以调用另外一个同步方法，一个线程已经拥有某个对象的锁，再次申请的时候仍然会得到该对象的锁，也就是说<code>synchronized</code>获得的锁是可重入的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.thread;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可重入</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Synchronized_04</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">m1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"m1 start"</span>);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        m2();</span><br><span class="line">        System.out.println(<span class="string">"m1 end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">m2</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"m2 start"</span>);</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"m2 end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Synchronized_04().m1();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">m1 start</span><br><span class="line">m2 start</span><br><span class="line">m2 end</span><br><span class="line">m1 end</span><br></pre></td></tr></table></figure>
+<hr>
+<p>参考：</p>
+<p><a href="https://juejin.im/post/5c9f782de51d4534c15b711f" target="_blank" rel="noopener">Java并发编程—synchronized保证线程安全的原理分析 - 掘金</a></p>
+<hr>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">本文最后更新于 <span id="date-expire-num"></span> 天前，文中所描述的信息可能已发生改变</blockquote>
+    <script>
+        var dateUpdate = Date.parse("2019-08-27");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-08-26T00:53:57.000Z" itemprop="datePublished">2019-08-26</time>
+
+    , 最后修改于&nbsp;<time datetime="2019-08-27T13:52:20.127Z" itemprop="dateModified">2019-08-27</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+
+<a class="post-categories-list-item" href='/categories/读书笔记/'>读书笔记</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+
+<a class="post-tags-list-item" href="/tags/多线程/" rel="tag">#&nbsp;多线程</a>
+
+<a class="post-tags-list-item" href="/tags/Java/" rel="tag">#&nbsp;Java</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                
+<div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/2019/08/04/Java线程的状态/" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">Java线程的状态</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+    <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span data-year></span>
+        <a class="footer-copyright-a" href="https://greenhathg.github.io">GreenHatHG&#39;s Blog</a>
+    </p>
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+    <p class="footer-develop mb-0">
+        
+            
+    <!-- Busuanzi User Views -->
+    <span id="busuanzi_container_site_uv" hidden>
+        <span></span>
+        <span id="busuanzi_value_site_uv"></span>
+        <span>Viewers</span>
+        
+            <span>|</span>
+        
+    </span>
+
+
+
+        
+        
+        Powered by&nbsp;<!--
+         --><a href="https://hexo.io" target="_blank" class="footer-develop-a" rel="external nofollow noopener noreferrer">Hexo</a><span class="footer-develop-divider"></span>Theme&nbsp;-&nbsp;<!--
+         --><a href="https://github.com/SukkaW/hexo-theme-suka" target="_blank" class="footer-develop-a" rel="external noopener">Suka</a>
+    </p>
+</footer>
+
+        
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+
+
+
+    /* Copyright */
+    var copyrightNow = new Date().getFullYear();
+    var copyrightContent = document.querySelector('span[data-year]')
+    
+        copyrightSince = 2018;
+        if (copyrightSince === copyrightNow) {
+            copyrightContent.textContent = copyrightNow
+        } else {
+            copyrightContent.textContent = copyrightSince + ' - ' + copyrightNow
+        }
+    
+
+
+
+/* Cnosole Log */
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+</script>
+
+<!-- vanilla-lazyload -->
+
+    <script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+
+
+
+    <!-- Busuanzi -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+
+
+
+<!-- gallery.js -->
+
+
+<!-- Comment -->
+
+
+<!-- ### Custom Footer ### -->
+
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+
+</html>
