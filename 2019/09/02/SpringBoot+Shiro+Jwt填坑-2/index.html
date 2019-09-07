@@ -219,7 +219,7 @@ jwt介绍">
 
 <meta property="og:locale" content="zh-CN">
 
-<meta property="og:url" content="https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/">
+<meta property="og:url" content="https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/">
 <meta property="og:image" content="https://greenhathg.github.io/img/kuihua.png">
 
 <meta property="og:description" content="hiro介绍
@@ -258,7 +258,7 @@ jwt介绍">
 
 
     <!-- ### Canonical link ### -->
-    <link rel="canonical" href="https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/">
+    <link rel="canonical" href="https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/">
 
     <!-- ### Structured Data ### -->
     
@@ -268,12 +268,12 @@ jwt介绍">
 <script type="application/ld+json">
 {
     "@context": "http://schema.org",
-    "url": "https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/",
+    "url": "https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/",
     "@type": "BlogPosting",
     "logo": "https://greenhathg.github.io/img/kuihua.png",
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/"
+        "@id": "https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/"
     },
     "headline": "Springboot+Shiro+Jwt填坑(二) | GreenHatHG&#39;s Blog",
     
@@ -283,7 +283,7 @@ jwt介绍">
     },
     
     "datePublished": "2019-09-02T10:19:25.000Z",
-    "dateModified": "2019-09-07T10:59:42.961Z",
+    "dateModified": "2019-09-07T12:57:41.929Z",
     "author": {
         "@type": "Person",
         "name": "GreenHatHG",
@@ -412,7 +412,7 @@ jwt介绍"
         <!-- QRCode -->
         
         <li class="menu-item">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACMUlEQVR42u2a0W7DMAhF+/8/vT1Nmiqbe7A6rTUnL1mTxhxPgcKFx9cHHA8hhRRSyDeAfBTH7/vPfy8XXTz/cz19d/mckGMhdwaf75NNPJ93G0t2hRRyZXy1WOUUxNnSRoQUEn25MLKD2jlZy66QQm4chwZk8t0/824hr4Msf+hDgCfPrTb0sixIyOsgSQD+i/NLq0Uhr4HE4lGRxFaGkqO9VFUT8gpIapAKUaTgIsmvkEJWYif5TA3v/hnLtYUcCVkFaCqmJnF1V3BVQqyQcyFTsK6uJyeonktOJKSQlejUFVrJNSTYCjkSMon4p46QhIBqDSGFTMZo87MDiDYg5EjIFLyrhDUlDCTZLRMZIUdCUtGUJgtEUCADKEIKmZJa0ninBRwBFHIuJB3mJME6DSjTHwMhhYwvcBCZqiKMDIy0FAwhr4c8bax3xdaOLSGFTA3zOPhGBpHg8KeQQnYKsSSqEsG0OpfBXMhxkFWzvNOQIk0B4mhCzoUkcNWLntZITlMmwEKOhSSNoCSa0iKMCKxCCkmS0Y4j0cQ4OpuQYyFPhVMywEREgaMhTyGvh6QLkUEn0tw/SnqFHAHZEQlS0pCaTSlhbgtWQl4JmV7iyjmoI5wUdULOhuw4TKfx3gn4QgrZCcyVoEUFg5NGq5BCVpCdBIIC7pJnIYWkQmhKNCqxKt1rKxhCXg+ZBNC0oRScUyK9dCghx0J2CjHiDCfN0pdWi0J+NOQ7H0IKKaSQ/3h8A59ldtX+hHdEAAAAAElFTkSuQmCC" alr="QRCode">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACNklEQVR42u2bQXLCQAwE+f+nk2tStatp2TjBVvsChQ3qpdB6NBKvrxscLyGFFFLID4B8FcfP89Xz1bnV678AQlwhZ0Muf7SLQNUiKshVHBRXyNGQu0C7gKvXV4vaJVWKK6SQ1cUVyC7w7rOFFPIqSLLxVyJDSCGPCoxqU9+9r4LefQmnVJCQj4NMovaqx7dWi0I+BrJtIm0EL03AP3HVhLw1ZCUodiKgEggdoZEWK+RMyFT4E8gUkBgFaDMXcgQkERZVEu0CpORCz4UcDdkx3SuwJE5S06psgAo5DjLe8IOhRRZbbeoocYQcB9kSpfBGQK8XUki6wSbzqdsIxUMmQo6E7CQGKcKSkKUJJORsSLJpk0YUEcPJhBBSyCQq6MDd2fcsWYQcC7lrKCWBUIkTUoSl5BFyLmT6UNLAJM38ZPBHw0rIEZCpwZQKrY7xmgq/qIKEHAFJTXYCTg0rsigh50KSxCGDm5URRYdKhBQyCdEjf7ig5j9q1gs5EpJu0mSgrjvQlG4WQs6FTMVUpwBLpmsSM0IKSYbbu8PDRDSfGqgT8tGQyZAnIpY0pKiJFbu0Qj4ekg4WV5tyMgIqAYyVuZBjIImAIBv/u4xYIYVMP+ZUcNEhziNDeULOhaRDHUkYUNOqSqStwBByHGQUoHAQmSZeGkAWUshk1BPzihj5xKAVUkg6fESERte0agkMIUdBdgQGaRaRBn1KSiHnQp4pxEiDiTSeLq0WhbwV5CcfQgoppJD/eHwDjNDUk9nxIoEAAAAASUVORK5CYII=" alr="QRCode">
         </li>
         
 
@@ -471,56 +471,56 @@ jwt介绍"
     <!-- Share Weibo -->
     
     <li class="menu-item">
-        <a href="http://service.weibo.com/share/share.php?appkey=&title=Springboot+Shiro+Jwt填坑(二)&url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=Springboot+Shiro+Jwt填坑(二)&url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/&pic=https://greenhathg.github.io/img/kuihua.png&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">分享到微博</a>
     </li>
     
 
     <!-- Share Twitter -->
     
     <li class="menu-item">
-        <a href="https://twitter.com/intent/tweet?text=Springboot+Shiro+Jwt填坑(二)&url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
+        <a href="https://twitter.com/intent/tweet?text=Springboot+Shiro+Jwt填坑(二)&url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/&via=GreenHatHG" target="_blank" rel="external noopener noreferrer nofollow">分享到 Twitter</a>
     </li>
     
 
     <!-- Share Facebook -->
     
     <li class="menu-item">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Facebook</a>
     </li>
     
 
     <!-- Share Google+ -->
     
     <li class="menu-item">
-        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
+        <a href="https://plus.google.com/share?url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/" target="_blank" rel="external noopener noreferrer nofollow">分享到 Google+</a>
     </li>
     
 
     <!-- Share LinkedIn -->
     
     <li class="menu-item">
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/&title=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 LinkedIn</a>
     </li>
     
 
     <!-- Share QQ -->
     
     <li class="menu-item">
-        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=GreenHatHG's Blog&title=GreenHatHG's Blog&summary=&pics=https://greenhathg.github.io/img/kuihua.png&url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/" target="_blank" rel="external noopener noreferrer nofollow"> 分享到 QQ</a>
     </li>
     
 
     <!-- Share Telegram -->
     
     <li class="menu-item">
-        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
+        <a href="https://t.me/share/url?url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/&text=GreenHatHG's Blog" target="_blank" rel="external noopener noreferrer nofollow">分享到 Telegram</a>
     </li>
     
 
     <!-- QRCode -->
     
     <li class="menu-item">
-        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACMUlEQVR42u2a0W7DMAhF+/8/vT1Nmiqbe7A6rTUnL1mTxhxPgcKFx9cHHA8hhRRSyDeAfBTH7/vPfy8XXTz/cz19d/mckGMhdwaf75NNPJ93G0t2hRRyZXy1WOUUxNnSRoQUEn25MLKD2jlZy66QQm4chwZk8t0/824hr4Msf+hDgCfPrTb0sixIyOsgSQD+i/NLq0Uhr4HE4lGRxFaGkqO9VFUT8gpIapAKUaTgIsmvkEJWYif5TA3v/hnLtYUcCVkFaCqmJnF1V3BVQqyQcyFTsK6uJyeonktOJKSQlejUFVrJNSTYCjkSMon4p46QhIBqDSGFTMZo87MDiDYg5EjIFLyrhDUlDCTZLRMZIUdCUtGUJgtEUCADKEIKmZJa0ninBRwBFHIuJB3mJME6DSjTHwMhhYwvcBCZqiKMDIy0FAwhr4c8bax3xdaOLSGFTA3zOPhGBpHg8KeQQnYKsSSqEsG0OpfBXMhxkFWzvNOQIk0B4mhCzoUkcNWLntZITlMmwEKOhSSNoCSa0iKMCKxCCkmS0Y4j0cQ4OpuQYyFPhVMywEREgaMhTyGvh6QLkUEn0tw/SnqFHAHZEQlS0pCaTSlhbgtWQl4JmV7iyjmoI5wUdULOhuw4TKfx3gn4QgrZCcyVoEUFg5NGq5BCVpCdBIIC7pJnIYWkQmhKNCqxKt1rKxhCXg+ZBNC0oRScUyK9dCghx0J2CjHiDCfN0pdWi0J+NOQ7H0IKKaSQ/3h8A59ldtX+hHdEAAAAAElFTkSuQmCC" alt="QRCode">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKQAAACkCAAAAAA83tqdAAACNklEQVR42u2bQXLCQAwE+f+nk2tStatp2TjBVvsChQ3qpdB6NBKvrxscLyGFFFLID4B8FcfP89Xz1bnV678AQlwhZ0Muf7SLQNUiKshVHBRXyNGQu0C7gKvXV4vaJVWKK6SQ1cUVyC7w7rOFFPIqSLLxVyJDSCGPCoxqU9+9r4LefQmnVJCQj4NMovaqx7dWi0I+BrJtIm0EL03AP3HVhLw1ZCUodiKgEggdoZEWK+RMyFT4E8gUkBgFaDMXcgQkERZVEu0CpORCz4UcDdkx3SuwJE5S06psgAo5DjLe8IOhRRZbbeoocYQcB9kSpfBGQK8XUki6wSbzqdsIxUMmQo6E7CQGKcKSkKUJJORsSLJpk0YUEcPJhBBSyCQq6MDd2fcsWYQcC7lrKCWBUIkTUoSl5BFyLmT6UNLAJM38ZPBHw0rIEZCpwZQKrY7xmgq/qIKEHAFJTXYCTg0rsigh50KSxCGDm5URRYdKhBQyCdEjf7ig5j9q1gs5EpJu0mSgrjvQlG4WQs6FTMVUpwBLpmsSM0IKSYbbu8PDRDSfGqgT8tGQyZAnIpY0pKiJFbu0Qj4ekg4WV5tyMgIqAYyVuZBjIImAIBv/u4xYIYVMP+ZUcNEhziNDeULOhaRDHUkYUNOqSqStwBByHGQUoHAQmSZeGkAWUshk1BPzihj5xKAVUkg6fESERte0agkMIUdBdgQGaRaRBn1KSiHnQp4pxEiDiTSeLq0WhbwV5CcfQgoppJD/eHwDjNDUk9nxIoEAAAAASUVORK5CYII=" alt="QRCode">
     </li>
     
 
@@ -557,25 +557,25 @@ jwt介绍"
 <ul>
 <li>没有 <code>Cookie</code> 信息状态下的请求</li>
 </ul>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/1.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/1.png" alt=""></p>
 <ul>
 <li>第 2 次以后（存有 <code>Cookie</code> 信息状态） 的请求</li>
 </ul>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/2.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/2.png" alt=""></p>
 <ul>
 <li>Cookie 传输过程</li>
 </ul>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/3.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/3.png" alt=""></p>
 <p>服务器端发现客户端发送过来的 Cookie 后， 会去检查究竟是从哪一个客户端发来的连接请求， 然后<strong>对比服务器上的记录</strong>， 最后得到之前的状态信息。</p>
 <h1 id="基于表单的认证"><a href="#基于表单的认证" class="headerlink" title="基于表单的认证"></a>基于表单的认证</h1><p>目前用户的认证多半是基于表单的认证，基于表单的认证一般会使用 <code>Cookie 来管理</code>Session<code>（</code><strong>Session<code>会话，</code>Session<code>代表着服务器和客户端一次会话的过程，直到</code>Session`失效（服务端关闭）或者客户端关闭时结束</strong>）。<strong>基于表单认证本身是通过服务器端的 <code>Web</code>应用，将客户端发送过来的用户ID和密码与之前登录过的信息做匹配来进行认证的。</strong></p>
 <p>但鉴于 HTTP 是无状态协议， 之前已认证成功的用户状态无法通过协议层面保存下来。 即无法实现状态管理， 因此即使当该用户下一次继续访问，也无法区分他与其他的用户。<strong>于是我们会使用<code>Cookie</code>来管理 <code>Session</code>，以弥补 <code>HTTP</code>协议中不存在的状态管理功能。</strong></p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/4.png)</p>
-<p>简单的来说就是，<strong>用户在登录的时候，会在<code>Web</code>服务器中开辟一段内存空间<code>Session</code>用于保存用户的认证信息和其他信息，用户登录成功之后会通过<code>Set-Cookie</code>的首部字段信息，通知客户端保存<code>Cookie</code>，而这<code>Cookie</code>保存的就是服务器端<code>Session</code>的<code>ID</code></strong>，下次请求的时候客户端会带上该<code>Cookie</code>向服务器端发送请求，服务器端进行校验，<strong>如果<code>Session</code>中保存的有该<code>ID</code>的<code>Session</code>就表示用户认证通过，否则失败！</strong><br><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/5.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/4.png" alt=""></p>
+<p>简单的来说就是，<strong>用户在登录的时候，会在<code>Web</code>服务器中开辟一段内存空间<code>Session</code>用于保存用户的认证信息和其他信息，用户登录成功之后会通过<code>Set-Cookie</code>的首部字段信息，通知客户端保存<code>Cookie</code>，而这<code>Cookie</code>保存的就是服务器端<code>Session</code>的<code>ID</code></strong>，下次请求的时候客户端会带上该<code>Cookie</code>向服务器端发送请求，服务器端进行校验，<strong>如果<code>Session</code>中保存的有该<code>ID</code>的<code>Session</code>就表示用户认证通过，否则失败！</strong><br><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/5.png" alt=""></p>
 <h1 id="Session存储位置以及集群情况下的问题"><a href="#Session存储位置以及集群情况下的问题" class="headerlink" title="Session存储位置以及集群情况下的问题"></a>Session存储位置以及集群情况下的问题</h1><p><code>Session</code> 是存储在<code>Web</code>服务器（例如：<code>Tomcat</code>）中的，并针对每个客户端（客户），通过<code>SessionID</code>来区别不同用户的。<strong><code>Session</code>是以<code>Cookie</code>技术或<code>URL</code>重写实现，默认以<code>Cookie</code>技术实现，服务端会给这次会话创造一个<code>JSESSIONID</code>的<code>Cookie</code>值。</strong></p>
 <p>但是一个显著的问题就是，<strong>在集群模式下如果通过<code>Nginx</code>负载均衡的时候，如果有一个用户登录的时候请求被分配到服务器A上，登录成功后设置的<code>Session</code>就会存放在服务器A上了，但是在服务器B上却没有该用户的<code>Session</code>数据，当用户再次发起一个请求的时候，此时请求如果被分配到服务器B上，则就不会查询到该用户的登录状态，就会出现登录失败的情况！</strong></p>
 <p>一种可以想到的方式就是将多个Web服务器上存储的<code>Session</code>统一存储到某一存储介质中，保证进集群中的每一台机器都可以看到所有相同<code>Session</code>数据，这里的同步体现在所有的<code>Session</code>存储在同一的存储介质里边。</p>
 <p>幸运的是我们常用的<code>Tomcat</code>容器已经为我们提供了一个接口，可以让我们实现将<code>Session</code>存储到除当前服务器之外的其他存储介质上，例如<code>Redis</code>等。</p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/6.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/6.png" alt=""></p>
 <h1 id="小结与需求痛点"><a href="#小结与需求痛点" class="headerlink" title="小结与需求痛点"></a>小结与需求痛点</h1><p><code>Session</code>和<code>Cookie</code>的目的相同，都是为了克服<code>HTTP</code>协议无状态的缺陷，但完成的方法不同。<code>Session</code>通过<code>Cookie</code>，在客户端保存<code>SessionID</code>，而将用户的其他会话消息保存在服务端的<code>Session</code>对象中，与此相对的，<code>Cookie</code>需要将所有信息都保存在客户端。因此<code>Cookie</code>存在着一定的安全隐患，例如本地<code>Cookie</code>中保存的用户名密码被破译，或<code>Cookie</code>被其他网站收集。</p>
 <p>上述过程我们简单的描述了<code>Session</code>的演进过程还有使用同步的方式解决<code>Session</code>在集群的时候出现的问题，但是我们意识到了使用<code>Spring Session</code>的方式来实现<code>Session</code>的同步是一件相对比较麻烦的事情，我们虽然使用<code>Redis</code>来进行同步，但是<code>Redis</code>并不是100%可靠的，<strong>我们需要对<code>Redis</code>搭建集群、进行主从同步复制、进行持久化等，显然这是一件很复杂的事情，因此有没有一种小而轻便的方式来实现我们的这种认证需求！那就是<code>JWT</code>了！</strong></p>
 <p><em>除了上述我们遇到的问题之外，在目前前后端分离的大环境下经常会遇到需要根据用户来分配权限和显示相对应信息的问题，虽然传统的<code>Cookie</code>和<code>Session</code>机制可以解决这个问题，但就通用性而言，<code>JWT（JSON Web Token）</code>相对来说更好。</em></p>
@@ -616,17 +616,17 @@ jwt介绍"
 <h3 id="公开声明"><a href="#公开声明" class="headerlink" title="公开声明"></a>公开声明</h3><p>这些可以由使用<code>JWT</code>的人员随意定义。 但为避免冲突，应在<code>IANA JSON Web</code>令牌注册表中定义它们，或者将其定义为包含防冲突命名空间的<code>URI</code>。</p>
 <h3 id="私人声明"><a href="#私人声明" class="headerlink" title="私人声明"></a>私人声明</h3><p>这是为了共享使用它们的当事方之间共享信息而创建的声明，既不是登记声明，也不是公开声明。</p>
 <h2 id="签名（signature）"><a href="#签名（signature）" class="headerlink" title="签名（signature）"></a>签名（signature）</h2><p>要创建签名部分，您必须采用头部（<code>header</code>），有效载荷（<code>payload</code>），密钥（<code>secret</code>），以及头部中指定的算法。例如，如果你想使用<code>HMAC SHA256</code>算法，签名将按以下方式创建：</p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/7.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/7.png" alt=""></p>
 <p><strong>签名通常用于验证<code>JWT</code>的发件人是谁，并JWT在传送的过程中不被篡改</strong>。</p>
 <p>注意：<strong>上图红框中的<code>secret</code>是保存在服务器端的，<code>JWT</code>的签发生成也是在服务器端的，<code>secret</code>就是用来进行<code>JWT</code>的签发和<code>jwt</code>的验证，所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个<code>secret</code>，那就意味着客户端是可以自我签发<code>jwt</code>了。</strong></p>
 <h1 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h1><p>下面显示了一个登录请求成功之后服务端返回的<code>Token</code>，它由编码头部（<code>header</code>）、编码有效载荷（<code>payload</code>）和签名（<code>signature</code>）通过（.）拼接而成：</p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/8.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/8.png" alt=""></p>
 <p>如果需要，你可以使用<a href="https://jwt.io/" target="_blank" rel="noopener">jwt.io</a>的<code>Debugger</code>工具，来编码、验证和生成<code>JWT</code>。操作界面如下</p>
 <p>刚开始没有输入<code>secret</code>则显示验证错误</p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/9.png)</p>
-<p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/14.png)</p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/9.png" alt=""></p>
+<p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/14.png" alt=""></p>
 <p>输入后<code>jwt</code>是一样的，并且验证通过了</p>
-<h1 id="JWT的工作原理"><a href="#JWT的工作原理" class="headerlink" title="JWT的工作原理"></a>JWT的工作原理</h1><p>在身份验证中，当用户使用他们的凭证（如用户名、密码）成功登录时，后台服务器将返回一个<code>token</code>，前端接收到这个<code>token</code>将其保存在本地（通常在本地存储中，也可以使用<code>Cookie</code>，但不是传统方法中创建会话，服务器并返回一个<code>cookie</code>）。<strong>下次用户想要访问受保护的路由或资源时，就将本地保存的<code>token</code>放在头部<code>Header</code>中发送到后台服务器。服务器接收到请求，检查头部中<code>token</code>的存在，如果存在就允许访问受保护的路由或资源，否则就不允许</strong>。如下所示：<br><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/10.png)</p>
+<h1 id="JWT的工作原理"><a href="#JWT的工作原理" class="headerlink" title="JWT的工作原理"></a>JWT的工作原理</h1><p>在身份验证中，当用户使用他们的凭证（如用户名、密码）成功登录时，后台服务器将返回一个<code>token</code>，前端接收到这个<code>token</code>将其保存在本地（通常在本地存储中，也可以使用<code>Cookie</code>，但不是传统方法中创建会话，服务器并返回一个<code>cookie</code>）。<strong>下次用户想要访问受保护的路由或资源时，就将本地保存的<code>token</code>放在头部<code>Header</code>中发送到后台服务器。服务器接收到请求，检查头部中<code>token</code>的存在，如果存在就允许访问受保护的路由或资源，否则就不允许</strong>。如下所示：<br><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/10.png" alt=""></p>
 <p>一般默认的<code>Value</code>是以<code>Bearer</code>开始，注意这里的<code>Bearer</code>之后有一个空格，<strong>以便后端进行分割</strong>。</p>
 <p>这是一种无状态身份验证机制，因为用户状态永远不会保存在服务器内存中。 由于<code>JWT</code>是独立的，所有必要的信息都在那里，所以减少了多次查询数据库的需求。</p>
 <h1 id="JWT总结"><a href="#JWT总结" class="headerlink" title="JWT总结"></a>JWT总结</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
@@ -648,9 +648,9 @@ jwt介绍"
 </li>
 </ol>
 <h1 id="session-cookie-jwt"><a href="#session-cookie-jwt" class="headerlink" title="session cookie jwt"></a>session cookie jwt</h1><p>转自：<a href="https://mp.weixin.qq.com/s/SY-5ETSjwSB28o95NIsxGw" target="_blank" rel="noopener">五分钟带你了解Cookie、Session、Token 和 JWT</a></p>
-<h2 id="基于session的用户认证"><a href="#基于session的用户认证" class="headerlink" title="基于session的用户认证"></a>基于session的用户认证</h2><p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/11.jpg)![](</p>
-<h2 id="基于token的认证方案"><a href="#基于token的认证方案" class="headerlink" title="基于token的认证方案"></a>基于token的认证方案</h2><p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/12.jpg)</p>
-<h2 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h2><p><img src="//greenhathg.github.io/2019/09/02/Springboot+Shiro+Jwt填坑(二)/Springboot+Shiro+Jwt填坑(二" alt="">/13.jpg)</p>
+<h2 id="基于session的用户认证"><a href="#基于session的用户认证" class="headerlink" title="基于session的用户认证"></a>基于session的用户认证</h2><p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/11.jpg" alt="">![](</p>
+<h2 id="基于token的认证方案"><a href="#基于token的认证方案" class="headerlink" title="基于token的认证方案"></a>基于token的认证方案</h2><p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/12.jpg" alt=""></p>
+<h2 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h2><p><img src="//greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt填坑-2/13.jpg" alt=""></p>
 <hr>
 <p>参考：</p>
 <p><a href="https://www.xncoding.com/2017/07/09/spring/sb-jwt.html" target="_blank" rel="noopener">SpringBoot系列 - 集成JWT实现接口权限认证 | 飞污熊博客</a></p>
@@ -677,7 +677,7 @@ jwt介绍"
 
 <p class="post-footer-info mb-0 pt-0">本文发表于&nbsp;<time datetime="2019-09-02T10:19:25.000Z" itemprop="datePublished">2019-09-02</time>
 
-    , 最后修改于&nbsp;<time datetime="2019-09-07T10:59:42.961Z" itemprop="dateModified">2019-09-07</time>
+    , 最后修改于&nbsp;<time datetime="2019-09-07T12:57:41.929Z" itemprop="dateModified">2019-09-07</time>
 
 </p>
 <p class="post-footer-info mb-0 pt-2">
@@ -708,9 +708,9 @@ jwt介绍"
     <!-- Prev Nav -->
     
         <li class="page-item page-prev">
-            <a href="/2019/09/07/Springboot+Shiro+Jwt填坑(三)/" rel="prev">
+            <a href="/2019/09/02/Springboot+Shiro+Jwt填坑(一)/" rel="prev">
                 <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
-                <div class="page-item-subtitle">Springboot+Shiro+Jwt填坑(三)</div>
+                <div class="page-item-subtitle">Springboot+Shiro+Jwt填坑(一)</div>
             </a>
         </li>
     
@@ -718,9 +718,9 @@ jwt介绍"
     <!-- Next Nav -->
     
         <li class="page-item page-next">
-            <a href="/2019/09/02/Springboot+Shiro+Jwt填坑(一)/" rel="next">
+            <a href="/2019/09/02/SpringBoot+Shiro+Jwt填坑-1/" rel="next">
                 <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
-                <div class="page-item-subtitle">Springboot+Shiro+Jwt填坑(一)</div>
+                <div class="page-item-subtitle">SpringBoot+Shiro+Jwt填坑-1</div>
             </a>
         </li>
     
