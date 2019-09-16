@@ -9,6 +9,7 @@ before_install:
 install:
     - npm install # 安装hexo及插件
 script:
+    - cp hexo-asset-images.js /home/travis/build/GreenHatHG/GreenHatHG.github.io/node_modules/hexo-asset-image/index.js
     - hexo clean # 清除
     - hexo g # 生成
 after_script:
