@@ -1,0 +1,26 @@
+# left-side user profile
+avatar: # by default https://octodex.github.com/images/baracktocat.jpg
+location:
+email:
+social:
+  github:
+  weibo:
+  linkedin:
+
+# navbar menu
+menu:
+ archives: true
+ tags: true
+ categories: true
+
+rss_dir: atom.xml
+
+# widget
+ga: UA-116672888-1 # google analytics tracking code UA-XXXXXXX-X
+baidutongji: # baidutongji tracking code
+duoshuo: # duoshuo username
+gsc: 008487550618970634524:xm_ncoukzmu # google custom search code
+
+
+mathjax:
+    enable: true
