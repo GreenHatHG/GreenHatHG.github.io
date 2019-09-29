@@ -379,6 +379,13 @@ yay -S oh-my-zsh-git
 
 ---
 
+**修改zsh提示为英文**
+
+```shell
+vim ~/.zshrc
+export LC_ALL=C
+```
+
 **插件**
 
 - zsh-autosuggestions
