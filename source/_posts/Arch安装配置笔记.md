@@ -383,7 +383,8 @@ yay -S oh-my-zsh-git
 
 ```shell
 vim ~/.zshrc
-export LC_ALL=C
+
+LANGUAGE="en"
 ```
 
 **插件**
