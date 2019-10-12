@@ -89,7 +89,7 @@ shiro介绍
 
 ## 认证与授权处理过程
 
-1. 被`Shir`保护的资源，才会经过认证与授权过程
+1. 被`Shiro`保护的资源，才会经过认证与授权过程
 2. 用户访问受`Shiro`保护的`URL`
 3. `Shiro` **首先检查用户是否已经通过认证，如果未通过认证检查，则跳转到登录页面，否则进行授权检查**。**认证过程需要通过 `Realm` 来获取用户及密码信息，通常情况我们实现 `JDBC Realm`，此时用户认证所需要的信息从数据库获取**。如果使用了缓存，除第一次外用户信息从缓存获取。
 4. **认证通过后接受`Shiro`授权检查，授权检查同样需要通过`Realm`获取用户权限信息**。`Shiro` 需要的用户权限信息包括`Role`或`Permission`，可以是其中任何一种或同时两者，具体取决于受保护资源的配置。如果用户权限信息未包含`Shiro`需要的`Role`或`Permission`，授权不通过。**只有授权通过，才可以访问受保护`URL`对应的资源，否则跳转到“未经授权页面”。**
@@ -128,7 +128,7 @@ shiro介绍
 
 ## RBAC思想建表
 
-这里使用`Spring data jpa`来处理持久层
+这里使用`Spring Data JPA`来处理持久层
 
 按照`RBAC`思想，最简单的得有用户信息，角色信息，权限信息
 
@@ -140,9 +140,9 @@ public class UserInfo implements Serializable {
     @Id
     @GeneratedValue
     private Integer uid;
-    @Column(unique =true)
     
     //帐号
+    @Column(unique =true)
     private String username;
     
     //名称（昵称或者真实姓名，不同系统不同定义）
@@ -154,7 +154,8 @@ public class UserInfo implements Serializable {
     //加密密码的盐
     private String salt;
     
-    //用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
+    //用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户
+    //1:正常状态,2：用户被锁定.
     private byte state;
     
     /**
@@ -264,7 +265,7 @@ INSERT INTO `sys_role_permission` (`permission_id`,`role_id`) VALUES (3,2);
 INSERT INTO `sys_user_role` (`role_id`,`uid`) VALUES (1,1);
 ```
 
-## shiro配置
+## Shiro配置
 
 ###  ShiroConfig
 
@@ -278,22 +279,26 @@ public class ShiroConfig {
     @Primary
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
+        //用于定义主Shiro Filter
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        //设置要构造的Shiro Filter使用的SecurityManager实例
+        //这是必填属性-设置失败将引发初始化异常
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         
-        //拦截器.
+        //拦截器
+        //LinkedHashMap是有序的
         Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
-        // 配置不会被拦截的链接 顺序判断
+        // 配置不会被拦截的链接
         filterChainDefinitionMap.put("/static/**", "anon");
         
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         
-        //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
-        //<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
+        //过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
+        //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/**", "authc");
         
-        // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
+        // 如果不设置默认会自动寻找Web工程根目录下的"/login"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接
         shiroFilterFactoryBean.setSuccessUrl("/index");
@@ -349,6 +354,9 @@ public class ShiroConfig {
 **而在我们的应用程序中要做的就是自定义一个 `Realm` 类，继承`AuthorizingRealm` 抽象类，重写`doGetAuthenticationInfo()`**
 
 ```java
+/**
+ *主要是用来进行身份认证的，也就是说验证用户输入的账号和密码是否正确
+ */
 @Override
 protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token)
         throws AuthenticationException {
