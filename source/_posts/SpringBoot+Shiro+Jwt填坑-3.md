@@ -24,13 +24,11 @@ tags:
 
 - 携带了 `username` 信息在 token 中。
 - 设定了过期时间。
-- 使用用户登入密码对 `token` 进行加密。
+- 使用秘钥对 `token` 进行加密。
 
 ## Token校验流程
 
-1. 获得 `token` 中携带的 `username` 信息。
-2. 进入数据库搜索这个用户，得到他的密码。
-3. 使用用户的密码来检验 `token` 是否正确。
+服务端接收到` token` 之后，会逆向构造过程，`decode` 出` JWT` 的三个部分，这一步可以得到` sign `的算法及 `payload`，结合服务端配置的 `secretKey`，可以再次进行 `Signature` 的生成得到新的 `​Signature`，与原有的 ​`Signature` 比对以验证 `token` 是否有效，完成用户身份的认证。
 
 # Maven
 
@@ -52,25 +50,26 @@ tags:
 
 # JWT工具类
 
-我们写一个简单的`JWT`加密，校验工具，并且使用用户自己的密码充当加密密钥， 这样保证了`token` 即使被他人截获也无法破解。并且我们在`token`中附带了`username`信息，并且设置密钥5分钟就会过期。
+我们写一个简单的`JWT`加密，校验工具，并且使用用户自己的密码充当加密密钥， 这样保证了`token` 即使被他人截获也无法破解。并且我们在`token`中附带了`username`信息，并且设置密钥1天就会过期。
 
 ```java
-@Component
 public class JWTUtil {
 
-    // 过期时间30天
-    private static final long EXPIRE_TIME = 24 * 60 * 30 * 1000;
+    // 过期时间1天
+    private static final long EXPIRE_TIME = 24 * 60 * 1000;
 
     /**
      * 校验token是否正确
+     *
      * @param token    密钥
      * @param username 登录名
-     * @param password 密码
+     * @param secret 秘钥
      * @return
      */
-    public static boolean verify(String token, String username, String password) {
+    public static boolean verify(String token, String username, String secret) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(password);
+            //对秘钥进行加密后再与用户名混淆在一起
+            Algorithm algorithm = Algorithm.HMAC256(secret);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withClaim("username", username)
                     .build();
@@ -83,6 +82,7 @@ public class JWTUtil {
 
     /**
      * 获得token中的信息无需secret解密也能获得
+     *
      * @return token中包含的用户名
      */
     public static String getUsername(String token) {
@@ -90,18 +90,20 @@ public class JWTUtil {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
-            return null;
+            return "";
         }
     }
 
     /**
      * 生成签名
+     *
      * @param username 用户名
-     * @param secret 用户的密码
+     * @param secret   用户的密码
      * @return 加密的token
      */
-    public static String sign(String username, String secret) {
-        Date date = new Date(System.currentTimeMillis()+EXPIRE_TIME);
+    private static String sign(String username, String secret) {
+        // 指定过期时间
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带username信息
         return JWT.create()
@@ -114,10 +116,11 @@ public class JWTUtil {
      * 生成前端需要的用户信息，包括：
      * 1. token
      * 2. userInfo
+     *
      * @param userInfo
      * @return
      */
-    public static Result generateUserInfo(UserInfo userInfo){
+    public static Result generateUserInfo(UserInfo userInfo) {
         Map<String, Object> responseBean = new HashMap<>(2);
         String token = sign(userInfo.getUsername(), userInfo.getPassword());
         responseBean.put("token", token);
@@ -125,20 +128,18 @@ public class JWTUtil {
         responseBean.put("userInfo", userInfo);
         return ResultFactory.buildSuccessResult(responseBean);
     }
+
 }
 ```
 
-
-
 # 创建JWTToken替换Shiro原生Token
 
-1. `Shiro` 原生的 `Token` 中存在用户名和密码以及其他信息 [验证码，记住我]
+1. `Shiro` 原生的 `Token` 中存在用户名和密码以及其他信息 [验证码，记住我]，因为是前后端分离，服务器无需保存用户状态，所以不需要`RememberMe`这类功能， 我们简单的实现下`AuthenticationToken`接口即可
 2. 在 `JWT` 的 `Token` 中因为**已将用户名和密码通过加密处理整合到一个加密串中**，所以只需要一个 `token` 字段即可
 
 ```java
 public class JWTToken implements AuthenticationToken {
 
-    // 密钥
     private String token;
 
     public JWTToken(String token) {
@@ -162,7 +163,7 @@ public class JWTToken implements AuthenticationToken {
 
 # 创建JWTFilter实现前端请求统一拦截及处理
 
-所有的请求都会先经过`Filter`，所以我们继承官方的`BasicHttpAuthenticationFilter`，并且重写鉴权的方法， 另外通过重写`preHandle`，实现跨越访问。
+所有的请求都会先经过`Filter`，所以我们继承官方的`BasicHttpAuthenticationFilter`，并且重写鉴权的方法， 另外通过重写`preHandle`，实现跨域访问。
 
 **代码的执行流程`preHandle->isAccessAllowed->isLoginAttempt->executeLogin`**
 
@@ -186,23 +187,28 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     @Override
     protected boolean isLoginAttempt(ServletRequest request, ServletResponse response) {
         HttpServletRequest req = (HttpServletRequest) request;
-
         String authorization = req.getHeader(LOGIN_SIGN);
-
         return authorization != null;
 
     }
 
-    //getSubject(request, response).login(token) 就是触发 Shiro Realm 自身的登录控制，具体内容需要手动实现
+    /**
+     * executeLogin() 方法中的 getSubject(request, response).login(token)
+     * 就是触发 Shiro Realm 自身的登录控制，具体内容需要手动实现
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String header = req.getHeader(LOGIN_SIGN);
-
-        JWTToken token = new JWTToken(header);
-
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        String authorization = httpServletRequest.getHeader(LOGIN_SIGN);
+        JWTToken token = new JWTToken(authorization);
+        // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         getSubject(request, response).login(token);
-
+        // 如果没有抛出异常则代表登入成功，返回true
         return true;
     }
 
@@ -216,7 +222,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
                 throw new TSharkException("登录权限不足！", e);
             }
         }
-
         return true;
     }
 
