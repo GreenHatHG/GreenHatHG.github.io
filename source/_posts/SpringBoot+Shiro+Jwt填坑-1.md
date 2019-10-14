@@ -98,6 +98,10 @@ shiro介绍
 
 (图源：[Shiro简介 · 疯狂的小鸡](https://whetherlove.github.io/2018/11/30/Shiro%E7%AE%80%E4%BB%8B/))
 
+## Shiro的Filter链
+
+`Shiro`的认证和授权都离不开`Filter`，因此需要对`Shiro`的`Filter`的运行流程很清楚，才能自定义`Filter`来满足企业的实际需要。另外`Shiro`的`Filter`虽然原理都和`Servlet`的`Filter`相似，甚至都最终继承相同的接口，但是实际还是有些差别。`Shiro`中的`Filter`主要是在`ShiroFilter`内，对指定匹配的`URL`进行拦截处理，它有自己的`Filter`链；而`Servlet`的`Filter`和`ShiroFilter`是同一个级别的，即先走`Shiro`自己的`Filter`体系，然后才会委托给`Servlet`容器的`FilterChain`进行`Servlet`容器级别的`Filter`链执行
+
 # 与SpringBoot集成(没有jwt)
 
 ## 依赖
@@ -458,6 +462,8 @@ public String login(HttpServletRequest request, Map<String, Object> map) throws 
 [RBAC_百度百科](https://baike.baidu.com/item/RBAC/1328788)
 
 [Spring Boot (十四)： Spring Boot 整合 Shiro-登录认证和权限管理 - 纯洁的微笑 - 博客园](https://www.cnblogs.com/ityouknow/p/7089177.html)
+
+[Shrio使用Jwt达到前后端分离-Java知音](https://www.javazhiyin.com/42283.html)
 
 ---
 
