@@ -43,7 +43,7 @@ tags:
 
 <dependency>
 	<groupId>org.apache.shiro</groupId>
-	<artifactId>shiro-spring-boot-web-starter</artifactId>
+	<artifactId>shiro-spring</artifactId>
 	<version>1.4.1</version>
 </dependency>
 ```
@@ -168,11 +168,18 @@ public class JWTToken implements AuthenticationToken {
 **代码的执行流程`preHandle->isAccessAllowed->isLoginAttempt->executeLogin`**
 
 ```java
+/**
+ * 创建JWTFilter实现前端请求统一拦截及处理
+ * 所有的请求都会先经过 Filter，所以我们继承官方的 BasicHttpAuthenticationFilter
+ * 并且重写鉴权的方法
+ * 代码的执行流程 preHandle -> isAccessAllowed -> isLoginAttempt -> executeLogin
+ *
+ * @author GreenHatHG
+ **/
 public class JWTFilter extends BasicHttpAuthenticationFilter {
 
     /**
-     * 前端放置在 headers 头文件中的登录标识
-     * 如果用户发起的请求是需要登录才能正常返回的，那么头文件中就必须存在该标识并携带有效值
+     * 登录标识
      */
     private static String LOGIN_SIGN = "Authorization";
 
@@ -189,7 +196,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         HttpServletRequest req = (HttpServletRequest) request;
         String authorization = req.getHeader(LOGIN_SIGN);
         return authorization != null;
-
     }
 
     /**
@@ -212,41 +218,72 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         return true;
     }
 
-    //始终返回 true 的原因是因为具体的是否登录成功的判断，需要在 Realm 中手动实现，此处不做统一判断
+
+    /**
+     * 一般在isAccessAllowed中执行认证逻辑
+     */
     @Override
-    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue){
         if (isLoginAttempt(request, response)) {
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
-                throw new TSharkException("登录权限不足！", e);
+                // 认证出现异常，传递错误信息msg
+                String msg = e.getMessage();
+                // Token认证失败直接返回Response信息
+                this.response401(response, msg);
+                return false;
             }
         }
         return true;
     }
 
     /**
+     * 这里我们详细说明下为什么重写
+     * 可以对比父类方法，只是将executeLogin方法调用去除了
+     * 如果没有去除将会循环调用doGetAuthenticationInfo方法
+     */
+    @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
+        this.sendChallenge(request, response);
+        return false;
+    }
+
+    /**
      * 对跨域提供支持
-     *
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
      */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
+        HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
         httpServletResponse.setHeader("Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", httpServletRequest.getHeader("Access-Control-Request-Headers"));
-        // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
+        // 跨域时会首先发送一个OPTIONS请求，这里我们给OPTIONS请求直接返回正常状态
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
             httpServletResponse.setStatus(HttpStatus.OK.value());
             return false;
         }
         return super.preHandle(request, response);
     }
+
+    /**
+     * 无需转发，直接返回Response信息
+     */
+    private void response401(ServletResponse response, String msg) {
+        HttpServletResponse httpServletResponse = WebUtils.toHttp(response);
+        httpServletResponse.setStatus(HttpStatus.UNAUTHORIZED.value());
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json; charset=utf-8");
+        try (PrintWriter out = httpServletResponse.getWriter()) {
+            Result result = ResultFactory.buildUnauthorizedResult("无权访问(Unauthorized):" + msg);
+            JSONObject jsonObject = JSONUtil.parseObj(result);
+            out.append(jsonObject.toString());
+        } catch (IOException e) {
+            throw new CustomException("直接返回Response信息出现IOException异常:" + e.getMessage());
+        }
+    }
+
 }
 ```
 
@@ -255,12 +292,12 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
 `realm`的用于处理用户是否合法的这一块，需要我们自己实现
 
 ```java
-public class ShiroRealm extends AuthorizingRealm{
+public class ShiroRealm extends AuthorizingRealm {
 
     private UserRepository userRepository;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository){
+    public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -276,13 +313,33 @@ public class ShiroRealm extends AuthorizingRealm{
 
     /**
      * 执行授权逻辑
+     * 只有当需要检测用户权限的时候才会调用此方法，例如checkRole,checkPermission之类的
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        String username = JWTUtil.getUsername(principalCollection.toString());
+        UserInfo userInfo = userRepository.findByUsername(username);
+        List<String> permissionList = new ArrayList<>();
+        List<String> roleNameList = new ArrayList<>();
+        Set<SysRole> roleSet = userInfo.getRoleList();
+
+        if (CollectionUtils.isNotEmpty(roleSet)) {
+            for (SysRole role : roleSet) {
+                // 添加角色
+                roleNameList.add(role.getName());
+                // 根据用户角色查询权限
+                Set<SysPermission> permissionSet = role.getPermissions();
+                if (CollectionUtils.isNotEmpty(permissionSet)) {
+                    for (SysPermission permission : permissionSet) {
+                        // 添加权限
+                        permissionList.add(permission.getUrl());
+                    }
+                }
+            }
+        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        List<String> userPermissions = new ArrayList<>();
-        userPermissions.add("user");
-        info.addStringPermissions(userPermissions);
+        info.addStringPermissions(permissionList);
+        info.addRoles(roleNameList);
         return info;
     }
 
@@ -294,23 +351,18 @@ public class ShiroRealm extends AuthorizingRealm{
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
-        String username = JWTUtil.getUsername(token);
+        String userName = JWTUtil.getUsername(token);
+        String secert = userRepository.getCredentials(userName);
 
-        if (StringUtils.isBlank(username)){
-            throw  new CustomException(401, "token检验不通过");
-        }
-
-        UserInfo userInfo = userRepository.findByUsername(username);
-        if(userInfo == null){
-            throw new CustomException(404, "用户不存在");
-        }
-
-        if(!JWTUtil.verify(token, username, userInfo.getPassword())){
-            throw new CustomException(401, "账户或者密码错误");
+        /**
+         * token为空或者不通过
+         */
+        if (StringUtils.isBlank(token) || !JWTUtil.verify(token, userName, secert)) {
+            throw new AuthenticationException("token校验不通过");
         }
 
         //认证成功，将用户信息封装成SimpleAuthenticationInfo
-        return new SimpleAuthenticationInfo(token, token, "realm");
+        return new SimpleAuthenticationInfo(token, token, "shiroRealm");
     }
 }
 ```
@@ -318,14 +370,18 @@ public class ShiroRealm extends AuthorizingRealm{
 # 配置Shiro
 
 ```java
-@Configuration
 public class ShiroConfig {
 
     @Primary
     @Bean
+    /**
+     * 设置过滤器，将自定义的Filter加入
+     */
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+        //用于定义主Shiro Filter
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        // 设置 securityManager
+        //设置要构造的Shiro Filter使用的SecurityManager实例
+        //这是必填属性-设置失败将引发初始化异常
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
         // 在 Shiro过滤器链上加入 JWTFilter
@@ -342,11 +398,19 @@ public class ShiroConfig {
     }
 
     @Primary
-    @Bean()
+    @Bean
     public DefaultWebSecurityManager securityManager(ShiroRealm shiroRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 SecurityManager，并注入 shiroRealm
         securityManager.setRealm(shiroRealm());
+
+        // 关闭Shiro自带的session
+        DefaultSubjectDAO subjectDAO = new DefaultSubjectDAO();
+        DefaultSessionStorageEvaluator defaultSessionStorageEvaluator = new DefaultSessionStorageEvaluator();
+        defaultSessionStorageEvaluator.setSessionStorageEnabled(false);
+        subjectDAO.setSessionStorageEvaluator(defaultSessionStorageEvaluator);
+        securityManager.setSubjectDAO(subjectDAO);
+
         return securityManager;
     }
 
@@ -355,13 +419,6 @@ public class ShiroConfig {
     public ShiroRealm shiroRealm() {
         // 配置 Realm
         return new ShiroRealm();
-    }
-
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
     }
 }
 ```
@@ -384,6 +441,14 @@ public Result login(@RequestBody Map<String, String> payload){
     }
     return JWTUtil.generateUserInfo(userInfo);
 }
+
+    @GetMapping("/123")
+	//需要登录才能获取
+    @RequiresAuthentication
+    public Result test(){
+        System.out.println(111);
+        return ResultFactory.buildSuccessResult("成功");
+    }
 ```
 
 
