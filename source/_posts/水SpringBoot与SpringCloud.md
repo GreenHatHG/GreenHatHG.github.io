@@ -40,12 +40,11 @@ tags:
  目前市场上主流的 **第一套微服务架构解决方案：Spring Boot + Spring Cloud Netflix** 
 
 - ` Spring Cloud Netflix`为了解决第一个问题，提出了`API`网关组件--->`Zuul`
-
 - 为了解决服务之间如何通信问题，提出了`Feign`，它是基于`HTTP`通信的，同步并阻塞的
-
 - 为了解决如何治理服务问题，提出了服务注册与发现组件-->`Eureka`
-
 - 为了解决服务挂了的问题，提出了熔断机制-->`Hystrix`组件
+
+![](水SpringBoot与SpringCloud/5.png)
 
 市面上面的教程很多都是这一套，不过这一套已经不维护了，所以不考虑这一个
 
@@ -72,6 +71,8 @@ tags:
 - **服务之间通信**：`Feign`
 - **熔断机制组件**： 阿里巴巴开源了 `Sentinel` 组件，实现了熔断器模式 
 - `API`网关： `Spring Cloud Gateway`， **Spring Cloud Gateway 作为 Spring Cloud 生态系中的网关，目标是替代 Netflix ZUUL**，其不仅提供统一的路由方式，并且基于 `Filter `链的方式提供了网关基本的功能，例如：安全，监控/埋点，和限流等。 
+
+![](水SpringBoot与SpringCloud/6.png)
 
 ## 下一代微服务架构--服务网格(service mesh)
 
