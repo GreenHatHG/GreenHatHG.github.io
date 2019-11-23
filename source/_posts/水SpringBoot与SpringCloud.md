@@ -12,9 +12,74 @@ tags:
 
 <!-- more -->
 
-# SpringBoot转SringCloud
+# 微服务
 
-为什么要转？
+微服务的具体概念或者优缺点可以看这个：
+
+[微服务-解决复杂问题 | 千锋教育-李卫民]( https://www.funtl.com/zh/micro-service-intro/微服务-解决复杂问题.html#概述 )
+
+微服务架构，更好的进行分布式系统开发，拆分单体应用，将一个应用拆分成多个服务，每一个服务都是一个可以独立运行的项目。
+
+微服务分布式开发会遇到这四个问题：
+
+1. **这么多服务，客户端如何访问**
+2. **这么多服务，服务之间如何通信**
+3. **这么多服务，如何治理**
+4. **服务挂了，怎么办？**
+
+解决方案：
+
+`Spring Cloud`，是一套生态，是为了解决微服务架构遇到的问题，想要使用`Spring Cloud`必须基于` Spring Boot`
+
+---
+
+后来去了解了下，现在`Spring Cloud`微服务方案有三套：
+
+## Spring Cloud Netflix
+
+ 目前市场上主流的 **第一套微服务架构解决方案：Spring Boot + Spring Cloud Netflix** 
+
+- ` Spring Cloud Netflix`为了解决第一个问题，提出了`API`网关组件--->`Zuul`
+
+- 为了解决服务之间如何通信问题，提出了`Feign`，它是基于`HTTP`通信的，同步并阻塞的
+
+- 为了解决如何治理服务问题，提出了服务注册与发现组件-->`Eureka`
+
+- 为了解决服务挂了的问题，提出了熔断机制-->`Hystrix`组件
+
+市面上面的教程很多都是这一套，不过这一套已经不维护了，所以不考虑这一个
+
+## Dubbo + Zookeeper
+
+ 目前市场上主流的 **第二套微服务架构解决方案：Spring Boot + Dubbo + Zookeeper** 
+
+- `Apache Dubbo` 是一款高性能、轻量级的开源` Java RPC `框架。**用于解决服务之间的通信问题**。
+- `ZooKeeper` 是一种分布式协调服务，用于管理大型主机。在分布式环境中协调和管理服务是一个复杂的过程。**用于解决治理服务的问题，也就是服务注册与发现**
+- **`API`网关没有现成的，得找第三方组件或自己实现**
+- **熔断机制组件也没有现成**
+
+所以该套方案不是很完善，但是新版在孵化，估计新版会解决这些问题
+
+## Spring Cloud Alibaba
+
+ 目前市场上主流的 **第三套微服务架构解决方案：Spring Boot + Spring Cloud Alibaba** 
+
+`Spring Cloud Alibaba `致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过` Spring Cloud` 编程模型轻松使用这些组件来开发分布式应用服务。
+
+依托` Spring Cloud Alibaba`，您只需要添加一些注解和少量配置，就可以将` Spring Cloud `应用接入阿里分布式应用解决方案，通过阿里中间件来迅速搭建分布式应用系统。
+
+-  在` Spring Cloud Netflix `阶段我们采用` Eureka `做作为我们的**服务注册与发现服务器**，现利用` Spring Cloud Alibaba` 提供的` Nacos `组件替代该方案。 
+- **服务之间通信**：`Feign`
+- **熔断机制组件**： 阿里巴巴开源了 `Sentinel` 组件，实现了熔断器模式 
+- `API`网关： `Spring Cloud Gateway`， **Spring Cloud Gateway 作为 Spring Cloud 生态系中的网关，目标是替代 Netflix ZUUL**，其不仅提供统一的路由方式，并且基于 `Filter `链的方式提供了网关基本的功能，例如：安全，监控/埋点，和限流等。 
+
+## 下一代微服务架构--服务网格(service mesh)
+
+可以去了解下微服务管理框架`service mesh`——`Istio`
+
+# SpringBoot转SringCloudAlibaba
+
+为什么要转？一方面是因为项目使用了`shiro`，很多时候其他接口都要依赖`shiro`的检查之后才能用，也就是说流量得经过`shiro`检查，没有问题才放行给接口处理逻辑，这样的话接口就和`shiro`耦合在一起了，如果我们把`shiro`拆出来，当一个服务，流量经过这个服务检查，没问题才放行给其他服务使用，这里我们讲的其实就是微服务里面的网关。另一方面就是之前没有用过，想用用。当然，微服务也有很多缺点，比如增加开发成本，服务器开销等等。
 
 # SpringCloud自动部署问题
 
