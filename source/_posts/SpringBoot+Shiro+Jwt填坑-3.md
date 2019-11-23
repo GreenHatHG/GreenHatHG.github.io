@@ -43,7 +43,7 @@ tags:
 
 <dependency>
 	<groupId>org.apache.shiro</groupId>
-	<artifactId>shiro-spring-boot-web-starter</artifactId>
+	<artifactId>shiro-spring</artifactId>
 	<version>1.4.1</version>
 </dependency>
 ```
