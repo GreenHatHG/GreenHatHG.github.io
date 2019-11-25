@@ -1,12 +1,13 @@
 ---
-title: Java-HashMap笔记
+title: Java-HashMap与HashTable
 date: 2019-10-10 19:57:14
 categories: 读书笔记
 tags:
 - Java
 - HashMap
+- HashTable
 ---
-HashMap
+HashMap与HashTable的区别
 <!-- more -->
 
 # Hashtable and HashMap
@@ -16,6 +17,8 @@ HashMap
 *Hashtable and HashMap are quite similar – both are collections that **implement the Map interface**.*
 
 **Hashtable和HashMap是非常相似的，因为它们都是实现了Map接口的集合**
+
+---
 
 
 
@@ -29,17 +32,23 @@ HashMap
 >
 > [java - What exactly is bucket in hashmap? - Stack Overflow](https://stackoverflow.com/questions/37959941/what-exactly-is-bucket-in-hashmap)
 
+---
+
 
 
 *Neither class maintains the insertion order of the elements. In other words, the first item added may not be the first item when we iterate over the values.*
 
 **这两个类都不保证元素的插入顺序。换句话说，当我们遍历值时，第一项可能不是第一次插入的。**
 
+---
+
 
 
 *But they also have some differences that make one better than another in some situations. Let's look closer at these difference Hashtable and HashMap in Java.*
 
 **它们也有一些差异，在某种情况下，可能使用前者会比后者好。**
+
+---
 
 
 
@@ -51,11 +60,15 @@ HashMap
 
 **首先，Hashtable是线程安全的，并且可以在应用程序中的多个线程之间共享。**
 
+---
+
 
 
 *On the other hand, HashMap is not synchronized and can't be accessed by multiple threads without additional synchronization code. We can use Collections.synchronizedMap() to make a thread-safe version of a HashMap. We can also just create custom lock code or make the code thread-safe by using the synchronized keyword.*
 
 **从另外一个角度来讲，HashMap不是线程同步的，并且在不添加额外的同步的代码情况下是不能被别的线程访问的。我们可以使用`Collections.synchronizedMap()`方法去生成线程安全的HashMap。当然我们可以使用锁或者是用`synchronized`关键字让HashMap变成线程安全的**
+
+---
 
 
 
