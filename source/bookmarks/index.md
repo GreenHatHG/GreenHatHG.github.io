@@ -1,7 +1,7 @@
 ---
 title: 自用书签（持续更新中！）
 toc: true
-layout: page 
+layout: single-column 
 ---
 
 # Docker
