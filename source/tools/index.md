@@ -1,6 +1,6 @@
 ---
 title: 自用工具（持续更新中！）
-date:
+toc: true
 layout: page
 ---
 # 英语
