@@ -69,10 +69,10 @@ menu:
     directory: archives/
     icon: fa-archive
   - page: 书签
-    directory: bookmarks/
+    directory: 2020/02/11/bookmarks/
     icon: fa-bookmark
   - page: 工具
-    directory: tools/
+    directory: /2020/02/11/tools/
     icon: fa-location-arrow
   - page: 留言
     directory: message/
