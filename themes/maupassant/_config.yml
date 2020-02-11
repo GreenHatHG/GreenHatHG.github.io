@@ -67,10 +67,10 @@ menu:
   - page: 归档
     directory: archives/
     icon: fa-archive
- - page: 书签
+  - page: 书签
     directory: bookmarks/
     icon: fa-bookmark
- - page: 工具
+  - page: 工具
     directory: tools/
     icon: fa-carrot
   - page: 留言
