@@ -1,8 +1,12 @@
 ---
 title: 自用工具（持续更新中！）
 toc: true
-layout: post
+date: 2020-02-11 21:00:50
 ---
+UpdateTime: 2020/02/11
+
+<!-- more -->
+
 # 英语
 
 [Check Spelling, Style, and Grammar with After the Deadline](https://www.polishmywriting.com/)
