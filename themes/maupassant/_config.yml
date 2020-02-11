@@ -72,7 +72,7 @@ menu:
     icon: fa-bookmark
   - page: 工具
     directory: tools/
-    icon: fa-carrot
+    icon: fa-location-arrow
   - page: 留言
     directory: message/
     icon: fa-comments
