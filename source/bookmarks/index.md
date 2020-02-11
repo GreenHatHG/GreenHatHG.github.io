@@ -28,6 +28,8 @@ layout: page
 
 [如何在 hexo 中支持 Mathjax？ - 简书](https://www.jianshu.com/p/e8d433a2c5b7)
 
+[常用数学符号的 LaTeX 表示方法](http://www.mohu.org/info/symbols/symbols.htm)
+
 [超详细Hexo+Github博客搭建小白教程 | 韦阳的博客](https://godweiyang.com/2018/04/13/hexo-blog/)
 
 [MathJax使用LaTeX语法编写数学公式教程 - 作业部落 Cmd Markdown 编辑阅读器](https://www.zybuluo.com/knight/note/96093)
@@ -35,6 +37,8 @@ layout: page
 [Front-matter 选项详解 | BOLG_ZJK](https://www.zhijunkang.com/2019/06/05/front-matter-jie-shao/)
 
 [Hexo跨博客文章推荐插件](https://github.com/huiwang/hexo-recommended-posts/blob/master/README.md)
+
+[使用Travis CI自动部署Hexo博客 | IT范儿](https://www.itfanr.cc/2017/08/09/using-travis-ci-automatic-deploy-hexo-blogs/)
 
 # MySQL
 
@@ -98,6 +102,8 @@ layout: page
 
 [Java后端2019书单推荐 | 嘟嘟独立博客](http://tengj.top/2017/05/05/javabook/#more)
 
+[《Maven官方指南》可选的依赖和依赖排除 | 并发编程网 – ifeve.com](http://ifeve.com/introduction-to-optional-and-excludes-dependencies/)
+
 # Python
 
 [Python最佳实践指南！ — The Hitchhiker's Guide to Python](https://pythonguidecn.readthedocs.io/zh/latest/)
@@ -114,6 +120,14 @@ layout: page
 
 [原码, 反码, 补码 详解 - ziqiu.zhang - 博客园](https://www.cnblogs.com/zhangziqiu/archive/2011/03/30/ComputerCode.html)
 
+[地址总线，字长，内存容量，寻址范围 之间的计算 - u012861978的专栏 - CSDN博客](https://blog.csdn.net/u012861978/article/details/45562483)
+
+[按字节编址与按字编址 - Lyons成长专栏 - CSDN博客](https://blog.csdn.net/u012468263/article/details/77920234)
+
+[字、字长、字节、位 - loverszhaokai - CSDN博客](https://blog.csdn.net/loverszhaokai/article/details/5988772)
+
+[什么是地址线和数据线，以及他们和计算机内存之间的关系？](https://zhidao.baidu.com/question/349691474/answer/2898335743?entrytime=1546051427400&fr=index_ans&word=%E5%9C%B0%E5%9D%80%E7%BA%BF%2C%E6%95%B0%E6%8D%AE%E7%BA%BF)
+
 # 在线ide
 
 [Free Online IDE and Terminal](https://www.tutorialspoint.com/codingground.htm)
@@ -123,6 +137,8 @@ layout: page
 ## 网站
 
 [VisuAlgo - 通过动画可视化数据结构和算法](https://visualgo.net/en)
+
+[Graph Editor](https://csacademy.com/app/graph_editor/)
 
 [数据结构与算法/leetcode/lintcode题解](https://algorithm.yuanbin.me/zh-hans/)
 
@@ -171,6 +187,36 @@ layout: page
 [Greenwicher's Blog](http://blog.greenwicher.com/)
 
 [首页 · EXP-BLOG](http://exp-blog.com/gitbook/book/index.html)
+
+[萌咖 | MoeClub.org](https://moeclub.org/page/1/?spm=17.9)
+
+[老D博客 | 关注谷歌服务，分享互联网精神！](https://laod.cn/)
+
+[Home - 阳志平的网志](https://www.yangzhiping.com/)
+
+[秋水逸冰](https://teddysun.com/)
+
+[flyzy小站 - Learning on the way](https://www.flyzy2005.com/)
+
+[荒岛-分享创造快乐](https://lala.im/)
+
+[就是爱生活-发现生活的另一面](https://www.94ish.me/)
+
+[Rat's Blog - 相逢的人会再相逢](https://www.moerats.com/)
+
+[oD^Blog > 记录点滴](https://odcn.top/)
+
+[刘未鹏 | Mind Hacks – 思维改变生活](http://mindhacks.cn/)
+
+[笛声 – 寻常的人儿依旧](https://hqidi.com/)
+
+[某渣渣xzm的blog](http://xzm2001.cn/)
+
+[王辉的博客](https://hui-wang.info/)
+
+[Max's Blog](http://xiehongfeng100.github.io/)
+
+[xzOS - For Coding Life](https://xzos.net/)
 
 # Linux
 
@@ -260,6 +306,14 @@ layout: page
 
 [域名解析教程：Cloudflare解析与DNSPod解析 - VPS GO](https://www.vpsgo.com/domain-ns-cloudflare-dnspod.html#NS)
 
+[VPS服务器行业术语黑话大全](https://www.douban.com/note/692461372/)
+
+[VPS测评的基本属性介绍：性能 / 路由 / 延迟 / 下载速度 - VPS GO](https://www.vpsgo.com/vps-ceping-properties.html)
+
+[Affyun 🛒 – 每日推送新offers](https://affyun.com/)
+
+[分享我对于VPS主机的一些经验给入坑萌新 | 初行博客](https://www.zrj96.com/post-762.html)
+
 # Vim
 
 [技术|如何从 Vim 中访问 shell 或者运行外部命令](https://linux.cn/article-8337-1.html)
@@ -272,9 +326,11 @@ layout: page
 
 [Vim的强大配置文件（一键配置）_u010871058的专栏-CSDN博客](https://blog.csdn.net/u010871058/article/details/54253774)
 
-# VSC
+# Vue
 
 [VsCode从零开始配置一个属于自己的Vue开发环境 - 日常记录 - SegmentFault 思否](https://segmentfault.com/a/1190000019203847)
+
+[vue插件总结——总有你能用上的插件 _ Web秀](http://www.javanx.cn/20180720/vue-plug/)
 
 # 斐讯N1
 
@@ -296,7 +352,38 @@ layout: page
 
 [phicomm N1 armbian环境下安装功能丰富的开源NAS系统 OpenMediaVault](https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=342164)
 
+[N1 盒子 Ubuntu 3.14 内核开启无线热点 + 配置 dnsmasq 解析自定义域名](https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=341724)
 
+[[2018-09-08更新5.60版本4.18.7内核]给N1/T1装上原生Armbian_4.18内核](https://www.right.com.cn/forum/thread-335609-1-1.html)
+
+[ARMBIAN — Yandex.Disk](https://yadi.sk/d/pHxaRAs-tZiei)
+
+[(9.27更新图)4.18内核刷入emmc后恢复分区表方法](https://www.right.com.cn/forum/forum.php?extra=page=1&filter=typeid&mod=viewthread&tid=335867&typeid=21)
+
+[小白教程N1 armbian5.62及以上写入eMMC，使用armbian-config安装OpenMediaVault等...](https://www.right.com.cn/forum/forum.php?extra=page=1&filter=typeid&mod=viewthread&tid=342558&typeid=21)
+
+[N1刷Armbian进emmc后，如何重刷？](https://www.right.com.cn/forum/thread-330262-1-1.html)
+
+[N1能重复装armbian进emmc吗](https://www.right.com.cn/forum/forum.php?mod=viewthread&page=1&tid=345514)
+
+[[2018-9-22]斐讯天天链N1 官改v2.2线刷包，精简版，扩展功能可选](https://www.right.com.cn/FORUM/thread-338759-1-1.html)
+
+[斐讯 N1 安装 Armbian 教程](https://github.com/HouCoder/blog/blob/master/hacking/install-armbian-on-phicomm-n1/README.md)
+
+# 手机
+
+[V5Max优化GPS设置 | fanzi.home@web](http://www.fanzicai.com/blog_hexo/Phone/20160729-V5Max%E4%BC%98%E5%8C%96GPS%E8%AE%BE%E7%BD%AE.html)
+
+[桓清山服务禁用配置](https://bbs.letitfly.me/u/HuanZHIY/discussions)
+[Termux 高级终端安装使用配置教程 | 国光](http://www.sqlsec.com/2018/05/termux.html)
+
+[Hello，Termux | Tony Bai](https://tonybai.com/2017/11/09/hello-termux/)
+
+[硬件键盘 - Termux Wiki](https://wiki.termux.com/wiki/Hardware_Keyboard)
+
+[en-miui](http://en.miui.com/)
+
+[主页-秋之盒](https://atmb.top/)
 
 # GCU
 
@@ -320,3 +407,18 @@ layout: page
 
 [找回密码的功能设计 - 阮一峰的网络日志](http://www.ruanyifeng.com/blog/2019/02/password.html)
 
+[IT行业都有哪些职位，初学者（0基础，新人）该如何选择，才能够快速进入这个行业？ - 知乎](https://www.zhihu.com/question/36991788)
+
+[你是如何学会正则表达式的？ - 知乎](https://www.zhihu.com/question/48219401)
+
+[MTP USB设备驱动程序失败[已解决] - 驱动程序简单](https://www.drivereasy.com/knowledge/samsung-mtp-usb-device-driver-was-not-successfully-installed-in-windows-7/)
+
+[网络单位换算](http://www.bubuko.com/infodetail-3068682.html)
+
+[国内外编程学习网站推荐？ - 知乎](https://www.zhihu.com/question/21123049)
+
+[TOPIC WISE Previous Year GATE Questions with Solutions](https://www.geeksforgeeks.org/quiz-corner-gq/#C%20Programming%20Mock%20Tests)
+
+[Android Studio版本大全](https://www.androiddevtools.cn/)
+
+[提高PDF的对比度](https://grunmin.github.io/2018/09/%E6%8F%90%E9%AB%98pdf%E7%9A%84%E5%AF%B9%E6%AF%94%E5%BA%A6/)
