@@ -4,7 +4,7 @@ toc: true
 date: 2020-02-11 21:23:50
 ---
 
-UpdateTime: 2020/02/11
+UpdateTime: 2020/02/12
 
 <!-- more -->
 
@@ -115,10 +115,6 @@ UpdateTime: 2020/02/11
 [Python教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/1016959663602400)
 
 [Python3-模块调用示例(从一个文件夹中调用另外一个文件夹中的类） - CSDN博客](https://blog.csdn.net/IDIOThh/article/details/82688095)
-
-# LinuxShell
-
-
 
 # 计组
 
@@ -269,10 +265,11 @@ UpdateTime: 2020/02/11
 [Ubuntu终端美化:oh-my-zsh+Powerlevel9k|双鱼座](https://blog.jae.sh/article/zqle60.html#4.%E5%AE%89%E8%A3%85Powerline%E5%AD%97%E4%BD%93)
 
 
-
 # Arch
 
 [helmuthdu/aui: Archlinux Ultimate Install--一键安装脚本](https://github.com/helmuthdu/aui)
+
+[保姆级Arch Linux安装+配置文档](https://github.com/NiiiKlaus/Get-my-Arch-Linux)
 
 [pacman/Tips and tricks (简体中文) - ArchWiki](https://www.liushike.com/virtual/docker/%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2-v2ray.html)
 
