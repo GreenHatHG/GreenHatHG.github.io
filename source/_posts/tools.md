@@ -192,6 +192,12 @@ UpdateTime: 2020/02/12
 
 [斗图啦 - 斗图大会 - 金馆长表情库 - 真正的斗图网站 - doutula.com](http://www.doutula.com/)
 
+# idea
+
+[Jetbrains系列产品2019.3.3最新激活方法[持续更新] | 知了](https://zhile.io/2018/08/17/jetbrains-license-server-crack.html)
+
+[程序员开发专属激活码，开启程序人生](http://idea.medeming.com/jets/)
+
 # 其他
 
 [Github中转下载](http://git.aakkc.com/)
