@@ -76,7 +76,7 @@ menu:
     icon: fa-location-arrow
   - page: 心情
     directory: mood/
-    icon: fa-egg
+    icon: fa-heart
   - page: 留言
     directory: message/
     icon: fa-comments
