@@ -74,6 +74,9 @@ menu:
   - page: 工具
     directory: /2020/02/11/tools/
     icon: fa-location-arrow
+  - page: 心情
+    directory: mood/
+    icon: fa-egg
   - page: 留言
     directory: message/
     icon: fa-comments
