@@ -3,7 +3,7 @@ title: 自用工具（持续更新中！）
 toc: true
 date: 2020-02-11 21:00:50
 ---
-UpdateTime: 2020/02/11
+UpdateTime: 2020/02/12
 
 <!-- more -->
 
@@ -21,7 +21,13 @@ UpdateTime: 2020/02/11
 
 [分享|440+ 个免费的编程 & 计算机科学的在线课程](https://linux.cn/article-9443-1.html)
 
+[金老师的计算机技术自学网站](http://jinxuliang.com/home/index)
 
+[猴头客 | 专注优质视频教程、网络资源的休闲小站](https://www.houtouke.com/)
+
+[Windsys Project](https://windsys.whatk.me/)
+
+[WINOS | 前沿的精简系统下载](https://www.winos.me/)
 
 # PDF下载
 
@@ -34,9 +40,13 @@ UpdateTime: 2020/02/11
 
 [免费IT计算机电子书下载网站](https://itbook.download/)
 
+[IT熊猫-计算机书籍下载](https://itpanda.net/book/)
+
 ## 综合
 
 [PDF Drive - Search and download PDF files for free.](https://www.pdfdrive.com/)
+
+[Jiumo Search 鸠摩搜索 - 文档搜索引擎](https://www.jiumodiary.com/)
 
 # 导航
 
@@ -114,6 +124,8 @@ UpdateTime: 2020/02/11
 
 # 在线工具
 
+## 工具集
+
 [在线工具 - 程序员的工具箱](在线工具 - 程序员的工具箱)
 
 [首页 - 孟坤工具箱网页版](http://tool.mkblog.cn/)
@@ -122,6 +134,18 @@ UpdateTime: 2020/02/11
 
 [在线工具大全，用完即走，触手可及_好工具网](http://www.nicetool.net/)
 
+[菜鸟工具 - 不止于工具](http://c.runoob.com/)
+
+[在线工具 —— OSCHINA.NET社区](https://tool.oschina.net/)
+
+[工具分类 - 在线代码转换 - aTool在线工具](http://www.atool9.com/classification_dev_tools.html)
+
+[MikuTools - 一个轻量的工具集合](https://tools.miku.ac/)
+
+[数字帝国 - 数学工具](https://zh.numberempire.com/)
+
+## 单一工具
+
 [在线画图](https://www.draw.io/)
 
 [Online JSON Viewer](http://jsonviewer.stack.hu/)
@@ -129,8 +153,6 @@ UpdateTime: 2020/02/11
 [asciinema - 以正确的方式记录和分享您的终端会话](https://asciinema.org/)
 
 [iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具](https://www.ilovepdf.com/zh-cn/powerpoint_to_pdf)
-
-[收藏工具](https://start.me/start/ca/startpage)
 
 [在线代码高亮](https://carbon.now.sh)
 
@@ -142,21 +164,33 @@ UpdateTime: 2020/02/11
 
 [在线预览字体](https://fontspark.app/)
 
+[分析LinuxShell](https://explainshell.com/)
 
+[变量名搜索](https://unbug.github.io/codelf)
 
-# 临时传输
+## 临时传输
 
 [拷贝兔(Copytool) - 轻量级纯Web跨平台文件、文字分享工具](https://cp.anyknew.com/)
 
+[Firefox Send](https://send.firefox.com/)
 
+[奶牛快传 | 文件传输服务](https://cowtransfer.com/)
+
+[文叔叔 - 传文件，找文叔叔（永不限速）](https://www.wenshushu.cn/)
+
+## 临时剪贴板
+
+[Ubuntu Pastebin](https://paste.ubuntu.com/)
+
+[AOSC Pastebin](https://pastebin.aosc.io/)
+
+[CoolText - 免费在线文本储存库](https://cooltext.cn/)
 
 # 表情包搜索
 
 [逗比拯救世界--专业的表情包搜索网站](http://www.dbbqb.com/)
 
 [斗图啦 - 斗图大会 - 金馆长表情库 - 真正的斗图网站 - doutula.com](http://www.doutula.com/)
-
-
 
 # 其他
 
@@ -165,12 +199,6 @@ UpdateTime: 2020/02/11
 [介绍 | RSSHub](https://docs.rsshub.app/)
 
 [浅谈部分机场（SS/SSR提供商）的使用感受--持续更新中](http://387099.blogspot.com/2018/03/ssssr.html)
-
-[猴头客 | 专注优质视频教程、网络资源的休闲小站](https://www.houtouke.com/)
-
-[Windsys Project](https://windsys.whatk.me/)
-
-[WINOS | 前沿的精简系统下载](https://www.winos.me/)
 
 [Free Microsoft Office for the web, Word, Excel, PowerPoint](https://products.office.com/en-us/free-office-online-for-the-web)
 
@@ -183,3 +211,7 @@ UpdateTime: 2020/02/11
 [全国图书馆参考咨询联盟](http://www.ucdrs.superlib.net/)
 
 [Research - 探索未知](http://www.suiyuanka.com/)
+
+[正则可视化工具](https://jex.im/regulex/)
+
+[作为程序员的你，常用的工具软件有哪些？ - 知乎](https://www.zhihu.com/question/22867411)
