@@ -48,6 +48,12 @@ UpdateTime: 2020/02/15
 
 [Jiumo Search 鸠摩搜索 - 文档搜索引擎](https://www.jiumodiary.com/)
 
+[书享家-电子书下载导航](http://shuxiangjia.cn/)
+
+[Library Genesis 英文pdf搜索引擎](http://gen.lib.rus.ec/)
+
+[Electronic Library. Download books for free. Over 2 million books and magazines](https://en.booksee.org/)
+
 # 导航
 
 [龙轩导航-做个有用的导航](http://ilxdh.com/)
