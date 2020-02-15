@@ -3,7 +3,7 @@ title: 自用工具（持续更新中！）
 toc: true
 date: 2020-02-11 21:00:50
 ---
-UpdateTime: 2020/02/12
+UpdateTime: 2020/02/15
 
 <!-- more -->
 
@@ -89,6 +89,10 @@ UpdateTime: 2020/02/12
 [搜狗微信搜索_订阅号及文章内容独家收录，一搜即达](https://weixin.sogou.com/)
 
 [Google学术搜索镜像_sci-hub网址_大木虫学术导航](http://www.4243.net/)
+
+[名刀电报群组搜索](https://xtea.io/ts.html)
+
+[telegram频道搜索](http://zhishi.sssoou.com/)
 
 # 下载
 
