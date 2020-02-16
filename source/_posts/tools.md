@@ -164,7 +164,9 @@ UpdateTime: 2020/02/15
 
 [iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具](https://www.ilovepdf.com/zh-cn/powerpoint_to_pdf)
 
-[在线代码高亮](https://carbon.now.sh)
+[在线代码高亮截图1](https://carbon.now.sh)
+
+[在线代码高亮截图2](https://www.dute.org/code-snapshot)
 
 [在线压缩图片](https://tinypng.com/)
 
