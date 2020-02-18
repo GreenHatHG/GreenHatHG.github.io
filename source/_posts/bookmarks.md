@@ -418,6 +418,8 @@ UpdateTime: 2020/02/12
 
 [国内外编程学习网站推荐？ - 知乎](https://www.zhihu.com/question/21123049)
 
+[在校生为了面试，有必要强行记住一些复杂算法如红黑树、KMP等的实现吗？ - 知乎](https://www.zhihu.com/question/36149122)
+
 [TOPIC WISE Previous Year GATE Questions with Solutions](https://www.geeksforgeeks.org/quiz-corner-gq/#C%20Programming%20Mock%20Tests)
 
 [Android Studio版本大全](https://www.androiddevtools.cn/)
