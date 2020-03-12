@@ -9,5 +9,5 @@ tags:
 
 Notion – The all-in-one workspace for your notes, tasks, wikis...
 
-![GreenHatHG Notion](https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279)
+[GreenHatHG Notion](https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279)
 

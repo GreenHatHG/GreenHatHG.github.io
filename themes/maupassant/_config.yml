@@ -65,9 +65,9 @@ menu:
   - page: 首页
     directory: .
     icon: fa-home
-  # - page: Notion
-  #   directory: https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279
-  #   icon: fa-link  
+  - page: Notion
+    url: https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279
+    icon: fa-link  
   - page: 归档
     directory: archives/
     icon: fa-archive
