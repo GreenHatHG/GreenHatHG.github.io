@@ -1,9 +1,9 @@
 ---
-title: 自用工具（持续更新中！）
+title: 自用工具（移至notion更新！）
 toc: true
 date: 2020-02-11 21:00:50
 ---
-UpdateTime: 2020/02/15
+UpdateTime: 2020/03/12
 
 <!-- more -->
 
