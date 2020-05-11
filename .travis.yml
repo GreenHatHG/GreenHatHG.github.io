@@ -1,5 +1,5 @@
 language: node_js # 设置语言
-node_js: lts
+node_js: lts/*
 cache:
     apt: true
     directories:
