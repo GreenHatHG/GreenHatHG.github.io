@@ -365,7 +365,7 @@ footer:
       url: https://github.com/GreenHatHG
     #- icon: fas fa-headphones-alt
       #url: https://music.163.com/#/user/home?id=63035382
-  copyright: '[Copyright © 2017-2020 Mr. X](https://greenhathg.github.io/)'
+  copyright: '[Copyright © 2017-2020 GreenHat](https://greenhathg.github.io/)'
   # You can add your own property here. (Support markdown, for example: br: '<br>')
   br: '<br>'
 
@@ -414,7 +414,7 @@ plugins:
   busuanzi: https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js
 
   # npm i --save hexo-wordcount
-  wordcount: #true
+  wordcount: true
 
   ######## Plugins for ...
   # Button Ripple Effect
@@ -450,7 +450,7 @@ plugins:
   # APlayer is only available in mainland China.
   # APlayer config: https://github.com/metowolf/MetingJS
   aplayer:
-    enable: true
+    enable: false
     js:
       - https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js
       - https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js
@@ -479,8 +479,8 @@ comments:
   # Valine
   # https://valine.js.org/
   valine:
-    appId: dogUA2FSKGTo029M1SEwGROT-MdYXbMMI # your appId
-    appKey: u0NdtQ8nvHoMdJPSYqm1LRxE # your appKey
+    appId: B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz # your appId
+    appKey: 1eamiU413QNrf2B7qgu7UuEx # your appKey
     js: https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js
     path: # All pages use the same path (share the same comments data)
     meta: nick,mail,link # valine comment header info
