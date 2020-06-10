@@ -172,7 +172,7 @@ public void processBuilder() throws IOException {
 
 需要注意的是，如果我们想要执行某个文件夹下的可执行文件：先使用`directory`方法定位到该文件夹，然后使用`command`命令去执行，这样是不行的。
 
-因为command会从环境变量中找，而不是
+因为command会从环境变量中找，而不是当前目录，如果要使用，记得加`./`表示当前目录
 
 ### 重定向标准输入和输出
 
