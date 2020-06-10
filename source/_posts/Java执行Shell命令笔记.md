@@ -22,7 +22,7 @@ ProcessBuilder类浅析以及Linux Shell执行逻辑
 - `Arch Linux x86_64 Linux 5.4.44-1-lts`
 - `java version "1.8.0_251" Java HotSpot(TM) 64-Bit Server VM (build 25.251-b08, mixed mode)`
 
-# Runtime
+## Runtime
 
 ```java
 public void runTime() throws IOException, InterruptedException {
@@ -51,15 +51,15 @@ public void runTime() throws IOException, InterruptedException {
 
 ![](Java执行Shell命令笔记/3.png)
 
-# ProcessBuilder
+## ProcessBuilder
 
-## 简介
+### 简介
 
 1. 此类用于创建操作系统进程
 2. 命令的有效性取决于操作系统
 3. 此类**未同步**。 如果多个线程同时访问ProcessBuilder实例，并且至少有一个线程在结构上修改了其中一个属性，则必须在外部对其进行同步
 
-##  简单使用
+###  简单使用
 
 ```java
 public void processBuilder() throws IOException, InterruptedException {
@@ -82,7 +82,7 @@ public void processBuilder() throws IOException, InterruptedException {
 .command("bash", "-c", "/usr/bin/java -Djava.library.path=/Users/myusername/myproject/lib/DynamoDBLocal_lib/ -jar /Users/myusername/myproject/lib/DynamoDBLocal.jar  -sharedDb".split("\\s+")).start();
 ```
 
-## 各个实例环境变量独立
+### 各个实例环境变量独立
 
 ```java
 public void processBuilder() throws IOException, InterruptedException {
@@ -115,7 +115,7 @@ XDG_DATA_DIRS: /usr/local/share:/usr/share
 
 ---
 
-## 修改环境变量
+### 修改环境变量
 
 **注意，这里修改的是启动新进程的环境变量，当我们修改时后新的进程还没有启动，所以我们command里面的可执行程序会在当前的PATH中找，也就是说执行顺序是先找到可执行程序，再传递我们修改后的环境变量给它。**
 
@@ -153,7 +153,7 @@ FAQ:
    pb.directory(new File("/home/cc/sofeware/node/bin/"));
    ```
 
-## 使用修改后的工作目录启动进程
+### 使用修改后的工作目录启动进程
 
 默认值是当前进程的当前工作目录，通常是由系统属性`user.dir`命名的目录
 
@@ -174,7 +174,7 @@ public void processBuilder() throws IOException {
 
 因为command会从环境变量中找，而不是
 
-## 重定向标准输入和输出
+### 重定向标准输入和输出
 
 ```java
 Process processBuilder = new ProcessBuilder("ls", "-l")
@@ -223,17 +223,17 @@ Process processBuilder = new ProcessBuilder("ls", "-l")
 
 [lang包源码解读之ProcessBuilder_凌霄的专栏-CSDN博客_processbuilder包](https://blog.csdn.net/Pengjx2014/article/details/78607192)
 
-# Linux Shell执行逻辑
+## Linux Shell执行逻辑
 
-## 什么是Shell
+### 什么是Shell
 
 Shell是用户与操作系统的接口，是操作系统的最外层。Shell结合了一种编程语言来控制进程和文件，以及启动和控制其他程序。
 
 Shell通过解析用户输入，然后处理操作系统产生的任何输出，来管理用户和操作系统之间的交互。
 
-## Shell的建立(Linux 0.11)
+### Shell的建立(Linux 0.11)
 
-### 开机到执行main函数之前
+#### 开机到执行main函数之前
 
 计算机通电后，内存中空空如也，通过CPU硬件的设计（Intel将所有`80x86`系列的CPU，包括最新型号的CPU的硬件设计为加电即进入16位实模式状态运行），加电瞬间强行将`CS:IP`（CS寄存器和IP寄存器）指向`0xFFFF0`，这块地方正好是BIOS所在地方，然后BIOS就启动了，准备实模式下的中断向量表和中断服务程序（后续程序要利用这些中断服务程序把系统内核从硬盘加载至内存）
 
@@ -241,7 +241,7 @@ Shell通过解析用户输入，然后处理操作系统产生的任何输出，
 
 接下来是向32位模式转变，开始设置GDT和IDT（中断描述符和全局描述符表），打开A20地址线，实现32位寻址，为保护模式下执行`head.s`（system模块第一部分代码）做准备，head.s开始执行，重建GDT，建立内核分页机制，然后执行ret指令跳到main函数程序执行
 
-### 设备环境初始化以及激活进程0
+#### 设备环境初始化以及激活进程0
 
 之后内核首先初始化根设备和硬盘，规划物理内存格局：除了内核代码和数据所占空间之外，其余物理内存主要分为三部分：主内存区（进程代码运行的空间）、缓存区（主机与外设进行数据交互的空间&内核管理进程的数据结构）和虚拟盘（可选，将外设上的数据先复制进虚拟盘区，然后加以使用，加快执行效率）
 
@@ -251,23 +251,23 @@ Shell通过解析用户输入，然后处理操作系统产生的任何输出，
 
  最后开启中断，初始化缓冲区管理结构，硬盘等 ，以及用仿中断的方法将进程0的特权级由0变成3（Linux系统规定除进程0之外，所有进程都要由一个已有进程在3特权级下创建，进程0的代码和数据都是由操作系统的设计者写在内核代码、数据区，并且此前还处在0特权级，严格说还不是真正意义上的进程），实现激活进程0                                                                                                                                                                       
 
-### 进程1的创建及执行
+#### 进程1的创建及执行
 
 进程0现在处在3特权级状态，即进程状态。正式开始运行要做的第一件事就是作为父进程调用fork函数创建第一个子进程——进程1，这是父子进程创建机制第一次实际运用。之后所有进程都是基于父子进程机制由父进程创建出来的。
 
 设置进程1的分页管理和进程1在GDT中的表项，将进程1的状态设置为就绪态，使它可以参与进程调度。内核第一次调度，进程0切换到进程1执行，进程1第一次执行后开始设置硬盘信息，格式化虚拟盘，加载根文件系统等工作
 
-### 进程2的创建
+#### 进程2的创建
 
 进程1打开创建shell所需要的终端标准输入文件、标准输出设备和标准错误输出设备（意味着可以在程序中使用`printf()`函数）。进程1通过fork()创建进程2，创建后fork函数返回2，调用`wait()`函数（函数作用是如果进程1有等待退出的子进程，就为该进程的退出做善后工作；如果有子进程，但并不等待退出，则进行进程切换，如果没有子进程，函数返回）
 
-### 进程2执行以及加载shell程序
+#### 进程2执行以及加载shell程序
 
 轮转到进程2，关闭标准输入设备文件，并用rc文件替换它（rc文件是脚本文件，记录着一些命令，应用程序通过解析命令来执行任务）。rc文件打开后，调用`execve()`函数加载shell程序，参数（`/bin/sh`）和环境变量（`HOME=/`）都已在内核中事先准备好，然后检查shell程序的正确性
 
 接着加载参数和环境变量到进程2的栈空间中。进程2有了主机对应的程序shell，因此要调整自己对应的管理结构和EIP、ESP，这样软中断iret返回后，进程2将从shell程序开始执行。
 
-### 执行shell程序
+#### 执行shell程序
 
 shell程序开始执行后，其线性地址空间对应的程序并未加载，产生缺页中断，调用中断处理程序来分配页面并加载一页shell程序。之后内核会将该页内容映射到shell进程的线性地址空间内，建立页目录表->页表->页面的三级映射管理关系
 
@@ -275,7 +275,7 @@ shell程序开始执行后，其线性地址空间对应的程序并未加载，
 
 ----
 
-## shell处理用户指令工作原理
+### shell处理用户指令工作原理
 
 用户通过键盘输入的信息，存储在指定的字符缓冲队列上。该缓冲队列上的内容，就是tty0文件的内容。shell进程会不断读取缓冲队列上的数据信息。如果用户没有下达指令，缓冲队列中就不会有数据。
 
