@@ -10,7 +10,7 @@ tags:
 
 <!-- more -->
 
-搬运至
+搬运整理至
 
 [终于有人把Elasticsearch原理讲透了！ - 知乎](https://zhuanlan.zhihu.com/p/62892586)
 
