@@ -44,3 +44,4 @@ tags:
 
 ![](ElasticSearch入门/es(0)_14.JPG)
 
+![](ElasticSearch入门/es(0)_15.JPG)
