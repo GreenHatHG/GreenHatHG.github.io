@@ -174,3 +174,20 @@ df = df.drop('模块',axis=1)
 df = df.drop([2, 3], axis=0)
 ```
 
+# 对比两个excel
+
+## 找出新excel新增和修改的行
+
+```python
+merged = old_df.merge(new_df, indicator=True, how='outer')
+diff_new_df = merged[merged['_merge'] == 'right_only']
+```
+
+## 找出新excel删除的行
+
+这里`merged`用的上面那个，`left_only`其实是旧excel对比新excel所有的旧数据，所以我们要取一列为标准筛选出来，也就说选取那一列的值在旧的excel中有，新的没有，那么旧代表新的excel中删除了
+
+```python
+left_only = merged[merged['_merge'] == 'left_only']
+diff_delete_df = left_only[~left_only['用例名称'].isin(diff_new_df['用例名称'])]
+```
