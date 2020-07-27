@@ -176,18 +176,65 @@ df = df.drop([2, 3], axis=0)
 
 # 对比两个excel
 
-## 找出新excel新增和修改的行
+## 找出新excel[新增和修改]和[删除]的行
 
 ```python
 merged = old_df.merge(new_df, indicator=True, how='outer')
 diff_new_df = merged[merged['_merge'] == 'right_only']
 ```
 
-## 找出新excel删除的行
-
 这里`merged`用的上面那个，`left_only`其实是旧excel对比新excel所有的旧数据，所以我们要取一列为标准筛选出来，也就说选取那一列的值在旧的excel中有，新的没有，那么旧代表新的excel中删除了
 
 ```python
 left_only = merged[merged['_merge'] == 'left_only']
 diff_delete_df = left_only[~left_only['用例名称'].isin(diff_new_df['用例名称'])]
+```
+
+## 分别找出excel[新增] [修改] [删除]的行
+
+这里对一行数据判定唯一的标准是用a列和b列
+
+```python
+diff_added_df = new_df[
+            (~new_df.set_index(['a', 'b']).index.isin(outdated_df.set_index(['a', 'b']).index))]
+```
+
+```python
+diff_removed_df = outdated_df[
+            (~outdated_df.set_index(['a', 'b']).index.isin(new_df.set_index(['a', 'b']).index))]
+```
+
+```python
+diff_changed_df = pd.DataFrame(columns=diff_removed_df.columns)
+changed_rows = []
+for index1, outdated_row in outdated_df.iterrows():
+    for index2, new_row in new_df.iterrows():
+        # pd.DataFrame.equals: The data type of columns of the two parameters must be the same before comparison
+        if outdated_row['a'] == new_row['a'] and outdated_row['b'] == new_row[
+            'b'] and not pd.DataFrame.equals(outdated_row.drop('ID'),
+                                                new_row.drop('ID')):
+            changed_rows.append(new_row.values)
+            diff_changed_df = diff_changed_df.append(
+                pd.DataFrame(changed_rows, columns=diff_changed_df.columns)).reset_index()
+```
+
+## 判断两个excel是否存在重复行
+
+这里对一行数据判定唯一的标准是用a列和b列
+
+```python
+# Check the table for duplicate data(用例名称 用例目录 are the same at the same time)
+def check_multiple_name_directory(df):
+    res = df[df.duplicated(subset=['a', 'b'], keep=False)]
+    return True if res.empty else False
+```
+
+# 改变列宽
+
+```python
+writer = pd.ExcelWriter(outfile, engine='xlsxwriter')
+df.to_excel(writer, sheet_name=sheet_name, index=None)
+_w = (10, 30, 10, 10, 10, 60, 30, 60, 20, 60, 20, 10, 10, 10)
+for width, col in zip(_w, string.ascii_uppercase[:12]):
+    writer.sheets[sheet_name].set_column(f'{col}:{col}', width)
 ```
