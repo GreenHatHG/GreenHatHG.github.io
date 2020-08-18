@@ -38,166 +38,139 @@ https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
 
 - 手动设置git编码正确，`Windows`和`*nix`两个系统操作方式不一样
 
-- 使用脚本自动对所有内容进行编码：https://github.com/Artalus/git-autounicode
+- 添加编码设置到`~/.gitconfig`
 
 这里采用第二种方案
 
-# 实现
-
-提供个稍微处理后的`pre-commit.pl`
-
-```perl
-#!/usr/bin/perl
-# Should be put into <repository>/
-
-my @diffFiles = GetFiles();
-my $filecount = @diffFiles;
-if ( $filecount == 0 )
-{
-	exit 0;
-}
-
-my @unicodedFiles = ();
-my $unicodedCount = 0;
-my $i = 0;
-foreach $file (@diffFiles)
-{
-	$i += 1;
-	ConvertFile($file);
-}
-
-if ( $i != $filecount )
-{
-	exit 1;
-}
-
-if ( $unicodedCount == 0 )
-{
-	exit 0;
-}
-
-exit 1;
-
-###############################################################################
-
-# get the files to encode
-sub GetFiles
-{
-	# turn off escaping non-ascii characters so тест.файл won't turn to "\321\202\320\265\321\201\321\202.\321\204\320\260\320\271\320\273"
-	my $QP = `git config --get core.quotepath`;
-	`git config core.quotepath off`;
-
-	# get files to process
-	my @diffResult = `git diff --stat --cached --diff-filter=ACMR`;
-	`git config core.quotepath $QP`;
-	
-	# skip last line "3 files changed, 1 insertion"
-	pop @diffResult;
-	
-	my @diffFiles = ();
-	
-	for $d (@diffResult)
-	{
-		# split each string by " | " in center
-		my @parts = split / \| /, $d;
-		
-		# skip binary files
-		if (not BeginsWith(Trim($parts[1]), 'Bin'))
-		{
-			push @diffFiles, Trim($parts[0]);
-		}
-	}
-	
-	return @diffFiles;
-}
-
-# encode the file if needed
-sub ConvertFile
-{
-	my ($f) = @_;
-	
-	# since git diff returns one file per line ending with \n
-	$f =~ s/\n//;
-	my $utf = '~'.$f.'.utf8';
-	
-	# if we can successfully convert from Utf8 to Utf8 - it's already encoded correctly, won't mess around
-	`iconv -s -f utf-8 -t utf-8 $f > /dev/null`;
-	if ( not $? )
-	{
-		return;
-	}
-	
-	# otherwise, let's try to convert it
-	`touch $utf`;
-	`iconv -s -f cp1251 -t utf-8 $f > $utf`;
-	if ( not $? )
-	{
-		`rm $f`;
-		`mv $utf $f`;
-		$unicodedCount += 1;
-		push @unicodedFiles, $f;
-		return;
-	}
-	
-	`rm $utf`;
-}
-
-
-sub BeginsWith
-{
-    return substr($_[0], 0, length($_[1])) eq $_[1];
-}
-
-sub Trim
-{
-	my $s = shift;
-	$s =~ s/^\s+|\s+$//g;
-	return $s
-};
+```python
+    def add_git_config():
+        git_config = """
+#tapd
+[core]
+   quotepath = false
+[gui]
+   encoding = utf-8
+[i18n]
+   commitencoding = utf-8
+[svn]
+   pathnameencoding = utf-8
+"""
+        git_config_path = os.path.join(os.path.expanduser("~"), '.gitconfig')
+        with open(git_config_path, 'r', encoding="utf-8") as f:
+            content = f.read()
+        if content.find('#tapd') == -1:
+            with open(git_config_path, 'a', encoding="utf-8") as f:
+                f.write(git_config)
 ```
 
-将此文件放在仓库根目录
+# pre-commit实现
 
-然后在`.git/hooks`文件夹下添加文件`pre-commit`
+在`.git/hooks`文件夹下添加文件`pre-commit`
 
 ```shell
 #!/bin/sh
 
-perl "pre-commit.pl"
-
 # 获取git变更文件
 diff=`git diff --cached --name-only`
+echo $diff
 # 转换成数组
 updated_file_arr=(${diff// /})
 
 # 获取文件执行绝对路径
-SHELL_FOLDER=$(dirname $(readlink -f "$0"))
-# 获取项目src绝对路径
-SRC_PATH=${SHELL_FOLDER/'.git/hooks'/'src/'}
+SHELL_FOLDER=$(cd "$(dirname "$0")"; pwd -P)
+echo $SHELL_FOLDER
+cd $SHELL_FOLDER
+cd ../../src
 
-cd $SRC_PATH
-# 判断python执行命令
-if type python3 >/dev/null 2>&1; then
-  # 本地检查文件，错误列表保存在文本notification_list
-  python3 local_conversion.py > /dev/null
-else
-  python local_conversion.py > /dev/null
-fi
+PYTHON_PATH=`head -n +1 python_info.txt`
+${PYTHON_PATH} local_conversion.py > /dev/null
 
 # 获取错误列表
 content=`cat notification_list`
-# 错误列表以~~~隔开，分割转换为数组
 error_file_arr=(${content//~~~/ })
 
 for err_file in ${error_file_arr[*]}
 do
   for updated_file in ${updated_file_arr[*]}
   do
-  	# 在错误列表中找到变更的文件则拒绝commit	
+    echo $err_file
+    echo $updated_file
     [ "$err_file" == "$updated_file" ] && echo 'Check failed' && exit 1
   done
 done
 
 echo 'success!'
+```
+
+这里需要注意二点，有些Shell命令在Windows和Mac下不兼容的，这里需要验证一下，(上面的命令已经经过验证)；非windows系统需要执行`chmod`对该文件授予可执行权限
+
+主要有两条不兼容：
+
+- 获取文件执行绝对路径
+
+  ```shell
+  SHELL_FOLDER=$(cd "$(dirname "$0")"; pwd -P)
+  ```
+
+- 文件替换
+
+  ```shell
+  PROJECT_PATH=${SHELL_FOLDER/'.git/hooks'/ }
+  ```
+
+# 自动配置git hooks脚本
+
+这里主要有几个功能点：
+
+1. 文件夹和文件合法性检验
+2. 复制`pre-commit`到`.git/hooks`，如果是非windows系统再执行`chmod`授予权限
+3. 获得python执行路径保持到`src/python_info.txt`，用于`pre-commit`脚本执行python命令
+4. 添加gitconfig配置，避免使用git命令得到文件列表是乱码的
+
+```python
+import os
+import platform
+import subprocess
+import sys
+from shutil import copy
+from sys import platform as _platform
+
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+pre_commit = os.path.join(base_dir, 'pre-commit')
+git_path = os.path.join(base_dir, '.git')
+hooks_path = os.path.join(git_path, 'hooks')
+
+
+def check_file():
+    if not (os.path.isfile(pre_commit) and os.path.getsize(pre_commit) > 0):
+        raise Exception(pre_commit + '文件为空或者不存在')
+
+
+def copy_pre_commit():
+    if not os.path.exists(git_path):
+        raise Exception('.git文件夹不存在')
+    if not os.path.exists(hooks_path):
+        raise Exception('hooks文件夹不存在')
+    check_file()
+    copy(pre_commit, hooks_path)
+    if not _platform == "win32" and not _platform == "win64":
+        subprocess.Popen('chmod +x {}'.format(os.path.join(hooks_path, 'pre-commit')), shell=True).wait()
+
+
+def get_info():
+    if '3.6' > platform.python_version():
+        raise Exception('请更新到python3.6版本以上')
+    python_path = sys.executable
+    with open(os.path.join(base_dir, 'src', 'python_info.txt'), 'w', encoding="utf-8") as f:
+        f.write(python_path)
+
+
+if __name__ == '__main__':
+    print('开始执行.......')
+    copy_pre_commit()
+    get_info()
+    Util.add_git_config()
+    print('执行完成.......')
+
 ```
 
