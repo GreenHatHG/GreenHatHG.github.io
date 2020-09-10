@@ -1,6 +1,6 @@
 ---
 title: vue-admin-template第三方接入配合动态路由
-date: 2020-0-10 21:54:28
+date: 2020-09-10 21:54:28
 categories: vue
 tags: 
 - 动态路由
