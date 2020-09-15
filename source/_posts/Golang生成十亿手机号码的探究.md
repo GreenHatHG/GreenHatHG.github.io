@@ -7,7 +7,7 @@ tags:
 - 随机数据
 ---
 
-
+优化大量生成手机号码所使用的时间，取得较好的成果
 
 <!-- more -->
 
@@ -317,24 +317,9 @@ func main()  {
 
 如果我们加上协程呢，同时注意去掉`var src = rand.NewSource(time.Now().UnixNano())`避免竞争锁
 
+调用代码和没有使用改善字符串生成的方法差不多
+
 ```go
-var wg sync.WaitGroup
-nCPU := runtime.NumCPU()
-runtime.GOMAXPROCS(nCPU)
-
-loop := 1000000000 / nCPU
-
-for i := 0; i < nCPU; i++{
-    generator := rand.New(rand.NewSource(time.Now().UnixNano() + int64(i*1000)))
-    wg.Add(1)
-    go func(generator *rand.Rand) {
-        for j := 0; j < loop; j++{
-            randomPhone(generator)
-        }
-        defer wg.Done()
-    }(generator)
-}
-wg.Wait()
 //2020-09-15 22:19:33
 //2020-09-15 22:19:45
 //11.851417s
