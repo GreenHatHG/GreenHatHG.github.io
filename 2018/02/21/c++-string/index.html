@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>c++string - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="STL,string">
+  
+  
+    <meta name="description" content="string小结">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2018/02/21/c++-string/">
+      c++string
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/STL/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>STL</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Feb 21, 2018</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>string小结</p>
+<a id="more"></a>
+
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><ol>
+<li>string类由头文件string支持</li>
+</ol>
+<p><em>（头文件string.h和cstring支持对c-风格字符串进行操纵的c库字符串函数，但不支持string类）</em></p>
+<ol start="2">
+<li>string类将string::nops定义为字符串最大长度，通常为unsigned int最大值</li>
+<li>string与wstring：</li>
+</ol>
+<ul>
+<li>string是针对char而预先定义的特化版本，wstring是针对wchat_t而预先定义的特化版本</li>
+<li>使用wstring可以让你使用宽字符集，例如Unicode或某些亚洲字符集‘</li>
+<li>所有字符串类型都采用相同接口，所以两者用法都一样。</li>
+</ul>
+<ol start="4">
+<li>C++字符串并不以’/0’结尾</li>
+<li>注意对象名不会被看做是对象地址，比如string s(20, ‘x’); s不是指针，s+6没有意义，而&amp;s[6]却是指针。</li>
+</ol>
+<h1 id="字符串各种操作函数"><a href="#字符串各种操作函数" class="headerlink" title="字符串各种操作函数"></a>字符串各种操作函数</h1><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>swap()</td>
+<td>交换两个字符串的内容</td>
+</tr>
+<tr>
+<td>=, assign()</td>
+<td>赋以新值</td>
+</tr>
+<tr>
+<td>+=,  append(),  push_back()</td>
+<td>在尾部添加字符</td>
+</tr>
+<tr>
+<td>insert()</td>
+<td>插入字符</td>
+</tr>
+<tr>
+<td>erase()</td>
+<td>删除字符</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>删除全部字符</td>
+</tr>
+<tr>
+<td>replace()</td>
+<td>替换字符</td>
+</tr>
+<tr>
+<td>+</td>
+<td>串联字符串</td>
+</tr>
+<tr>
+<td>==, != , &lt;, &lt;=, &gt;, &gt;=, compare()</td>
+<td>比较字符串</td>
+</tr>
+<tr>
+<td>size(), length()</td>
+<td>返回字符数量</td>
+</tr>
+<tr>
+<td>max_size()</td>
+<td>返回字符的可能最大个数</td>
+</tr>
+<tr>
+<td>empty()</td>
+<td>判断字符串是否为空</td>
+</tr>
+<tr>
+<td>capacity()</td>
+<td>返回重新分配之前的字符容量</td>
+</tr>
+<tr>
+<td>reserve()</td>
+<td>保留一定量内存以容纳一定数量的字符</td>
+</tr>
+<tr>
+<td>[ ],  at()</td>
+<td>存取单一字符</td>
+</tr>
+<tr>
+<td>&gt;&gt; ,  getline()</td>
+<td>从stream读取某值</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>将谋值写入stream</td>
+</tr>
+<tr>
+<td>copy()</td>
+<td>将某值赋值为一个C_string，不添加’\0’字符</td>
+</tr>
+<tr>
+<td>c_str()</td>
+<td>将内容以C_string返回，在尾端添加’\0’字符</td>
+</tr>
+<tr>
+<td>data()</td>
+<td>将内容以字符数组形式返回，并未追加’\0’字符，所以返回类型并非有效的c-string</td>
+</tr>
+<tr>
+<td>substr()</td>
+<td>返回某个子字符串</td>
+</tr>
+<tr>
+<td>begin() end()</td>
+<td>提供类似STL的迭代器支持</td>
+</tr>
+<tr>
+<td>rbegin()  rend()</td>
+<td>逆向迭代器</td>
+</tr>
+<tr>
+<td>get_allocator()</td>
+<td>返回配置器</td>
+</tr>
+</tbody></table>
+<h2 id="转换成c-string或字符数组"><a href="#转换成c-string或字符数组" class="headerlink" title="转换成c-string或字符数组"></a>转换成c-string或字符数组</h2><p>操作函数data(), c_str(), copy()</p>
+<p>注意：</p>
+<ol>
+<li>data()和c_str()返回的字符数组由该字符串拥有，也就是说调用者千万不能修改它或释放其内存</li>
+<li>一般而言，整个程序中应该坚持使用string，直到你必须将其内容转化为char*时才把他们转换成c-string。</li>
+</ol>
+<h2 id="C-字符串存在三种大小"><a href="#C-字符串存在三种大小" class="headerlink" title="C++字符串存在三种大小"></a>C++字符串存在三种大小</h2><ol>
+<li><p>现有的字符数，函数是size()和length()，他们等效。Empty()用来检查字符串是否为空。</p>
+</li>
+<li><p>size()是获取容器元素个数的通用成员函数，length()则对应于一般c-string strlen()函数，传回字符串长度。</p>
+</li>
+<li><p>max_size() ：这个大小是指当前C++字符串最多能包含的字符数，很可能和机器本身的限制或者字符串所在位置连续内存的大小有关系。</p>
+<p><em>我们一般情况下不用关心他，应该大小足够我们用的。但是不够用的话，会抛出length_error异常</em></p>
+</li>
+<li><p>capacity()：重新分配内存之前，string所能包含的最大字符数</p>
+</li>
+</ol>
+<h2 id="元素存取"><a href="#元素存取" class="headerlink" title="元素存取"></a>元素存取</h2><p>使用下标操作符[]和函数at()对元素包含的字符进行访问</p>
+<p>注意：</p>
+<p><em>操作符[]并不检查索引是否有效（有效索引0~str.length()），如果索引失效，会引起未定义的行为。而at()会检查，如果使用 at()的时候索引无效，会抛出out_of_range异常。</em></p>
+<p><em>str.length()：const string a;的操作符[]对索引值是a.length()仍然有效，其返回值是’/0’。其他的各种情况，str.length()索引都是无效的</em></p>
+<p>举个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="built_in">string</span> <span class="title">Cstr</span><span class="params">(“<span class="keyword">const</span> <span class="built_in">string</span>”)</span></span>;</span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">Str</span><span class="params">(“<span class="built_in">string</span>”)</span></span>;</span><br><span class="line">Str[<span class="number">3</span>];      <span class="comment">//ok</span></span><br><span class="line">Str.at(<span class="number">3</span>);    <span class="comment">//ok</span></span><br><span class="line">Str[<span class="number">100</span>]; <span class="comment">//未定义的行为</span></span><br><span class="line">Str.at(<span class="number">100</span>);    <span class="comment">//throw out_of_range</span></span><br><span class="line">Str[Str.length()]    <span class="comment">//未定义行为</span></span><br><span class="line">Cstr[Cstr.length()] <span class="comment">//返回 ‘/0'</span></span><br><span class="line">Str.at(Str.length());<span class="comment">//throw out_of_range</span></span><br><span class="line">Cstr.at(Cstr.length()) <span class="comment">////throw out_of_range</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="比较函数"><a href="#比较函数" class="headerlink" title="比较函数"></a>比较函数</h2><ol>
+<li>c++字符串支持常见的比较操作符（&gt;,&gt;=,&lt;,&lt;=,==,!=），甚至支持string与C-string的比较(如 str&lt;”hello”)。在使用&gt;,&gt;=,&lt;,&lt;=这些操作符的时候是根据“当前字符特性”将字符按字典顺序进行逐一得 比较。字典排序靠前的字符小，比较的顺序是从前向后比较，遇到不相等的字符就按这个位置上的两个字符的比较结果确定两个字符串的大小。同时，string (“aaaa”) &lt;string(aaaaa)</li>
+<li>另一个功能强大的比较函数是成员函数compare()。他支持多参数处理，支持用索引值和长度定位子串来进行比较。他返回一个整数来表示比较结果，返回值意义如下：0-相等 〉0-大于 &lt;0-小于。</li>
+</ol>
+<p>举个栗子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(“abcd”)</span></span>;</span><br><span class="line">s.compare(“abcd”); <span class="comment">//返回0</span></span><br><span class="line">s.compare(“dcba”); <span class="comment">//返回一个小于0的值</span></span><br><span class="line">s.compare(“ab”); <span class="comment">//返回大于0的值</span></span><br><span class="line">s.compare(s); <span class="comment">//相等</span></span><br><span class="line">s.compare(<span class="number">0</span>,<span class="number">2</span>,s,<span class="number">2</span>,<span class="number">2</span>); <span class="comment">//用”ab”和”cd”进行比较 小于零</span></span><br><span class="line">s.compare(<span class="number">1</span>,<span class="number">2</span>,”bcx”,<span class="number">2</span>); <span class="comment">//用”bc”和”bc”比较。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="更改内容"><a href="#更改内容" class="headerlink" title="更改内容"></a>更改内容</h2><h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>第一个赋值方法当然是使用操作符=，新值可以是string(如：s=ns) 、c_string(如：s=”gaint”)甚至单一字符（如：s=’j’）。还可以使用成员函数assign()，这个成员函数可以使你更灵活的对字符串赋值。</p>
+<p>举个栗子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s.assign(str); <span class="comment">//你懂得</span></span><br><span class="line">s.assign(str,<span class="number">1</span>,<span class="number">3</span>);<span class="comment">//如果str是”iamangel” 就是把”ama”赋给字符串</span></span><br><span class="line">s.assign(str,<span class="number">2</span>,<span class="built_in">string</span>::npos);<span class="comment">//把字符串str从索引值2开始到结尾赋给s</span></span><br><span class="line">s.assign(“gaint”); <span class="comment">//不说</span></span><br><span class="line">s.assign(“nico”,<span class="number">5</span>);<span class="comment">//把'n' ‘I' ‘c' ‘o' ‘/0'赋给字符串</span></span><br><span class="line">s.assign(<span class="number">5</span>,<span class="string">'x'</span>);<span class="comment">//把五个x赋给字符串</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s);<span class="comment">//把字符串s赋给当前字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;<span class="comment">//用c类型字符串s赋值</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s,<span class="keyword">int</span> n)</span></span>;<span class="comment">//用c字符串s开始的n个字符赋值</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span></span>;<span class="comment">//把字符串s赋给当前字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">char</span> c)</span></span>;<span class="comment">//用n个字符c赋值给当前字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s,<span class="keyword">int</span> start,<span class="keyword">int</span> n)</span></span>;<span class="comment">//把字符串s中从start开始的n个字符赋给当前字符串</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">assign</span><span class="params">(const_iterator first,const_itertor last)</span></span>;<span class="comment">//把first和last迭代器之间的部分赋给字符串</span></span><br></pre></td></tr></table></figure>
+
+<p>int copy(char *s, int n, int pos = 0) const;</p>
+<p>把当前串中以pos开始的n个字符拷贝到以s为起始位置的字符数组中，返回实际拷贝的数目</p>
+<h3 id="清空"><a href="#清空" class="headerlink" title="清空"></a>清空</h3><p>把字符串清空的方法有三个：</p>
+<p>s=””;    s.clear();        s.erase();</p>
+<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><p>函数有 +=、append()、push_back()。</p>
+<p>举个栗子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">s+=str;<span class="comment">//加个字符串</span></span><br><span class="line">s+=”my name is jiayp”;<span class="comment">//加个C字符串</span></span><br><span class="line">s+=<span class="string">'a'</span>;<span class="comment">//加个字符</span></span><br><span class="line">s.append(str);</span><br><span class="line">s.append(str,<span class="number">1</span>,<span class="number">3</span>);<span class="comment">//不解释了 同前面的函数参数assign的解释</span></span><br><span class="line">s.append(str,<span class="number">2</span>,<span class="built_in">string</span>::npos)<span class="comment">//不解释了</span></span><br><span class="line">s.append(“my name is jiayp”);</span><br><span class="line">s.append(“nico”,<span class="number">5</span>);</span><br><span class="line">s.append(<span class="number">5</span>,<span class="string">'x'</span>);</span><br><span class="line">s.push_back(‘a<span class="number">'</span>); <span class="comment">//这个函数只能增加单个字符对STL熟悉的理解起来很简单</span></span><br><span class="line">            </span><br><span class="line"><span class="comment">//在string中间的某个位置插入字符串</span></span><br><span class="line"><span class="comment">//需要指定一个安插位置的索引，被插入的字符串将放在这个索引的后面。</span></span><br><span class="line">s.insert(<span class="number">0</span>,”my name”);</span><br><span class="line">s.insert(<span class="number">1</span>,str);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> &amp;<span class="keyword">operator</span>+=(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s);<span class="comment">//把字符串s连接到当前字符串的结尾 </span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s)</span></span>;<span class="comment">//把c类型字符串s连接到当前字符串结尾</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *s,<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="comment">//把c类型字符串s的前n个字符连接到当前字符串结尾</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s)</span></span>;<span class="comment">//同operator+=()</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s,<span class="keyword">int</span> pos,<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="comment">//把字符串s中从pos开始的n个字符连接到当前字符串的结尾</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">char</span> c)</span></span>;<span class="comment">//在当前字符串结尾添加n个字符c</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> &amp;<span class="title">append</span><span class="params">(const_iterator first,const_iterator last)</span></span>;</span><br><span class="line"><span class="comment">//把迭代器first和last之间的部分连接到当前字符串的结尾</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<p><em>1. 这种形式的insert()函数不支持传入单个字符，这时的单个字符必须写成字符串形式。</em></p>
+<p><em>2. 为了插 入单个字符，insert()函数提供了两个对插入单个字符操作的重载函数：insert(size_type index,size_type num,chart c)和insert(iterator pos,size_type num,chart c)。</em></p>
+<p><em>3. 其中size_type是无符号整数，iterator是char</em>,所以，你这么调用insert函数是不行的：insert(0,1, ‘j’);这时候第一个参数将转换成哪一个呢？所以你必须这么写：insert((string::size_type)0,1,’j’)！第二种形式指 出了使用迭代器安插字符的形式。</p>
+<p><em>4. 顺便提一下，string有很多操作是使用STL的迭代器的，他也尽量做得和STL靠近。</em></p>
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>直接举个栗子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s=<span class="string">"il8n"</span>;</span><br><span class="line">s.replace(<span class="number">1</span>,<span class="number">2</span>,<span class="string">"nternationalizatio"</span>);</span><br><span class="line"><span class="comment">//从索引1开始的2个替换成后面的C_string</span></span><br><span class="line"><span class="comment">//即输出： nternationalization</span></span><br><span class="line">s.replace(<span class="number">1</span>,<span class="number">2</span>,”nternationalizatio”);</span><br><span class="line">s.erase(<span class="number">13</span>);<span class="comment">//从索引13开始往后全删除</span></span><br><span class="line">s.erase(<span class="number">7</span>,<span class="number">5</span>);<span class="comment">//从索引7开始往后删5个</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="提取子串和字符串连接"><a href="#提取子串和字符串连接" class="headerlink" title="提取子串和字符串连接"></a>提取子串和字符串连接</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s.substr();<span class="comment">//返回s的全部内容</span></span><br><span class="line">s.substr(<span class="number">11</span>);<span class="comment">//从索引11往后的子串</span></span><br><span class="line">s.substr(<span class="number">5</span>,<span class="number">6</span>);<span class="comment">//从索引5开始6个字符</span></span><br><span class="line"><span class="comment">//把两个字符串结合起来的函数是+。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="搜索和查找"><a href="#搜索和查找" class="headerlink" title="搜索和查找"></a>搜索和查找</h2><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>find()</td>
+<td>搜索第一个与value相等的字符</td>
+</tr>
+<tr>
+<td>rfind()</td>
+<td>搜索最后一个与value相等的字符</td>
+</tr>
+<tr>
+<td>find_first_of()</td>
+<td>搜索第一个“与value中某值相等”的字符</td>
+</tr>
+<tr>
+<td>find_last_of()</td>
+<td>搜索最后一个个“与value中某值相等”的字符</td>
+</tr>
+<tr>
+<td>find_first_not_of()</td>
+<td>搜索第一个“与value中任何值都不相等”的字符</td>
+</tr>
+<tr>
+<td>find_last_not_of()</td>
+<td>搜索最后一个“与value中任何值都不相等”的字符</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>所有搜索函数都返回符合条件的字符位置，如果搜索不成功，则返回npos。</p>
+</li>
+<li><p>这些函数都采用下面的参数方案：</p>
+<ul>
+<li>第一参数总是搜索对象</li>
+<li>第二参数（可有可无）指出string搜索起点（字符位置）</li>
+<li>第三参数（可有可无）指出搜索的字符个数</li>
+</ul>
+</li>
+<li><p>遍历：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">char</span>* cArray=<span class="string">"hello, world!"</span>;  </span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(cArray)</span></span>;  </span><br><span class="line">    <span class="comment">//数组方式  </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span> j=<span class="number">0</span>; j&lt; s.<span class="built_in">size</span>(); j++)  </span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"第"</span> &lt;&lt; j &lt;&lt; <span class="string">"个字符: "</span> &lt;&lt; s[j] &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">    <span class="comment">//迭代器方式  </span></span><br><span class="line">    <span class="built_in">string</span>::reverse_iterator ri;  </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"反向打印字符"</span> &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">    <span class="keyword">for</span>(ri=s.rbegin(); ri!=s.rend(); ri++)  </span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; *ri &lt;&lt; <span class="string">' '</span> ;  </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​</p>
+<p>​</p>
+</li>
+</ol>
+<h2 id="数值npos"><a href="#数值npos" class="headerlink" title="数值npos"></a>数值npos</h2><p>string::npos的类型是string::size_type,所以，一旦需要把一个索引与npos相比，这个索引值必须是string::size)type类型的，更多的情况下，我们可以直接把函数和npos进行比较（如：if(s.find(“jia”)== string::npos)）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> s;</span><br><span class="line"><span class="built_in">string</span>::size_type idx;</span><br><span class="line">...</span><br><span class="line">idx = s.<span class="built_in">find</span>(<span class="string">"sub"</span>);</span><br><span class="line"><span class="keyword">if</span>(id == <span class="built_in">string</span>::nops)</span><br><span class="line">    ....</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="string的构造和析构"><a href="#string的构造和析构" class="headerlink" title="string的构造和析构"></a>string的构造和析构</h1><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Feature</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string s</td>
+<td>生成一个空字符串s</td>
+</tr>
+<tr>
+<td>string s(str)</td>
+<td>拷贝构造函数生成str的复制品</td>
+</tr>
+<tr>
+<td>string s(str, stridx)</td>
+<td>将字符串str内”始于位置stridx”的部分当作字符串的初值</td>
+</tr>
+<tr>
+<td>string s(str, stridx, strlen)</td>
+<td>将字符串str内”始于stridx且长度顶多strlen”的部分作为字符串的初值</td>
+</tr>
+<tr>
+<td>string s(cstr)</td>
+<td>将C字符串（以NULL结束）作为s的初值</td>
+</tr>
+<tr>
+<td>string s(chars, chars_len)</td>
+<td>将C字符串前chars_len个字符作为字符串s的初值</td>
+</tr>
+<tr>
+<td>string s(num, ‘c’)</td>
+<td>生成一个字符串，包含num个c字符</td>
+</tr>
+<tr>
+<td>string s(“value”)</td>
+<td>将s初始化为一个字符串string s=“value”字面值副本</td>
+</tr>
+<tr>
+<td>string s=“value”</td>
+<td>将s初始化为一个字符串string s=“value”字面值副本</td>
+</tr>
+<tr>
+<td>string s(begin, end)</td>
+<td>以区间begin/end(不包含end)内的字符作为字符串s的初值</td>
+</tr>
+<tr>
+<td>s.~string()</td>
+<td>销毁所有字符，释放内存2</td>
+</tr>
+</tbody></table>
+<p>注意：</p>
+<p><em>不能以单一字符；爱初始化某个字符串</em></p>
+<p>但是可以这么做：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">s</span><span class="params">(<span class="string">'x'</span>)</span></span>; <span class="comment">//error</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">string</span> <span class="title">s</span><span class="params">(<span class="number">1</span>, <span class="string">'x'</span>)</span> <span class="comment">//ok,creates a string that has one character 'x'</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这表示了编译器提供了一个从const char*到string的自动类型转换功能，但是反过来却不行</p>
+<p>参考自：</p>
+<h1 id="string类的输入"><a href="#string类的输入" class="headerlink" title="string类的输入"></a>string类的输入</h1><h2 id="对于c-风格字符串"><a href="#对于c-风格字符串" class="headerlink" title="对于c-风格字符串"></a>对于c-风格字符串</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> info[<span class="number">100</span>];</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; info;	<span class="comment">//read a word</span></span><br><span class="line"><span class="built_in">cin</span>.getline(info, <span class="number">100</span>);	<span class="comment">//read a line,discard \n</span></span><br><span class="line"><span class="built_in">cin</span>.<span class="built_in">get</span>(info, <span class="number">100</span>);	<span class="built_in">read</span> a <span class="built_in">line</span>,leave \n in <span class="built_in">queue</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="对于string对象"><a href="#对于string对象" class="headerlink" title="对于string对象"></a>对于string对象</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> stuff;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; stuff;</span><br><span class="line">getline(<span class="built_in">cin</span>, stuff);</span><br></pre></td></tr></table></figure>
+
+<h3 id="getline"><a href="#getline" class="headerlink" title="getline"></a>getline</h3><ol>
+<li>两个版本的getline()都有一个可选参数，用于指定使用哪个字符来确定输入的边界</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cin</span>.getline(info, <span class="number">100</span>, <span class="string">':'</span>);</span><br><span class="line">getline(<span class="built_in">cin</span>, stuff, <span class="string">':'</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>string版本的getline()函数从输入中读取字符，并将其储存到目标string中，直到发生下种情况之一：<ul>
+<li>到达文件结尾，输入流的eofbit将被设置，这意味着方法fail()和eof()将被返回true</li>
+<li>遇到分界字符(默认未\n)，将把分界字符从输出流中删除，但是不储存</li>
+<li>读取的字符数达到最大允许值(string::nops和可供分配的内存字节数较小的一个)，在这种情况下，将设置输入流的failbit，这意味着方法fail()将放回true</li>
+</ul>
+</li>
+</ol>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2018/02/21/c++-string/>https://greenhathg.github.io/2018/02/21/c++-string/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/STL/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>STL</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/string/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>string</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2018/02/21/c++-string/&title=c++string - GreenHatHGのBlog&summary=string小结"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2018/02/21/c++-string/&title=c++string - GreenHatHGのBlog&summary=string小结"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2018/02/21/c++-string/&title=c++string - GreenHatHGのBlog&summary=string小结"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2018/02/22/%E6%97%A5%E5%B8%B8%E6%B0%B4%E9%A2%98/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>日常水题</p>
+                <p class='content'>p1008三连击、UVa340猜数字游戏的提示、Uva1583生成元，POJ-2271（模拟）,fzcoj1787(模拟)
+
+
+p1008三连击将1，2，…，9共9个数分成三组，分别组成三个三位...</p>
+              </a>
+            
+            
+              <a class='next' href='/2018/02/19/emacs%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/'>
+                <p class='title'>emacs官方文档阅读笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>基本命令行
+
+翻页浏览命令C-v    向前移动一屏M-v    向后移动一屏C-l    重绘屏幕，并将光标所在行置于屏幕的中央  
+光标移动命令C-f    向右移动一个字符C-b    向...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'c++string',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#转换成c-string或字符数组"><span class="toc-text">转换成c-string或字符数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-字符串存在三种大小"><span class="toc-text">C++字符串存在三种大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元素存取"><span class="toc-text">元素存取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较函数"><span class="toc-text">比较函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更改内容"><span class="toc-text">更改内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#赋值"><span class="toc-text">赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清空"><span class="toc-text">清空</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#增加"><span class="toc-text">增加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除"><span class="toc-text">删除</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提取子串和字符串连接"><span class="toc-text">提取子串和字符串连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索和查找"><span class="toc-text">搜索和查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数值npos"><span class="toc-text">数值npos</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对于c-风格字符串"><span class="toc-text">对于c-风格字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对于string对象"><span class="toc-text">对于string对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#getline"><span class="toc-text">getline</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

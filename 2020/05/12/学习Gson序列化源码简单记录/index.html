@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>学习Gson序列化源码简单记录 - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="gson,源码">
+  
+  
+    <meta name="description" content="简单按照源码实现下「 List to JsonStr」。直接实现也很简单，不过为了锻炼下阅读源码的能力，还是练习跟踪下源码，找出大体框架，不沉迷细节，把握整体。 ">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/">
+      学习Gson序列化源码简单记录
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>学习笔记</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：May 12, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>简单按照源码实现下「 List to JsonStr」。直接实现也很简单，不过为了锻炼下阅读源码的能力，还是练习跟踪下源码，找出大体框架，不沉迷细节，把握整体。 </p>
+<a id="more"></a>
+
+<h1 id="Gson的使用"><a href="#Gson的使用" class="headerlink" title="Gson的使用"></a>Gson的使用</h1><h2 id="环境约定"><a href="#环境约定" class="headerlink" title="环境约定"></a>环境约定</h2><p>这里使用的 Java 环境，使用 Maven 管理依赖</p>
+<ul>
+<li>Oracle JDK8</li>
+</ul>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/1.png" alt></p>
+<ul>
+<li><p>Gson2.8.6</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.google.code.gson&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;gson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;2.8.6&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.gson.Gson;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> GreenHatHG</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-05-12</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GsonTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">double</span> grade;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">double</span> grade)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.id = id;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.grade = grade;</span><br><span class="line">        &#125;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">//getter方法省略</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Gson gson = <span class="keyword">new</span> Gson();</span><br><span class="line">        ArrayList&lt;Student&gt; students = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">2020</span>, <span class="string">"李四"</span>, <span class="number">78</span>));</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">3030</span>, <span class="string">"王五"</span>, <span class="number">85</span>));</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">4040</span>, <span class="string">"张三"</span>, <span class="number">99</span>));</span><br><span class="line">        String s = gson.toJson(students);</span><br><span class="line">        System.out.println(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/2.png" alt></p>
+<h1 id="跟踪过程"><a href="#跟踪过程" class="headerlink" title="跟踪过程"></a>跟踪过程</h1><h2 id="找到的第一个抽象write方法"><a href="#找到的第一个抽象write方法" class="headerlink" title="找到的第一个抽象write方法"></a>找到的第一个抽象write方法</h2><ol>
+<li>查看 <code>gson.toJson(students)</code>的源码，位于<code>Gson.java</code></li>
+</ol>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/3.png" alt></p>
+<ol start="2">
+<li>这里面很明显， 615 行代码不会执行，转向 618 行的源码，位于<code>Gson.java</code>。</li>
+</ol>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/4.png" alt></p>
+<ol start="3">
+<li><p>这时候一看就是知道是 638 行代码执行起的序列化作用，该行源代码同样位于<code>Gson.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/5.png" alt></p>
+</li>
+<li><p>依旧点进去 683 行的源代码，位于<code>Gson.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/6.png" alt></p>
+<p>一看代码有点多，但是主要部分还是容易看出来的</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/7.png" alt></p>
+</li>
+<li><p>所以可以直接跳到 704 行代码，位于<code>TypeAdapter.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/8.png" alt></p>
+<p>从类名带 <code>Adapter</code> 来看，运用了适配器模式，这方面这里不展开</p>
+<p>这里是抽象方法，我们不知道会调用了哪个实现了它的方法，所以我们可以打上断点去调试，然后开启调试</p>
+</li>
+</ol>
+<h2 id="找到的第二个抽象write方法"><a href="#找到的第二个抽象write方法" class="headerlink" title="找到的第二个抽象write方法"></a>找到的第二个抽象write方法</h2><ol>
+<li><p>根据上面开启调试，会立马定位到该方法，位于<code>CollectionTypeAdapterFactory.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/9.png" alt></p>
+</li>
+<li><p>为了搞明白，我们依旧得利用调试去查看每个方法的作用，首先在 95 行断点，按照这里来看，序列化的内容应该会输出在<code>out</code>这个变量里面，目前<code>out</code>变量里面的内容：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/10.png" alt></p>
+<p>经过 95 行后，变成</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/11.png" alt></p>
+<p>可见<code>out.beginArray();</code>和<code>out.endArray();</code>只是在序列化字符串前后加个<code>[ ]</code>，我们直接模拟实现即可</p>
+</li>
+<li><p>那么重点应该是 96 那里了，我们可以看<code>collection</code>变量里面的内容</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/12.png" alt></p>
+<p>里面是我们之前创建的三个<code>Student</code>对象，那么自然 97 行代码也就是对每个对象进行序列化了</p>
+</li>
+<li><p>点进去后同样跳到了抽象的<code>write</code>方法，位于<code>TypeAdapter.java</code>，用同样的加断点方法进行调试</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/13.png" alt></p>
+</li>
+</ol>
+<h2 id="找到的第三个抽象write方法"><a href="#找到的第三个抽象write方法" class="headerlink" title="找到的第三个抽象write方法"></a>找到的第三个抽象write方法</h2><ol>
+<li><p>根据上面调试，跳到如下位置，位于<code>TypeAdapterRuntimeTypeWrapper.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/14.png" alt></p>
+<p>这时候我们可以选择直接断点在 69 行，查看序列化字符串变化情况。现在断点在 53 行的情况：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/15.png" alt></p>
+<p>待程序执行到 69 行，<code>out</code>变量里面的内容依旧没有变化</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/16.png" alt></p>
+<p>那么可以确定序列化代码在 69 行了。</p>
+</li>
+<li><p>点进 69 行代码，位于<code>TypeAdapter.java</code>，如下：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/17.png" alt></p>
+<p>这时候我们可以看到其实每次调用的这些的抽象<code>write</code>方法都是一样的，但是实现类却不一样，每个都有自己的功能。</p>
+<p><del>这个过程就好像套娃一样，老千层饼了</del></p>
+<p>那么依旧断点在 127 行这个抽象的<code>write</code>方法，为了避免其他的断点的干扰，以及方便跳到我们想要的地方，我们可以把其他断点去掉先，选择后按<code>delete</code>键可以删除</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/18.png" alt></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/20.png" alt></p>
+<p>然后我们再给 127 行打上断点</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/21.png" alt></p>
+<p><strong>当然上面只是一种方法，要是你觉得这种方法比较麻烦，你可以直接按下面的红色小箭头直接进入源码，省去断点在接口的麻烦，但是这样就略去了接口的细节</strong></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/22.png" alt></p>
+<p>FAQ：为什么不点蓝色箭头？</p>
+<p>因为蓝色那个有的地方跳不进去</p>
+</li>
+</ol>
+<h2 id="2020-years-later"><a href="#2020-years-later" class="headerlink" title="2020 years later"></a>2020 years later</h2><ol>
+<li><p>根据上面，跳到<code>ObjectTypeAdapter.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/23.png" alt></p>
+<p>这时候我们可以判断程序有没有执行 101 行里面的内容，<code>Step over F8</code>走下去，发现并没有进去，那么也就说，又到了我们最喜欢的抽象<code>write</code>方法环节了，emmm，点进去一如既往：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/17.png" alt></p>
+<p>为了方便，就不调试断点，直接<code>Step into</code>进去</p>
+</li>
+<li><p>进到<code>ReflectiveTypeAdapterFactory.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/24.png" alt></p>
+<p>同样我们需要确定 240 行的作用，先查看现在<code>out</code>变量的内容：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/25.png" alt></p>
+<p>执行完 240 行后</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/26.png" alt></p>
+<p>可以看到 240 行作用只不过是添加个<code>{</code>而已，但是绝对不是直接添加<code>{</code>那么简单</p>
+<p>自然 251 行作用就是添加个<code>}</code></p>
+</li>
+<li><p>然后接着<code>step over</code>执行到 244 行，为了确定 244 行作用，我们选择的做法依旧是先执行查看结果后再决定要不要<code>step into</code>进去。</p>
+<p>这里 244 行并没有什么变化，反而是执行了 245 行后有变化了</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/27.png" alt></p>
+</li>
+</ol>
+<h2 id="找到序列化属性名的代码"><a href="#找到序列化属性名的代码" class="headerlink" title="找到序列化属性名的代码"></a>找到序列化属性名的代码</h2><ol>
+<li><p>进入到 245 行后的代码，位于<code>ReflectiveTypeAdapterFactory.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/28.png" alt></p>
+</li>
+<li><p>同样为了确定主要代码部分，先让程序执行到 127 行</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/29.png" alt></p>
+<p>那么就可以确定是 127 行代码是主要部分，跳进去，又是一次套娃，emmm，这个我们在「找到第三个抽象write方法」那里就有出现过</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/14.png" alt></p>
+<p>这里我们选择的是<code>step over</code>一步步进行，同时查看<code>out</code>方法的变化</p>
+<p><code>step over</code>后，发现程序执行到 69 行<code>out</code>变量还没有变化，那么同样使用<code>step into</code>进去 69 行后，位于<code>TypeAdapters.java</code>，断点调试这行语句</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/30.png" alt></p>
+<p>发现<code>out</code>变量内容由<code>[{</code>变成了<code>[{&quot;id&quot;:2020</code>，那么自然得进去看这个代码</p>
+</li>
+<li><p>调试 233 行，源码进入到<code>JsonWriter.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/31.png" alt></p>
+<p>待执行完 526 行，序列化字符串内容添加了个<code>&quot;id&quot;</code></p>
+</li>
+</ol>
+<h2 id="简单分析写入属性名"><a href="#简单分析写入属性名" class="headerlink" title="简单分析写入属性名"></a>简单分析写入属性名</h2><ol>
+<li><p>调试 526 行代码，源码位于<code>JsonWriter.java</code></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/32.png" alt></p>
+<p>​    这里可以看到<code>defferredName</code>的值为<code>id</code>，那么 401 行代码自然就是将其写入到序列化字符串中</p>
+</li>
+<li><p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/33.png" alt></p>
+<p>这里是有做了字符串替换处理，会将一些特殊字符转换为unicode编程格式。</p>
+<p><code>replacements</code>正是一系列代替规则，<code>htmlSafe</code>是默认为<code>true</code>，替换规则默认如下：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/34.png" alt></p>
+<p>​    写入序列化字符串的过程，比如 592 行，使用了<code>synchronized</code>进行加锁，<code>lock</code>变量是个<code>Object</code>的实例</p>
+<p>​    <img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/35.png" alt></p>
+<p>​    </p>
+</li>
+</ol>
+<h3 id="htmlSafe是在哪里置为true的"><a href="#htmlSafe是在哪里置为true的" class="headerlink" title="htmlSafe是在哪里置为true的"></a>htmlSafe是在哪里置为true的</h3><p>我们先在原地方<code>JsonWrite.java</code>查看<code>htmlSafe</code>变量的使用情况</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/36.png" alt></p>
+<p>发现有个<code>htmlSafe</code>属性，我们把其他的断点情况，将断点断在属性上面，运行debug</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/37.png" alt></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/38.png" alt></p>
+<p>可以看到是有地方调了<code>setHtmlSafe</code>方法将其置为true</p>
+<p>查看该方法的使用情况，发现在<code>Gson.java</code>有地方调用了该方法</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/39.png" alt></p>
+<p>碰巧第 700 行有个<code>htmlSafe</code>变量，接着一样是查看该变量使用情况，然后定位到<code>Gson.java</code>也有个<code>htmlSafe</code>的变量，同样断点该变量</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/40.png" alt></p>
+<p>发现这里有个构造函数，给该变量赋值为true，正好是使用默认构造函数创建<code>Gson</code>对象的时候会将<code>htmlSafe</code>变为true</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/41.png" alt></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/42.png" alt></p>
+<h2 id="找到序列化属性值的代码"><a href="#找到序列化属性值的代码" class="headerlink" title="找到序列化属性值的代码"></a>找到序列化属性值的代码</h2><p>上面我们看到，在<code>JsonWrite.java</code>里面的 526 行，作用是序列化上属性名，我们接着执行</p>
+<p>执行到 532 行代码，这个函数作用是给序列化字符串加个”:”</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/43.png" alt></p>
+<p>那么，当我们执行玩 533 行时，就已经序列化好了属性名和属性值</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/44.png" alt></p>
+<h2 id="是如何获取属性名和属性值的"><a href="#是如何获取属性名和属性值的" class="headerlink" title="是如何获取属性名和属性值的"></a>是如何获取属性名和属性值的</h2><p>在上面，我们在 521 行这个函数中得到了一个value值，这个是属性值，但是它是怎么得到的呢</p>
+<p>我们可以查看这个函数的调用链：</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/45.png" alt></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/46.png" alt></p>
+<p>从第一个函数来看，看不到什么</p>
+<p>当我们查看第二个函数时，发现有个<code>deferredName</code>可疑，于是debug一下，正好这个值就是属性名，那么接下来我们需要得知它是如何被赋值的</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/47.png" alt></p>
+<p><code>Find Usages</code>后，发现是个<code>JsonWrite</code>的一个属性，于是我们按照之前的方法给属性断点</p>
+<p>然后断点停在了<code>JsonWriter.java</code>里</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/48.png" alt></p>
+<p>很显然，我们需要知道这个<code>name</code>如何来，查看调用链</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/49.png" alt></p>
+<p>这里找到一个比较可疑的变量<code>boundField</code>，位于<code>ReflectiveTypeAdapterFactory.java</code>，之所以说是可疑，因为它对比其他的变量特征显著，起码类型不是泛型，而是个具体的。</p>
+<p>一看，在 201 行有被用到</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/50.png" alt></p>
+<p>查看 201 行那个函数的使用情况，找到如下</p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/51.png" alt></p>
+<p><img src="/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/52.png" alt></p>
+<p>这里看到，有好几处运用到了反射，比如 152 166等行，再结合反射特点，所以推断出应该是用反射获得到属性值和属性名的</p>
+<h1 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">double</span> grade;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(<span class="keyword">int</span> id, String name, <span class="keyword">double</span> grade)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.id = id;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.grade = grade;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> id;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getGrade</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> grade;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">studentListToJson</span><span class="params">(List&lt;Student&gt; studentList)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="comment">//beginArray</span></span><br><span class="line">        sb.append(<span class="string">"["</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; studentList.size(); i++)&#123;</span><br><span class="line">            Student student = studentList.get(i);</span><br><span class="line"></span><br><span class="line">            sb.append(<span class="string">"&#123;"</span>);</span><br><span class="line">            <span class="comment">//绑定当前student对象的属性名和值</span></span><br><span class="line">            Map&lt;String, Object&gt; boundField = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//获取属性名和值</span></span><br><span class="line">            Class clazz = student.getClass();</span><br><span class="line">            Field[] fields = clazz.getDeclaredFields();</span><br><span class="line">            <span class="keyword">for</span> (Field field : fields)&#123;</span><br><span class="line">                field.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">                String fieldName = field.getName();</span><br><span class="line"></span><br><span class="line">                String methodName = <span class="string">"get"</span>+fieldName.substring(<span class="number">0</span>,<span class="number">1</span>)</span><br><span class="line">                    .toUpperCase()+fieldName.substring(<span class="number">1</span>);</span><br><span class="line">                Method method = clazz.getMethod(methodName, <span class="keyword">null</span>);</span><br><span class="line">                Object fieldValue = method.invoke(student, <span class="keyword">null</span>);</span><br><span class="line">                boundField.put(fieldName, fieldValue);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">boolean</span>[] internalFirst = &#123;<span class="keyword">true</span>&#125;;</span><br><span class="line">            boundField.forEach((k,v) -&gt;&#123;</span><br><span class="line">                <span class="keyword">if</span>(!internalFirst[<span class="number">0</span>])&#123;</span><br><span class="line">                    sb.append(<span class="string">","</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                sb.append(<span class="string">"\""</span>).append(k).append(<span class="string">"\""</span>).append(<span class="string">":"</span>);</span><br><span class="line">                <span class="keyword">if</span>(v <span class="keyword">instanceof</span> Number)&#123;</span><br><span class="line">                    sb.append(v);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    sb.append(<span class="string">"\""</span>).append(v).append(<span class="string">"\""</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                internalFirst[<span class="number">0</span>] = <span class="keyword">false</span>;</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            sb.append(<span class="string">"&#125;"</span>);</span><br><span class="line">            <span class="keyword">if</span>(i != studentList.size() - <span class="number">1</span>)&#123;</span><br><span class="line">                sb.append(<span class="string">","</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//endArray</span></span><br><span class="line">        sb.append(<span class="string">"]"</span>);</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        List&lt;Student&gt; students = <span class="keyword">new</span> ArrayList&lt;Student&gt;();</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">1</span>,<span class="string">"11"</span>, <span class="number">1.11</span>));</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">2</span>,<span class="string">"22"</span>, <span class="number">2.22</span>));</span><br><span class="line">        students.add(<span class="keyword">new</span> Student(<span class="number">3</span>,<span class="string">"33"</span>, <span class="number">3.33</span>));</span><br><span class="line">        System.out.println(Main.studentListToJson(students));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/>https://greenhathg.github.io/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/gson/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>gson</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%BA%90%E7%A0%81/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>源码</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/&title=学习Gson序列化源码简单记录 - GreenHatHGのBlog&summary=简单按照源码实现下「 List to JsonStr」。直接实现也很简单，不过为了锻炼下阅读源码的能力，还是练习跟踪下源码，找出大体框架，不沉迷细节，把握整体。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/&title=学习Gson序列化源码简单记录 - GreenHatHGのBlog&summary=简单按照源码实现下「 List to JsonStr」。直接实现也很简单，不过为了锻炼下阅读源码的能力，还是练习跟踪下源码，找出大体框架，不沉迷细节，把握整体。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2020/05/12/%E5%AD%A6%E4%B9%A0Gson%E5%BA%8F%E5%88%97%E5%8C%96%E6%BA%90%E7%A0%81%E7%AE%80%E5%8D%95%E8%AE%B0%E5%BD%95/&title=学习Gson序列化源码简单记录 - GreenHatHGのBlog&summary=简单按照源码实现下「 List to JsonStr」。直接实现也很简单，不过为了锻炼下阅读源码的能力，还是练习跟踪下源码，找出大体框架，不沉迷细节，把握整体。 "
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/06/06/Java%E6%89%A7%E8%A1%8CShell%E5%91%BD%E4%BB%A4%E7%AC%94%E8%AE%B0/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java执行Shell命令笔记</p>
+                <p class='content'>ProcessBuilder类浅析以及Linux Shell执行逻辑
+
+
+从Java代码运行Shell命令有两种方式
+
+使用Runtime类的exec方法
+第二种是使用ProcessBuilde...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/03/12/Notion%E9%83%A8%E5%88%86%E5%88%86%E4%BA%AB/'>
+                <p class='title'>Notion部分分享<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>贴下个人Notion分享地址，新文章在那边发布
+
+
+Notion – The all-in-one workspace for your notes, tasks, wikis…
+https:/...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js"></script>
+<!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+
+  <script>
+    window.subData = {
+      title: '学习Gson序列化源码简单记录',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境约定"><span class="toc-text">环境约定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到的第一个抽象write方法"><span class="toc-text">找到的第一个抽象write方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到的第二个抽象write方法"><span class="toc-text">找到的第二个抽象write方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到的第三个抽象write方法"><span class="toc-text">找到的第三个抽象write方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2020-years-later"><span class="toc-text">2020 years later</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到序列化属性名的代码"><span class="toc-text">找到序列化属性名的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简单分析写入属性名"><span class="toc-text">简单分析写入属性名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#htmlSafe是在哪里置为true的"><span class="toc-text">htmlSafe是在哪里置为true的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#找到序列化属性值的代码"><span class="toc-text">找到序列化属性值的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#是如何获取属性名和属性值的"><span class="toc-text">是如何获取属性名和属性值的</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

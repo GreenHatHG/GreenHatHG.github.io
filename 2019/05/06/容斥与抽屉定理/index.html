@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>容斥与抽屉定理 - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="数论">
+  
+  
+    <meta name="description" content="容斥与抽屉定理">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/">
+      容斥与抽屉定理
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E7%AE%97%E6%B3%95/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>算法</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：May 6, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>容斥与抽屉定理</p>
+<a id="more"></a>
+
+<h1 id="容斥定理"><a href="#容斥定理" class="headerlink" title="容斥定理"></a>容斥定理</h1><h2 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h2><p>参考：百度百科</p>
+<p>在计数时，必须注意没有重复，没有遗漏。为了使重叠部分不被重复计算，人们研究出一种新的计数方法，这种方法的基本思想是：先不考虑重叠的情况，把包含于某内容中的所有对象的数目先计算出来，然后再把计数时重复计算的数目排斥出去，使得计算的结果既无遗漏又无重复，这种计数的方法称为容斥原理。</p>
+<ul>
+<li><p>两个集合的容斥关系公式：A∪B =|A∪B| = |A|+|B| - |A∩B |(∩：重合的部分）</p>
+</li>
+<li><p>三个集合的容斥关系公式：|A∪B∪C| = |A|+|B|+|C| - |A∩B| - |B∩C| - |C∩A| + |A∩B∩C|</p>
+</li>
+</ul>
+<p>例如三个集合的关系：</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/1.png" alt></p>
+<p>(图里面的A+B+C划红色部分应该是划去{2,3,4,2,1,2}，即划去A∩B，B∩C，A∩C)</p>
+<ul>
+<li>一般情况：</li>
+</ul>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/2.png" alt></p>
+<h2 id="51nod1284"><a href="#51nod1284" class="headerlink" title="51nod1284"></a><a href="https://www.51nod.com/Challenge/Problem.html#!#problemId=1284" target="_blank" rel="noopener">51nod1284</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/3.png" alt></p>
+<p>容斥定理，先求反面，即1-N有多少是2 3 5 7的倍数，然后再用总数减去反面的数量即为所求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnt &#x3D; A2+A3+A5+A7-(A23+A25+A27+A35+A37+A57)+(A235+A237+A257+A357)-A2357</span><br></pre></td></tr></table></figure>
+
+<p>A2表示被2整除的个数  即N/2  A23为即被2又被3整除的个数即N/6</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">15ms</span></span><br><span class="line"><span class="comment">1912KB </span></span><br><span class="line"><span class="comment">c++11</span></span><br><span class="line"><span class="comment">2019/5/7 8:10:44</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n);</span><br><span class="line">    ll cnt = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//A2+A3+A5+A7</span></span><br><span class="line">    cnt += (n/<span class="number">2</span> + n/<span class="number">3</span> + n/<span class="number">5</span> + n/<span class="number">7</span>); </span><br><span class="line">    <span class="comment">//A23+A25+A27+A35+A37+A57</span></span><br><span class="line">    cnt -= (n/<span class="number">6</span> + n/<span class="number">10</span> + n/<span class="number">14</span> + n/<span class="number">15</span> + n/<span class="number">21</span> + n/<span class="number">35</span>); </span><br><span class="line">    <span class="comment">//A235+A237+A257+A357</span></span><br><span class="line">    cnt += (n/<span class="number">30</span> + n/<span class="number">42</span> + n/<span class="number">70</span> + n/<span class="number">105</span>);</span><br><span class="line">    <span class="comment">//A2357</span></span><br><span class="line">    cnt -= (n/<span class="number">210</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, n - cnt);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="电灯泡"><a href="#电灯泡" class="headerlink" title="电灯泡"></a><a href="http://120.78.128.11/Problem.jsp?pid=2332" target="_blank" rel="noopener">电灯泡</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/4.png" alt></p>
+<p>因为最后求的是亮的个数。那么我们只需要关心a和a的倍数，b和b的倍数，c和c的倍数，其他数没有的电灯泡没有被点亮，所以就不用处理</p>
+<p>点亮三次情况如下：</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/5.png" alt></p>
+<p>那么最终变成了求被染色的面积</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/6.png" alt></p>
+<p>我们根据容斥定理可以尝试去推理求法，首先结果里面没有2，而2又是a∩b的结果，所以可以尝试去掉2个a∩b，如此类推，推出答案为<code>a+b+c-2ab-2bc-2ac+4abc（ab,bc,ac代表的是这两个数的倍数）</code>，或者也可以根据图形关系结合容斥定理来求结果的表达式。</p>
+<hr>
+<p>那么倍数的数量如何求？</p>
+<p>假设求1-10里面3的倍数有几个，自然可以用到10/3</p>
+<p>如果是2个数呢？</p>
+<p>假设求1-50里面3,5的倍数有几个，那么可以直接50/(3*5)=3：{15,30,45}</p>
+<p>那么求4,6呢，还能50/(4*6)=2吗？</p>
+<p>我们知道1-50中，4,6的倍数有{12,24,36,48}，明显不对</p>
+<p>因为4,6不是互质，所以结果应该是<code>50*gcd(4,6)/(4*6)</code></p>
+<p>因为本题目的a，b，c都是互质，所以就不用考虑这种情况</p>
+<p>然后，因为给出的数的范围较大，所以我们可以将*变为/</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">0MS	6348KB	208	2019-05-07 17:18:01</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    <span class="keyword">while</span>(t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">        <span class="keyword">int</span> ans = n/a+n/b+n/c - <span class="number">2</span>*(n/a/b + n/b/c + n/a/c) + <span class="number">4</span>*(n/a/b/c);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="抽屉定理"><a href="#抽屉定理" class="headerlink" title="抽屉定理"></a>抽屉定理</h1><h2 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h2><p>参考：百度百科</p>
+<p>桌上有十个苹果，要把这十个苹果放到九个抽屉里，无论怎样放，我们会发现至少会有一个抽屉里面至少放两个苹果。这一现象就是我们所说的“抽屉原理”。<br>抽屉原理的一般含义为：“如果每个抽屉代表一个集合，每一个苹果就可以代表一个元素，假如有n+1个元素放到n个集合中去，其中必定有一个集合里至少有两个元素。”<br>抽屉原理有时也被称为鸽巢原理。它是组合数学中一个重要的原理。</p>
+<h2 id="第一抽屉定理"><a href="#第一抽屉定理" class="headerlink" title="第一抽屉定理"></a>第一抽屉定理</h2><ul>
+<li><p>原理1： 把多于n+1个的物体放到n个抽屉里，则至少有一个抽屉里的东西不少于两件。</p>
+</li>
+<li><p>原理2 ：把多于(mn+1，n不为0)个的物体放到n个抽屉里，则至少有一个抽屉里有不少于（m+1）的物体。</p>
+</li>
+<li><p>原理3 ：把无穷多件物体放入n个抽屉，则至少有一个抽屉里有无穷个物体。</p>
+</li>
+</ul>
+<h2 id="第二抽屉定理"><a href="#第二抽屉定理" class="headerlink" title="第二抽屉定理"></a>第二抽屉定理</h2><p>把(mn-1)个物体放入n个抽屉中，其中必有一个抽屉中至多有(m-1)个物体(例如，将3×5-1=14个物体放入5个抽屉中，则必定有一个抽屉中的物体数少于等于3-1=2)</p>
+<h2 id="最差原则"><a href="#最差原则" class="headerlink" title="最差原则"></a>最差原则</h2><p>最差原则，即考虑所有可能情况中，最不利于某件事情发生的情况。</p>
+<p>例如，有300人到招聘会求职，其中软件设计有100人，市场营销有80人，财务管理有70人，人力资源管理有50人。那么至少有多少人找到工作才能保证一定有70人找的工作专业相同呢？</p>
+<p>此时我们考虑的最差情况为：软件设计、市场营销和财务管理各录取69人，人力资源管理的50人全部录取，则此时再录取1人就能保证有70人找到的工作专业相同。</p>
+<p>（人力资源管理全部录取，其他各录取69，再多1人就可以保证有70人工作专业相同，因为这1个人一定是软件设计，财务管理，市场营销的，不会是人力资源管理的，所以再加一个人就可以保证了）</p>
+<p>因此至少需要69*3+50+1=258人。</p>
+<h2 id="Nyoj417死神来了"><a href="#Nyoj417死神来了" class="headerlink" title="Nyoj417死神来了"></a><a href="http://nyoj.top/problem/417" target="_blank" rel="noopener">Nyoj417死神来了</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/nyoj417.png" alt></p>
+<p>假如存在倍数关系，有倍数关系的当为一组。</p>
+<ul>
+<li><p>当n为偶数，最多有n/2组分组(按照2的倍数关系分组)</p>
+</li>
+<li><p>假如是奇数，最多有n/2+1组分组</p>
+</li>
+</ul>
+<p>统一写为p=n/2+(n&amp;1)组</p>
+<p>（n&amp;1：n为奇数时结果为1，n为偶数结果为0）</p>
+<p>例如：</p>
+<p>当n=20时，可分组为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A1 &#x3D; &#123;1, 2, 4，8, 16&#125;</span><br><span class="line">A2 &#x3D; &#123;3, 6, 12&#125;</span><br><span class="line">A3 &#x3D; &#123;5, 10, 20&#125;</span><br><span class="line">A4 &#x3D; &#123;15&#125;</span><br><span class="line">A5 &#x3D; &#123;7, 14&#125;</span><br><span class="line">A6 &#x3D; &#123;9，18&#125;</span><br><span class="line">A7 &#x3D; &#123;11&#125;</span><br><span class="line">A8 &#x3D; &#123;13&#125;</span><br><span class="line">A9 &#x3D; &#123;17&#125;</span><br><span class="line">A10 &#x3D; &#123;19&#125; </span><br><span class="line">共十组</span><br></pre></td></tr></table></figure>
+
+<p>存在最坏情况，我们取{19, 17, 13, 11, 18, 14, 15, 20, 12, 16}，也就是取每一组最后一个元素，这样就不存在任意一个数是另外一个数的倍数，所以m至少得取11，即m&gt;n/2。</p>
+<p><strong>取11时，比取10时多一个数，那么就可能至少有2个数出现在同一个倍数集合中，因为取10时是所有组中都取一个数,。正好对应了抽屉定理，无论怎么放至少会有一个抽屉里面至少放两个苹果。</strong></p>
+<p>当n=21时，加一个分组A11={21}，那么m得取12，即m&gt;(n/2+1)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">5 ms 	1156 KB</span></span><br><span class="line"><span class="comment">2019-05-06 21:34:12</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;n, &amp;m) != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        n = n/<span class="number">2</span>+(n&amp;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(m &gt; n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/>https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%95%B0%E8%AE%BA/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>数论</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/&title=容斥与抽屉定理 - GreenHatHGのBlog&summary=容斥与抽屉定理"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/&title=容斥与抽屉定理 - GreenHatHGのBlog&summary=容斥与抽屉定理"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/&title=容斥与抽屉定理 - GreenHatHGのBlog&summary=容斥与抽屉定理"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/05/10/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java虚拟机笔记-自定义类加载器</p>
+                <p class='content'>jvm自定义类加载器
+
+
+JDK加载类流程参考：https://juejin.im/post/5a1fad585188252ae93ab953
+loadClass1234567891011121...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/05/04/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-ClassLoder%E9%83%A8%E5%88%86%E6%96%87%E6%A1%A3%E8%A7%A3%E8%AF%BB/'>
+                <p class='title'>Java虚拟机笔记-ClassLoder部分文档解读<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>ClassLoder部分文档解读
+
+
+Documentation123java.lang public abstract class ClassLoaderextends Object
+
+
+12...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '容斥与抽屉定理',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定理"><span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#51nod1284"><span class="toc-text">51nod1284</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#电灯泡"><span class="toc-text">电灯泡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定理-1"><span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第一抽屉定理"><span class="toc-text">第一抽屉定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二抽屉定理"><span class="toc-text">第二抽屉定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最差原则"><span class="toc-text">最差原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nyoj417死神来了"><span class="toc-text">Nyoj417死神来了</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

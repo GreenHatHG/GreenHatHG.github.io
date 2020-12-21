@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>线段树入门 - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="线段树">
+  
+  
+    <meta name="description" content="线段树入门">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/">
+      线段树入门
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E7%AE%97%E6%B3%95/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>算法</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 24, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>线段树入门</p>
+<a id="more"></a>
+
+<h1 id="数据结构–线段树（segment-tree）"><a href="#数据结构–线段树（segment-tree）" class="headerlink" title="数据结构–线段树（segment tree）"></a>数据结构–线段树（segment tree）</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>给定一个数组，数组长度可能非常大。现在我们需要对数组里面的数据反反复复进行两个操作</p>
+<ul>
+<li>求出某一个区间里面所有元素之和，(query操作)</li>
+<li>修改某个元素的值，(update操作)</li>
+</ul>
+<h3 id="暴力解决和前缀和"><a href="#暴力解决和前缀和" class="headerlink" title="暴力解决和前缀和"></a>暴力解决和前缀和</h3><p>对区间[L,R]（长度为n）取和，并且更新一个元素i的值，采用暴力解决方法<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/1.png" alt></p>
+<p>可得</p>
+<ul>
+<li>query(L,R)时间复杂度为O(n)</li>
+<li>update(i)时间复杂度为O(1)</li>
+</ul>
+<p>如果区间范围很大，再加上多次操作，暴力取和明显会超时，可以采用前缀和方式优化查询<br>sum_arr[0]=arr[0]<br>sum_arr[1]=arr[0]+arr[1]<br>sum_arr[2]=arr[0]+arr[1]+arr[2]<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/2.png" alt><br>这样，假如我们想得到区间[2,4]的和，我们可以用sum_arr[4]-sum_arr[1]计算到</p>
+<ul>
+<li>query(L,R)时间复杂度减小为O(1)</li>
+<li>因为改变一个值后，要同时更新后面的sum_arr数组，所以update(i)时间复杂度增大为O(n)</li>
+</ul>
+<p>如果用线段树的话，我们可以将查询和更新的的时间复杂度都变为O(logn)</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>query</th>
+<th>update</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>暴力</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>前缀和</td>
+<td>O(1)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>线段树</td>
+<td>O(logn)</td>
+<td>O(logn)</td>
+</tr>
+</tbody></table>
+<h2 id="线段树简介"><a href="#线段树简介" class="headerlink" title="线段树简介"></a>线段树简介</h2><p>线段树是一种二叉搜索树，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。使用线段树可以快速的查找某一个节点在若干条线段中出现的次数，时间复杂度为O(logn)。是一种可以在很短的时间内对某个区间进行操作的数据结构。</p>
+<p>可用于：<br>单点修改、区间修改、区间查询（如：区间求和，求区间最大值，求区间最小值……）</p>
+<h2 id="线段树构建"><a href="#线段树构建" class="headerlink" title="线段树构建"></a>线段树构建</h2><table>
+<thead>
+<tr>
+<th>数组下标</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组元素</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+<td>9</td>
+</tr>
+</tbody></table>
+<p>树根保存的是区间[1-6]中元素的和，其左孩子保存区间[1-3]所有元素的和，右孩子则是[4-6]<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/3.png" alt><br>它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。<br>其划分区间方法类似于二分</p>
+<p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/4.png" alt></p>
+<p>然后给每个叶子结点赋值</p>
+<table>
+<thead>
+<tr>
+<th>数组下标</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组元素</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+<td>9</td>
+</tr>
+</tbody></table>
+<p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/5.png" alt></p>
+<p>接着由孩子结点构成双亲结点</p>
+<table>
+<thead>
+<tr>
+<th>数组下标</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组元素</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+<td>7</td>
+<td>9</td>
+</tr>
+</tbody></table>
+<p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/6.png" alt></p>
+<h2 id="回到原题"><a href="#回到原题" class="headerlink" title="回到原题"></a>回到原题</h2><p>如何找到[2-5]这个区间的和<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/7.png" alt><br><strong>根节点记录的是[1-6]的和，可以把[3-6]分成两半，左边找的是[3],右边是[4-6]，右边可以直接得到[4-6]的和为27，而[3]可以通过[1-3]得到和为5，最终结果为27+5=32。</strong><br>这样子可以省掉很多搜索的时间，最坏情况是把整棵树都搜索一遍，时间复杂度为O(logn)</p>
+<p>那么如何更新呢，假如我们想把第5个元素由9变成5<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/8.png" alt><br><strong>我们先找到9那个结点，然后把其值变为6，接着顺着一条路从下往上一直更新。</strong><br>同样，更新的时间复杂度也是O(logn)</p>
+<h2 id="线段树的实现"><a href="#线段树的实现" class="headerlink" title="线段树的实现"></a>线段树的实现</h2><p>由于线段树是用二叉树结构储存的，而且是近乎完全二叉树的，所以我使用了数组tree来存储<br><strong>数组下标从1开始，同时添加虚结点使其变成完全二叉树</strong><br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/9.png" alt></p>
+<table>
+<thead>
+<tr>
+<th>数组下标</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数组元素</td>
+<td>36</td>
+<td>9</td>
+<td>27</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody></table>
+<p>树的结点的定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> value; <span class="comment">//节点对应区间的权值（不唯一，也可以代表区间最大值等）</span></span><br><span class="line">    <span class="keyword">int</span> left, right; <span class="comment">//区间[left, right]</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> <span class="title">tree</span>[1000];</span></span><br><span class="line"><span class="keyword">int</span> father[<span class="number">100</span>]; <span class="comment">//记录某个点的序号，方便查找对应的数组下标</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Build_tree(<span class="number">1</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"><span class="comment">//为区间[left, right]建立一个以top为祖先的线段树，top为根节点下标</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Build_tree</span><span class="params">(<span class="keyword">int</span> top, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[top].left = left; <span class="comment">//写入第index个结点的左区间</span></span><br><span class="line">    tree[top].right = right; <span class="comment">//写入第index个结点的右区间</span></span><br><span class="line">    tree[top].value = <span class="number">0</span>; <span class="comment">//每个区间的值初始化为0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left == right)	<span class="comment">//区间长度为0时，赋值并且结束递归</span></span><br><span class="line">    &#123;</span><br><span class="line">    	tree[top].value = arr[left];</span><br><span class="line">        father[left] = top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (right + left) / <span class="number">2</span>; <span class="comment">//取区间中点</span></span><br><span class="line">    <span class="keyword">int</span> left_node = top * <span class="number">2</span>; <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = top * <span class="number">2</span> + <span class="number">1</span>;  <span class="comment">//右孩子下标</span></span><br><span class="line">    Build_tree(left_node, left, mid);  <span class="comment">//往左孩子方向继续建立线段树</span></span><br><span class="line">    Build_tree(right_node, mid + <span class="number">1</span>, right);  <span class="comment">//往右孩子方向继续建立线段树</span></span><br><span class="line">    <span class="comment">//更新结点值为左右孩子的和</span></span><br><span class="line">    tree[top].value = tree[left_node].value + tree[right_node].value; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>更新数组的第5个元素的值为6，直接在树里面更新该结点的值后，然后从父结点往上更新，直到更新到了根结点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[father[<span class="number">5</span>]].value = <span class="number">6</span>;</span><br><span class="line">    Update(father[<span class="number">5</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">int</span> index)</span>	<span class="comment">//index为要修改那个点的数组下标</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> father_node = index / <span class="number">2</span>; <span class="comment">//父结点下标</span></span><br><span class="line">    <span class="keyword">int</span> left_node = father_node * <span class="number">2</span>;   <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = father_node * <span class="number">2</span> + <span class="number">1</span>;   <span class="comment">//右孩子下标</span></span><br><span class="line">    tree[father_node].value = tree[left_node].value + tree[right_node].value; <span class="comment">//更新值</span></span><br><span class="line">    <span class="keyword">if</span>(father_node == <span class="number">1</span>) <span class="comment">//找到树的根结点，终止退出</span></span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    Update(father_node); <span class="comment">//递归更新，由父结点往上找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="查询-L-R-区间"><a href="#查询-L-R-区间" class="headerlink" title="查询[L,R]区间"></a>查询[L,R]区间</h3><p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/6.png" alt><br>先查询左子树：</p>
+<ol>
+<li>如果满足条件3 &gt;= L,则要查询的区间有涉及左子树，例如查询[1,2]，[2,4]<ul>
+<li>如果满足3 &gt;= R,则要查询的区间完全在左子树，例如[1,2]，这时候要查询的区间不变</li>
+<li>如果不满足3 &gt;= R,则要查询的区间不完全在左子树，例如[2,4]，这时候就需要查询在左子树那边的区间，所以要查询[2,3]</li>
+</ul>
+</li>
+</ol>
+<p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/6.png" alt="90%"><br>同理再查询右子树：</p>
+<ol>
+<li>如果满足条件R &gt;= 4,则要查询的区间有涉及右子树，例如查询[4,6]，[2,5]<ul>
+<li>如果满足L &gt;= 4,则要查询的区间完全在右子树，例如[4,6]，这时候要查询的区间不变</li>
+<li>如果不满足L &gt;= 4,则要查询的区间不完全在右子树，例如[2,5]，这时候就需要查询在右子树那边的区间，所以要查询[4,5]</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从index开始查询，所以index一般为树的根结点,查询的区间是[L,R]，结果保留在ans里面</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> L, <span class="keyword">int</span> R, <span class="keyword">int</span>&amp; ans)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree[index].left == L &amp;&amp; tree[index].right == R)&#123; <span class="comment">//找到了一个完全重合的区间</span></span><br><span class="line">        ans += tree[index].value;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left_node = index*<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L &lt;= tree[left_node].right)&#123; <span class="comment">//左区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(R &lt;= tree[left_node].right) <span class="comment">//全包含于左区间，查询区间不变</span></span><br><span class="line">        	Query(left_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，左端点不变，右端点变为左孩子的右区间端点</span></span><br><span class="line">        	Query(left_node, L, tree[left_node].right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> right_node = left_node + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(R &gt;= tree[right_node].left)&#123; <span class="comment">//右区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(L &gt;= tree[right_node].left) <span class="comment">//全包含于右区间，查询区间不变</span></span><br><span class="line">        	Query(right_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，与上同理</span></span><br><span class="line">        	Query(right_node, tree[right_node].left, R, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/10.PNG" alt></p>
+<h2 id="模板题HDU1754"><a href="#模板题HDU1754" class="headerlink" title="模板题HDU1754"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1754" target="_blank" rel="noopener">模板题HDU1754</a></h2><p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/timu.png" alt></p>
+<p>936MS    8336K（注意，线段树需要空间比较大，数组开小可能会wa或者TLE，一般为4n）<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/11.PNG" alt></p>
+<h2 id="线段树部分优化"><a href="#线段树部分优化" class="headerlink" title="线段树部分优化"></a>线段树部分优化</h2><ol>
+<li><code>a*2</code>可以用<code>a&lt;&lt;1</code>代替，<code>a/2</code>可以用<code>a&gt;&gt;1</code>代替。（位运算其实就是直接对在内存中的二进制数据进行操作，因此处理数据的速度非常快）</li>
+<li>因为下标为a的节点的左儿子下标为<code>a*2</code>，右儿子下标为<code>a*2+1</code>，所以可以</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加入一些编译预处理指令可以提高编程效率，加快编译速度</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LS(a) (a &lt;&lt; 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1 等同于 a*2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RS(a) (a &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1|1 等同于 a*2+1</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="线段树进阶"><a href="#线段树进阶" class="headerlink" title="线段树进阶"></a>线段树进阶</h2><ol>
+<li>Lazy标记–用于同时更新一段区间的值：<a href="http://poj.org/problem?id=3468" target="_blank" rel="noopener">poj3468 A Simple Problem with Integers</a></li>
+<li>线段树离散化（节约空间）–<a href="http://poj.org/problem?id=2528" target="_blank" rel="noopener">poj2528 Mayor’s posters</a></li>
+<li>线段树应用：扫描线问题（求多个矩形互相覆盖后的面积）：<a href="http://poj.org/problem?id=1151" target="_blank" rel="noopener">poj1151 Atlantis</a></li>
+<li>可持久化（保留整个操作的历史）–主席树</li>
+</ol>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/>https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>线段树</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/&title=线段树入门 - GreenHatHGのBlog&summary=线段树入门"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/&title=线段树入门 - GreenHatHGのBlog&summary=线段树入门"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/&title=线段树入门 - GreenHatHGのBlog&summary=线段树入门"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/04/25/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%9F%E5%B8%B8%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA%E6%9C%AC%E8%B4%A8%E5%88%86%E6%9E%90/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析</p>
+                <p class='content'>编译期常量与运行期常量的区别及数组创建本质分析
+
+
+样例11234567891011121314151617181920import java.util.UUID;public class Ma...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/04/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%B8%B8%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%90%AB%E4%B9%89%E4%BB%A5%E5%8F%8A%E5%8F%8D%E7%BC%96%E8%AF%91%E5%87%BA%E7%8E%B0%E7%9A%84%E9%83%A8%E5%88%86%E5%8A%A9%E8%AE%B0%E7%AC%A6/'>
+                <p class='title'>Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>常量的本质含义以及反编译出现的部分助记符
+
+
+样例112345678910111213141516171819public class Main&#123;    public static v...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '线段树入门',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入"><span class="toc-text">引入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#暴力解决和前缀和"><span class="toc-text">暴力解决和前缀和</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线段树简介"><span class="toc-text">线段树简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线段树构建"><span class="toc-text">线段树构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回到原题"><span class="toc-text">回到原题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线段树的实现"><span class="toc-text">线段树的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#建树"><span class="toc-text">建树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新"><span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询-L-R-区间"><span class="toc-text">查询[L,R]区间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模板题HDU1754"><span class="toc-text">模板题HDU1754</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线段树部分优化"><span class="toc-text">线段树部分优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线段树进阶"><span class="toc-text">线段树进阶</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

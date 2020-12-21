@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>自用工具（移至notion更新！） - GreenHatHGのBlog</title>
+  
+  
+    <meta name="description" content="UpdateTime: 2020/03/12">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/02/11/tools/">
+      自用工具（移至notion更新！）
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Feb 11, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>UpdateTime: 2020/03/12</p>
+<a id="more"></a>
+
+<h1 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h1><p><a href="https://www.polishmywriting.com/" target="_blank" rel="noopener">Check Spelling, Style, and Grammar with After the Deadline</a></p>
+<p><a href="http://www.en998.com/sentence/" target="_blank" rel="noopener">英语句子成分分析 在线英语句子结构分析器 语法分析软件 句解霸</a></p>
+<p><a href="https://www.nounplus.net/grammarcheck/" target="_blank" rel="noopener">Grammar Check Online - It’s a Free tool by NOUNPLUS</a></p>
+<h1 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h1><p><a href="https://github.com/timmy3131/design-resource" target="_blank" rel="noopener">timmy3131/design-resource: A list of design resources.</a></p>
+<p><a href="https://linux.cn/article-9443-1.html" target="_blank" rel="noopener">分享|440+ 个免费的编程 &amp; 计算机科学的在线课程</a></p>
+<p><a href="http://jinxuliang.com/home/index" target="_blank" rel="noopener">金老师的计算机技术自学网站</a></p>
+<p><a href="https://www.houtouke.com/" target="_blank" rel="noopener">猴头客 | 专注优质视频教程、网络资源的休闲小站</a></p>
+<p><a href="https://windsys.whatk.me/" target="_blank" rel="noopener">Windsys Project</a></p>
+<p><a href="https://www.winos.me/" target="_blank" rel="noopener">WINOS | 前沿的精简系统下载</a></p>
+<h1 id="PDF下载"><a href="#PDF下载" class="headerlink" title="PDF下载"></a>PDF下载</h1><h2 id="计算机"><a href="#计算机" class="headerlink" title="计算机"></a>计算机</h2><p><a href="http://bestcbooks.com/" target="_blank" rel="noopener">计算机书籍控</a></p>
+<p><a href="http://it-ebooks.flygon.net/" target="_blank" rel="noopener">计算机电子书</a></p>
+<p><a href="https://github.com/justjavac/free-programming-books-zh_CN" target="_blank" rel="noopener">免费的计算机编程类中文书籍</a></p>
+<p><a href="https://itbook.download/" target="_blank" rel="noopener">免费IT计算机电子书下载网站</a></p>
+<p><a href="https://itpanda.net/book/" target="_blank" rel="noopener">IT熊猫-计算机书籍下载</a></p>
+<h2 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h2><p><a href="https://www.pdfdrive.com/" target="_blank" rel="noopener">PDF Drive - Search and download PDF files for free.</a></p>
+<p><a href="https://www.jiumodiary.com/" target="_blank" rel="noopener">Jiumo Search 鸠摩搜索 - 文档搜索引擎</a></p>
+<p><a href="http://shuxiangjia.cn/" target="_blank" rel="noopener">书享家-电子书下载导航</a></p>
+<p><a href="http://gen.lib.rus.ec/" target="_blank" rel="noopener">Library Genesis 英文pdf搜索引擎</a></p>
+<p><a href="https://en.booksee.org/" target="_blank" rel="noopener">Electronic Library. Download books for free. Over 2 million books and magazines</a></p>
+<h1 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h1><p><a href="http://ilxdh.com/" target="_blank" rel="noopener">龙轩导航-做个有用的导航</a></p>
+<p><a href="http://www.giffox.com/" target="_blank" rel="noopener">老司机导航</a></p>
+<p><a href="https://www.jubt.net/cn/index.html" target="_blank" rel="noopener">聚BT - 聚合最优质的BT、磁力资源 | BT搜索 磁力搜索 云盘搜索 影视APP 在线影视 磁力影视</a></p>
+<p><a href="https://www.volf.club/" target="_blank" rel="noopener">狼牌工作网址导航 - 导航</a></p>
+<p><a href="https://www.egouz.com/" target="_blank" rel="noopener">国外网站推荐-分享互联网-外国网站大全</a></p>
+<p><a href="http://lackar.com/aa/" target="_blank" rel="noopener">AnywhereAnything</a></p>
+<p><a href="http://code.giffox.com/" target="_blank" rel="noopener">程序员导航 - 代码如诗！</a></p>
+<p><a href="http://chuangzaoshi.com/code" target="_blank" rel="noopener">创造狮 创意工作者导航</a></p>
+<p><a href="https://wht.im/" target="_blank" rel="noopener">万花筒</a></p>
+<h1 id="资讯"><a href="#资讯" class="headerlink" title="资讯"></a>资讯</h1><p><a href="https://www.solidot.org/" target="_blank" rel="noopener">Solidot:奇客的资讯</a></p>
+<p><a href="https://readspike.com/#top" target="_blank" rel="noopener">Readspike - Simple news aggregator</a></p>
+<p><a href="https://readhub.cn/topics" target="_blank" rel="noopener">Readhub</a></p>
+<p><a href="https://arxiv.org/" target="_blank" rel="noopener">论文–arXiv.org e-Print archive</a></p>
+<p><a href="https://www.ershicimi.com/" target="_blank" rel="noopener">二十次幂-帮你发现更好的公众号内容</a></p>
+<h1 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h1><p><a href="https://search.chongbuluo.com/" target="_blank" rel="noopener">快搜 - 搜索快人一步 - Google</a></p>
+<p><a href="http://data.chongbuluo.com/" target="_blank" rel="noopener">数据搜索 - 让数据搜索更简单 - 国家数据</a></p>
+<p><a href="https://weixin.sogou.com/" target="_blank" rel="noopener">搜狗微信搜索_订阅号及文章内容独家收录，一搜即达</a></p>
+<p><a href="http://www.4243.net/" target="_blank" rel="noopener">Google学术搜索镜像_sci-hub网址_大木虫学术导航</a></p>
+<p><a href="https://xtea.io/ts.html" target="_blank" rel="noopener">名刀电报群组搜索</a></p>
+<p><a href="http://zhishi.sssoou.com/" target="_blank" rel="noopener">telegram频道搜索</a></p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p><a href="https://flyoffline.enjoymore.fun/" target="_blank" rel="noopener">马上下 种子,磁力链离线下载 按需下载 想下就下</a></p>
+<p><a href="https://www.loadbt.com/zh" target="_blank" rel="noopener">基于云端的BT种子离线下载和在线播放器 - Loadbt</a></p>
+<p><a href="http://heikeyun.com/" target="_blank" rel="noopener">黑科下载器-官方网站</a></p>
+<h1 id="Windows软件"><a href="#Windows软件" class="headerlink" title="Windows软件"></a>Windows软件</h1><p><a href="https://www.mpyit.com/" target="_blank" rel="noopener">老殁 | 殁漂遥 | 互联网分享精神，专注收藏分享「官方」</a></p>
+<p><a href="https://www.appinn.com/" target="_blank" rel="noopener">小众软件</a></p>
+<p><a href="https://www.portablesoft.org/" target="_blank" rel="noopener">精品绿色便携软件</a></p>
+<p><a href="https://www.appcgn.com/" target="_blank" rel="noopener">软件缘 - 精品绿软，品鉴独特！</a></p>
+<p><a href="http://www.qiuquan.cc/" target="_blank" rel="noopener">QiuQuan’ Blog | 精品软件分享博客，专注于软件的绿化、精简与优化。</a></p>
+<p><a href="https://www.naodai.org/" target="_blank" rel="noopener">脑袋瓜子</a></p>
+<p><a href="https://masuit.com/misc/5" target="_blank" rel="noopener">稀缺资源统一下载地址页_懒得勤快的博客_全栈开发者_互联网分享精神</a></p>
+<h1 id="论坛"><a href="#论坛" class="headerlink" title="论坛"></a>论坛</h1><p><a href="https://yaohuo.me/" target="_blank" rel="noopener">妖火网 - 分享你我</a></p>
+<p><a href="https://www.v2ex.com/" target="_blank" rel="noopener">V2EX</a></p>
+<p><a href="https://www.hostloc.com/" target="_blank" rel="noopener">全球主机交流论坛 - Powered by Discuz!</a></p>
+<h1 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h1><h2 id="工具集"><a href="#工具集" class="headerlink" title="工具集"></a>工具集</h2><p>[在线工具 - 程序员的工具箱](在线工具 - 程序员的工具箱)</p>
+<p><a href="http://tool.mkblog.cn/" target="_blank" rel="noopener">首页 - 孟坤工具箱网页版</a></p>
+<p><a href="https://www.toolfk.com/" target="_blank" rel="noopener">在线工具箱,一个为程序员服务并创建价值的在线工具转换网站 </a></p>
+<p><a href="http://www.nicetool.net/" target="_blank" rel="noopener">在线工具大全，用完即走，触手可及_好工具网</a></p>
+<p><a href="http://c.runoob.com/" target="_blank" rel="noopener">菜鸟工具 - 不止于工具</a></p>
+<p><a href="https://tool.oschina.net/" target="_blank" rel="noopener">在线工具 —— OSCHINA.NET社区</a></p>
+<p><a href="http://www.atool9.com/classification_dev_tools.html" target="_blank" rel="noopener">工具分类 - 在线代码转换 - aTool在线工具</a></p>
+<p><a href="https://tools.miku.ac/" target="_blank" rel="noopener">MikuTools - 一个轻量的工具集合</a></p>
+<p><a href="https://zh.numberempire.com/" target="_blank" rel="noopener">数字帝国 - 数学工具</a></p>
+<h2 id="单一工具"><a href="#单一工具" class="headerlink" title="单一工具"></a>单一工具</h2><p><a href="https://www.draw.io/" target="_blank" rel="noopener">在线画图</a></p>
+<p><a href="http://jsonviewer.stack.hu/" target="_blank" rel="noopener">Online JSON Viewer</a></p>
+<p><a href="https://asciinema.org/" target="_blank" rel="noopener">asciinema - 以正确的方式记录和分享您的终端会话</a></p>
+<p><a href="https://www.ilovepdf.com/zh-cn/powerpoint_to_pdf" target="_blank" rel="noopener">iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具</a></p>
+<p><a href="https://carbon.now.sh" target="_blank" rel="noopener">在线代码高亮截图1</a></p>
+<p><a href="https://www.dute.org/code-snapshot" target="_blank" rel="noopener">在线代码高亮截图2</a></p>
+<p><a href="https://tinypng.com/" target="_blank" rel="noopener">在线压缩图片</a></p>
+<p><a href="https://browserframe.com" target="_blank" rel="noopener">在线生成浏览器外壳截图</a></p>
+<p><a href="https://colorspark.app/" target="_blank" rel="noopener">在线随机颜色</a></p>
+<p><a href="https://fontspark.app/" target="_blank" rel="noopener">在线预览字体</a></p>
+<p><a href="https://explainshell.com/" target="_blank" rel="noopener">分析LinuxShell</a></p>
+<p><a href="https://unbug.github.io/codelf" target="_blank" rel="noopener">变量名搜索</a></p>
+<h2 id="临时传输"><a href="#临时传输" class="headerlink" title="临时传输"></a>临时传输</h2><p><a href="https://cp.anyknew.com/" target="_blank" rel="noopener">拷贝兔(Copytool) - 轻量级纯Web跨平台文件、文字分享工具</a></p>
+<p><a href="https://send.firefox.com/" target="_blank" rel="noopener">Firefox Send</a></p>
+<p><a href="https://cowtransfer.com/" target="_blank" rel="noopener">奶牛快传 | 文件传输服务</a></p>
+<p><a href="https://www.wenshushu.cn/" target="_blank" rel="noopener">文叔叔 - 传文件，找文叔叔（永不限速）</a></p>
+<h2 id="临时剪贴板"><a href="#临时剪贴板" class="headerlink" title="临时剪贴板"></a>临时剪贴板</h2><p><a href="https://paste.ubuntu.com/" target="_blank" rel="noopener">Ubuntu Pastebin</a></p>
+<p><a href="https://pastebin.aosc.io/" target="_blank" rel="noopener">AOSC Pastebin</a></p>
+<p><a href="https://cooltext.cn/" target="_blank" rel="noopener">CoolText - 免费在线文本储存库</a></p>
+<h1 id="表情包搜索"><a href="#表情包搜索" class="headerlink" title="表情包搜索"></a>表情包搜索</h1><p><a href="http://www.dbbqb.com/" target="_blank" rel="noopener">逗比拯救世界–专业的表情包搜索网站</a></p>
+<p><a href="http://www.doutula.com/" target="_blank" rel="noopener">斗图啦 - 斗图大会 - 金馆长表情库 - 真正的斗图网站 - doutula.com</a></p>
+<h1 id="idea"><a href="#idea" class="headerlink" title="idea"></a>idea</h1><p><a href="https://zhile.io/2018/08/17/jetbrains-license-server-crack.html" target="_blank" rel="noopener">Jetbrains系列产品2019.3.3最新激活方法[持续更新] | 知了</a></p>
+<p><a href="http://idea.medeming.com/jets/" target="_blank" rel="noopener">程序员开发专属激活码，开启程序人生</a></p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><a href="http://git.aakkc.com/" target="_blank" rel="noopener">Github中转下载</a></p>
+<p><a href="https://docs.rsshub.app/" target="_blank" rel="noopener">介绍 | RSSHub</a></p>
+<p><a href="http://387099.blogspot.com/2018/03/ssssr.html" target="_blank" rel="noopener">浅谈部分机场（SS/SSR提供商）的使用感受–持续更新中</a></p>
+<p><a href="https://products.office.com/en-us/free-office-online-for-the-web" target="_blank" rel="noopener">Free Microsoft Office for the web, Word, Excel, PowerPoint</a></p>
+<p><a href="https://speechlogger.appspot.com/zh/" target="_blank" rel="noopener">自动语音识别和即时翻译软件</a></p>
+<p><a href="https://www.netnr.com/home/list/105" target="_blank" rel="noopener">Git托管 代码托管 Pages服务 静态网站托管 NET牛人</a></p>
+<p><a href="https://whoer.net/zh" target="_blank" rel="noopener">查看自己的IP地址</a></p>
+<p><a href="http://www.ucdrs.superlib.net/" target="_blank" rel="noopener">全国图书馆参考咨询联盟</a></p>
+<p><a href="http://www.suiyuanka.com/" target="_blank" rel="noopener">Research - 探索未知</a></p>
+<p><a href="https://jex.im/regulex/" target="_blank" rel="noopener">正则可视化工具</a></p>
+<p><a href="https://www.zhihu.com/question/22867411" target="_blank" rel="noopener">作为程序员的你，常用的工具软件有哪些？ - 知乎</a></p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2020/02/11/tools/>https://greenhathg.github.io/2020/02/11/tools/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2020/02/11/tools/&title=自用工具（移至notion更新！） - GreenHatHGのBlog&summary=UpdateTime: 2020/03/12"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2020/02/11/tools/&title=自用工具（移至notion更新！） - GreenHatHGのBlog&summary=UpdateTime: 2020/03/12"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2020/02/11/tools/&title=自用工具（移至notion更新！） - GreenHatHGのBlog&summary=UpdateTime: 2020/03/12"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/02/11/bookmarks/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>自用书签（移至notion更新！）</p>
+                <p class='content'>UpdateTime: 2020/03/12
+
+
+DockerDocker —— 从入门到实践 · GitBook (Legacy)
+创建尽可能小的 Docker 容器 - yexiaoxiao...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/02/08/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/'>
+                <p class='title'>通俗理解数据库三大范式<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>1NF 2NF 3NF
+
+
+1NF在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。
+第一范式是指数据库表的每一列都是不可分割的...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '自用工具（移至notion更新！）',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算机"><span class="toc-text">计算机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#综合"><span class="toc-text">综合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工具集"><span class="toc-text">工具集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单一工具"><span class="toc-text">单一工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#临时传输"><span class="toc-text">临时传输</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#临时剪贴板"><span class="toc-text">临时剪贴板</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

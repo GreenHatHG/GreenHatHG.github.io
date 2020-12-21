@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Java虚拟机笔记-字节码格式 - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="jvm">
+  
+  
+    <meta name="description" content=" .class文件">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/">
+      Java虚拟机笔记-字节码格式
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>读书笔记</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 23, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p> .class文件</p>
+<a id="more"></a>
+
+<p>Java从刚开始的时候就有两套 规范，一个是Java语言规范，另外一个是Java虚拟机规范，Java语言规范只是规定了Java语言相关的约束以及规则，而虚拟机规范则才是真正从跨平台的角度去设计的</p>
+<h1 id="Java语言的平台无关性"><a href="#Java语言的平台无关性" class="headerlink" title="Java语言的平台无关性"></a>Java语言的平台无关性</h1><p>在虚拟机出现之前，程序要想正确运行在计算机上，首先要将代码编译成二进制本地机器码，而这个过程是和电脑的操作系统OS、CPU指令集强相关的，所以可能代码只能在某种特定的平台下运行，而换一个平台或操作系统就无法正确运行了。随着虚拟机的出现，直接将程序编译成机器码，已经不再是唯一的选择了。越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储格式。Java就是这样一种语言。“一次编写，到处运行”于是成立Java的宣传口号。</p>
+<p><strong>正是虚拟机和字节码(ByteCode)构成了平台无关性的基石，从而实现“一次编写，到处运行”</strong></p>
+<p>Java虚拟机将.java文件编译成字节码,而.class字节码文件经过JVM转化为当前平台下的机器码后再进行程序执行。这样，程序猿就无需重复编写代码来适应不同平台了，而是一套代码处处运行，至于字节码怎样转化成对应平台下的机器码，那就是Java虚拟机的事情了。</p>
+<h1 id="JVM的语言无关性"><a href="#JVM的语言无关性" class="headerlink" title="JVM的语言无关性"></a>JVM的语言无关性</h1><p>时至今日，商业机构和开源机构以及在Java语言之外发展出一大批在Java虚拟机之上运行的语言，如<code>Groovy</code>,<code>JRuby</code>,<code>Jython</code>,<code>Scala</code>等等。这些语言通过各自的编译器编译成为.class文件，从而可以被JVM所执行。</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F%5C1.jpg" alt></p>
+<p>所以，由于Java虚拟机设计之初的定位，以及字节码(<code>ByteCode</code>)的存在，使得JVM可以执行不同语言下的字节码.class文件，从而构成了语言无关性的基础。</p>
+<h1 id="Class文件结构"><a href="#Class文件结构" class="headerlink" title="Class文件结构"></a>Class文件结构</h1><h2 id="总体概况"><a href="#总体概况" class="headerlink" title="总体概况"></a>总体概况</h2><p><strong>注意，任何一个Class文件都对应着唯一一个类或接口的定义信息，但反过来说，类或接口并不一定都得定义在文件里（譬如类或接口也可以通过类加载器直接生成）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> indi.greenhat.bytecode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.a = a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用到java内置的一个反编译工具<code>javap</code>可以反编译字节码文件。 通过<code>javap -help</code>可了解javap的基本用法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">用法: javap &lt;options&gt; &lt;classes&gt;</span><br><span class="line">其中, 可能的选项包括:</span><br><span class="line">  -help  --help  -?        输出此用法消息</span><br><span class="line">  -version                 版本信息</span><br><span class="line">  -v  -verbose             输出附加信息</span><br><span class="line">  -l                       输出行号和本地变量表</span><br><span class="line">  -public                  仅显示公共类和成员</span><br><span class="line">  -protected               显示受保护的/公共类和成员</span><br><span class="line">  -package                 显示程序包/受保护的/公共类</span><br><span class="line">                           和成员 (默认)</span><br><span class="line">  -p  -private             显示所有类和成员</span><br><span class="line">  -c                       对代码进行反汇编</span><br><span class="line">  -s                       输出内部类型签名</span><br><span class="line">  -sysinfo                 显示正在处理的类的</span><br><span class="line">                           系统信息 (路径, 大小, 日期, MD5 散列)</span><br><span class="line">  -constants               显示最终常量</span><br><span class="line">  -classpath &lt;path&gt;        指定查找用户类文件的位置</span><br><span class="line">  -cp &lt;path&gt;               指定查找用户类文件的位置</span><br><span class="line">  -bootclasspath &lt;path&gt;    覆盖引导类文件的位置</span><br></pre></td></tr></table></figure>
+
+<p>反编译上面的java代码后出现的结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">Classfile /home/cc/IdeaProjects/test/out/production/test/indi/greenhat/bytecode/Test1<span class="class">.<span class="keyword">class</span></span></span><br><span class="line"><span class="class">  <span class="title">Last</span> <span class="title">modified</span> <span class="title">Jun</span> 23, 2019</span>; size <span class="number">485</span> bytes</span><br><span class="line">  MD5 checksum <span class="number">6</span>c83e799a2a04ca1ae44b4eb2e46ae35</span><br><span class="line">  Compiled from <span class="string">"Test1.java"</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">indi</span>.<span class="title">greenhat</span>.<span class="title">bytecode</span>.<span class="title">Test1</span></span></span><br><span class="line">  minor version: 0</span><br><span class="line">  major version: <span class="number">52</span></span><br><span class="line">  flags: ACC_PUBLIC, ACC_SUPER</span><br><span class="line">Constant pool:</span><br><span class="line">   #1 = Methodref          #4.#20         // java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">   #2 = Fieldref           #3.#21         // indi/greenhat/bytecode/Test1.a:I</span><br><span class="line">   #3 = Class              #22            // indi/greenhat/bCC`ytecode/Test1</span><br><span class="line">   #4 = Class              #23            // java/lang/Object</span><br><span class="line">   #5 = Utf8               a</span><br><span class="line">   #6 = Utf8               I</span><br><span class="line">   #7 = Utf8               &lt;init&gt;</span><br><span class="line">   #8 = Utf8               ()V</span><br><span class="line">   #9 = Utf8               Code</span><br><span class="line">  #10 = Utf8               LineNumberTable</span><br><span class="line">  #11 = Utf8               LocalVariableTable</span><br><span class="line">  #12 = Utf8               this</span><br><span class="line">  #13 = Utf8               Lindi/greenhat/bytecode/Test1;</span><br><span class="line">  #14 = Utf8               getA</span><br><span class="line">  #15 = Utf8               ()I</span><br><span class="line">  #16 = Utf8               setACC`</span><br><span class="line">  #17 = Utf8               (I)V</span><br><span class="line">  #18 = Utf8               SourceFile</span><br><span class="line">  #19 = Utf8               Test1.java</span><br><span class="line">  #20 = NameAndType        #7:#8          // "&lt;init&gt;":()V</span><br><span class="line">  #21 = NameAndType        #5:#6          // a:I</span><br><span class="line">  #22 = Utf8               indi/greenhat/bytecode/Test1</span><br><span class="line">  #23 = Utf8               java/lang/Object</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">public</span> indi.greenhat.bytecode.Test1();</span><br><span class="line">    descriptor: ()V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">         <span class="number">4</span>: aload_0</span><br><span class="line">         5: iconst_1### attribute_count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">         6: putfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">9</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">3</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">4</span>: <span class="number">4</span></span><br><span class="line">      LocalVariableTable:### attribute_count</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">10</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lindi/greenhat/bytecode/Test1;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span></span>;</span><br><span class="line">    descriptor: ()I</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         1: getfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">4</span>: ireturn</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">7</span>: <span class="number">0</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">5</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lindi/greenhat/bytecode/Test1;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line">    descriptor: (I)V</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">2</span>, args_size=<span class="number">2</span></span><br><span class="line">         <span class="number">0</span>: aload_0</span><br><span class="line">         <span class="number">1</span>: iload_1</span><br><span class="line">         2: putfield      #2                  // Field a:I</span><br><span class="line">         <span class="number">5</span>: <span class="keyword">return</span></span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">11</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">12</span>: <span class="number">5</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>       <span class="number">6</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lindi/greenhat/bytecode/Test1;</span><br><span class="line">            <span class="number">0</span>       <span class="number">6</span>     <span class="number">1</span>     a   I</span><br><span class="line">&#125;</span><br><span class="line">SourceFile: <span class="string">"Test1.java"</span></span><br></pre></td></tr></table></figure>
+
+<p>在linux下我们可以用<code>hexyl</code>工具在终端下查看文件的16进制表示，或者使用<code>vim -b filename</code>然后键入<code>%!xxd -g1</code>命令查看</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/2.png" alt></p>
+<p>可以看到，Class文件是一组以8位字节（由八个二进制数位组成的字节，通常可表示一个字符，即2个字符占一个字节。因为2的4次方表示16，）为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在Class文件之中，中间没有添加任何分隔符，这使得整个Class文件中存储的内容几乎 全部是程序运行的必要数据，没有空隙存在。当遇到需要占用8位字节以上空间的数据项 时，则会按照高位在前的方式分割成若干个8位字节进行存储。</p>
+<p>一个class文件的结构：</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/2.jpg" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/7.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/9.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/21.png" alt></p>
+<h2 id="字节码中的数据类型"><a href="#字节码中的数据类型" class="headerlink" title="字节码中的数据类型"></a>字节码中的数据类型</h2><p>Class字节码中有两种数据类型 </p>
+<ul>
+<li>字节数据直接量：这是基本的数据类型。共细分为u1，u2， u4，u8四种，分别代表连续的1个字节、2个字节、4个字节、8个字节组成的整体数据。</li>
+<li>表（数组）：表是由多个基本数据或其他表， 按照既定顺序组成的大的数据集合。表是有结构的，它的结构体现在：组成表的成分所在的位置和顺序都是已经严格定义好的。 </li>
+</ul>
+<h2 id="魔数（Magic-Number）"><a href="#魔数（Magic-Number）" class="headerlink" title="魔数（Magic Number）"></a>魔数（Magic Number）</h2><p><strong>每个Class文件的头4个字节称为魔数（0xCAFEBABE），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件。</strong></p>
+<p>很多文件存储标准中都使用魔数来进行身份识别， 譬如图片格式，如gif或者jpeg等在文件头中都存有魔数。使用魔数而不是扩展名来进行识别 主要是基于安全方面的考虑，因为文件扩展名可以随意地改动。文件格式的制定者可以自由 地选择魔数值，只要这个魔数值还没有被广泛采用过同时又不会引起混淆即可。否被声明为final等。具体的标志位以及标志的含义：否被声明为final等。具体的标志位以及标志的含义：</p>
+<h2 id="Class文件的版本"><a href="#Class文件的版本" class="headerlink" title="Class文件的版本"></a>Class文件的版本</h2><p>紧接着魔数的4个字节存储的是Class文件的版本号：第5和第6个字节是次版本号（<code>Minor Version</code>），第7和第8个字节是主版本号（<code>Major Version</code>）。<strong>Java的版本号是从45开始的</strong>，JDK 1.1之后的每个JDK大版本发布主版本号向上加1（JDK 1.0～1.1使用了45.0～45.3的 版本号），高版本的JDK能向下兼容以前版本的Class文件，但不能运行以后版本的Class文 件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的Class文件。</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/3.png" alt></p>
+<p>从上面反编译的结果可以看到 <code>minor version: 0 major version: 52</code>，或者<code>0x34</code>，正好52对应了jdk1.8，</p>
+<p>最后面的0为次版本号</p>
+<p> <strong>Class文件版本号</strong></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/4.png" alt></p>
+<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>[Java虚拟机笔记-字节码文件中的常量池 | 葵花妈妈开课辣](Java虚拟机笔记-字节码文件中的常量池 | 葵花妈妈开课辣)</p>
+<h2 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h2><p>在常量池结束之后， 紧接着的两个字节代表访问标志（<code>access_flags</code>） ， 这个标志用于识别一些类或者接口层次的访问信息， 包括： 这个Class是类还是接口； 是否定义为<code>public</code>类型； 是否定义为<code>abstract</code>类型； 如果是类的话， 是否被声明为<code>final</code>等。具体的标志位以及标志的含义：</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/3.jpg" alt></p>
+<p><code>00 21</code>为此Class文件的一个访问标志符，查看访问表格没有值为21的标志。是因为JVM并不是枚举每一个标志值。</p>
+<p><code>0x00 21</code>是<code>0x0001</code>和<code>0x0020</code>的并集，表示<code>ACC_PUBLIC</code>与<code>ACC_SUPER</code></p>
+<h2 id="类索引、-父类索引与接口索引集合"><a href="#类索引、-父类索引与接口索引集合" class="headerlink" title="类索引、 父类索引与接口索引集合"></a>类索引、 父类索引与接口索引集合</h2><ol>
+<li><p>类索引(<code>this_class</code>) 和父类索引(<code>super_class</code>) 都是一个<code>u2</code>类型的数据， 而接口索引集合(<code>interfaces</code>)是一组<code>u2</code>类型的数据的集合， <strong>Class文件中由这三项数据来确定这个类的继承关系</strong>。 <strong>类索引用于确定这个类的全限定名， 父类索引用于确定这个类的父类的全限定名</strong>。 由于Java语言不允许多重继承， 所以父类索引只有一个， 除了<code>java.lang.Object</code>之外， 所有的Java类都有父类，<strong>因此除了<code>java.lang.Object</code>外， 所有Java类的父类索引都不为0</strong>。<strong>接口索引集合就用来描述这个类实现了哪些接口</strong>， 这些被实现的接口将按<code>implements</code>语句（ 如果这个类本身是一个接口， 则应当是<code>extends</code>语句） 后的接口顺序从左到右排列在接口索引集合中。</p>
+</li>
+<li><p>类索引和父类索引各自指向一个类型<code>为CONSTANT_Class_info</code>的类描述符常量， 通过<code>CONSTANT_Class_info</code>类型的常量中的索引值可以找到定义在<code>CONSTANT_Utf8_info</code>类型的常量中的全限定名字符串</p>
+</li>
+<li><p>对于接口索引集合， 入口的第一项——u2类型的数据为接口计数器(<code>interfaces_count</code>) ， 表示索引表的容量。 如果该类没有实现任何接口， 则该计数器值为0，后面接口的索引表不再占用任何字节</p>
+</li>
+</ol>
+<p><code>00 03</code>为一个类索引，通过寻找<code>utf-8</code>类型确定类的全限定名</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#3 = Class              #22            // indi/greenhat/bCC`ytecode/Test1</span><br><span class="line">#22 = Utf8               indi/greenhat/bytecode/Test1</span><br></pre></td></tr></table></figure>
+
+<p><code>00 04</code>是一个父类索引</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#4 = Class              #23            // java/lang/Object</span><br><span class="line">#23 = Utf8               java/lang/Object</span><br></pre></td></tr></table></figure>
+
+<p><code>00 00</code>为接口索引集合，因为值为0，所以没有后续接口内容</p>
+<h2 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h2><p>字段表(<code>field_info</code>)用于描述接口或者类中声明的变量。 字段(<code>field</code>)包括类级变量以及实例级变量， 但不包括在方法内部声明的局部变量。</p>
+<p>字段表的结构如下所示：</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/5.png" alt></p>
+<h3 id="access-flags"><a href="#access-flags" class="headerlink" title="access_flags"></a>access_flags</h3><p>字段修饰符放在<code>access_flags</code>项目中， 它与类中的<code>access_flags</code>项目是非常类似的， 都是一个<code>u2</code>的数据类型</p>
+<p>其中可以设置的标志位和含义:</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/6.png" alt></p>
+<p>很明显， 在实际情况中， <code>ACC_PUBLIC</code>，<code>ACC_PRIVATE</code>，<code>ACC_PROTECTED</code>三个标志最多只能选择其一，<code>ACC_FINAL</code>，<code>ACC_VOLATILE</code>不能同时选择。 接口之中的字段必须有<code>ACC_PUBLIC</code>，<code>ACC_STATIC</code>，<code>ACC_FINAL</code>标志， 这些都是由Java本身的语言规则所决定的。</p>
+<h3 id="name-index与descripor-index"><a href="#name-index与descripor-index" class="headerlink" title="name_index与descripor_index"></a>name_index与descripor_index</h3><p>跟随<code>access_flags</code>标志的是两项索引值： <code>name_index</code>和<code>descriptor_index</code>。它们都是对常量池的引用， <strong>分别代表着字段的简单名称以及字段和方法的描述符。</strong></p>
+<p><em>简单名称是指没有类型和参数修饰的方法或者字段名称， 比如一个类中的inc()方法和m字段的简单名称分别是<code>inc</code>和<code>m</code>。描述符可以参考：[Java虚拟机笔记-字节码文件中的常量池 | 葵花妈妈开课辣](Java虚拟机笔记-字节码文件中的常量池 | 葵花妈妈开课辣)</em></p>
+<h3 id="attribute-count"><a href="#attribute-count" class="headerlink" title="attribute_count"></a>attribute_count</h3><p>在<code>descriptor_index</code>之后跟随着一个属性表集合用于存储一些额外的信息， 字段都可以在属性表中描述零至多项的额外信息。</p>
+<hr>
+<p><code>00 01</code>表示的是属性的数量，表明只有一个字段，然后可以从字段表结构出发，分析这个字段的结构</p>
+<p><code>00 02</code>为<code>access_flags</code>，表示是<code>private</code></p>
+<p><code>00 05</code>为<code>name_index</code>，表示的是<code>a</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#5 = Utf8               a</span><br></pre></td></tr></table></figure>
+
+<p><code>00 06</code>为<code>descripor_index</code>，表示的是<code>I</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#6 = Utf8               I</span><br></pre></td></tr></table></figure>
+
+<p><code>00 00</code>表示<code>attribute_count</code>的值为0</p>
+<h2 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h2><p>Class文件存储格式中对方法的描述与对字段的描述几乎采用了完全一致的方式</p>
+<ul>
+<li>方法表结构：</li>
+</ul>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/8.png" alt></p>
+<ul>
+<li><code>attribute_info</code>结构：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info&#123;</span><br><span class="line">    u2 attribute_name_index;  <span class="comment">//属性名的索引</span></span><br><span class="line">    u4 attribute_length;   <span class="comment">//属性的长度</span></span><br><span class="line">    u1 info[attribute_length];  <span class="comment">//具体的信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>访问标志：</li>
+</ul>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/4.jpg" alt></p>
+<hr>
+<p><code>00 03</code>为方法表的数量，转换为十进制有3个，也就是</p>
+<ol>
+<li><code>getA()</code></li>
+<li><code>setA()</code></li>
+<li>编译器自动生成的默认构造方法</li>
+</ol>
+<p><code>00 01</code>为<code>ACC_public</code>访问标志</p>
+<p><code>00 07</code>和<code>00 08</code>为常量池索引，分别表示<code>name_index</code>与<code>descripor_index</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#7 = Utf8               &lt;init&gt;</span><br><span class="line">#8 = Utf8               ()V</span><br></pre></td></tr></table></figure>
+
+<p><code>00 01</code>为<code>attribute_count</code>，也就是说共有一个属性表</p>
+<p><code>00 09</code>为<code>attribute_info</code>里面的<code>attribute_name_index</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#9 = Utf8               Code</span><br></pre></td></tr></table></figure>
+
+<p>方法里的Java代码， 经过编译器编译成字节码指令后， 存放在方法属性表集合中一个名为<code>Code</code>的属性里面</p>
+<p>比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getA</span><span class="params">()</span></span>;</span><br><span class="line">  descriptor: ()I</span><br><span class="line">  flags: ACC_PUBLIC</span><br><span class="line">  Code:</span><br><span class="line">    stack=<span class="number">1</span>, locals=<span class="number">1</span>, args_size=<span class="number">1</span></span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: getfield      #2                  // Field a:I</span><br><span class="line">       <span class="number">4</span>: ireturn</span><br><span class="line">    LineNumberTable:</span><br><span class="line">      line <span class="number">7</span>: <span class="number">0</span></span><br><span class="line">    LocalVariableTable:</span><br><span class="line">      Start  Length  Slot  Name   Signature</span><br><span class="line">          <span class="number">0</span>       <span class="number">5</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lindi/greenhat/bytecode/Test1;</span><br></pre></td></tr></table></figure>
+
+<p><code>00 00 00 38</code>为<code>attribute_length</code>，转换为十进制为56，也就是说会用56个字节作为<code>code</code>里面的值</p>
+<h3 id="Code属性"><a href="#Code属性" class="headerlink" title="Code属性"></a>Code属性</h3><p><strong>Java程序方法体中的代码经过<code>Javac</code>编译器处理后， 最终变为字节码指令存储在<code>Code</code>属性内</strong>。 <code>Code</code>属性出现在方法表的属性集合之中， 但并非所有的方法表都必须存在这个属性， 譬如接口或者抽象类中的方法就不存在<code>Code</code>属性， 如果方法表有<code>Code</code>属性存在， 那么它的结构如下所示：</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/5.jpg" alt></p>
+<ul>
+<li><p><code>attribute_name_index</code>是一项指向<code>CONSTANT_Utf8_info</code>型常量的索引， 常量值固定为<code>Code</code>， 它代表了该属性的属性名称</p>
+</li>
+<li><p><code>attribute_length</code>指示了属性值的长度， 由于属性名称索引与属性长度一共为6字节， 所以属性值的长度固定为整个属性表长度减去6个字节</p>
+</li>
+<li><p><code>max_stack</code>代表了操作数栈(<code>Operand Stacks</code>)深度的最大值。 在方法执行的任意时刻，操作数栈都不会超过这个深度。 虚拟机运行的时候需要根据这个值来分配栈帧(<code>Stack Frame</code>)中的操作栈深度</p>
+</li>
+<li><p><code>max_locals</code>代表了局部变量表所需的存储空间。</p>
+<p><em>在这里， <code>max_locals</code>的单位是<code>Slot</code>,<code>Slot</code>是虚拟机为局部变量分配内存所使用的最小单位。 对于<code>byte</code>，<code>char</code>，<code>float</code>，<code>int</code>，<code>short</code>，<code>boolean</code>和<code>returnAddress</code>等长度不超过32位的数据类型， 每个局部变量占用1个<code>Slot</code>， 而<code>double</code>和<code>long</code>这两种64位的数据类型则需要两个<code>Slot</code>来存放</em></p>
+</li>
+<li><p><code>code_length</code>和<code>code</code>用来存储Java源程序编译后生成的字节码指令。<code>code_length</code>代表字节码长度， <code>code</code>是用于存储字节码指令的一系列字节流</p>
+<p> <em>既然叫字节码指令， 那么每个指令就是一个u1类型的单字节， 当虚拟机读取到code中的一个字节码时， 就可以对应找出这个字节码代表的是什么指令， 并且可以知道这条指令后面是否需要跟随参数， 以及参数应当如何理解</em></p>
+<p><em>关于<code>code_length</code>， 有一件值得注意的事情， 虽然它是一个u4类型的长度值， 理论上最大<br>值可以达到<code>2^32-1</code>， 但是虚拟机规范中明确限制了一个方法不允许超过65535条字节码指令，<br>即它实际只使用了u2的长度， 如果超过这个限制， Javac编译器也会拒绝编译。 一般来讲， 编<br>写Java代码时只要不是刻意去编写一个超长的方法来为难编译器， 是不太可能超过这个最大<br>值的限制。 但是， 某些特殊情况， 例如在编译一个很复杂的JSP文件时， 某些JSP编译器会把<br>JSP内容和页面输出的信息归并于一个方法之中， 就可能因为方法生成字节码超长的原因而<br>导致编译失败</em></p>
+</li>
+<li><p><code>exception_table</code>用来存放的是异常处理的信息，每个<code>exception_table</code>表项由<code>start_pc</code>，<code>end_pc</code>，<code>handler_pc</code>以及<code>catch_type</code>组成</p>
+</li>
+</ul>
+<hr>
+<p>我们可以用<a href="https://github.com/ingokegel/jclasslib" target="_blank" rel="noopener">jclasslib</a>这个软件来帮助我们查看字节码</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/10.png" alt></p>
+<p>可以看到Code里面其实是一系列的助记符，其对应的十六进制为</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/11.png" alt></p>
+<p>也就是说<code>0x2A</code>对应的就是<code>aload_0</code></p>
+<p><code>0xB7</code>对应的就是<code>invokespecial</code>，后面的<code>00 01</code>代表<code>java/lang/Object.&quot;&lt;init&gt;&quot;:()V</code>，也就是<code>invokespecial</code>后面所要接受的参数值</p>
+<p>对应的助记符解释（来自《Java虚拟机规范 JavaSE8》）</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/12.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/13.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/14.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/15.png" alt></p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/16.png" alt></p>
+<h4 id="LineNumberTable属性"><a href="#LineNumberTable属性" class="headerlink" title="LineNumberTable属性"></a>LineNumberTable属性</h4><p><code>LineNumberTable</code>属性用于描述Java源码行号与字节码行号（ 字节码的偏移量） 之间的对应关系。 它并不是运行时必需的属性， 但默认会生成到Class文件之中</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/17.png" alt></p>
+<p><code>line_number_table</code>是一个数量为<code>line_number_table_length</code>，类型为<code>line_number_info</code>的集<br>合， <code>line_number_info</code>表包括了<code>start_pc</code>和<code>line_number</code>两个<code>u2</code>类型的数据项， 前者是字节码行<br>号， 后者是Java源码行号。当程序运行抛出异常时，异常堆栈中显示出错的行号就是根据这个对应关系来显示的。</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/18.png" alt></p>
+<h4 id="LocalVariableTable属性"><a href="#LocalVariableTable属性" class="headerlink" title="LocalVariableTable属性"></a>LocalVariableTable属性</h4><p><code>LocalVariableTable</code>属性用于描述栈帧中局部变量表中的变量与Java源码中定义的变量之间的关系， 它也不是运行时必需的属性， 但默认会生成到Class文件之中</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/6.jpg" alt></p>
+<p><code>local_variable_info</code>结构:</p>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/19.png" alt></p>
+<ul>
+<li><code>start_pc</code>和<code>length</code>属性分别代表了这个局部变量的生命周期开始地字节码偏移量及其作用范围覆盖的长度，两者结合起来就是这个局部变量在字节码之中的作用域范围。</li>
+<li><code>name_index</code>和<code>descriptor_index</code>都是指向常量池中<code>CONSTANT_Utf8_info</code>型常量的索引，分别代表了局部变量的名称以及这个局部变量的描述符。</li>
+<li><code>index</code>是这个局部变量在栈帧局部变量表中<code>Slot</code>的位置。当这个变量数据类型是 64位类型时（<code>double</code>和<code>long</code>），他占用的<code>Slot</code>为<code>index</code>和<code>index+1</code>两个</li>
+</ul>
+<p><img src="/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/20.png" alt></p>
+<p><strong>可以看到默认构造函数有一个局部变量this，代表类自身</strong></p>
+<p>参考：</p>
+<p><a href="https://zhuanlan.zhihu.com/p/45003974" target="_blank" rel="noopener">Java虚拟机—Class文件结构 - 知乎</a></p>
+<p><a href="https://juejin.im/post/5aca2c366fb9a028c97a5609" target="_blank" rel="noopener">轻松看懂Java字节码 - 掘金</a></p>
+<p><a href="https://blog.nekolr.com/2018/04/18/%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" target="_blank" rel="noopener">类文件结构 | nekolr’s blog</a></p>
+<p><a href="https://lijiankun24.com/%E8%AE%A4%E8%AF%86-class-%E6%96%87%E4%BB%B6%E7%9A%84%E5%AD%97%E8%8A%82%E7%A0%81%E7%BB%93%E6%9E%84/" target="_blank" rel="noopener">认识 .class 文件的字节码结构 | 一些无处安放的代码和故事</a></p>
+<p><a href="https://yq.aliyun.com/articles/640924" target="_blank" rel="noopener">Java Class文件结构解析-云栖社区-阿里云</a></p>
+<p>《深入理解java虚拟机（第二版 周志明）》</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/>https://greenhathg.github.io/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/jvm/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>jvm</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/&title=Java虚拟机笔记-字节码格式 - GreenHatHGのBlog&summary= .class文件"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/&title=Java虚拟机笔记-字节码格式 - GreenHatHGのBlog&summary= .class文件"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2019/06/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%AD%97%E8%8A%82%E7%A0%81%E6%A0%BC%E5%BC%8F/&title=Java虚拟机笔记-字节码格式 - GreenHatHGのBlog&summary= .class文件"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/06/23/%E8%8E%AB%E9%98%9F%E7%AE%97%E6%B3%95/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>莫队算法</p>
+                <p class='content'>莫队算法
+
+
+简述莫队算法使用分块的思想，可以解决一类离线区间询问问题
+莫队算法（mo&#39;s algorithm）一般分为两类，一是莫队维护区间答案，二是维护区间内的数据结构。当然也有树上...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/06/21/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-JDBC%E9%A9%B1%E5%8A%A8%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/'>
+                <p class='title'>Java虚拟机笔记-JDBC驱动加载机制<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'> 通过JDBC驱动加载理解线程上下文加载器
+
+
+JDBCJDBC提供了独立于数据库的统一API，MySQL，Oracle等数据库公司都可以基于这个标准接口来进行开发。包括java .sql包下的...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Java虚拟机笔记-字节码格式',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体概况"><span class="toc-text">总体概况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字节码中的数据类型"><span class="toc-text">字节码中的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#魔数（Magic-Number）"><span class="toc-text">魔数（Magic Number）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class文件的版本"><span class="toc-text">Class文件的版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常量池"><span class="toc-text">常量池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问标志"><span class="toc-text">访问标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类索引、-父类索引与接口索引集合"><span class="toc-text">类索引、 父类索引与接口索引集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字段表集合"><span class="toc-text">字段表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#access-flags"><span class="toc-text">access_flags</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#name-index与descripor-index"><span class="toc-text">name_index与descripor_index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attribute-count"><span class="toc-text">attribute_count</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法表集合"><span class="toc-text">方法表集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Code属性"><span class="toc-text">Code属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LineNumberTable属性"><span class="toc-text">LineNumberTable属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LocalVariableTable属性"><span class="toc-text">LocalVariableTable属性</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>SpringBoot+Shiro+Jwt填坑-2 - GreenHatHGのBlog</title>
+  
+    <meta name="keywords" content="Java">
+  
+  
+    <meta name="description" content="jwt介绍">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="GreenHatHGのBlog">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+  
+
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">GreenHatHGのBlog</p>
+    
+    
+      <p class="subtitle">巴拉巴拉能量! rm -rf / --no-preserve-root</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://greenhathg.github.io/"
+                
+                
+                id="https:greenhathggithubio">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-archive fa-fw'></i>归档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://www.notion.so/greenhat/Share-d0d34dc2fd5b4843acdbe13580c8d279"
+                
+                  rel="external nofollow noopener noreferrer"
+                
+                
+                  target="_blank"
+                
+                id="https:wwwnotionsogreenhatShare-d0d34dc2fd5b4843acdbe13580c8d279">
+                <i class='fas fa-play-circle fa-fw'></i>notion
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow floatable blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            GreenHat
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/">
+      SpringBoot+Shiro+Jwt填坑-2
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://greenhathg.github.io/" rel="nofollow">
+    <img src="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4">
+    <p>GreenHat</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>读书笔记</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Sep 2, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>jwt介绍</p>
+<a id="more"></a>
+
+<p>转载自：<a href="https://blog.csdn.net/xlgen157387/article/details/79191900" target="_blank" rel="noopener">一步步带你了解前后端分离利器之JWT - 徐刘根的博客 - CSDN博客</a></p>
+<h1 id="RESTful-API认证方式"><a href="#RESTful-API认证方式" class="headerlink" title="RESTful API认证方式"></a>RESTful API认证方式</h1><p>一般来讲，对于<code>RESTful API</code>都会有认证(<code>Authentication</code>)和授权(<code>Authorization</code>)过程，保证<code>API</code>的安全性。</p>
+<p><em><code>Authentication</code>指的是确定这个用户的身份，<code>Authorization</code>是确定该用户拥有什么操作权限。</em></p>
+<h2 id="Basic-Authentication"><a href="#Basic-Authentication" class="headerlink" title="Basic Authentication"></a>Basic Authentication</h2><p>这种方式是直接将用户名和密码放到<code>Header</code>中，使用<code>Authorization: Basic Zm9vOmJhcg==</code>，使用最简单但是最不安全。</p>
+<h2 id="TOKEN认证"><a href="#TOKEN认证" class="headerlink" title="TOKEN认证"></a>TOKEN认证</h2><p>这种方式也是再HTTP头中，使用<code>Authorization: Bearer &lt;token&gt;</code>，使用最广泛的<code>TOKEN</code>是<code>JWT</code>，通过签名过的<code>TOKEN</code>。</p>
+<h2 id="OAuth2-0"><a href="#OAuth2-0" class="headerlink" title="OAuth2.0"></a>OAuth2.0</h2><p>这种方式安全等级最高，但是也是最复杂的。如果不是大型API平台或者需要给第三方APP使用的，没必要整这么复杂。</p>
+<p>一般项目中的<code>RESTful API</code>使用<code>JWT</code>来做认证就足够了</p>
+<p>下面是<code>JWT</code>介绍</p>
+<h1 id="HTTP的无状态性"><a href="#HTTP的无状态性" class="headerlink" title="HTTP的无状态性"></a>HTTP的无状态性</h1><p><code>HTTP</code> 是无状态协议，它不对之前发送过的请求和响应的状态进行管理。也就是说，<strong>无法根据之前的状态进行本次的请求处理。假设要求登录认证的 <code>Web</code> 页面本身无法进行状态的管理（不记录已登录的状态），那么每次跳转新页面不是要再次登录，就是要在每次请求报文中附加参数来管理登录状态。</strong></p>
+<p>不可否认，无状态协议当然也有它的优点。由于不必保存状态，自然可减少服务器的 <code>CPU</code> 及内存资源的消耗。从另一侧面来说，也正是因为 <code>HTTP</code> 协议本身是非常简单的，所以才会被应用在各种场景里。</p>
+<h1 id="Cookie-技术的引入"><a href="#Cookie-技术的引入" class="headerlink" title="Cookie 技术的引入"></a>Cookie 技术的引入</h1><p>如果让服务器管理全部客户端状态则会成为负担，保留无状态协议这个特征的同时又要解决类似的矛盾问题，于是引入了<code>Cookie</code>技术。<strong><code>Cookie</code>技术通过在请求和响应报文中写入<code>Cookie</code>信息来控制客户端的状态。</strong></p>
+<p><code>Cookie</code>会根据从服务器端发送的响应报文内的一个叫做<code>Set-Cookie</code>的首部字段信息，通知客户端保存 <code>Cookie</code>。<strong>当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入<code>Cookie</code>值后发送出去。</strong></p>
+<ul>
+<li>没有 <code>Cookie</code> 信息状态下的请求</li>
+</ul>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/1.png" alt></p>
+<ul>
+<li>第 2 次以后（存有 <code>Cookie</code> 信息状态） 的请求</li>
+</ul>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/2.png" alt></p>
+<ul>
+<li>Cookie 传输过程</li>
+</ul>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/3.png" alt></p>
+<p>服务器端发现客户端发送过来的 Cookie 后， 会去检查究竟是从哪一个客户端发来的连接请求， 然后<strong>对比服务器上的记录</strong>， 最后得到之前的状态信息。</p>
+<h1 id="基于表单的认证"><a href="#基于表单的认证" class="headerlink" title="基于表单的认证"></a>基于表单的认证</h1><p>目前用户的认证多半是基于表单的认证，基于表单的认证一般会使用 <code>Cookie</code> 来管理<code>Session</code>（<code>Session</code>会话，<code>Session</code>代表着服务器和客户端一次会话的过程，直到<code>Session</code>失效（服务端关闭）或者客户端关闭时结束<strong>）。</strong>基于表单认证本身是通过服务器端的 <code>Web</code>应用，将客户端发送过来的用户ID和密码与之前登录过的信息做匹配来进行认证的。**</p>
+<p>但鉴于 HTTP 是无状态协议， 之前已认证成功的用户状态无法通过协议层面保存下来。 即无法实现状态管理， 因此即使当该用户下一次继续访问，也无法区分他与其他的用户。<strong>于是我们会使用<code>Cookie</code>来管理 <code>Session</code>，以弥补 <code>HTTP</code>协议中不存在的状态管理功能。</strong></p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/4.png" alt></p>
+<p>简单的来说就是，<strong>用户在登录的时候，会在<code>Web</code>服务器中开辟一段内存空间<code>Session</code>用于保存用户的认证信息和其他信息，用户登录成功之后会通过<code>Set-Cookie</code>的首部字段信息，通知客户端保存<code>Cookie</code>，而这<code>Cookie</code>保存的就是服务器端<code>Session</code>的<code>ID</code></strong>，下次请求的时候客户端会带上该<code>Cookie</code>向服务器端发送请求，服务器端进行校验，<strong>如果<code>Session</code>中保存的有该<code>ID</code>的<code>Session</code>就表示用户认证通过，否则失败！</strong><br><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/5.png" alt></p>
+<h1 id="Session存储位置以及集群情况下的问题"><a href="#Session存储位置以及集群情况下的问题" class="headerlink" title="Session存储位置以及集群情况下的问题"></a>Session存储位置以及集群情况下的问题</h1><p><code>Session</code> 是存储在<code>Web</code>服务器（例如：<code>Tomcat</code>）中的，并针对每个客户端（客户），通过<code>SessionID</code>来区别不同用户的。<strong><code>Session</code>是以<code>Cookie</code>技术或<code>URL</code>重写实现，默认以<code>Cookie</code>技术实现，服务端会给这次会话创造一个<code>JSESSIONID</code>的<code>Cookie</code>值。</strong></p>
+<p>但是一个显著的问题就是，<strong>在集群模式下如果通过<code>Nginx</code>负载均衡的时候，如果有一个用户登录的时候请求被分配到服务器A上，登录成功后设置的<code>Session</code>就会存放在服务器A上了，但是在服务器B上却没有该用户的<code>Session</code>数据，当用户再次发起一个请求的时候，此时请求如果被分配到服务器B上，则就不会查询到该用户的登录状态，就会出现登录失败的情况！</strong></p>
+<p>一种可以想到的方式就是将多个Web服务器上存储的<code>Session</code>统一存储到某一存储介质中，保证进集群中的每一台机器都可以看到所有相同<code>Session</code>数据，这里的同步体现在所有的<code>Session</code>存储在同一的存储介质里边。</p>
+<p>幸运的是我们常用的<code>Tomcat</code>容器已经为我们提供了一个接口，可以让我们实现将<code>Session</code>存储到除当前服务器之外的其他存储介质上，例如<code>Redis</code>等。</p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/6.png" alt></p>
+<h1 id="小结与需求痛点"><a href="#小结与需求痛点" class="headerlink" title="小结与需求痛点"></a>小结与需求痛点</h1><p><code>Session</code>和<code>Cookie</code>的目的相同，都是为了克服<code>HTTP</code>协议无状态的缺陷，但完成的方法不同。<code>Session</code>通过<code>Cookie</code>，在客户端保存<code>SessionID</code>，而将用户的其他会话消息保存在服务端的<code>Session</code>对象中，与此相对的，<code>Cookie</code>需要将所有信息都保存在客户端。因此<code>Cookie</code>存在着一定的安全隐患，例如本地<code>Cookie</code>中保存的用户名密码被破译，或<code>Cookie</code>被其他网站收集。</p>
+<p>上述过程我们简单的描述了<code>Session</code>的演进过程还有使用同步的方式解决<code>Session</code>在集群的时候出现的问题，但是我们意识到了使用<code>Spring Session</code>的方式来实现<code>Session</code>的同步是一件相对比较麻烦的事情，我们虽然使用<code>Redis</code>来进行同步，但是<code>Redis</code>并不是100%可靠的，<strong>我们需要对<code>Redis</code>搭建集群、进行主从同步复制、进行持久化等，显然这是一件很复杂的事情，因此有没有一种小而轻便的方式来实现我们的这种认证需求！那就是<code>JWT</code>了！</strong></p>
+<p><em>除了上述我们遇到的问题之外，在目前前后端分离的大环境下经常会遇到需要根据用户来分配权限和显示相对应信息的问题，虽然传统的<code>Cookie</code>和<code>Session</code>机制可以解决这个问题，但就通用性而言，<code>JWT（JSON Web Tokens）</code>相对来说更好。</em></p>
+<h1 id="JWT是什么"><a href="#JWT是什么" class="headerlink" title="JWT是什么"></a>JWT是什么</h1><p><code>Json web tokens (JWT)</code>，是为了在网络应用环境间传递声明而执行的一种基于<code>JSON</code>的开放标准(<code>RFC 7519</code>)。该标准被设计为紧凑且安全的，一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息。当然该标准也可直接被用于认证，也可被加密。</p>
+<h2 id="JWT的几个特点"><a href="#JWT的几个特点" class="headerlink" title="JWT的几个特点"></a><strong>JWT的几个特点</strong></h2><ol>
+<li><p>由于它们的尺寸较小，<code>JWT</code>可以通过<code>URL</code>，<code>POST</code>参数或<code>HTTP</code>头部发送。 另外，尺寸越小意味着传输速度越快。</p>
+</li>
+<li><p>有效载荷包含有关用户的所有必需信息，避免了多次查询数据库的需要。</p>
+</li>
+</ol>
+<h2 id="JWT的使用场景"><a href="#JWT的使用场景" class="headerlink" title="JWT的使用场景"></a><strong>JWT的使用场景</strong></h2><h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>这是使用<code>JWT</code>最常见的情况。 <strong>一旦用户登录，每个后续请求将包括<code>JWT</code>。它将允许用户访问该令牌允许的路由，服务和资源。 单点登录是当今广泛使用<code>JWT</code>的一项功能，因为它的开销很小，而且能够轻松地跨不同域使用。</strong></p>
+<h3 id="信息交换"><a href="#信息交换" class="headerlink" title="信息交换"></a>信息交换</h3><p><code>JWT</code>是在各方之间安全传输信息的好方法， 因为<code>JWT</code>可以被签名（例如使用公钥/私钥对进行签名）。所以你可以确定发件人是他们说的那个人。 此外，由于使用头部（<code>header</code>）和有效载荷（<code>payload</code>）计算签名，因此您还可以验证内容是否未被篡改。</p>
+<h1 id="JWT的结构"><a href="#JWT的结构" class="headerlink" title="JWT的结构"></a>JWT的结构</h1><h2 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h2><p><strong>JWT包含三个由点（.）分隔的部分</strong>，它们是：</p>
+<ol>
+<li>头部（<code>header</code>）</li>
+<li>有效负载（<code>payload</code>）</li>
+<li>签名（<code>signature</code>）</li>
+</ol>
+<p>因此，<code>JWT</code>通常看起来如下所示:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxxxx.yyyyy.zzzzz</span><br></pre></td></tr></table></figure>
+
+<h2 id="头部（header）"><a href="#头部（header）" class="headerlink" title="头部（header）"></a>头部（header）</h2><p>头部（<code>heade</code>）通常由两部分组成：令牌的类型（即<code>JWT</code>）和正在使用的散列算法（如<code>HMAC SHA256</code>或<code>RSA</code>）。如下所示：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">    <span class="attr">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，将这个<code>JSON</code>用<code>Base64</code>编码，形成<code>JWT</code>的第一部分。</p>
+<blockquote>
+<p><strong>Base64</strong>是一种基于64个可打印字符来表示<a href="https://zh.wikipedia.org/wiki/二进制" target="_blank" rel="noopener">二进制数据</a>的表示方法</p>
+<p>Base64常用于在通常处理文本<a href="https://zh.wikipedia.org/wiki/数据" target="_blank" rel="noopener">数据</a>的场合，表示、传输、存储一些二进制数据，包括<a href="https://zh.wikipedia.org/wiki/MIME" target="_blank" rel="noopener">MIME</a>的<a href="https://zh.wikipedia.org/wiki/电子邮件" target="_blank" rel="noopener">电子邮件</a>及<a href="https://zh.wikipedia.org/wiki/XML" target="_blank" rel="noopener">XML</a>的一些复杂数据。</p>
+</blockquote>
+<h2 id="有效负载（payload）"><a href="#有效负载（payload）" class="headerlink" title="有效负载（payload）"></a>有效负载（payload）</h2><p>令牌的第二部分是包含声明的有效载荷。 声明是关于实体（通常是用户）和附加元数据的声明。 有三种类型的声明：</p>
+<ol>
+<li>标准中注册的声明；</li>
+<li>公开声明；</li>
+<li>私人声明；</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"sub"</span>: <span class="string">"123"</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"John"</span>,</span><br><span class="line">    <span class="attr">"admin"</span>: <span class="string">"true"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="标准中注册的声明"><a href="#标准中注册的声明" class="headerlink" title="标准中注册的声明"></a>标准中注册的声明</h3><p>标准中注册的声明：这是一组预先定义的声明，这些声明不是强制性的，但建议提供一套有用的，可互操作的声明。 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">iss: jwt签发者</span><br><span class="line"></span><br><span class="line">sub: jwt所面向的用户</span><br><span class="line"></span><br><span class="line">aud: 接收jwt的一方</span><br><span class="line"></span><br><span class="line">exp: jwt的过期时间，这个过期时间必须要大于签发时间</span><br><span class="line"></span><br><span class="line">nbf: 定义在什么时间之前，该jwt都是不可用的.</span><br><span class="line"></span><br><span class="line">iat: jwt的签发时间</span><br><span class="line"></span><br><span class="line">jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。</span><br></pre></td></tr></table></figure>
+
+<p>注意：声明名称只有三个字符长，因为<code>JWT</code>是紧凑的。</p>
+<h3 id="公开声明"><a href="#公开声明" class="headerlink" title="公开声明"></a>公开声明</h3><p>公共的声明可以添加任何的信息，一般添加用户的相关信息或其他业务需要的必要信息。但不建议添加敏感信息，因为该部分在客户端可解密。</p>
+<h3 id="私人声明"><a href="#私人声明" class="headerlink" title="私人声明"></a>私人声明</h3><p>私有声明是提供者和消费者所共同定义的声明，一般不建议存放敏感信息，因为<code>base64</code>是对称解密的，意味着该部分信息可以归类为明文信息。</p>
+<h2 id="签名（signature）"><a href="#签名（signature）" class="headerlink" title="签名（signature）"></a>签名（signature）</h2><p>要创建签名部分，您必须采用头部（<code>header</code>），有效载荷（<code>payload</code>），密钥（<code>secret</code>），以及头部中指定的算法。例如，如果你想使用<code>HMAC SHA256</code>算法，签名将按以下方式创建：</p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/7.png" alt></p>
+<p><strong>签名通常用于验证<code>JWT</code>的发件人是谁，并JWT在传送的过程中不被篡改</strong>。</p>
+<p>注意：<strong>上图红框中的<code>secret</code>是保存在服务器端的，<code>JWT</code>的签发生成也是在服务器端的，<code>secret</code>就是用来进行<code>JWT</code>的签发和<code>JWT</code>的验证，所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个<code>secret</code>，那就意味着客户端是可以自我签发<code>JWT</code>了。</strong></p>
+<h1 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h1><p>下面显示了一个登录请求成功之后服务端返回的<code>Token</code>，它由编码头部（<code>header</code>）、编码有效载荷（<code>payload</code>）和签名（<code>signature</code>）通过（.）拼接而成：</p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/8.png" alt></p>
+<p>如果需要，你可以使用<a href="https://jwt.io/" target="_blank" rel="noopener">jwt.io</a>的<code>Debugger</code>工具，来编码、验证和生成<code>JWT</code>。操作界面如下</p>
+<p>刚开始没有输入<code>secret</code>则显示验证错误</p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/9.png" alt></p>
+<p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/14.png" alt></p>
+<p>输入后<code>jwt</code>是一样的，并且验证通过了</p>
+<h1 id="JWT的工作原理"><a href="#JWT的工作原理" class="headerlink" title="JWT的工作原理"></a>JWT的工作原理</h1><p>在身份验证中，当用户使用他们的凭证（如用户名、密码）成功登录时，后台服务器将返回一个<code>token</code>，前端接收到这个<code>token</code>将其保存在本地（通常在本地存储中，也可以使用<code>Cookie</code>，但不是传统方法中创建会话，服务器并返回一个<code>cookie</code>）。<strong>下次用户想要访问受保护的路由或资源时，就将本地保存的<code>token</code>放在头部<code>Header</code>中发送到后台服务器。服务器接收到请求，检查头部中<code>token</code>的存在，如果存在就允许访问受保护的路由或资源，否则就不允许</strong>。如下所示：<br><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/10.png" alt></p>
+<p>一般默认的<code>Value</code>是以<code>Bearer</code>开始，注意这里的<code>Bearer</code>之后有一个空格，<strong>以便后端进行分割</strong>。</p>
+<p>这是一种无状态身份验证机制，因为用户状态永远不会保存在服务器内存中。 由于<code>JWT</code>是独立的，所有必要的信息都在那里，所以减少了多次查询数据库的需求。</p>
+<h1 id="JWT总结"><a href="#JWT总结" class="headerlink" title="JWT总结"></a>JWT总结</h1><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li><p>因为<code>Json</code>的通用性，所以JWT是可以进行跨语言支持的，像<code>Java</code>、<code>JavaScript</code>、<code>NodeJS</code>、<code>PHP</code>等很多语言都可以使用。</p>
+</li>
+<li><p>因为有了<code>payload</code>部分，所以<code>JWT</code>可以在自身存储一些其他业务逻辑所必要的非敏感信息。</p>
+</li>
+<li><p>便于传输，<code>JWT</code>的构成非常简单，字节占用很小，所以它是非常便于传输的。</p>
+</li>
+<li><p>它不需要在服务端保存会话信息, 所以它易于应用的扩展</p>
+</li>
+</ol>
+<h2 id="安全相关"><a href="#安全相关" class="headerlink" title="安全相关"></a>安全相关</h2><ol>
+<li><p>不应该在<code>JWT</code>的<code>payload</code>部分存放敏感信息，因为该部分是客户端可解密的部分。</p>
+</li>
+<li><p>保护好<code>secret</code>私钥，该私钥非常重要。</p>
+</li>
+<li><p>如果可以，请使用<code>HTTPS</code>协议，不！是务必使用<code>HTTPS</code>!</p>
+</li>
+</ol>
+<h1 id="session-cookie-jwt"><a href="#session-cookie-jwt" class="headerlink" title="session cookie jwt"></a>session cookie jwt</h1><p>转自：<a href="https://mp.weixin.qq.com/s/SY-5ETSjwSB28o95NIsxGw" target="_blank" rel="noopener">五分钟带你了解Cookie、Session、Token 和 JWT</a></p>
+<h2 id="基于session的用户认证"><a href="#基于session的用户认证" class="headerlink" title="基于session的用户认证"></a>基于session的用户认证</h2><p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/11.jpg" alt>![](</p>
+<h2 id="基于token的认证方案"><a href="#基于token的认证方案" class="headerlink" title="基于token的认证方案"></a>基于token的认证方案</h2><p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/12.jpg" alt></p>
+<h2 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h2><p><img src="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/13.jpg" alt></p>
+<hr>
+<p>参考：</p>
+<p><a href="https://www.xncoding.com/2017/07/09/spring/sb-jwt.html" target="_blank" rel="noopener">SpringBoot系列 - 集成JWT实现接口权限认证 | 飞污熊博客</a></p>
+<hr>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/>https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-21T04:39:05+00:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Dec 21, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Java</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/&title=SpringBoot+Shiro+Jwt填坑-2 - GreenHatHGのBlog&summary=jwt介绍"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/&title=SpringBoot+Shiro+Jwt填坑-2 - GreenHatHGのBlog&summary=jwt介绍"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://greenhathg.github.io/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/&title=SpringBoot+Shiro+Jwt填坑-2 - GreenHatHGのBlog&summary=jwt介绍"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-1/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SpringBoot+Shiro+Jwt填坑-1</p>
+                <p class='content'>shiro介绍
+
+
+RBAC在了解Shiro之前，我们需要认知用户权限模型。
+基于角色的权限访问控制（Role-Based Access Control）作为传统访问控制（自主访问，强制访问）的...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/08/28/Java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/'>
+                <p class='title'>Java设计模式-单例模式<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>对于系统中的某些类来说，只有一个实例很重要
+
+
+模式动机对于系统中的某些类来说，只有一个实例很重要，例如，一个系统中可以存在多个打印任务，但是只能有一个正在工作的任务；一个系统只能有一个窗口管理...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'SpringBoot+Shiro+Jwt填坑-2',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow， floatable desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Authentication"><span class="toc-text">Basic Authentication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TOKEN认证"><span class="toc-text">TOKEN认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OAuth2-0"><span class="toc-text">OAuth2.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT的几个特点"><span class="toc-text">JWT的几个特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT的使用场景"><span class="toc-text">JWT的使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#验证"><span class="toc-text">验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信息交换"><span class="toc-text">信息交换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总体结构"><span class="toc-text">总体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#头部（header）"><span class="toc-text">头部（header）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有效负载（payload）"><span class="toc-text">有效负载（payload）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标准中注册的声明"><span class="toc-text">标准中注册的声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#公开声明"><span class="toc-text">公开声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#私人声明"><span class="toc-text">私人声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#签名（signature）"><span class="toc-text">签名（signature）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优点"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全相关"><span class="toc-text">安全相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于session的用户认证"><span class="toc-text">基于session的用户认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基于token的认证方案"><span class="toc-text">基于token的认证方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT"><span class="toc-text">JWT</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:greenhat2333@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/GreenHatHG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://greenhathg.github.io/">Copyright © 2017-2020 GreenHat</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "B4eDQP4izVhHdNVSP2neYtTT-gzGzoHsz",
+    appKey: "1eamiU413QNrf2B7qgu7UuEx",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
