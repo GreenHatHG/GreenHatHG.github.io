@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>水SpringBoot与SpringCloud | GreenHatHGのBlog</title><meta name="keywords" content="SpringBoot,SpringCloud,微服务,devops"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="项目有感">
+<meta property="og:type" content="article">
+<meta property="og:title" content="水SpringBoot与SpringCloud">
+<meta property="og:url" content="https://greenhathg.github.io/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="项目有感">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2019-11-21T13:33:54.000Z">
+<meta property="article:modified_time" content="2021-10-09T00:15:08.596Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="SpringCloud">
+<meta property="article:tag" content="微服务">
+<meta property="article:tag" content="devops">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '水SpringBoot与SpringCloud',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-09 08:15:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">水SpringBoot与SpringCloud</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-11-21T13:33:54.000Z" title="发表于 2019-11-21 21:33:54">2019-11-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-09T00:15:08.596Z" title="更新于 2021-10-09 08:15:08">2021-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="水SpringBoot与SpringCloud"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>项目有感<br><span id="more"></span></p>
+<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p>微服务的具体概念或者优缺点可以看这个：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.funtl.com/zh/micro-service-intro/微服务-解决复杂问题.html#概述">微服务-解决复杂问题 | 千锋教育-李卫民</a></p>
+<p>微服务架构，更好的进行分布式系统开发，拆分单体应用，将一个应用拆分成多个服务，每一个服务都是一个可以独立运行的项目。</p>
+<p>微服务分布式开发会遇到这四个问题：</p>
+<ol>
+<li><strong>这么多服务，客户端如何访问</strong></li>
+<li><strong>这么多服务，服务之间如何通信</strong></li>
+<li><strong>这么多服务，如何治理</strong></li>
+<li><strong>服务挂了，怎么办？</strong></li>
+</ol>
+<p>解决方案：</p>
+<p><code>Spring Cloud</code>，是一套生态，是为了解决微服务架构遇到的问题，想要使用<code>Spring Cloud</code>必须基于<code>Spring Boot</code></p>
+<hr>
+<p>后来去了解了下，现在<code>Spring Cloud</code>微服务方案有三套：</p>
+<h2 id="Spring-Cloud-Netflix"><a href="#Spring-Cloud-Netflix" class="headerlink" title="Spring Cloud Netflix"></a>Spring Cloud Netflix</h2><p> 目前市场上主流的 <strong>第一套微服务架构解决方案：Spring Boot + Spring Cloud Netflix</strong> </p>
+<ul>
+<li><code>Spring Cloud Netflix</code>为了解决第一个问题，提出了<code>API</code>网关组件—-&gt;<code>Zuul</code></li>
+<li>为了解决服务之间如何通信问题，提出了<code>Feign</code>，它是基于<code>HTTP</code>通信的，同步并阻塞的</li>
+<li>为了解决如何治理服务问题，提出了服务注册与发现组件—&gt;<code>Eureka</code></li>
+<li>为了解决服务挂了的问题，提出了熔断机制—&gt;<code>Hystrix</code>组件</li>
+</ul>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/5.png" alt></p>
+<p>市面上面的教程很多都是这一套，不过这一套已经不维护了，所以不考虑这一个</p>
+<h2 id="Dubbo-Zookeeper"><a href="#Dubbo-Zookeeper" class="headerlink" title="Dubbo + Zookeeper"></a>Dubbo + Zookeeper</h2><p> 目前市场上主流的 <strong>第二套微服务架构解决方案：Spring Boot + Dubbo + Zookeeper</strong> </p>
+<ul>
+<li><code>Apache Dubbo</code> 是一款高性能、轻量级的开源<code>Java RPC</code>框架。<strong>用于解决服务之间的通信问题</strong>。</li>
+<li><code>ZooKeeper</code> 是一种分布式协调服务，用于管理大型主机。在分布式环境中协调和管理服务是一个复杂的过程。<strong>用于解决治理服务的问题，也就是服务注册与发现</strong></li>
+<li><strong><code>API</code>网关没有现成的，得找第三方组件或自己实现</strong></li>
+<li><strong>熔断机制组件也没有现成</strong></li>
+</ul>
+<p>所以该套方案不是很完善，但是新版在孵化，估计新版会解决这些问题</p>
+<h2 id="Spring-Cloud-Alibaba"><a href="#Spring-Cloud-Alibaba" class="headerlink" title="Spring Cloud Alibaba"></a>Spring Cloud Alibaba</h2><p> 目前市场上主流的 <strong>第三套微服务架构解决方案：Spring Boot + Spring Cloud Alibaba</strong> </p>
+<p><code>Spring Cloud Alibaba</code>致力于提供微服务开发的一站式解决方案。此项目包含开发分布式应用微服务的必需组件，方便开发者通过<code>Spring Cloud</code> 编程模型轻松使用这些组件来开发分布式应用服务。</p>
+<p>依托<code>Spring Cloud Alibaba</code>，您只需要添加一些注解和少量配置，就可以将<code>Spring Cloud</code>应用接入阿里分布式应用解决方案，通过阿里中间件来迅速搭建分布式应用系统。</p>
+<ul>
+<li>在<code>Spring Cloud Netflix</code>阶段我们采用<code>Eureka</code>做作为我们的<strong>服务注册与发现服务器</strong>，现利用<code>Spring Cloud Alibaba</code> 提供的<code>Nacos</code>组件替代该方案。 </li>
+<li><strong>服务之间通信</strong>：<code>Feign</code></li>
+<li><strong>熔断机制组件</strong>： 阿里巴巴开源了 <code>Sentinel</code> 组件，实现了熔断器模式 </li>
+<li><code>API</code>网关： <code>Spring Cloud Gateway</code>， <strong>Spring Cloud Gateway 作为 Spring Cloud 生态系中的网关，目标是替代 Netflix ZUUL</strong>，其不仅提供统一的路由方式，并且基于 <code>Filter</code>链的方式提供了网关基本的功能，例如：安全，监控/埋点，和限流等。 </li>
+</ul>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/6.png" alt></p>
+<h2 id="下一代微服务架构—服务网格-service-mesh"><a href="#下一代微服务架构—服务网格-service-mesh" class="headerlink" title="下一代微服务架构—服务网格(service mesh)"></a>下一代微服务架构—服务网格(service mesh)</h2><p>可以去了解下微服务管理框架<code>service mesh</code>——<code>Istio</code></p>
+<h1 id="SpringBoot转SringCloudAlibaba"><a href="#SpringBoot转SringCloudAlibaba" class="headerlink" title="SpringBoot转SringCloudAlibaba"></a>SpringBoot转SringCloudAlibaba</h1><p>为什么要转？一方面是因为项目使用了<code>shiro</code>，很多时候其他接口都要依赖<code>shiro</code>的检查之后才能用，也就是说流量得经过<code>shiro</code>检查，没有问题才放行给接口处理逻辑，这样的话接口就和<code>shiro</code>耦合在一起了，如果我们把<code>shiro</code>拆出来，当一个服务，流量经过这个服务检查，没问题才放行给其他服务使用，这里我们讲的其实就是微服务里面的网关。另一方面就是之前没有用过，想用用。当然，微服务也有很多缺点，比如增加开发成本，服务器开销等等。</p>
+<h1 id="SpringCloud自动部署问题"><a href="#SpringCloud自动部署问题" class="headerlink" title="SpringCloud自动部署问题"></a>SpringCloud自动部署问题</h1><p>当我们使用<code>SpringCloud</code>的时候，意味着我们一个项目会有很多个服务，每个项目都是打包部署的，而我们可能会有几百个服务，所以要是像我们之前使用<code>SpringBoot</code>手动打包项目成<code>Jar</code>，然后再手动上传到服务器那样的话，那么肯定会累si。所以当我们这个很简单版的<code>SpringCloud</code>项目完成后，我就考虑如何去部署它。</p>
+<p>既然这么多项目需要打包了，那么直觉就可以告诉我们要上自动部署了，所以这几天一直都在写那个自动部署的脚本。回归正题，其实这东西现在看来是一个<code>CI/CD</code>的过程，<code>CI/CD</code>又关系到<code>devops</code>，之前对这个词有点模糊，现在可以趁机补习一下。</p>
+<h2 id="CI-CD与devops"><a href="#CI-CD与devops" class="headerlink" title="CI/CD与devops"></a>CI/CD与devops</h2><p>其实，<code>CI</code>的全称是<code>continuous integration</code>，<code>CD</code>的全称是<code>continuous delivery</code></p>
+<p>翻译过来分别是<strong>持续集成</strong>和<strong>持续交付</strong></p>
+<p>那么<code>devops</code>呢</p>
+<blockquote>
+<p>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/DevOps#Definition">DevOps - Wikipedia</a></p>
+<p>DevOps（Development和Operations的组合词）是一组过程、方法与系统的统称，用于促进开发（应用程序/软件工程）、技术运营和质量保障（QA）部门之间的沟通、协作与整合。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://baike.baidu.com/item/devops/2613029">devops_百度百科</a></p>
+</blockquote>
+<p>baba什么的，其实我感觉它的作用应该就是让软件更快更好地交付给客户使用，所以它们的关系应该是</p>
+<p><strong><code>CI</code>与<code>CD</code>是<code>devops</code>的最佳实践之一，可以更频繁更可靠得交付</strong></p>
+<p>更多可点下面链接了解</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.infoworld.com/article/3271126/what-is-cicd-continuous-integration-and-continuous-delivery-explained.html">What is CI/CD? Continuous integration and continuous delivery explained | InfoWorld</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.infoq.cn/article/WHt0wFMDRrBU-dtkh1Xp">如何从零开始搭建 CI/CD 流水线-InfoQ</a></p>
+<p><strong>总结</strong></p>
+<blockquote>
+<p>DevOps 是一种软件开发方法。它将持续开发、持续测试、持续集成、持续部署和持续监控贯穿于软件开发的整个生命周期</p>
+<p>CI/CD可以将它们看作是类似于软件开发生命周期的过程</p>
+</blockquote>
+<h2 id="搭建CI-CD流水线"><a href="#搭建CI-CD流水线" class="headerlink" title="搭建CI/CD流水线"></a>搭建CI/CD流水线</h2><p>搭建<code>CI/CD</code>流水线的方法用很多，比如用<code>Jenkins</code>，<code>GitLab</code>，<code>Travis</code>，或者是最近刚出的<code>Github Actions</code>等等。之前我们团队尝试过使用<code>Jenkins</code>，优点就是自定义任务很多并且可以自己把控，缺点就是得有服务器部署它，（或许是本地虚拟机+内网穿透也行）。</p>
+<p>权衡了下，决定使用<code>Travis</code>。</p>
+<hr>
+<p>第一步是在项目的根目录添加<code>.travis.yml</code></p>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/2.png" alt></p>
+<p>这个文件会被<code>travis</code>发现，并且执行里面设置的逻辑达到自动部署的目的，其实这个本质上就是<code>travis</code>给你开一台机器，你写脚本去控制它，让这个机器帮你做一些事情，这个脚本的内容其实就是<code>Linux</code>上的一些命令。<code>travis</code>脚本的一些基础的命令可以在网上很容易的找到。</p>
+<h3 id="travis-yml"><a href="#travis-yml" class="headerlink" title=".travis.yml"></a>.travis.yml</h3><p>下面是我当时写的<code>.travis.yml</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">language: java</span><br><span class="line"></span><br><span class="line">jdk:</span><br><span class="line">  - openjdk8</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  - docker</span><br><span class="line"></span><br><span class="line">addons:</span><br><span class="line">  apt:</span><br><span class="line">    packages:</span><br><span class="line">    - sshpass</span><br><span class="line"></span><br><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">  - <span class="variable">$HOME</span>/.m2</span><br><span class="line"></span><br><span class="line">install:</span><br><span class="line">  - ssh-keyscan <span class="variable">$&#123;gatewayip&#125;</span> &gt;&gt; ~/.ssh/known_hosts</span><br><span class="line"></span><br><span class="line">script:</span><br><span class="line">  - bash start.sh acm-dependencies acm-commons-controller acm-commons-utils</span><br><span class="line"></span><br><span class="line">branches:</span><br><span class="line">  only:</span><br><span class="line">    - master</span><br><span class="line"></span><br><span class="line">notifications:</span><br><span class="line">  email: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">env:</span><br><span class="line">  global:</span><br><span class="line">  - GH_REF=https://github.com/GreenHatHG/ACMRecentContests_SpringCloudAlibaba.git</span><br></pre></td></tr></table></figure>
+<p>有几点说明一下：</p>
+<ol>
+<li><p>因为Java项目，所以<code>language</code>里面是<code>Java</code>， <code>travis</code>支持多语言，详情可看：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/27644586/how-to-set-up-travis-ci-with-multiple-languages">How to set up Travis CI with multiple languages - Stack Overflow</a>，大概是这样的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">matrix:</span><br><span class="line">  include:</span><br><span class="line">    - language: python</span><br><span class="line">      python: 2.7</span><br><span class="line">      script: ...</span><br><span class="line">        ...</span><br><span class="line">    - language: objective-c</span><br><span class="line">      os: osx</span><br><span class="line">      script: ...</span><br><span class="line">       ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当前<code>SpringCloud</code>项目使用了<code>maven</code>构建工具，因为<code>maven</code>在构建的时候需要下载很多依赖，所以为了加快构建的速度，我们缓存了<code>maven</code>所下载的依赖，当<code>travis</code>构建完成时清空其他东西而保存了依赖，下次再次构建的时候就可以直接使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cache:</span><br><span class="line">  directories:</span><br><span class="line">  - <span class="variable">$HOME</span>/.m2</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>因为要用<code>sshpass</code>远程控制服务器，所以得<code>install</code>那里把ip地址填到<code>~/.ssh/known_hosts</code>文件，以免出现不能访问的情况</li>
+</ol>
+<h3 id="start-sh"><a href="#start-sh" class="headerlink" title="start.sh"></a>start.sh</h3><p>因为要执行的逻辑比较多，所以把脚本写到了一个文件里面。<code>start.sh</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------install父类依赖---------------------</span></span><br><span class="line"><span class="keyword">for</span> arg;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    mvn clean install -f <span class="variable">$arg</span>/pom.xml</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------创建dockerfile---------------------</span></span><br><span class="line"><span class="comment"># $1:项目名，$2:jar的相对路径</span></span><br><span class="line"><span class="function"><span class="title">createDokcerfiler</span></span>()&#123;</span><br><span class="line">    rm <span class="variable">$1</span>/dockerfile || <span class="literal">true</span></span><br><span class="line">    touch <span class="variable">$1</span>/dockerfile</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;FROM openjdk:8-alpine&#x27;</span> &gt;&gt; <span class="variable">$1</span>/dockerfile</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;RUN mkdir /app&#x27;</span> &gt;&gt; <span class="variable">$1</span>/dockerfile</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;COPY&#x27;</span> <span class="variable">$2</span>  <span class="string">&#x27; /app/&#x27;</span> &gt;&gt; <span class="variable">$1</span>/dockerfile</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&#x27;CMD java -jar /app/&#x27;</span><span class="variable">$2</span> &gt;&gt; <span class="variable">$1</span>/dockerfile</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------打包---------------------</span></span><br><span class="line">baseFolder=<span class="string">&#x27;/root/spring-cloud-alibaba/&#x27;</span></span><br><span class="line"><span class="comment"># 创建文件夹用来存放jar</span></span><br><span class="line"><span class="comment"># sshpass -p $pwd ssh -o StrictHostKeyChecking=no root@$ip &#x27;mkdir -p &#x27;$&#123;baseFolder&#125; || true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> path <span class="keyword">in</span> `ls`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    flag=1</span><br><span class="line">    <span class="comment"># 判断是否是父类依赖，是的话则直接跳过</span></span><br><span class="line">    <span class="keyword">for</span> arg;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="variable">$path</span> == <span class="variable">$arg</span> ]; <span class="keyword">then</span></span><br><span class="line">            flag=0</span><br><span class="line">            <span class="built_in">break</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line">    <span class="comment"># 判断是不是文件夹</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$flag</span> == 1 ]&amp;&amp;[ -d <span class="variable">$path</span> ]; <span class="keyword">then</span></span><br><span class="line">        mvn clean package -f <span class="variable">$path</span>/pom.xml</span><br><span class="line">        <span class="comment"># sshpass -p $pwd scp $path/target/*.jar root@$ip:$&#123;baseFolder&#125;</span></span><br><span class="line">        jarPath=`ls <span class="variable">$path</span>/target | grep <span class="string">&#x27;.jar$&#x27;</span>`</span><br><span class="line">        createDokcerfiler <span class="variable">$path</span> <span class="variable">$jarPath</span></span><br><span class="line">        mv <span class="string">&quot;<span class="variable">$path</span>/target/<span class="variable">$jarPath</span>&quot;</span> <span class="variable">$path</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------上传到阿里云docker仓库---------------------</span></span><br><span class="line">time=$(date <span class="string">&quot;+%Y%m%d%H&quot;</span>)</span><br><span class="line"></span><br><span class="line">docker login --username=<span class="variable">$registryu</span> registry.cn-hongkong.aliyuncs.com --password=<span class="variable">$registryp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> path <span class="keyword">in</span> `ls`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -f <span class="variable">$path</span>/dockerfile ]; <span class="keyword">then</span></span><br><span class="line">        docker build -t <span class="variable">$path</span>:<span class="variable">$time</span> <span class="variable">$path</span></span><br><span class="line">        docker tag <span class="variable">$path</span>:<span class="variable">$time</span> registry.cn-hongkong.aliyuncs.com/acm-recentcontests/<span class="variable">$path</span>:<span class="variable">$time</span></span><br><span class="line">        docker push registry.cn-hongkong.aliyuncs.com/acm-recentcontests/<span class="variable">$path</span>:<span class="variable">$time</span></span><br><span class="line">    <span class="keyword">fi</span> </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>里面执行的逻辑其实很简单，<strong>首先就是对<code>maven</code>所要依赖的公共项目进行编译安装，然后再去编译其他独立的一个个项目，最后制作<code>dockerfile</code>文件，编译打包上传到阿里云的<code>docker</code>仓库</strong>。</p>
+<p>这里面有几个坑点，一个是多模块的<code>maven</code>项目怎么打包，这里面也花了我挺长时间，因为每个项目都是独立的，不像单体应用那么简单。除了我这个方法，还有一个方法就是构建一个<code>maven</code>私服，把自己的<code>jar</code>包上传上去，当构建别的项目的时候，它依赖了某个项目，这时候所要依赖的<code>jar</code>包可以从私服上面找到。</p>
+<p>第二点就是<code>dockerfile</code>要和<code>jar</code>文件夹处在同一级目录才好打包，不然会报错，所以脚本有一处是将<code>jar</code>包移动到<code>dockerfile</code>的目录</p>
+<p>第三点就是一些零零碎碎的<code>Linux Shell</code>知识了，比如赋值等号不能有空格，双引号与单引号的区别等等，需要注意。</p>
+<h3 id="debug模式"><a href="#debug模式" class="headerlink" title="debug模式"></a>debug模式</h3><p>不过这里有个好方法可以去解决脚本问题，就是开启<code>debug</code>模式，这样我们可以<code>ssh</code>到<code>travis</code>的机器上面，然后我们可以在<code>travis</code>里面不断修改我们的脚本。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.travis-ci.com/user/running-build-in-debug-mode/">Running Build in Debug Mode - Travis CI</a></p>
+<p>跟着官网的脚本走就行了，不过需要注意几点就是</p>
+<ol>
+<li>需要给官方发邮件叫工作人员对你的某个配置开启<code>debug</code>模式后你才能用这个模式，注意时区2333，那时候工作人员可能还在睡觉</li>
+</ol>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/3.png" alt></p>
+<ol>
+<li>因为<code>travis</code>服务器处于外国，直接连接会比较慢，所以可以考虑给<code>ssh</code>套代理，在<code>linux</code>使用<code>ssh</code>命令<code>我</code>并没有找到什么的好的让<code>ssh</code>走代理的方法，我是用<code>putty</code>解决的</li>
+<li><code>ssh</code>上去后如果执行<code>exit</code>的话会直接导致这次的<code>debug</code>直接结束，如果需要退出，直接关闭窗口就行，下次连接的时候还是处于上次操作的位置，需要注意的是，一次<code>debug</code>模式只有三十分钟，超时了只能再发一次请求，并且数据会清空。</li>
+</ol>
+<h3 id="travis网页的设置"><a href="#travis网页的设置" class="headerlink" title="travis网页的设置"></a>travis网页的设置</h3><p>脚本配置好了后，就可以去<code>travis</code><a target="_blank" rel="noopener external nofollow noreferrer" href="https://travis-ci.com/">官网</a>设置要关联的仓库，好像现在<code>travis</code>只能关联<code>Github</code>仓库，并且得是公开的，私有仓库得要钱。</p>
+<p>然后在右上角头像那里打开<code>setting</code>，进去之后就有个<code>repositories</code></p>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/1.png" alt></p>
+<p>记得之前官网是<code>travis.org</code>的时候有关联的设置，新版官方好像是没有，我们直接在我们要自动部署的仓库里面点一次构建，之后就可以一直构建了。</p>
+<p><img src="/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/4.png" alt></p>
+<p>然后查看每次的构建日志就行啦。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总结来说，一共2步：</p>
+<ol>
+<li><strong>编写<code>.travis.yml</code>文件放到项目根目录并且推上仓库</strong></li>
+<li><strong>在<code>travis</code>官网设置要关联的仓库</strong></li>
+</ol>
+<h2 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h2><p>个人踩过的坑在<code>maven</code>的构建和<code>travis</code>脚本的编写上面，因为那时候在整一个项目下新建一个子项目都是手动的，有时候会打错某个文件夹名字，<strong>但是<code>idea</code>可以运行，命令行打包会报错，这时候可能是某个文件夹的名字错了，或者是某个文件的名字错了，</strong>所以手残党新建一个<code>SpringBoot</code>子项目的时候可以新建一个<code>maven</code>的<code>module</code>，然后删除多余的东西就行啦。</p>
+<p>还有一个就是<code>pom.xml</code>找不到父模块的问题，或者托管这个<code>maven</code>子项目到<code>idea</code>的时候会报错，这时候<strong>只需要把<code>idea2019</code>版本换回<code>idea2018.2</code></strong>就行啦。</p>
+<p>这2个前期最烦的问题，解决就顺畅很多了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/">https://greenhathg.github.io/2019/11/21/%E6%B0%B4SpringBoot%E4%B8%8ESpringCloud/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SpringBoot/">SpringBoot</a><a class="post-meta__tags" href="/tags/SpringCloud/">SpringCloud</a><a class="post-meta__tags" href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a><a class="post-meta__tags" href="/tags/devops/">devops</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/10/08/2019%E4%B8%8A%E6%B5%B7%E7%BD%91%E7%BB%9C%E8%B5%9BB%E9%A2%98/"><img class="prev-cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">2019上海网络赛B题</div></div></a></div><div class="next-post pull-right"><a href="/2020/02/08/%E9%80%9A%E4%BF%97%E7%90%86%E8%A7%A3%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F/"><img class="next-cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">通俗理解数据库三大范式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-1/" title="SpringBoot+Shiro+Jwt填坑-1"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">SpringBoot+Shiro+Jwt填坑-1</div></div></a></div><div><a href="/2019/09/07/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-3/" title="SpringBoot+Shiro+Jwt填坑-3"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">SpringBoot+Shiro+Jwt填坑-3</div></div></a></div><div><a href="/2019/09/02/SpringBoot+Shiro+Jwt%E5%A1%AB%E5%9D%91-2/" title="SpringBoot+Shiro+Jwt填坑-2"><img class="cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">SpringBoot+Shiro+Jwt填坑-2</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.</span> <span class="toc-text">微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud-Netflix"><span class="toc-number">1.1.</span> <span class="toc-text">Spring Cloud Netflix</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dubbo-Zookeeper"><span class="toc-number">1.2.</span> <span class="toc-text">Dubbo + Zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Cloud-Alibaba"><span class="toc-number">1.3.</span> <span class="toc-text">Spring Cloud Alibaba</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E2%80%94%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC-service-mesh"><span class="toc-number">1.4.</span> <span class="toc-text">下一代微服务架构—服务网格(service mesh)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot%E8%BD%ACSringCloudAlibaba"><span class="toc-number">2.</span> <span class="toc-text">SpringBoot转SringCloudAlibaba</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringCloud%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">SpringCloud自动部署问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CI-CD%E4%B8%8Edevops"><span class="toc-number">3.1.</span> <span class="toc-text">CI&#x2F;CD与devops</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BACI-CD%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">3.2.</span> <span class="toc-text">搭建CI&#x2F;CD流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#travis-yml"><span class="toc-number">3.2.1.</span> <span class="toc-text">.travis.yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#start-sh"><span class="toc-number">3.2.2.</span> <span class="toc-text">start.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#debug%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.3.</span> <span class="toc-text">debug模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#travis%E7%BD%91%E9%A1%B5%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.2.4.</span> <span class="toc-text">travis网页的设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.2.5.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><span class="toc-number">3.3.</span> <span class="toc-text">个人总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="火车头使用教程"/></a><div class="content"><a class="title" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程">火车头使用教程</a><time datetime="2021-10-07T23:10:46.000Z" title="发表于 2021-10-08 07:10:46">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启"><img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=464&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客重启"/></a><div class="content"><a class="title" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启">博客重启</a><time datetime="2021-10-06T09:16:46.000Z" title="发表于 2021-10-06 17:16:46">2021-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uniapp微信小程序callMethod调研记录"/></a><div class="content"><a class="title" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录">uniapp微信小程序callMethod调研记录</a><time datetime="2021-02-25T02:20:11.000Z" title="发表于 2021-02-25 10:20:11">2021-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL慢查询优化"/></a><div class="content"><a class="title" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化">MySQL慢查询优化</a><time datetime="2021-01-30T07:35:46.000Z" title="发表于 2021-01-30 15:35:46">2021-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primary-Backup-Replication"/></a><div class="content"><a class="title" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication">Primary-Backup-Replication</a><time datetime="2020-12-14T05:02:46.000Z" title="发表于 2020-12-14 13:02:46">2020-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

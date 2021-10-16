@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>图论之存图方式 | GreenHatHGのBlog</title><meta name="keywords" content="图论,邻接矩阵,邻接表,链式向前星"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="邻接矩阵，邻接表，链式向前星">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图论之存图方式">
+<meta property="og:url" content="https://greenhathg.github.io/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="邻接矩阵，邻接表，链式向前星">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2019-03-26T08:28:56.000Z">
+<meta property="article:modified_time" content="2021-10-09T00:15:08.379Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="图论">
+<meta property="article:tag" content="邻接矩阵">
+<meta property="article:tag" content="邻接表">
+<meta property="article:tag" content="链式向前星">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '图论之存图方式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-09 08:15:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">图论之存图方式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-03-26T08:28:56.000Z" title="发表于 2019-03-26 16:28:56">2019-03-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-09T00:15:08.379Z" title="更新于 2021-10-09 08:15:08">2021-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="图论之存图方式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>邻接矩阵，邻接表，链式向前星</p>
+<span id="more"></span>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://jzqt.github.io/2015/07/21/ACM%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/">ACM图论之存图方式</a></p>
+<h1 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h1><p>邻接矩阵是三种存图方式中最简单也最为暴力的一种存图方式了。</p>
+<h2 id="存图思想"><a href="#存图思想" class="headerlink" title="存图思想"></a>存图思想</h2><p>使用一个矩阵来描述一个图，对于矩阵的第i行第j列的值，表示编号为i的顶点到编号为j的顶点的权值</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>对于邻接矩阵来说，它的代码实现都十分简单，二维数组就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//最大顶点数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXV = <span class="number">1e3</span>;</span><br><span class="line"><span class="comment">//邻接矩阵,Map[i][j]:顶点i到顶点j的权值</span></span><br><span class="line"><span class="keyword">int</span> Map[MAXV][MAXV];</span><br><span class="line"><span class="built_in">memset</span>(Map, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(Map));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边</span></span><br><span class="line"><span class="comment">// 新增顶点`i`到顶点`j`的边，权值为`w`</span></span><br><span class="line">Map[i][j] = w;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除边</span></span><br><span class="line"><span class="comment">// 删除顶点`i`到顶点`j`的边</span></span><br><span class="line">Map[i][j] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询边</span></span><br><span class="line"><span class="comment">// 查询顶点`i`到顶点`j`的边权</span></span><br><span class="line"></span><br><span class="line">Map[i][j];</span><br></pre></td></tr></table></figure>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>使用邻接矩阵来进行建图存图有以下优点</p>
+<ul>
+<li><strong>简单易学</strong></li>
+</ul>
+<p>这个肯定不用多说，哪怕是没学过线性代数的童鞋也很容易理解这样的存图方式。</p>
+<ul>
+<li><strong>代码易写，简单好操作</strong></li>
+</ul>
+<p>上面的代码实现已经展示了要定义这个数据结构以及实现初始化，增加删除边等操作有多么的简单。</p>
+<ul>
+<li><strong>对已确定的边进行操作，效率高</strong></li>
+</ul>
+<p>确定边（已知两顶点编号）要进行增加或删除边（或者说更改边权）以及查询边权等操作，时间复杂度为O(1)。</p>
+<ul>
+<li><strong>易处理重边</strong></li>
+</ul>
+<p>你可以随时覆盖掉重边，可以自己实现存储最新的边，权值最大的边或权值最小的边等。<br>当然，如果你非要使用邻接矩阵存图还要存重边也不是不可以。</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>邻接矩阵存图虽然简单优雅，但是它的一些缺点却几乎是致命的。</p>
+<ul>
+<li><strong>过高的空间复杂度</strong></li>
+</ul>
+<p>对于顶点数V，邻接矩阵存图的空间复杂度高达<code>O(V^2)</code>，顶点数上了一万可以不用考虑这种存图方式了。<br>对于稀疏图来说，邻接矩阵存图内存浪费太严重，这也是邻接矩阵存图在ACM题目中十分罕见的根本原因。</p>
+<ul>
+<li><strong>对于不确定边的查询效率一般</strong></li>
+</ul>
+<p>比如，我找个编号为1出发的第一条边我还要一条条边判断是否存在（权值是否为0）</p>
+<h1 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h1><p>邻接表在三种常用的存图方式中属于较为中庸和普遍的存图方式了，缺点不致命，优点不明显。</p>
+<h2 id="存图思想-1"><a href="#存图思想-1" class="headerlink" title="存图思想"></a>存图思想</h2><p><strong>邻接矩阵</strong>对于每个顶点使用<strong>定长的数组</strong>来存储以该点出发的边的情况。第i个数组的第j个值存储的是从顶点i到顶点j的边的权值。</p>
+<p>而<strong>邻接表</strong>则是对于每个顶点使用<strong>不定长的链表</strong>来存储以该点出发的边的情况。<strong>因此对于第i个链表的第j个值实际上存储的是从编号为i的顶点出发的第j条边的情况</strong>。</p>
+<p><strong>一般来说，如果有边权的话，邻接表的链表存储的是一个结构体，这个结构体存储该边的终点以及边权</strong></p>
+<p><img src="/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/links&amp;matrix.png" alt></p>
+<h2 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h2><p>在ACM题目中，动态的数据结构一般是不被推荐的，因为动态开辟内存比较消耗时间，且写起来复杂容易出错。<br>大部分情况我们使用<strong>C++STL里的vector</strong>作为链表来实现图的邻接表。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// vector实现的邻接表的定义</span></span><br><span class="line"><span class="comment">// 不考虑边权，存储类型为int型</span></span><br><span class="line">vector&lt;<span class="keyword">int</span>&gt; e[V];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 邻接表的初始化操作</span></span><br><span class="line"><span class="comment">// 将起点为`i`的边链表全部清空</span></span><br><span class="line">e[i].<span class="built_in">clear</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边</span></span><br><span class="line"><span class="comment">// 新增顶点`i`到顶点`j`的边</span></span><br><span class="line">e[i].<span class="built_in">push_back</span>(j);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询边</span></span><br><span class="line">e[i][<span class="number">0</span>];    <span class="comment">// 查询以`i`为起点的第一条边i-&gt;e[i][0]</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;(<span class="keyword">int</span>)e[i].<span class="built_in">size</span>(); ++j) &#123;</span><br><span class="line">    <span class="keyword">if</span> (e[i][j] == k) &#123;     <span class="comment">// 查询边`i-&gt;k`</span></span><br><span class="line">        <span class="comment">// do something.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><strong>较为简单易学</strong></li>
+</ul>
+<p>相比邻接矩阵，无非是数组转链表加上存储值的意义不同而已，不需要转太大的弯。</p>
+<ul>
+<li><strong>代码易写，不复杂</strong></li>
+</ul>
+<p>代码实现已经演示过了，较简单，不容易写错。</p>
+<ul>
+<li><strong>内存利用率较高</strong></li>
+</ul>
+<p>对于顶点数V与边数E，空间复杂度为O(V+E)。能较好处理稀疏图的存储。</p>
+<ul>
+<li><strong>对不确定边的操作方便效率也不错</strong></li>
+</ul>
+<p>比如，要遍历从某点出发的所有边，不会像邻接矩阵一样可能会遍历到不存在的边。</p>
+<h2 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><strong>重边不好处理</strong></li>
+</ul>
+<p>判重比较麻烦，还要遍历已有的边，不能直接判断。<br>一般情况下使用邻接表存图是会存储重边的，不会做重边的判断。<br>所以如果要解决重边的影响一般不在存边的情况下做文章。</p>
+<ul>
+<li><strong>对确定边的操作效率不高</strong></li>
+</ul>
+<p>比如对于给定i-&gt;j的边要进行查询或修改等操作只有通过遍历这种方式找到了。</p>
+<h1 id="链式向前星"><a href="#链式向前星" class="headerlink" title="链式向前星"></a>链式向前星</h1><p>链式前向星是前向星的升级版，因为它可以完美代替前向星，所以就跳过前向星的学习，直接学习链式前向星。</p>
+<h2 id="存图思想-2"><a href="#存图思想-2" class="headerlink" title="存图思想"></a>存图思想</h2><p>链式前向星的本质其实就是用数组模拟链表的邻接表。</p>
+<p>这种存图方式的数据结构主要是<strong>边集数组</strong>，顾名思义，<strong>图的边是用数组来存储的。</strong><br>当然想要完美表示图结构，光有一个边集数组还不够，还要有一个数组存储指向<strong>每一个点的第一条边的“指针”。</strong><br>而每一条边都需要存储接下来一条边的“指针”，这样就能够像类似邻接表一样方便遍历每一个点的所有边了</p>
+<p>可参考:</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/acdreamers/article/details/16902023">https://blog.csdn.net/acdreamers/article/details/16902023</a></p>
+<h2 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 最大顶点数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXV = <span class="number">1E5</span>;</span><br><span class="line"><span class="comment">// 最大边数</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXE = <span class="number">1E5</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 边结构体的定义</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to;         <span class="comment">// 表示这条边的另外一个顶点</span></span><br><span class="line">    <span class="keyword">int</span> next;       <span class="comment">// 指向下一条边的数组下标，值为-1表示没有下一条边</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// head[i] 表示顶点i的第一条边的数组下标，-1表示顶点i没有边</span></span><br><span class="line"><span class="keyword">int</span> head[V];</span><br><span class="line">Edge edge[E];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 链式前向星初始化，只需要初始化顶点数组就可以了</span></span><br><span class="line"><span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(head));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 增加边的方式</span></span><br><span class="line"><span class="comment">// 新增边 a -&gt; b，该边的数组下标为`id`</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddEdge</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    edge[id].to = b;</span><br><span class="line">    edge[id].next = head[a];    <span class="comment">// 新增的边要成为顶点`a`的第一条边，而不是最后一条边</span></span><br><span class="line">    head[a] = id;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i=head[a]; i!=<span class="number">-1</span>; i=e[i].next) &#123;</span><br><span class="line">    <span class="comment">// e[i] 就是你当前遍历的边 a -&gt; e[i].to</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h2><ul>
+<li><strong>内存利用率高</strong></li>
+</ul>
+<p>相比vector实现的邻接表而言，可以准确开辟最多边数的内存，不像vector实现的邻接表有爆内存的风险。</p>
+<ul>
+<li><strong>对不确定边的操作方便效率也不错</strong></li>
+</ul>
+<p>这点和邻接表一样，不会遍历到不存在的边。</p>
+<h2 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li><strong>难于理解，代码较复杂</strong></li>
+</ul>
+<p>这种存图方式相对于邻接表来说比较难理解，代码虽然不是很复杂但是不熟练的话写起来也不是方便。</p>
+<ul>
+<li><strong>重边不好处理</strong></li>
+</ul>
+<p>这点与邻接表一样，只有通过遍历判重。</p>
+<ul>
+<li><strong>对确定边的操作效率不高</strong></li>
+</ul>
+<p>也与邻接表一样，不能通过两点马上确定边，只能遍历查找。</p>
+<h1 id="链式向前星与邻接表"><a href="#链式向前星与邻接表" class="headerlink" title="链式向前星与邻接表"></a>链式向前星与邻接表</h1><p><strong>邻接表</strong></p>
+<p><strong>优点：</strong></p>
+<ol>
+<li><p>写起来比链式前向星快（大概</p>
+</li>
+<li><p>每个顶点的出边都是用vector存储的，方便执行一些STL中的函数（比如排序）</p>
+</li>
+</ol>
+<p><strong>缺点:</strong></p>
+<ol>
+<li>STL会略慢一些</li>
+<li>浪费空间，由于vector申请空间的方式是两倍扩容，遇到卡空间的题目的时候会跪</li>
+<li>数组可以random access的优点在图问题中通常没有什么卵用，但是数组不能O(1)删除元素的缺点在某些应用场合下非常致命</li>
+</ol>
+<p>然后把上面的取个反大概也就是链式前向星的特点了…</p>
+<p><strong>所以在没有删边操作的情况下，以写的爽的角度来看的话应该是邻接表这种方式更爽一点，遇到需求删边操作或者对时间空间要求比较高的问题用链式前向星比较稳妥</strong></p>
+<p>参考：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.zhihu.com/question/59676094/answer/178637763">https://www.zhihu.com/question/59676094/answer/178637763</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于<strong>邻接矩阵存图</strong>来说，由于<strong>内存消耗的局限性</strong>，它的适用范围比较狭窄，几乎只能在简单图论题目中见到。</p>
+<p><strong>邻接表存图</strong>是最为常见的一种，绝大部分采用<code>C++STL中的vector</code>实现，一般情况下大部分图论题目都能使用该存图方式。</p>
+<p>但是<strong>链式前向星</strong>其实是一种较好替代邻接表来存图的数据结构，在邻接表存图不能使用时可以使用，几乎可以用于全部图论题目。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/">https://greenhathg.github.io/2019/03/26/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E5%AD%98%E5%9B%BE%E6%96%B9%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9B%BE%E8%AE%BA/">图论</a><a class="post-meta__tags" href="/tags/%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5/">邻接矩阵</a><a class="post-meta__tags" href="/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/">邻接表</a><a class="post-meta__tags" href="/tags/%E9%93%BE%E5%BC%8F%E5%90%91%E5%89%8D%E6%98%9F/">链式向前星</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/03/23/%E5%9B%BE%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/"><img class="prev-cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">图着色问题</div></div></a></div><div class="next-post pull-right"><a href="/2019/03/28/%E7%89%9B%E5%AE%A2283H-Dij-%E9%93%BE%E5%BC%8F%E5%90%91%E5%89%8D%E6%98%9F-%E5%BF%AB%E9%80%9F%E5%B9%82/"><img class="next-cover" src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">牛客283H-Dij-链式向前星-快速幂</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/03/28/%E7%89%9B%E5%AE%A2283H-Dij-%E9%93%BE%E5%BC%8F%E5%90%91%E5%89%8D%E6%98%9F-%E5%BF%AB%E9%80%9F%E5%B9%82/" title="牛客283H-Dij-链式向前星-快速幂"><img class="cover" src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">牛客283H-Dij-链式向前星-快速幂</div></div></a></div><div><a href="/2019/04/14/HDU1217-Arbitrage-Flody%E5%8F%98%E5%BD%A2/" title="HDU1217-Arbitrage-Flody变形"><img class="cover" src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">HDU1217-Arbitrage-Flody变形</div></div></a></div><div><a href="/2019/04/12/HDU1518-Square-DFS/" title="HDU1518-Square-DFS"><img class="cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">HDU1518-Square-DFS</div></div></a></div><div><a href="/2019/02/22/L2-001%E7%B4%A7%E6%80%A5%E6%95%91%E6%8F%B4-dijkstra%E5%8F%98%E5%BD%A2-%E8%AE%B0%E5%BD%95%E8%B7%AF%E5%BE%84/" title="L2-001紧急救援-dijkstra变形-记录路径"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">L2-001紧急救援-dijkstra变形-记录路径</div></div></a></div><div><a href="/2019/03/23/%E5%9B%BE%E7%9D%80%E8%89%B2%E9%97%AE%E9%A2%98/" title="图着色问题"><img class="cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">图着色问题</div></div></a></div><div><a href="/2019/02/19/%E5%9B%BE%E8%AE%BA%E4%B9%8B%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" title="图论之最小生成树"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">图论之最小生成树</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5"><span class="toc-number">1.</span> <span class="toc-text">邻接矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%9B%BE%E6%80%9D%E6%83%B3"><span class="toc-number">1.1.</span> <span class="toc-text">存图思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">1.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.4.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%82%BB%E6%8E%A5%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text">邻接表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%9B%BE%E6%80%9D%E6%83%B3-1"><span class="toc-number">2.1.</span> <span class="toc-text">存图思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">2.2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-1"><span class="toc-number">2.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="toc-number">2.4.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%90%91%E5%89%8D%E6%98%9F"><span class="toc-number">3.</span> <span class="toc-text">链式向前星</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%9B%BE%E6%80%9D%E6%83%B3-2"><span class="toc-number">3.1.</span> <span class="toc-text">存图思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-2"><span class="toc-number">3.2.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%82%B9-2"><span class="toc-number">3.3.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="toc-number">3.4.</span> <span class="toc-text">缺点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%90%91%E5%89%8D%E6%98%9F%E4%B8%8E%E9%82%BB%E6%8E%A5%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">链式向前星与邻接表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="火车头使用教程"/></a><div class="content"><a class="title" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程">火车头使用教程</a><time datetime="2021-10-07T23:10:46.000Z" title="发表于 2021-10-08 07:10:46">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启"><img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=464&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客重启"/></a><div class="content"><a class="title" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启">博客重启</a><time datetime="2021-10-06T09:16:46.000Z" title="发表于 2021-10-06 17:16:46">2021-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uniapp微信小程序callMethod调研记录"/></a><div class="content"><a class="title" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录">uniapp微信小程序callMethod调研记录</a><time datetime="2021-02-25T02:20:11.000Z" title="发表于 2021-02-25 10:20:11">2021-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL慢查询优化"/></a><div class="content"><a class="title" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化">MySQL慢查询优化</a><time datetime="2021-01-30T07:35:46.000Z" title="发表于 2021-01-30 15:35:46">2021-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primary-Backup-Replication"/></a><div class="content"><a class="title" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication">Primary-Backup-Replication</a><time datetime="2020-12-14T05:02:46.000Z" title="发表于 2020-12-14 13:02:46">2020-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

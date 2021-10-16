@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>容斥与抽屉定理 | GreenHatHGのBlog</title><meta name="keywords" content="数学知识,容斥定理,抽屉定理"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="容斥与抽屉定理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容斥与抽屉定理">
+<meta property="og:url" content="https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="容斥与抽屉定理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2019-05-06T03:19:05.000Z">
+<meta property="article:modified_time" content="2021-10-09T00:15:08.498Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="数学知识">
+<meta property="article:tag" content="容斥定理">
+<meta property="article:tag" content="抽屉定理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '容斥与抽屉定理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-09 08:15:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">容斥与抽屉定理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-05-06T03:19:05.000Z" title="发表于 2019-05-06 11:19:05">2019-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-09T00:15:08.498Z" title="更新于 2021-10-09 08:15:08">2021-10-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="容斥与抽屉定理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>容斥与抽屉定理</p>
+<span id="more"></span>
+<h1 id="容斥定理"><a href="#容斥定理" class="headerlink" title="容斥定理"></a>容斥定理</h1><h2 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h2><p>参考：百度百科</p>
+<p>在计数时，必须注意没有重复，没有遗漏。为了使重叠部分不被重复计算，人们研究出一种新的计数方法，这种方法的基本思想是：先不考虑重叠的情况，把包含于某内容中的所有对象的数目先计算出来，然后再把计数时重复计算的数目排斥出去，使得计算的结果既无遗漏又无重复，这种计数的方法称为容斥原理。</p>
+<ul>
+<li><p>两个集合的容斥关系公式：A∪B =|A∪B| = |A|+|B| - |A∩B |(∩：重合的部分）</p>
+</li>
+<li><p>三个集合的容斥关系公式：|A∪B∪C| = |A|+|B|+|C| - |A∩B| - |B∩C| - |C∩A| + |A∩B∩C|</p>
+</li>
+</ul>
+<p>例如三个集合的关系：</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/1.png" alt></p>
+<p>(图里面的A+B+C划红色部分应该是划去{2,3,4,2,1,2}，即划去A∩B，B∩C，A∩C)</p>
+<ul>
+<li>一般情况：</li>
+</ul>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/2.png" alt></p>
+<h2 id="51nod1284"><a href="#51nod1284" class="headerlink" title="51nod1284"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.51nod.com/Challenge/Problem.html#!#problemId=1284">51nod1284</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/3.png" alt></p>
+<p>容斥定理，先求反面，即1-N有多少是2 3 5 7的倍数，然后再用总数减去反面的数量即为所求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnt = A2+A3+A5+A7-(A23+A25+A27+A35+A37+A57)+(A235+A237+A257+A357)-A2357</span><br></pre></td></tr></table></figure>
+<p>A2表示被2整除的个数  即N/2  A23为即被2又被3整除的个数即N/6</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">15ms</span></span><br><span class="line"><span class="comment">1912KB </span></span><br><span class="line"><span class="comment">c++11</span></span><br><span class="line"><span class="comment">2019/5/7 8:10:44</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;n);</span><br><span class="line">    ll cnt = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//A2+A3+A5+A7</span></span><br><span class="line">    cnt += (n/<span class="number">2</span> + n/<span class="number">3</span> + n/<span class="number">5</span> + n/<span class="number">7</span>); </span><br><span class="line">    <span class="comment">//A23+A25+A27+A35+A37+A57</span></span><br><span class="line">    cnt -= (n/<span class="number">6</span> + n/<span class="number">10</span> + n/<span class="number">14</span> + n/<span class="number">15</span> + n/<span class="number">21</span> + n/<span class="number">35</span>); </span><br><span class="line">    <span class="comment">//A235+A237+A257+A357</span></span><br><span class="line">    cnt += (n/<span class="number">30</span> + n/<span class="number">42</span> + n/<span class="number">70</span> + n/<span class="number">105</span>);</span><br><span class="line">    <span class="comment">//A2357</span></span><br><span class="line">    cnt -= (n/<span class="number">210</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, n - cnt);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="电灯泡"><a href="#电灯泡" class="headerlink" title="电灯泡"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="http://120.78.128.11/Problem.jsp?pid=2332">电灯泡</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/4.png" alt></p>
+<p>因为最后求的是亮的个数。那么我们只需要关心a和a的倍数，b和b的倍数，c和c的倍数，其他数没有的电灯泡没有被点亮，所以就不用处理</p>
+<p>点亮三次情况如下：</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/5.png" alt></p>
+<p>那么最终变成了求被染色的面积</p>
+<p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/6.png" alt></p>
+<p>我们根据容斥定理可以尝试去推理求法，首先结果里面没有2，而2又是a∩b的结果，所以可以尝试去掉2个a∩b，如此类推，推出答案为<code>a+b+c-2ab-2bc-2ac+4abc（ab,bc,ac代表的是这两个数的倍数）</code>，或者也可以根据图形关系结合容斥定理来求结果的表达式。</p>
+<hr>
+<p>那么倍数的数量如何求？</p>
+<p>假设求1-10里面3的倍数有几个，自然可以用到10/3</p>
+<p>如果是2个数呢？</p>
+<p>假设求1-50里面3,5的倍数有几个，那么可以直接50/(3*5)=3：{15,30,45}</p>
+<p>那么求4,6呢，还能50/(4*6)=2吗？</p>
+<p>我们知道1-50中，4,6的倍数有{12,24,36,48}，明显不对</p>
+<p>因为4,6不是互质，所以结果应该是<code>50*gcd(4,6)/(4*6)</code></p>
+<p>因为本题目的a，b，c都是互质，所以就不用考虑这种情况</p>
+<p>然后，因为给出的数的范围较大，所以我们可以将*变为/</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">0MS	6348KB	208	2019-05-07 17:18:01</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, t;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;t);</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    <span class="keyword">while</span>(t--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">        <span class="keyword">int</span> ans = n/a+n/b+n/c - <span class="number">2</span>*(n/a/b + n/b/c + n/a/c) + <span class="number">4</span>*(n/a/b/c);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="抽屉定理"><a href="#抽屉定理" class="headerlink" title="抽屉定理"></a>抽屉定理</h1><h2 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h2><p>参考：百度百科</p>
+<p>桌上有十个苹果，要把这十个苹果放到九个抽屉里，无论怎样放，我们会发现至少会有一个抽屉里面至少放两个苹果。这一现象就是我们所说的“抽屉原理”。<br>抽屉原理的一般含义为：“如果每个抽屉代表一个集合，每一个苹果就可以代表一个元素，假如有n+1个元素放到n个集合中去，其中必定有一个集合里至少有两个元素。”<br>抽屉原理有时也被称为鸽巢原理。它是组合数学中一个重要的原理。</p>
+<h2 id="第一抽屉定理"><a href="#第一抽屉定理" class="headerlink" title="第一抽屉定理"></a>第一抽屉定理</h2><ul>
+<li><p>原理1： 把多于n+1个的物体放到n个抽屉里，则至少有一个抽屉里的东西不少于两件。</p>
+</li>
+<li><p>原理2 ：把多于(mn+1，n不为0)个的物体放到n个抽屉里，则至少有一个抽屉里有不少于（m+1）的物体。</p>
+</li>
+<li><p>原理3 ：把无穷多件物体放入n个抽屉，则至少有一个抽屉里有无穷个物体。</p>
+</li>
+</ul>
+<h2 id="第二抽屉定理"><a href="#第二抽屉定理" class="headerlink" title="第二抽屉定理"></a>第二抽屉定理</h2><p>把(mn-1)个物体放入n个抽屉中，其中必有一个抽屉中至多有(m-1)个物体(例如，将3×5-1=14个物体放入5个抽屉中，则必定有一个抽屉中的物体数少于等于3-1=2)</p>
+<h2 id="最差原则"><a href="#最差原则" class="headerlink" title="最差原则"></a>最差原则</h2><p>最差原则，即考虑所有可能情况中，最不利于某件事情发生的情况。</p>
+<p>例如，有300人到招聘会求职，其中软件设计有100人，市场营销有80人，财务管理有70人，人力资源管理有50人。那么至少有多少人找到工作才能保证一定有70人找的工作专业相同呢？</p>
+<p>此时我们考虑的最差情况为：软件设计、市场营销和财务管理各录取69人，人力资源管理的50人全部录取，则此时再录取1人就能保证有70人找到的工作专业相同。</p>
+<p>（人力资源管理全部录取，其他各录取69，再多1人就可以保证有70人工作专业相同，因为这1个人一定是软件设计，财务管理，市场营销的，不会是人力资源管理的，所以再加一个人就可以保证了）</p>
+<p>因此至少需要69*3+50+1=258人。</p>
+<h2 id="Nyoj417死神来了"><a href="#Nyoj417死神来了" class="headerlink" title="Nyoj417死神来了"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="http://nyoj.top/problem/417">Nyoj417死神来了</a></h2><p><img src="/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/nyoj417.png" alt></p>
+<p>假如存在倍数关系，有倍数关系的当为一组。</p>
+<ul>
+<li><p>当n为偶数，最多有n/2组分组(按照2的倍数关系分组)</p>
+</li>
+<li><p>假如是奇数，最多有n/2+1组分组</p>
+</li>
+</ul>
+<p>统一写为p=n/2+(n&amp;1)组</p>
+<p>（n&amp;1：n为奇数时结果为1，n为偶数结果为0）</p>
+<p>例如：</p>
+<p>当n=20时，可分组为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">A1 = &#123;1, 2, 4，8, 16&#125;</span><br><span class="line">A2 = &#123;3, 6, 12&#125;</span><br><span class="line">A3 = &#123;5, 10, 20&#125;</span><br><span class="line">A4 = &#123;15&#125;</span><br><span class="line">A5 = &#123;7, 14&#125;</span><br><span class="line">A6 = &#123;9，18&#125;</span><br><span class="line">A7 = &#123;11&#125;</span><br><span class="line">A8 = &#123;13&#125;</span><br><span class="line">A9 = &#123;17&#125;</span><br><span class="line">A10 = &#123;19&#125; </span><br><span class="line">共十组</span><br></pre></td></tr></table></figure>
+<p>存在最坏情况，我们取{19, 17, 13, 11, 18, 14, 15, 20, 12, 16}，也就是取每一组最后一个元素，这样就不存在任意一个数是另外一个数的倍数，所以m至少得取11，即m&gt;n/2。</p>
+<p><strong>取11时，比取10时多一个数，那么就可能至少有2个数出现在同一个倍数集合中，因为取10时是所有组中都取一个数,。正好对应了抽屉定理，无论怎么放至少会有一个抽屉里面至少放两个苹果。</strong></p>
+<p>当n=21时，加一个分组A11={21}，那么m得取12，即m&gt;(n/2+1)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">5 ms 	1156 KB</span></span><br><span class="line"><span class="comment">2019-05-06 21:34:12</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) != EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        n = n/<span class="number">2</span>+(n&amp;<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span>(m &gt; n)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;YES\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;NO\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/">https://greenhathg.github.io/2019/05/06/%E5%AE%B9%E6%96%A5%E4%B8%8E%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/">数学知识</a><a class="post-meta__tags" href="/tags/%E5%AE%B9%E6%96%A5%E5%AE%9A%E7%90%86/">容斥定理</a><a class="post-meta__tags" href="/tags/%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86/">抽屉定理</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/05/04/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-ClassLoder%E9%83%A8%E5%88%86%E6%96%87%E6%A1%A3%E8%A7%A3%E8%AF%BB/"><img class="prev-cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java虚拟机笔记-ClassLoder部分文档解读</div></div></a></div><div class="next-post pull-right"><a href="/2019/05/10/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/"><img class="next-cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java虚拟机笔记-自定义类加载器</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/02/05/Applese-%E6%B6%82%E9%A2%9C%E8%89%B2/" title="Applese-涂颜色"><img class="cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">Applese-涂颜色</div></div></a></div><div><a href="/2019/04/18/BSGS%E7%AE%97%E6%B3%95/" title="BSGS算法"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">BSGS算法</div></div></a></div><div><a href="/2019/04/19/EXBSGS%E7%AE%97%E6%B3%95/" title="EXBSGS算法"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">EXBSGS算法</div></div></a></div><div><a href="/2019/03/16/FZU-1649-PrimeNumberOrNot-%E5%A4%A7%E7%B4%A0%E6%95%B0%E5%88%A4%E6%96%AD/" title="FZU-1649-PrimeNumberOrNot-大素数判断"><img class="cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">FZU-1649-PrimeNumberOrNot-大素数判断</div></div></a></div><div><a href="/2019/01/27/%E5%8D%9A%E5%BC%88%E8%AE%BA/" title="博弈论"><img class="cover" src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">博弈论</div></div></a></div><div><a href="/2018/04/26/%E6%95%B0%E5%AD%97%E7%89%B9%E7%82%B9/" title="数字特点"><img class="cover" src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-09</div><div class="title">数字特点</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">167</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">198</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%B9%E6%96%A5%E5%AE%9A%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">容斥定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#51nod1284"><span class="toc-number">1.2.</span> <span class="toc-text">51nod1284</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E7%81%AF%E6%B3%A1"><span class="toc-number">1.3.</span> <span class="toc-text">电灯泡</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">抽屉定理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E7%90%86-1"><span class="toc-number">2.1.</span> <span class="toc-text">定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86"><span class="toc-number">2.2.</span> <span class="toc-text">第一抽屉定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%8A%BD%E5%B1%89%E5%AE%9A%E7%90%86"><span class="toc-number">2.3.</span> <span class="toc-text">第二抽屉定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%B7%AE%E5%8E%9F%E5%88%99"><span class="toc-number">2.4.</span> <span class="toc-text">最差原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nyoj417%E6%AD%BB%E7%A5%9E%E6%9D%A5%E4%BA%86"><span class="toc-number">2.5.</span> <span class="toc-text">Nyoj417死神来了</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="火车头使用教程"/></a><div class="content"><a class="title" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程">火车头使用教程</a><time datetime="2021-10-07T23:10:46.000Z" title="发表于 2021-10-08 07:10:46">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启"><img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=464&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客重启"/></a><div class="content"><a class="title" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启">博客重启</a><time datetime="2021-10-06T09:16:46.000Z" title="发表于 2021-10-06 17:16:46">2021-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uniapp微信小程序callMethod调研记录"/></a><div class="content"><a class="title" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录">uniapp微信小程序callMethod调研记录</a><time datetime="2021-02-25T02:20:11.000Z" title="发表于 2021-02-25 10:20:11">2021-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL慢查询优化"/></a><div class="content"><a class="title" href="/2021/01/30/MySQL%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/" title="MySQL慢查询优化">MySQL慢查询优化</a><time datetime="2021-01-30T07:35:46.000Z" title="发表于 2021-01-30 15:35:46">2021-01-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Primary-Backup-Replication"/></a><div class="content"><a class="title" href="/2020/12/14/Primary-Backup-Replication/" title="Primary-Backup-Replication">Primary-Backup-Replication</a><time datetime="2020-12-14T05:02:46.000Z" title="发表于 2020-12-14 13:02:46">2020-12-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
