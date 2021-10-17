@@ -13,8 +13,6 @@
       
       <categories>
           
-          <category> 翻译 </category>
-          
           <category> 编程 </category>
           
       </categories>
@@ -42,7 +40,7 @@
       
       <categories>
           
-          <category> 翻译 </category>
+          <category> 其他 </category>
           
       </categories>
       
@@ -1314,9 +1312,9 @@
             
             <tag> 字节码 </tag>
             
-            <tag> 常量池 </tag>
-            
             <tag> class文件结构 </tag>
+            
+            <tag> 常量池 </tag>
             
             <tag> 字段表 </tag>
             
