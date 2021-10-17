@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MIT6.824-GFS | GreenHatHGのBlog</title><meta name="keywords" content="gfs,mit6.824"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么我们要阅读这篇论文?在分布式系统中，分布式存储是关键的部分，我们该怎么去设计它，分布式存储的interface&#x2F;semantics 应该怎么定义，它是怎么并行工作的等。 GFS paper涉及到了很多分布式系统主题：parallel performance, fault tolerance, replication, consistency 。从apps到network都有详细的介绍，并且在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.824-GFS">
+<meta property="og:url" content="https://greenhathg.github.io/2020/11/17/MIT6.824-GFS/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="为什么我们要阅读这篇论文?在分布式系统中，分布式存储是关键的部分，我们该怎么去设计它，分布式存储的interface&#x2F;semantics 应该怎么定义，它是怎么并行工作的等。 GFS paper涉及到了很多分布式系统主题：parallel performance, fault tolerance, replication, consistency 。从apps到network都有详细的介绍，并且在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2020-11-17T12:36:46.000Z">
+<meta property="article:modified_time" content="2021-10-17T07:05:33.213Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="gfs">
+<meta property="article:tag" content="mit6.824">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2020/11/17/MIT6.824-GFS/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MIT6.824-GFS',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-10-17 15:05:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">169</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">200</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MIT6.824-GFS</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-11-17T12:36:46.000Z" title="发表于 2020-11-17 20:36:46">2020-11-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-10-17T07:05:33.213Z" title="更新于 2021-10-17 15:05:33">2021-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MIT6.824-GFS"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/11/17/MIT6.824-GFS/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="为什么我们要阅读这篇论文"><a href="#为什么我们要阅读这篇论文" class="headerlink" title="为什么我们要阅读这篇论文?"></a>为什么我们要阅读这篇论文?</h1><p>在分布式系统中，分布式存储是关键的部分，我们该怎么去设计它，分布式存储的<code>interface/semantics</code> 应该怎么定义，它是怎么并行工作的等。</p>
+<p>GFS paper涉及到了很多分布式系统主题：<code>parallel performance</code>, <code>fault tolerance</code>, <code>replication</code>, <code>consistency</code> 。从apps到network都有详细的介绍，并且在现实生活中有着成功的应用。</p>
+<h1 id="为什么分布式存储这么难"><a href="#为什么分布式存储这么难" class="headerlink" title="为什么分布式存储这么难?"></a>为什么分布式存储这么难?</h1><ul>
+<li><code>high performance</code>→将数据拆分到很多服务器上面，通过很多台服务器并行读取数据</li>
+<li><code>many servers</code>→机器一多，机器发生故障的概率会变大，需要容灾机制，能够自动恢复</li>
+<li><code>fault tolerance</code> →最简单的方式就是通过复制得到多个副本，当一个副本出现问题时，其他副本还能用</li>
+<li><code>replication</code> →有数据不一致的风险</li>
+<li><code>better consistency</code> →如果需要更强的一致性的话，在网络中所有不同的服务器和客户端之间需要进行很多额外的工作和交流，那么这样性能就会降低，所以这个不是我们最初想要的</li>
+</ul>
+<h1 id="我们想要什么样的一致性？"><a href="#我们想要什么样的一致性？" class="headerlink" title="我们想要什么样的一致性？"></a>我们想要什么样的一致性？</h1><ul>
+<li>Ideal model: same behavior as a single server</li>
+<li>server uses disk storage (persistence)</li>
+<li>server executes client operations one at a time (even if concurrent)</li>
+</ul>
+<p>假设现在有两个客户端C1, C2，C1发送一个写请求，想将X的值设置为1，同时，C2也发送一个写请求，想把X的值设置为2。C1, C2都完成后，有两个客户端C3, C4想要读取X的值，会发生什么</p>
+<p>显然这里两个客户端读到的值是不确定的，1或者2，因为没有定义服务器处理写请求的顺序。但是C3和C4得到的值必须是一样的，这就是强一致性模型。</p>
+<hr>
+<p>在多副本中强一致性变得麻烦起来，一个简单但是很糟糕的复制方案：</p>
+<p>现有两个副本服务器S1和S2，现在两个客户端同时向两者发送写请求。</p>
+<p>C1将S1和S2中的X设置为1，C2将S1和S2中的X设置为2</p>
+<p><img src="/2020/11/17/MIT6.824-GFS/Untitled.png" alt></p>
+<p>在这里我们并没有做任何事情来保证两个服务器是以同样的顺序来处理这两个请求。</p>
+<p>如果S1先接受C1的设置，那么X先被设置为1，接着处理C2，那么X就被覆盖为2；如果S2处理的顺序反过来的话，S2的X会为1，那么读取到的数据就会不一致。或者是S1已经写数据了，但是S2突然崩溃了，没有执行成功，这样数据也会不一致。</p>
+<p>更好的一致性通常需要确保副本之间的同步，这可能会有性能问题，所以这个得看使用者对一致性的接受程度。</p>
+<h1 id="GFS"><a href="#GFS" class="headerlink" title="GFS"></a>GFS</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在2003年时候Google file system论文发表，是第一个用分布式学术思想落地的应用，虽然在此之前十年已经有分布式的研究了。</p>
+<p>Google许多服务都需要用到大型且快速的存储系统去存储或者读取大量数据集，比如MapReduce、索引、日志存储/分析、Youtube视频等。</p>
+<p>这个系统是通用或者全局可复用的，允许在应用程序之间共享数据：</p>
+<ul>
+<li>为了提高并行性能和增加可用空间，在多个服务器/磁盘上自动“切分”每个文件</li>
+<li>自动从故障中恢复</li>
+<li>单个GFS是运行在一个数据中心或者一个大型机房，虽然部署全球副本很有价值，但是这个很难</li>
+<li>GFS仅面向Google内部使用，但是会向外出售使用了GFS的服务，并不会直接出售GFS</li>
+<li>旨在用于大文件（GB或者TB级别）的顺序访问和写入，而不是随机访问小文件</li>
+<li>没有把重点放在低延迟上面，而是放在大吞吐量上面，比如几MB大小的操作</li>
+</ul>
+<h2 id="论文在当时的优点"><a href="#论文在当时的优点" class="headerlink" title="论文在当时的优点"></a>论文在当时的优点</h2><ul>
+<li>构建的系统是比之前的类似的论文中所描述的系统要庞大得多</li>
+<li>有着实践的经验</li>
+<li>证明了弱一致性是ok的，借此获得更好的性能</li>
+<li>单master成功应用。单个master可以让一致性更强，多个的话难维护较强的一致性，但会带来别的提升。</li>
+</ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="/2020/11/17/MIT6.824-GFS/Untitled%201.png" alt></p>
+<p>GFS由一个<code>master</code>和多个<code>chunkserver</code>组成。</p>
+<ul>
+<li>文件被分成固定大小的<code>chunks</code>，每个chunk都是64MB大小。每一块都由一个不可变的、全局唯一的64位<code>chunk handle</code> 标识，这个标识在块chunk创建的时候由master分配</li>
+<li>master会维护文件名和数据保存位置之间的关系，用来命名文件和查询这些chunk的位置信息</li>
+<li>chunkserver用来保存实际数据的</li>
+</ul>
+<h2 id="Master-Data"><a href="#Master-Data" class="headerlink" title="Master Data"></a>Master Data</h2><p>主要保存两个映射关系，<code>nv</code>：非易失性：</p>
+<ul>
+<li>file name→array of chunk handles (nv)：去哪里找这些数据或者这些chunk的标识符是什么</li>
+<li>chunk handle→list of chunkservers (v)：每个chunk有多个副本，这里不需要持久性，当master重启后，master会和所有的chunkserver通信以确定这些信息<ul>
+<li>version (nv)：每个chunk都有一个version</li>
+<li>primary (v)：有许多个副本，primary是其中的一个，master需要记住primary chunk对应的chunkserver，但是这个信息不需要存储，master可以等待60s后lease过期，然后再指定一个primary</li>
+<li>lease expiration：master会记住lease的过期时间</li>
+</ul>
+</li>
+</ul>
+<p>这些数据读是在内存中进行，但是写会写到磁盘中（实际上保存的是操作日志），当日志达到一定大小时，master会建立<code>checkpoint</code>，当master重启后，会恢复到最近的checkpoint。</p>
+<p>这些日志使用文件存储，而不使用数据库存储，是因为在磁盘上面它们有些是用B树或者哈希表进行组织的，这样的对日志进行追加操作时候会非常高效（当磁盘磁臂旋转到一个位置时，可以写入大量的数据，而数据库存储并不考虑顺序，要符合真实的b树需要去寻找再追加）。</p>
+<h2 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h2><ol>
+<li>Client向Master发出读请求，通过一个文件名和一个文件中的偏移量(<code>offset</code>)找到它想要的数据的范围。</li>
+<li>Matser根据这两个信息查之前保存的映射关系表得到chunk handle列表和chunkserver列表，并返回，Client会缓存该信息。</li>
+<li>Client向最近的chunkserver发送请求，包括chunk handle和offset，chunkserver读取磁盘上的chunk数据并返回</li>
+</ol>
+<h2 id="追加操作"><a href="#追加操作" class="headerlink" title="追加操作"></a>追加操作</h2><ol>
+<li>Client询问Master文件最后一个chunk</li>
+<li>写操作Master都是和Primary通信，如果此时没有Primary（或者lease已经过期）：<ul>
+<li>需要等待Master找出需要的一组有着最近chunk的chunkservers</li>
+<li>从中选择一个作为Primary，其他作为Secondary</li>
+<li>递增版本号，写入磁盘</li>
+<li>告诉所有副本它们是P(Primary)还是S，以及最新的版本号</li>
+<li>副本将最新版本号写入磁盘</li>
+</ul>
+</li>
+<li>Master回复Client Primary和Secondaries的位置，然后</li>
+<li>Client向Primary和Secondaries发送要追加的数据，拿到数据后只是将这些数据写到临时区域上。一旦所有副本都确认接收到了数据，Client就向Primary发送写请求。</li>
+<li>Primary会检查lease是否还未过期，同时检查chunk是否还有空间。</li>
+<li>Primary选择一个offset(at end of chunk)，将数据写入到chunk中(Linux文件)。同时Primary会向Secondaries传递offset，让它们追加数据到chunk中。</li>
+<li>Primary会等待Secondaries的回复，可能是”Yes“，”error”或者timeout。如果全部写入成功，则返回成功给Client，否则回复”error”。</li>
+<li>如果收到error，Client会重试追加操作</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2020/11/17/MIT6.824-GFS/">https://greenhathg.github.io/2020/11/17/MIT6.824-GFS/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/gfs/">gfs</a><a class="post-meta__tags" href="/tags/mit6-824/">mit6.824</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/06/MIT6.824-MapReduce/"><img class="prev-cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MIT6.824-MapReduce</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/14/MIT6.824-Primary-Backup-Replication/"><img class="next-cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MIT6.824-Primary-Backup-Replication</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/06/MIT6.824-MapReduce/" title="MIT6.824-MapReduce"><img class="cover" src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-MapReduce</div></div></a></div><div><a href="/2020/12/14/MIT6.824-Primary-Backup-Replication/" title="MIT6.824-Primary-Backup-Replication"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-Primary-Backup-Replication</div></div></a></div><div><a href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议"><img class="cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-Raft中使用锁的建议</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">169</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">200</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E8%A6%81%E9%98%85%E8%AF%BB%E8%BF%99%E7%AF%87%E8%AE%BA%E6%96%87"><span class="toc-number">1.</span> <span class="toc-text">为什么我们要阅读这篇论文?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E8%BF%99%E4%B9%88%E9%9A%BE"><span class="toc-number">2.</span> <span class="toc-text">为什么分布式存储这么难?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E6%83%B3%E8%A6%81%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">我们想要什么样的一致性？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GFS"><span class="toc-number">4.</span> <span class="toc-text">GFS</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">4.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E5%9C%A8%E5%BD%93%E6%97%B6%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">4.2.</span> <span class="toc-text">论文在当时的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-number">4.3.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Master-Data"><span class="toc-number">4.4.</span> <span class="toc-text">Master Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E6%93%8D%E4%BD%9C"><span class="toc-number">4.5.</span> <span class="toc-text">读操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%BD%E5%8A%A0%E6%93%8D%E4%BD%9C"><span class="toc-number">4.6.</span> <span class="toc-text">追加操作</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议"><img src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-Raft中使用锁的建议"/></a><div class="content"><a class="title" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议">MIT6.824-Raft中使用锁的建议</a><time datetime="2021-10-17T06:56:43.000Z" title="发表于 2021-10-17 14:56:43">2021-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/16/%E5%8D%B3%E4%BD%BF%E7%9D%A1%E4%BA%867.5%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%8D%E7%84%B6%E6%84%9F%E8%A7%89%E4%B8%8D%E5%88%B0%E7%B2%BE%E5%8A%9B%E5%85%85%E6%B2%9B/" title="即使睡了7.5个小时，我仍然感觉不到精力充沛"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="即使睡了7.5个小时，我仍然感觉不到精力充沛"/></a><div class="content"><a class="title" href="/2021/10/16/%E5%8D%B3%E4%BD%BF%E7%9D%A1%E4%BA%867.5%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%8D%E7%84%B6%E6%84%9F%E8%A7%89%E4%B8%8D%E5%88%B0%E7%B2%BE%E5%8A%9B%E5%85%85%E6%B2%9B/" title="即使睡了7.5个小时，我仍然感觉不到精力充沛">即使睡了7.5个小时，我仍然感觉不到精力充沛</a><time datetime="2021-10-16T05:18:43.000Z" title="发表于 2021-10-16 13:18:43">2021-10-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="火车头使用教程"/></a><div class="content"><a class="title" href="/2021/10/08/%E7%81%AB%E8%BD%A6%E5%A4%B4%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="火车头使用教程">火车头使用教程</a><time datetime="2021-10-07T23:10:46.000Z" title="发表于 2021-10-08 07:10:46">2021-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启"><img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=464&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客重启"/></a><div class="content"><a class="title" href="/2021/10/06/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%90%AF/" title="博客重启">博客重启</a><time datetime="2021-10-06T09:16:46.000Z" title="发表于 2021-10-06 17:16:46">2021-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uniapp微信小程序callMethod调研记录"/></a><div class="content"><a class="title" href="/2021/02/25/uniapp%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8FcallMethod%E8%B0%83%E7%A0%94%E8%AE%B0%E5%BD%95/" title="uniapp微信小程序callMethod调研记录">uniapp微信小程序callMethod调研记录</a><time datetime="2021-02-25T02:20:11.000Z" title="发表于 2021-02-25 10:20:11">2021-02-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
