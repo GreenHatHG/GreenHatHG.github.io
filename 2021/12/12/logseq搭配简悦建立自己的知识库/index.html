@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>logseq搭配简悦建立自己的知识库 | GreenHatHGのBlog</title><meta name="keywords" content="知识管理,logseq,简悦"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="实现效果 网页标注，自动离线到本地（网页内容+标注），logseq 里面建立双链，同时还可以自动跳转到本地文件具体内容处 这样的话可以实现一个工作流：  第一阶段：网页内容标注 第二阶段：logseq整理建立联系 第三阶段：Notion知识整合输出（或者是在logseq里面输出也行，可以用很多相关联的双链直接输出一篇文章，而不用反复复制粘贴） 本地知识库：在第一阶段标注的时候，会自动保存网页内容+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logseq搭配简悦建立自己的知识库">
+<meta property="og:url" content="https://greenhathg.github.io/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="实现效果 网页标注，自动离线到本地（网页内容+标注），logseq 里面建立双链，同时还可以自动跳转到本地文件具体内容处 这样的话可以实现一个工作流：  第一阶段：网页内容标注 第二阶段：logseq整理建立联系 第三阶段：Notion知识整合输出（或者是在logseq里面输出也行，可以用很多相关联的双链直接输出一篇文章，而不用反复复制粘贴） 本地知识库：在第一阶段标注的时候，会自动保存网页内容+">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2021-12-12T01:28:43.000Z">
+<meta property="article:modified_time" content="2021-12-12T05:08:42.756Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="知识管理">
+<meta property="article:tag" content="logseq">
+<meta property="article:tag" content="简悦">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'logseq搭配简悦建立自己的知识库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-12 13:08:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">173</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">207</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">logseq搭配简悦建立自己的知识库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-12T01:28:43.000Z" title="发表于 2021-12-12 09:28:43">2021-12-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-12T05:08:42.756Z" title="更新于 2021-12-12 13:08:42">2021-12-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="logseq搭配简悦建立自己的知识库"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h1><p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/oHUJ3Q.gif" alt></p>
+<p>网页标注，自动离线到本地（网页内容+标注），logseq 里面建立双链，同时还可以自动跳转到本地文件具体内容处</p>
+<p>这样的话可以实现一个工作流：</p>
+<ul>
+<li>第一阶段：网页内容标注</li>
+<li>第二阶段：logseq整理建立联系</li>
+<li>第三阶段：Notion知识整合输出（或者是在logseq里面输出也行，可以用很多相关联的双链直接输出一篇文章，而不用反复复制粘贴）</li>
+<li>本地知识库：在第一阶段标注的时候，会自动保存网页内容+标注到本地，个人认为会带来几个好处：<ul>
+<li>避免内容失效404</li>
+<li>搜索相关知识点时候可以先在本地笔记或者缓存目录搜索先，这样相当于是先查找自己的笔记，对知识利用率更高，Windows下可以用FileLocator、Mac可以用DEVONthink</li>
+<li>对于一些英文文章的学习，可以先双语翻译，然后做笔记保存，下次查看时候有双语翻译和笔记，效率提高很多</li>
+<li>网络上文章都是抄来抄去，复制粘贴，对于某些知识点其实完全可以通过双链引用形成一篇文章，内容可以来自官网、著名书籍pdf等，这样就不会学到很多假知识</li>
+</ul>
+</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>参考文章：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/2221">当简悦变成你的知识库（离线且具有永久链接） · Discussion #2221 · Kenshin/simpread</a></p>
+<h2 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h2><ol>
+<li>双链笔记软件，比如logseq、思源、obsidian等</li>
+<li>简悦2.0版本以上</li>
+<li>简悦同步助手</li>
+<li>简悦高级账号（需要用到付费功能，12块钱永久<a target="_blank" rel="noopener external nofollow noreferrer" href="https://afdian.net/@kenshin/plan">https://afdian.net/@kenshin/plan</a>，2021.12.12有效）</li>
+</ol>
+<p>简悦和简悦助手下载最新版就可以了</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://ksria.com/simpread/wiki/#/Download">简悦百科 | 简悦 SimpRead - 如杂志般沉浸式阅读体验的扩展</a></p>
+<h2 id="产生标注同步到本地"><a href="#产生标注同步到本地" class="headerlink" title="产生标注同步到本地"></a>产生标注同步到本地</h2><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/2220">当产生标注时，如何自动同步到本地 · Discussion #2220 · Kenshin/simpread</a></p>
+<h3 id="配置自定义标题"><a href="#配置自定义标题" class="headerlink" title="配置自定义标题"></a>配置自定义标题</h3><p><strong>一定要配置这个，产生的本地文件命名和稍后读助手读取本地缓存什么的都会用到</strong></p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled.png" alt="Untitled"></p>
+<h3 id="开启增强导出功能"><a href="#开启增强导出功能" class="headerlink" title="开启增强导出功能"></a>开启增强导出功能</h3><p>该功能主要利用简悦同步助手将在线网页的内容和标注导出到本地</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%201.png" alt="Untitled"></p>
+<h3 id="配置自动化"><a href="#配置自动化" class="headerlink" title="配置自动化"></a>配置自动化</h3><p><strong>当生成标注时，执行导出 HTML 的功能。因为logseq设置了使用md模式，所以同时还需要导出一个符合logseq语法的md文件。</strong></p>
+<p>这样HTML用于保存完整网页，以及使用链接跳转时候用；md文件则用于在logseq，建立双链、增加笔记、跳转到本地离线文件处等。</p>
+<p>简悦本身导出的md文件格式并不符合logseq要求，所以这里得定制化，定制化教程可看</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/2513">使用简悦导出含有永久链接与双向链接的 Markdown 并自动保存在 Obsidian 库 · Discussion #2513 · Kenshin/simpread</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://ksria.com/simpread/docs/#/%E5%AE%9A%E5%88%B6%E5%8C%96%E5%AF%BC%E5%87%BA?id=markdown">入门指引 | 简悦 SimpRead - 如杂志般沉浸式阅读体验的扩展</a></p>
+<p>说白了也就是定制简悦输出md的格式是怎么样的，简悦提前定义了一些规则能够让我们重新组织内容，所以这里可以直接抄一下logseq的作业</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#[[excerpt]] [&#123;&#123;title&#125;&#125;](&#123;&#123;url&#125;&#125;) </span></span><br><span class="line">- tags: <span class="comment">#[[SimpRead]] &#123;&#123;tags&#125;&#125;</span></span><br><span class="line">- <span class="built_in">read</span> date: [[&#123;&#123;date_format|now|yyyy_MM_dd&#125;&#125; ]]</span><br><span class="line">- desc: &#123;&#123;desc&#125;&#125;</span><br><span class="line">&#123;&#123;<span class="comment">#each&#125;&#125;</span></span><br><span class="line">- [📌](&lt;&#123;&#123;an_int_uri&#125;&#125;&gt;)  &#123;&#123;an_html&#125;&#125;</span><br><span class="line">&#123;&#123;&gt;|an_note&#125;&#125;&#123;&#123;an_tags&#125;&#125;</span><br><span class="line">&#123;&#123;/each&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>（这里的定制化折腾了很久，主要是各种不生效，各种尝试，折腾了很久，还好群里面的人热心）</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%202.png" alt="Untitled"></p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%203.png" alt="Untitled"></p>
+<p>怎么使用上面的模板呢</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%204.png" alt="Untitled"></p>
+<p><strong>注意第4点，必须要改成这样，不然生成的标注永久链接缺少序号，链接不对。同时需要注意一点，在使用简悦网页标注的时候，不能使用简悦的设置，这样会造成设置冲突。</strong></p>
+<p><strong>所以想要测试模板的时候，先填好模板，等几秒简悦保存（没有保存按钮emmm），然后刷新下设置页面看看有没有设置成功，接着可以去标注测试生成的内容了。</strong></p>
+<hr>
+<p>设置了模板之后，可以配置自动化，当标注的时候会自动保存网页全文内容+标注到本地</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%205.png" alt="Untitled"></p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%206.png" alt="Untitled"></p>
+<p>导出的内容可以定制化</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%207.png" alt="Untitled"></p>
+<h2 id="让稍后读支持读取本地缓存"><a href="#让稍后读支持读取本地缓存" class="headerlink" title="让稍后读支持读取本地缓存"></a>让稍后读支持读取本地缓存</h2><p>简悦还有一大功能是稍后读，看字面意思就是将想要看的内容统一保存到一个地方，然后有时间时候深度阅读。</p>
+<p>这个教程其实不会用到稍后读，不过因为涉及到导出本地文件时的路径和配置的完整性，所以在这里面也配置一下。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/2146">如何让稍后读支持读取本地缓存 · Discussion #2146 · Kenshin/simpread</a></p>
+<h3 id="配置同步助手的导出文件夹"><a href="#配置同步助手的导出文件夹" class="headerlink" title="配置同步助手的导出文件夹"></a>配置同步助手的导出文件夹</h3><p>第一次配置同步助手教程可看</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/2754">[新手教程]如何安装和配置同步助手 · Discussion #2754 · Kenshin/simpread</a></p>
+<p>教程写的很详细，不一定要用坚果云，坚果云用来同步文件，换OneDrive，Dropbox都可以。</p>
+<hr>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%208.png" alt="Untitled"></p>
+<p>上面那个路径是简悦生成本地文件后保存的路径，根据上面的配置，会生成四个文件</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%209.png" alt="Untitled"></p>
+<p>第一个是网页原内容，第二个是网页原内容md，第三是带有标注的网页原内容，第四个标注内容md</p>
+<h3 id="配置稍后读"><a href="#配置稍后读" class="headerlink" title="配置稍后读"></a>配置稍后读</h3><p>直接复制官方教程了</p>
+<p>选项页 → 高级设定 → 稍后读（<strong>必须要开启下面的选项</strong>）</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%2010.png" alt="Untitled"></p>
+<p>打开稍后读 → 左下角 → 打开选项页，并勾选下面的选项</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%2011.png" alt="Untitled"></p>
+<p>达成的效果是这样</p>
+<p><img src="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/Untitled%2012.png" alt="Untitled"></p>
+<p>会优先读取本地已缓存的文件，不过这个教程并没有用过这个。感觉这个在上面的工作流（网页标注→logseq→Notion）更多是标注一次完了之后，想要第二次第三次继续标注的时候使用的，这样就不用重新进入网页，同时这个本地缓存文件可以带上双语翻译，实在是很nice，具体教程看</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Kenshin/simpread/discussions/3182">使用彩云小译实现双语翻译并同时保存在本地 · Discussion #3182 · Kenshin/simpread</a></p>
+<p>稍后读作用还不止现在谈到的这些，具体了解可以看简悦官网介绍。</p>
+<h2 id="收尾"><a href="#收尾" class="headerlink" title="收尾"></a>收尾</h2><p>上面配置完之后就可以看到文章开头的结果啦。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/">https://greenhathg.github.io/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a><a class="post-meta__tags" href="/tags/logseq/">logseq</a><a class="post-meta__tags" href="/tags/%E7%AE%80%E6%82%A6/">简悦</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2021/12/06/JetBrains%20Gateway%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/"><img class="prev-cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JetBrains Gateway远程开发初体验</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">173</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">207</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">实现效果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A7%E7%94%9F%E6%A0%87%E6%B3%A8%E5%90%8C%E6%AD%A5%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-number">2.2.</span> <span class="toc-text">产生标注同步到本地</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98"><span class="toc-number">2.2.1.</span> <span class="toc-text">配置自定义标题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E5%A2%9E%E5%BC%BA%E5%AF%BC%E5%87%BA%E5%8A%9F%E8%83%BD"><span class="toc-number">2.2.2.</span> <span class="toc-text">开启增强导出功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">2.2.3.</span> <span class="toc-text">配置自动化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A9%E7%A8%8D%E5%90%8E%E8%AF%BB%E6%94%AF%E6%8C%81%E8%AF%BB%E5%8F%96%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98"><span class="toc-number">2.3.</span> <span class="toc-text">让稍后读支持读取本地缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B%E7%9A%84%E5%AF%BC%E5%87%BA%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">2.3.1.</span> <span class="toc-text">配置同步助手的导出文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%A8%8D%E5%90%8E%E8%AF%BB"><span class="toc-number">2.3.2.</span> <span class="toc-text">配置稍后读</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E5%B0%BE"><span class="toc-number">2.4.</span> <span class="toc-text">收尾</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/" title="logseq搭配简悦建立自己的知识库"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="logseq搭配简悦建立自己的知识库"/></a><div class="content"><a class="title" href="/2021/12/12/logseq%E6%90%AD%E9%85%8D%E7%AE%80%E6%82%A6%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%9F%A5%E8%AF%86%E5%BA%93/" title="logseq搭配简悦建立自己的知识库">logseq搭配简悦建立自己的知识库</a><time datetime="2021-12-12T01:28:43.000Z" title="发表于 2021-12-12 09:28:43">2021-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/06/JetBrains%20Gateway%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/" title="JetBrains Gateway远程开发初体验"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JetBrains Gateway远程开发初体验"/></a><div class="content"><a class="title" href="/2021/12/06/JetBrains%20Gateway%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91%E5%88%9D%E4%BD%93%E9%AA%8C/" title="JetBrains Gateway远程开发初体验">JetBrains Gateway远程开发初体验</a><time datetime="2021-12-06T01:28:43.000Z" title="发表于 2021-12-06 09:28:43">2021-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/15/telegram%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%85%A5%E5%BA%93elk/" title="telegram聊天记录入库elk"><img src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="telegram聊天记录入库elk"/></a><div class="content"><a class="title" href="/2021/11/15/telegram%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95%E5%85%A5%E5%BA%93elk/" title="telegram聊天记录入库elk">telegram聊天记录入库elk</a><time datetime="2021-11-15T01:28:43.000Z" title="发表于 2021-11-15 09:28:43">2021-11-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/%E9%80%80%E4%BC%91%E8%AE%A1%E5%88%92p1-%E4%B8%BA%E4%BD%95%E8%AE%B2%E8%B5%B7%E8%B4%A2%E4%BA%A7%E8%87%AA%E7%94%B1/" title="退休计划p1-为何讲起财产自由"><img src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="退休计划p1-为何讲起财产自由"/></a><div class="content"><a class="title" href="/2021/11/09/%E9%80%80%E4%BC%91%E8%AE%A1%E5%88%92p1-%E4%B8%BA%E4%BD%95%E8%AE%B2%E8%B5%B7%E8%B4%A2%E4%BA%A7%E8%87%AA%E7%94%B1/" title="退休计划p1-为何讲起财产自由">退休计划p1-为何讲起财产自由</a><time datetime="2021-11-08T23:00:43.000Z" title="发表于 2021-11-09 07:00:43">2021-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议"><img src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-Raft中使用锁的建议"/></a><div class="content"><a class="title" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议">MIT6.824-Raft中使用锁的建议</a><time datetime="2021-10-17T06:56:43.000Z" title="发表于 2021-10-17 14:56:43">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2021 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
