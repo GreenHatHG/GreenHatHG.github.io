@@ -4336,9 +4336,9 @@
             
             <tag> c++类 </tag>
             
-            <tag> 虚函数 </tag>
-            
             <tag> 继承 </tag>
+            
+            <tag> 虚函数 </tag>
             
             <tag> 转换函数 </tag>
             
@@ -4367,9 +4367,9 @@
             
             <tag> c++类 </tag>
             
-            <tag> 继承 </tag>
-            
             <tag> 复合 </tag>
+            
+            <tag> 继承 </tag>
             
             <tag> 委托 </tag>
             
