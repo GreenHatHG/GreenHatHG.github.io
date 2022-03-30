@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MIT6.824-LEC10-Cloud Replicated-DB-Aurora | GreenHatHGのBlog</title><meta name="keywords" content="mit6.824,Aurora"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么要学习Aurora 作为近几年成功的云服务，解决了严重的问题 设计良好，有性能的优势 使用general-purpose storage架构情况下的局限性 许多关于云基础架构中重要的内容  Amazon EC2，cloud computing，针对于web  租用直接运行在Amazon数据中心物理机器上的virtual machines instances 使用的存储是连接在物理磁盘上的vi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.824-LEC10-Cloud Replicated-DB-Aurora">
+<meta property="og:url" content="https://greenhathg.github.io/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="为什么要学习Aurora 作为近几年成功的云服务，解决了严重的问题 设计良好，有性能的优势 使用general-purpose storage架构情况下的局限性 许多关于云基础架构中重要的内容  Amazon EC2，cloud computing，针对于web  租用直接运行在Amazon数据中心物理机器上的virtual machines instances 使用的存储是连接在物理磁盘上的vi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2022-03-30T12:46:43.000Z">
+<meta property="article:modified_time" content="2022-03-30T12:51:29.834Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="mit6.824">
+<meta property="article:tag" content="Aurora">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MIT6.824-LEC10-Cloud Replicated-DB-Aurora',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-30 20:51:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">180</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MIT6.824-LEC10-Cloud Replicated-DB-Aurora</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-30T12:46:43.000Z" title="发表于 2022-03-30 20:46:43">2022-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-03-30T12:51:29.834Z" title="更新于 2022-03-30 20:51:29">2022-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MIT6.824-LEC10-Cloud Replicated-DB-Aurora"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="为什么要学习Aurora"><a href="#为什么要学习Aurora" class="headerlink" title="为什么要学习Aurora"></a>为什么要学习Aurora</h2><ul>
+<li>作为近几年成功的云服务，解决了严重的问题</li>
+<li>设计良好，有性能的优势</li>
+<li>使用general-purpose storage架构情况下的局限性</li>
+<li>许多关于云基础架构中重要的内容</li>
+</ul>
+<h2 id="Amazon-EC2，cloud-computing，针对于web"><a href="#Amazon-EC2，cloud-computing，针对于web" class="headerlink" title="Amazon EC2，cloud computing，针对于web"></a>Amazon EC2，cloud computing，针对于web</h2><p><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220312154755.png" alt></p>
+<ul>
+<li>租用直接运行在Amazon数据中心物理机器上的virtual machines instances</li>
+<li>使用的存储是连接在物理磁盘上的virtual local disk</li>
+<li>客户在EC2上面运行着stateless www server或者DB</li>
+<li>但是EC2不适合DB：扩展功能和容错功能有限（可以通过S3大容量存储服务定期存储数据库的snapshot）</li>
+</ul>
+<h2 id="Amazon-EBS-Elastic-Block-Store"><a href="#Amazon-EBS-Elastic-Block-Store" class="headerlink" title="Amazon EBS (Elastic Block Store)"></a>Amazon EBS (Elastic Block Store)</h2><p><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220312160129.png" alt></p>
+<ul>
+<li>使用的是Chain Replication，基于paxos的configuration manager</li>
+<li>如果DB EC2崩溃，只需要在另一个EC2上面重新启动一个DB并挂载同一个EBS volume</li>
+<li>EBS不是shared storage，只能由一个EC2挂载</li>
+</ul>
+<h2 id="DB-on-EBS缺点"><a href="#DB-on-EBS缺点" class="headerlink" title="DB-on-EBS缺点"></a>DB-on-EBS缺点</h2><ul>
+<li>需要通过网络发送大量数据—log和dirty data pages，即使只是几bytes的更改，data pages也很大，可能一个page是8k</li>
+<li>为了性能，两个replica放在同一个”availability zone” (AZ)—machine room or datacenter，AZ挂了则数据库都挂了</li>
+</ul>
+<h2 id="generic-transactional-DB"><a href="#generic-transactional-DB" class="headerlink" title="generic transactional DB"></a>generic transactional DB</h2><p>示例：单机，x账户转账10元到y账户，在事务执行期间，x和y将被锁住，直到commit完成后释放，事务完成后数据就被持久化。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">begin</span><br><span class="line">x = x + 10</span><br><span class="line">y = y - 10</span><br><span class="line">end</span><br></pre></td></tr></table></figure><br><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220313112022.png" alt></p>
+<p><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220320110439.png" alt></p>
+<ul>
+<li>WAL(Write-Ahead Log)：让系统实现容错能力的关键部分</li>
+</ul>
+<ol>
+<li>DB server在事务运行时只会修改cached data page，并将更新信息（log entry）添加到WAL<br><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220313112559.png" alt></li>
+<li>安全提交WAL到磁盘后，释放x和y的锁，并回复给client</li>
+<li>随后将修改后的data page从缓存写入到磁盘，但是数据库一般会积累很多未写入磁盘的值在cache上面。当db crash后重启，会扫描commit记录，执行redo和undo操作。</li>
+</ol>
+<ul>
+<li>需要在WAL保存旧值，当崩溃恢复的时候，需要undo回滚到旧值。</li>
+</ul>
+<h2 id="Multi-AZ-RDS"><a href="#Multi-AZ-RDS" class="headerlink" title="Multi-AZ RDS"></a>Multi-AZ RDS</h2><p>database-as-a-service，而不是客户自己运行db在EC2<br><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220313120857.png" alt></p>
+<ul>
+<li>目标：通过cross-AZ replication实现更好的容错能力</li>
+<li>每个写数据必须发送到本地EBS和另外一个EC2上运行的DB，包括log entry和所有的dirty data pages</li>
+<li>数据库写入必须等待四个EBS完成后才能回复给client，所以数据量大的话这里会有很大的延迟，但是容错性更好。</li>
+</ul>
+<h2 id="Aurora的做法"><a href="#Aurora的做法" class="headerlink" title="Aurora的做法"></a>Aurora的做法</h2><p><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220313122926.png" alt></p>
+<ul>
+<li>一个DB server（使用EC2实例），底层对应着6个replica（storage server，其实就是挂载着一个或两个硬盘的server instance）</li>
+<li>但是6个replica并不比RDS慢，因为只需要发送log entry（small），而不用发送dirty data pages（big）。但是这里并不是通用的，只能处理MySQL的log entry，EBS则具有通用，因为只是一个磁盘。</li>
+<li>不需要让6个replica都确认写请求，只要有Quorum（达到法定确认人数，事实证明只需要任意4个，简单的来说，在写操作时候，可以忽略最慢或者基本死掉的replica），数据库服务器就能够继续运行。</li>
+<li>35x throughput increase，可能主要是因为发送的数据少得多，但是增加了cpu和存储的使用量。</li>
+</ul>
+<h2 id="Aurora’s-storage-fault-tolerance-goal"><a href="#Aurora’s-storage-fault-tolerance-goal" class="headerlink" title="Aurora’s storage fault tolerance goal"></a>Aurora’s storage fault tolerance goal</h2><ul>
+<li>即使一个AZ完全死了也能处理写请求</li>
+<li>即使一个AZ完全死了+另外一台server发生故障，也能够处理读请求</li>
+<li>即使在某些存储服务器变慢或者暂时不可用情况下，服务也能够继续进行</li>
+<li>fast re-replication（快速复制出另外一个replica或者修复dead replica）</li>
+</ul>
+<h2 id="Quorum-read-write-technique"><a href="#Quorum-read-write-technique" class="headerlink" title="Quorum read/write technique"></a>Quorum read/write technique</h2><ul>
+<li>目标：fault-tolerant storage，即使出现一些failures也能够读取最新的数据</li>
+<li>通常应用于简单的read/write (put/get) storage</li>
+<li>需要配置N、W、R（<strong>N</strong> replicas, writes to any <strong>W</strong> replicas,  reads from any <strong>R</strong> replicas），W和R的replica需要有一台重叠（overlap，也就是R+W=N+1），即负责写也负责读</li>
+<li>示例：N=3, W=2, R=2<br><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220313212518.png" alt></li>
+</ul>
+<ol>
+<li>发出一个写请求，将值更新为23</li>
+<li>得写入W个replica</li>
+<li>接着处理读请求，为了处理读请求，至少得包含一个处理过写请求的server<br>所以overlap确保了至少有1个来自write quorum</li>
+</ol>
+<ul>
+<li>read quorum对应的server有多个，如何确定从哪个server中读取到的是最新数据？<br>采用版本号机制，最大版本号的就是最新的数据，不能采用投票机制，可能read quorum中只有一个数据是最新的。</li>
+<li>read/write quorum不能达到指定人数怎么办？继续重试</li>
+</ul>
+<h2 id="quorum-read-write-storage-systems有什么好处"><a href="#quorum-read-write-storage-systems有什么好处" class="headerlink" title="quorum read/write storage systems有什么好处"></a>quorum read/write storage systems有什么好处</h2><ul>
+<li>可以轻易处理dead or slow or partitioned storage servers，不需要等待、检测、超时机制等并且也不存在split brain风险。</li>
+<li>可以调整R和W以使读/写更快，比如可以使R=1，W=3，这样读起来更快，只需要等待一台机器响应即可，反过来写则会慢很多。但是Aurora容错能力是min(N-W, N-R)，这里的值是0，所以就没有容错能力。</li>
+</ul>
+<h2 id="Aurora的N、W、R是怎么样的"><a href="#Aurora的N、W、R是怎么样的" class="headerlink" title="Aurora的N、W、R是怎么样的"></a>Aurora的N、W、R是怎么样的</h2><p>N=6，W=4，R=3<br>一个AZ完全死掉之后剩余4个replica，W=4，可以继续写入<br>一个AZ完全死掉+一个server死掉后，剩余3个replica，R=3，可以继续读取</p>
+<h2 id="Aurora是怎么样写入的"><a href="#Aurora是怎么样写入的" class="headerlink" title="Aurora是怎么样写入的"></a>Aurora是怎么样写入的</h2><ul>
+<li>DB server写入storage servers时候不会修改现有的数据项，而是写入新的log entry，即写操作或者事务完成之前，这条日志记录至少已经落地到4台server上面。达到Write Quorum后才会对client进行响应。</li>
+<li>确定一个事务之前，需要等待Write Quorum的storage server对之前所有提交的事务响应之后，才会响应现在这个事务。崩溃恢复也是如此，需要先恢复前面的事务。</li>
+</ul>
+<h2 id="storage-server如何处理传入的log-entry"><a href="#storage-server如何处理传入的log-entry" class="headerlink" title="storage server如何处理传入的log entry"></a>storage server如何处理传入的log entry</h2><ul>
+<li>拿到的只是对data page修改的日志，并没有data page</li>
+<li>storage server内部保持了数据库中data page在某一时刻的数据（旧版本），所以实际上存储的是旧版本的data page和更新page所需要的日志列表</li>
+<li>storage server异步或者在需要读取日志的时候apply这些日志到page，然后将data page返回</li>
+</ul>
+<h2 id="Aurora的读是怎么样的"><a href="#Aurora的读是怎么样的" class="headerlink" title="Aurora的读是怎么样的"></a>Aurora的读是怎么样的</h2><ul>
+<li>写入的是log entry，读取的是data page（cached data page is missed）。实际上，DB server会跟踪每个storage server收到了多少个log entry，读取的时候只需要从有最新的server里面读即可，不需要Read Quorum（写入需要Write Quorum）。</li>
+<li>当DB server（不是storage server）崩溃恢复的时候，会自动在不同的EC2示例上重新启动一个DB server。</li>
+<li>崩溃的DB server可能处于处理某组事务的状态上，一些事务已经执行完成数据保存在Quorum上面，还有一些执行到一半的事务（一些数据可能已经保存到了某一个server上，而有的server可能还没有），所以重新启动的DB server需要读取Read Quorum，会在这些storage server上找到缺失日志编号最高的那个log entry，并告诉storage server丢失后续所有的日志。</li>
+<li>所以可能存在一些半路崩溃保存下来的没有提交的日志（只有更新记录，没有commit记录标志），DB server需要检测出这些日志，并执行undo操作</li>
+</ul>
+<h2 id="如何处理解决太大而无法存储在storage-server的问题"><a href="#如何处理解决太大而无法存储在storage-server的问题" class="headerlink" title="如何处理解决太大而无法存储在storage server的问题"></a>如何处理解决太大而无法存储在storage server的问题</h2><p><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220324073828.png" alt></p>
+<ul>
+<li>data page被分片（每片大概10GB）存储在Protection Groups (PGs)上，比如将B-Tree中编号为奇数的data page放到PG1，偶数的放到PG2</li>
+<li>每个PG由6个replica组成，不同的PG可能位于不同集群（sets of six storage servers），这些server由Aurora客户共同使用。</li>
+<li>如何拆分log：当DB server发送log entry时候，会根据log中所修改的数据查到保存该数据的PG，然后将日志发送给PG。所以每个PG存储了部分data page+这部分data page进行提交的日志记录。</li>
+</ul>
+<h2 id="当storage-server-crash时候如何快速替换"><a href="#当storage-server-crash时候如何快速替换" class="headerlink" title="当storage server crash时候如何快速替换"></a>当storage server crash时候如何快速替换</h2><ul>
+<li>需要快速替换，避免接着有更多的server崩溃，导致无法恢复</li>
+<li>可能crash掉的storage server里面保存了1000个PG（假设每个硬盘10T）replica，这可能会导致其他客户的10G PG数据也不可用，所以需要复制的是整个硬盘上的数据。假设内网的网速是10Gb/s，那么传输需要10000秒。<br><img src="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/Pasted image 20220326092303.png" alt></li>
+<li>当发生特定storage server crash时候，假设这里面存储了PGABC的数据，处理程序会将PGABC其他replica里面的数据发送到另外几台server，并行的恢复需要的时间很少。不过当发生很多server都crash时候，这种方法也不奏效，只能通过单台机器恢复。</li>
+</ul>
+<h2 id="只读实例"><a href="#只读实例" class="headerlink" title="只读实例"></a>只读实例</h2><ul>
+<li>master只负责写，同时存在很多只读replica（R/O），以减少master的负载</li>
+<li>R/0从storage server读取data page，并缓存data page，master将log发送给R/O保持缓存的data page是最新的。</li>
+<li>master需要在log中标注uncommitted log，R/O则需要直到这些transaction commit后才应用到缓存中。</li>
+<li>replica在storage server直接读数据的时候可能会看到B-Tree正在执行平衡或者一些其他操作，所以storage server得展示已完成事务后对应的data page，不能是未完成的，需要对B-Tree加锁之类的。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/">https://greenhathg.github.io/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mit6-824/">mit6.824</a><a class="post-meta__tags" href="/tags/Aurora/">Aurora</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/"><img class="prev-cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MIT6.824-LEC9-More-Replication-CRAQ</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/11/17/MIT6.824-GFS/" title="MIT6.824-GFS"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-GFS</div></div></a></div><div><a href="/2022/03/30/MIT6.824-LEC8-Zookeeper/" title="MIT6.824-LEC8-Zookeeper"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-03-30</div><div class="title">MIT6.824-LEC8-Zookeeper</div></div></a></div><div><a href="/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/" title="MIT6.824-LEC9-More-Replication-CRAQ"><img class="cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-03-30</div><div class="title">MIT6.824-LEC9-More-Replication-CRAQ</div></div></a></div><div><a href="/2020/11/06/MIT6.824-MapReduce/" title="MIT6.824-MapReduce"><img class="cover" src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-MapReduce</div></div></a></div><div><a href="/2020/12/14/MIT6.824-Primary-Backup-Replication/" title="MIT6.824-Primary-Backup-Replication"><img class="cover" src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="title">MIT6.824-Primary-Backup-Replication</div></div></a></div><div><a href="/2022/03/30/MIT6.824-Raft-index%E5%90%AB%E4%B9%89/" title="MIT6.824-Raft-index含义"><img class="cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2022-03-30</div><div class="title">MIT6.824-Raft-index含义</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">180</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">215</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0Aurora"><span class="toc-number">1.</span> <span class="toc-text">为什么要学习Aurora</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Amazon-EC2%EF%BC%8Ccloud-computing%EF%BC%8C%E9%92%88%E5%AF%B9%E4%BA%8Eweb"><span class="toc-number">2.</span> <span class="toc-text">Amazon EC2，cloud computing，针对于web</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Amazon-EBS-Elastic-Block-Store"><span class="toc-number">3.</span> <span class="toc-text">Amazon EBS (Elastic Block Store)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DB-on-EBS%E7%BC%BA%E7%82%B9"><span class="toc-number">4.</span> <span class="toc-text">DB-on-EBS缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generic-transactional-DB"><span class="toc-number">5.</span> <span class="toc-text">generic transactional DB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multi-AZ-RDS"><span class="toc-number">6.</span> <span class="toc-text">Multi-AZ RDS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aurora%E7%9A%84%E5%81%9A%E6%B3%95"><span class="toc-number">7.</span> <span class="toc-text">Aurora的做法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aurora%E2%80%99s-storage-fault-tolerance-goal"><span class="toc-number">8.</span> <span class="toc-text">Aurora’s storage fault tolerance goal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quorum-read-write-technique"><span class="toc-number">9.</span> <span class="toc-text">Quorum read&#x2F;write technique</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#quorum-read-write-storage-systems%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84"><span class="toc-number">10.</span> <span class="toc-text">quorum read&#x2F;write storage systems有什么好处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aurora%E7%9A%84N%E3%80%81W%E3%80%81R%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84"><span class="toc-number">11.</span> <span class="toc-text">Aurora的N、W、R是怎么样的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aurora%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E5%86%99%E5%85%A5%E7%9A%84"><span class="toc-number">12.</span> <span class="toc-text">Aurora是怎么样写入的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#storage-server%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%BC%A0%E5%85%A5%E7%9A%84log-entry"><span class="toc-number">13.</span> <span class="toc-text">storage server如何处理传入的log entry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aurora%E7%9A%84%E8%AF%BB%E6%98%AF%E6%80%8E%E4%B9%88%E6%A0%B7%E7%9A%84"><span class="toc-number">14.</span> <span class="toc-text">Aurora的读是怎么样的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E8%A7%A3%E5%86%B3%E5%A4%AA%E5%A4%A7%E8%80%8C%E6%97%A0%E6%B3%95%E5%AD%98%E5%82%A8%E5%9C%A8storage-server%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">15.</span> <span class="toc-text">如何处理解决太大而无法存储在storage server的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93storage-server-crash%E6%97%B6%E5%80%99%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E6%9B%BF%E6%8D%A2"><span class="toc-number">16.</span> <span class="toc-text">当storage server crash时候如何快速替换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E8%AF%BB%E5%AE%9E%E4%BE%8B"><span class="toc-number">17.</span> <span class="toc-text">只读实例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/" title="MIT6.824-LEC10-Cloud Replicated-DB-Aurora"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-LEC10-Cloud Replicated-DB-Aurora"/></a><div class="content"><a class="title" href="/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/" title="MIT6.824-LEC10-Cloud Replicated-DB-Aurora">MIT6.824-LEC10-Cloud Replicated-DB-Aurora</a><time datetime="2022-03-30T12:46:43.000Z" title="发表于 2022-03-30 20:46:43">2022-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/" title="MIT6.824-LEC9-More-Replication-CRAQ"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-LEC9-More-Replication-CRAQ"/></a><div class="content"><a class="title" href="/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/" title="MIT6.824-LEC9-More-Replication-CRAQ">MIT6.824-LEC9-More-Replication-CRAQ</a><time datetime="2022-03-30T12:38:43.000Z" title="发表于 2022-03-30 20:38:43">2022-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/MIT6.824-LEC8-Zookeeper/" title="MIT6.824-LEC8-Zookeeper"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-LEC8-Zookeeper"/></a><div class="content"><a class="title" href="/2022/03/30/MIT6.824-LEC8-Zookeeper/" title="MIT6.824-LEC8-Zookeeper">MIT6.824-LEC8-Zookeeper</a><time datetime="2022-03-30T11:51:43.000Z" title="发表于 2022-03-30 19:51:43">2022-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/03/30/MIT6.824-Raft-index%E5%90%AB%E4%B9%89/" title="MIT6.824-Raft-index含义"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MIT6.824-Raft-index含义"/></a><div class="content"><a class="title" href="/2022/03/30/MIT6.824-Raft-index%E5%90%AB%E4%B9%89/" title="MIT6.824-Raft-index含义">MIT6.824-Raft-index含义</a><time datetime="2022-03-30T00:56:43.000Z" title="发表于 2022-03-30 08:56:43">2022-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/12/30/Patterns%20and%20Hints%20for%20Concurrency%20in%20Go%20--%20Replicated%20service%20client/" title="Patterns and Hints for Concurrency in Go -- Replicated service client"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Patterns and Hints for Concurrency in Go -- Replicated service client"/></a><div class="content"><a class="title" href="/2021/12/30/Patterns%20and%20Hints%20for%20Concurrency%20in%20Go%20--%20Replicated%20service%20client/" title="Patterns and Hints for Concurrency in Go -- Replicated service client">Patterns and Hints for Concurrency in Go -- Replicated service client</a><time datetime="2021-12-30T14:10:43.000Z" title="发表于 2021-12-30 22:10:43">2021-12-30</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2022 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

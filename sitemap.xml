@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://greenhathg.github.io/2022/03/30/MIT6.824-LEC10-Cloud%20Replicated-DB-Aurora/</loc>
+    
+    <lastmod>2022-03-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://greenhathg.github.io/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/</loc>
     
     <lastmod>2022-03-30</lastmod>
@@ -1390,6 +1397,13 @@
   </url>
   
   <url>
+    <loc>https://greenhathg.github.io/tags/EXBSGS/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://greenhathg.github.io/tags/dp/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
@@ -1447,13 +1461,6 @@
   
   <url>
     <loc>https://greenhathg.github.io/tags/%E4%BA%8C%E7%BB%B4dp/</loc>
-    <lastmod>2022-03-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://greenhathg.github.io/tags/EXBSGS/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -1790,6 +1797,13 @@
   
   <url>
     <loc>https://greenhathg.github.io/tags/mit6-824/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://greenhathg.github.io/tags/Aurora/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
