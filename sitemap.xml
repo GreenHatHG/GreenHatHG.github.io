@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://greenhathg.github.io/2022/03/30/MIT6.824-LEC9-More-Replication-CRAQ/</loc>
+    
+    <lastmod>2022-03-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://greenhathg.github.io/2022/03/30/MIT6.824-LEC8-Zookeeper/</loc>
     
     <lastmod>2022-03-30</lastmod>
@@ -1796,6 +1803,13 @@
   </url>
   
   <url>
+    <loc>https://greenhathg.github.io/tags/CRAQ/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://greenhathg.github.io/tags/mapreduce/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
@@ -1985,6 +1999,13 @@
   </url>
   
   <url>
+    <loc>https://greenhathg.github.io/tags/RBAC/</loc>
+    <lastmod>2022-03-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://greenhathg.github.io/tags/SpringBoot/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
@@ -2000,13 +2021,6 @@
   
   <url>
     <loc>https://greenhathg.github.io/tags/jwt/</loc>
-    <lastmod>2022-03-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://greenhathg.github.io/tags/RBAC/</loc>
     <lastmod>2022-03-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
