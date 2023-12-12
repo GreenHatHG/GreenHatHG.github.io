@@ -1,0 +1,409 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>CMU445-Project1-BPlusTree-Insert-Single-threaded | GreenHatHGのBlog</title><meta name="keywords" content="cmu445,BPlusTree"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="单线程版 B+树插入操作 Overview Index: The index in database system is responsible for fast data retrieval without having to search through every row in a database table, providing the basis for both rapid rand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMU445-Project1-BPlusTree-Insert-Single-threaded">
+<meta property="og:url" content="https://greenhathg.github.io/2023/12/12/CMU445-Project2-BPlusTree-Insert/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="单线程版 B+树插入操作 Overview Index: The index in database system is responsible for fast data retrieval without having to search through every row in a database table, providing the basis for both rapid rand">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2023-12-12T22:59:43.000Z">
+<meta property="article:modified_time" content="2023-12-12T15:05:56.670Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="cmu445">
+<meta property="article:tag" content="BPlusTree">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2023/12/12/CMU445-Project2-BPlusTree-Insert/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-116672888-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CMU445-Project1-BPlusTree-Insert-Single-threaded',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-12 15:05:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">193</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">233</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CMU445-Project1-BPlusTree-Insert-Single-threaded</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-12T22:59:43.000Z" title="发表于 2023-12-12 22:59:43">2023-12-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-12T15:05:56.670Z" title="更新于 2023-12-12 15:05:56">2023-12-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CMU445-Project1-BPlusTree-Insert-Single-threaded"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>单线程版 B+树插入操作</p>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><ul>
+<li><strong>Index</strong>: The index in database system is responsible for fast data retrieval without having to search through every row in a database table, providing the basis for both rapid random lookups (<em>快速随机查找</em>) and efficient access of ordered records.</li>
+<li><strong>B+Tree dynamic index structure</strong>:  It is a balanced tree in which the internal pages direct the search and leaf pages contains actual data entries.<h1 id="B-Tree-properties"><a href="#B-Tree-properties" class="headerlink" title="B+ Tree properties"></a>B+ Tree properties</h1></li>
+</ul>
+<ol>
+<li>Each node except root can have a maximum of <code>M</code> children and at least <code>ceil(M/2)</code> children.</li>
+<li>Each node can contain a maximum of <code>M–1</code> keys and a minimum of ceil <code>(M/2)–1</code> keys.</li>
+<li>The root has at least two children and at least one search key.</li>
+<li>While insertion overflow of the node occurs when it contains more than <code>M–1</code> search key values.</li>
+</ol>
+<ul>
+<li><code>M</code> is the order of B+ tree. It means every node of that Tree can have a maximum of N children.<br>For more:<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.geeksforgeeks.org/introduction-of-b-tree/#">Introduction of B+ Tree - GeeksforGeeks</a><h1 id="Tree-Node"><a href="#Tree-Node" class="headerlink" title="Tree Node"></a>Tree Node</h1>举例一个实现后的 b+ tree 如下（p表示page_id）：</li>
+</ul>
+<p><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231028120216283.png" alt></p>
+<p>如果是更大的树，则如下图所示：<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231103135501993.png" alt="image-20231103135501993"></p>
+<p>设计思考点：<br>如果要实现一个 tree，首先得考虑每个节点在内存中是怎么组织的，也就是有哪些关键属性，怎么在内存中管理这些 node。</p>
+<h2 id="BufferPoolManager"><a href="#BufferPoolManager" class="headerlink" title="BufferPoolManager"></a>BufferPoolManager</h2><p>把 node 再抽象点，其实也不过就是某一块内存数据，在 db 中，内存的管理由BufferPoolManager (bpm) 接管，也就是 lab1 实现的部分。<br>其管理的单位是 page，也就是每次向 bpm 申请一块内存，返回的都是一个 page，其实在 cpp 中表示就是一个 class Page。<br>每个 page 的 data_ 大小都是 4096bytes，node 的数据就存放在此。当然 page 还有其他属性，比如 page_id 等，当作 metadata 好管理各个page。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">int</span> BUSTUB_PAGE_SIZE = <span class="number">4096</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Page</span> &#123;</span></span><br><span class="line">	<span class="keyword">public</span>: </span><br><span class="line">	<span class="built_in">Page</span>() &#123; <span class="built_in">ResetMemory</span>(); &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span>:</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">size_t</span> OFFSET_PAGE_START = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">char</span> data_[BUSTUB_PAGE_SIZE]&#123;&#125;;</span><br><span class="line">	<span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">ResetMemory</span><span class="params">()</span> </span>&#123; <span class="built_in">memset</span>(data_, OFFSET_PAGE_START, BUSTUB_PAGE_SIZE); &#125;</span><br><span class="line">	<span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Page"><a href="#Page" class="headerlink" title="Page"></a>Page</h2><ul>
+<li><p>对于 B+Tree 来讲，leaf node 和 internal node 是不一样的，所以这里在 lab 中对应的是 class BPlusTreeInternalPage 和 class BPlusTreeLeafPage，也就是得把从 bpm 申请来的 class Page 中的 data_ 转换为对应 node page。转换的方法是使用 reinterpret_cast：</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> *page = <span class="keyword">reinterpret_cast</span>&lt;InternalPage *&gt;(buffer_pool_manager_-&gt;<span class="built_in">FetchPage</span>(page)-&gt;<span class="built_in">GetData</span>());</span><br></pre></td></tr></table></figure>
+<p>  这里的意思可以简单理解为：不管你是 InternalPage 还是 LeafPage，实际在代码表示就是一串 byte，这些 bytes 存储在 bpm 的 Page 中，在实际使用中才将其表达为是 InternalPage 还是 LeafPage。</p>
+</li>
+<li><p>InternalPage 和 LeafPage 都有一个属性 <code>std::pair&lt;KeyType, ValueType&gt; array_</code></p>
+<ul>
+<li>对 internal node 来讲，这里存储的是 key (search field) 和 child pointer，key 作为一个索引从而能定位到某个 leaf node，child pointer 是为了找到下一级节点。这里 child pointer 其实就是 page_id，因为根据 page_id 能从 bpm 中 fetch 到对应 child page。</li>
+<li>对于 leaf node 来讲，这里存储的是 key (search field) 和 RID，RID 用于定位实际的 tuple 存放位置。</li>
+<li><p>这两个 node KeyType 都是一样的，但是 ValueType 不一样，page_id 实际类型是 size_t，RID 实际类型是 class RID，所以有</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> INDEX_TEMPLATE_ARGUMENTS template <span class="meta-string">&lt;typename KeyType, typename ValueType, typename KeyComparator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MappingType std::pair<span class="meta-string">&lt;KeyType, ValueType&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BPlusTreePage</span> &#123;</span></span><br><span class="line">    <span class="comment">//...common field</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">INDEX_TEMPLATE_ARGUMENTS</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BPlusTreeInternalPage</span> :</span> <span class="keyword">public</span> BPlusTreePage &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">      MappingType array_[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">INDEX_TEMPLATE_ARGUMENTS</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BPlusTreeLeafPage</span> :</span> <span class="keyword">public</span> BPlusTreePage &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">      MappingType array_[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span> &#123;</span></span><br><span class="line">  <span class="keyword">using</span> InternalPage = BPlusTreeInternalPage&lt;KeyType, <span class="keyword">page_id_t</span>, KeyComparator&gt;;</span><br><span class="line">  <span class="keyword">using</span> LeafPage = BPlusTreeLeafPage&lt;KeyType, ValueType, KeyComparator&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span>&lt;</span>GenericKey&lt;<span class="number">4</span>&gt;, RID, GenericComparator&lt;<span class="number">4</span>&gt;&gt;;</span><br><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span>&lt;</span>GenericKey&lt;<span class="number">8</span>&gt;, RID, GenericComparator&lt;<span class="number">8</span>&gt;&gt;;</span><br><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span>&lt;</span>GenericKey&lt;<span class="number">16</span>&gt;, RID, GenericComparator&lt;<span class="number">16</span>&gt;&gt;;</span><br><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span>&lt;</span>GenericKey&lt;<span class="number">32</span>&gt;, RID, GenericComparator&lt;<span class="number">32</span>&gt;&gt;;</span><br><span class="line"><span class="keyword">template</span> <span class="class"><span class="keyword">class</span> <span class="title">BPlusTree</span>&lt;</span>GenericKey&lt;<span class="number">64</span>&gt;, RID, GenericComparator&lt;<span class="number">64</span>&gt;&gt;;</span><br></pre></td></tr></table></figure>
+<p>class BPlusTree template对应的ValueType是RID，但是InternalPage写的是page_id_t (size_t)，并不是直接沿用ValueType。</p>
+<p>因为KeyType是自定义类型，所以需要提供一个KeyComparator来定义怎么比对两个Key的大小。</p>
+</li>
+<li><p><code>MappingType array_[1];</code>用法是Flexible array，简单来讲就是，当<code>array_</code>写在类属性最后一个时，<code>array_</code>的大小自动指定，不用手动计算，其实就是这样算的：因为一个page是4kb，除去其他属性和元数据的内存开销，剩下的内存全给<code>array_</code>，然后根据<code>array_</code>中每个元素占用多少空间，从而计算出<code>array_</code> size是多少。For more: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/580014163">做个数据库：2022 CMU15-445 Project2 B+Tree Index - 知乎</a></p>
+</li>
+</ul>
+</li>
+<li><p>从图上可以看到，internal node array_有一个entry中的key是空的，其value指向下一个节点。至于为什么是空的，其实也很好理解，从第二个node起每个都有特定的范围表示，剩下的有没有key都无所谓，因为其表示的范围可以推算出来。所以对于internal node而言，总共有m个key，m+1个value。具体将这个空的key放在左边（本文）或者右边都可以，这会影响到插入、删除、查找等操作。对于leaf node而言，则没有无用的key，每个key和value都是有用的。<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231103140417199.png" alt="image-20231103140417199"></p>
+</li>
+</ul>
+<h2 id="RootPage"><a href="#RootPage" class="headerlink" title="RootPage"></a>RootPage</h2><p>每个page都是得经过buffer pool manager拿，这些page再转换成对应的node，每个node之间的关系是通过kv array中的v建立连接，也就是v保存了需要连接的page的page_id。</p>
+<p>总有一个开始地方，这个开始的地方就是root_page_id，根据这个page_id可以找到根节点，从而可以找到整棵树，root_page同样也是由buffer pool manager管理。</p>
+<h1 id="Find-Leaf-Node"><a href="#Find-Leaf-Node" class="headerlink" title="Find Leaf Node"></a>Find Leaf Node</h1><p>如何根据一个key找到对应的leaf node呢（key可能在最终找到的leaf node，也可能没有）</p>
+<p><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231103142048397.png" alt="image-20231103142048397"></p>
+<ul>
+<li><p>查找部分分为两个，一个是在internal node里面查找，最终定位到leaf node；另外一个是在leaf node中查找有没有这个key。</p>
+</li>
+<li><p>比如查找11，首先在根节点里面找到对应key，9代表子节点保存的key都符合9&lt;=key<13，那么可以找到9对应的kv，然后根据v是page_id，从buffer pool manager拿到对应的下一个node，也就是p="11的节点。11代表子节点的key都符合key">=11，从而找到P=9的叶子节点，从而在叶子节点找到key=11。</13，那么可以找到9对应的kv，然后根据v是page_id，从buffer></p>
+</li>
+</ul>
+<h2 id="Node-Search"><a href="#Node-Search" class="headerlink" title="Node Search"></a>Node Search</h2><ul>
+<li><p>不管是在internal node还是leaf node，保存的key都是有序的，所以在node里面查找对应的key可以使用二分算法。</p>
+</li>
+<li><p>假定要找的值为v，对于internal node来讲，其实就是要找到第一个大于v的key的前一个节点，比如v=11，节点中有5,9,13，那么找到的key是9，因为9这个节点下面所有的key都是大于等于9的。如果没有大于v的key，那么则选择最后一个key。</p>
+<ul>
+<li>internal node查找的过程可以使用upper_bound，其返回指向范围 [first, last) 中首个大于 value 的元素的迭代器，或若找不到这种元素则返回 last。因为这里需要的是前一个节点，所以减去-1就行。因为node的第一个元素key为空，所以这里从第二个元素开始查找。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> pair_comparator = [&amp;](<span class="keyword">const</span> KeyType &amp;val, <span class="keyword">const</span> MappingType &amp;pair) -&gt; <span class="keyword">bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">comparator</span>(val, pair.first) &lt; <span class="number">0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> std::<span class="built_in">upper_bound</span>(array_ + <span class="number">1</span>, array_ + <span class="built_in">GetSize</span>(), key, pair_comparator) - array_ - <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>对于leaf node来讲，可以使用lower_bound，其返回的是第一个大于或等于value的元素迭代器，如果要判断元素是否存在，可判断是否等于value。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> cmp = [&amp;](<span class="keyword">const</span> MappingType &amp;element, <span class="keyword">const</span> KeyType &amp;val) -&gt; <span class="keyword">bool</span> &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">comparator</span>(element.first, val) &lt; <span class="number">0</span>; </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">auto</span> idx = std::<span class="built_in">lower_bound</span>(array_, array_ + <span class="built_in">GetSize</span>(), key, cmp) - array_;</span><br><span class="line"><span class="keyword">return</span> idx != <span class="built_in">GetSize</span>() &amp;&amp; <span class="built_in">comparator</span>(<span class="built_in">KeyAt</span>(idx), key) == <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Tree-Search"><a href="#Tree-Search" class="headerlink" title="Tree Search"></a>Tree Search</h2><p>在树上搜索比较简单，一般是使用一个指针，从root遍历到leaf，需要注意的一点是这个指针类型可能是internal node或者是leaf node。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">current = bpm拿到root_page_id对应的page并<span class="keyword">reinterpret_cast</span>成BPlusTreePage类型;</span><br><span class="line"><span class="keyword">while</span> (!current-&gt;<span class="built_in">IsLeafPage</span>()) &#123;</span><br><span class="line">    internal_page = <span class="keyword">reinterpret_cast</span> current成InternalPage类型;</span><br><span class="line">    idx = 使用upper_bound在internal_page找到v的位置;</span><br><span class="line">    next_page_id = array_[idx].second;</span><br><span class="line">    current = bpm拿到next_page_id对应的page并<span class="keyword">reinterpret_cast</span>成BPlusTreePage类型;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>成LeafPage类型;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是记得unpin取出来的page。</p>
+<h1 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h1><h2 id="No-Overflow"><a href="#No-Overflow" class="headerlink" title="No Overflow"></a>No Overflow</h2><h3 id="New-Root"><a href="#New-Root" class="headerlink" title="New Root"></a>New Root</h3><p>如果是第一次插入，那么流程就简单点，等于是建树，不过此时树只有一个节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(root_page_id_ == INVALID_PAGE_ID)&#123;</span><br><span class="line">    new_page = 从bpm申请一个新的page，<span class="keyword">reinterpret_cast</span>成LeafPage</span><br><span class="line">    new_page-&gt;<span class="built_in">Init</span>();</span><br><span class="line">    array_[<span class="built_in">GetSize</span>()] = &#123;key, value&#125;;</span><br><span class="line">    更新root_page_id;</span><br><span class="line">    <span class="built_in">unpin</span>(new_page_id);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="No-New-Root"><a href="#No-New-Root" class="headerlink" title="No New Root"></a>No New Root</h3><ul>
+<li><p>正常情况下的插入的步骤是先根据key找到leaf node，然后在对应的位置（插入后保持key的有序性）插入key和value就行。</p>
+<ul>
+<li><p>这个前提是插入后不发生overflow，对于leaf node，overflow条件是插入后size等于max_size，所以插入前需要判断下size是否小于max_size-1（极端情况下等于max_size-1，插入后size==max_size，就需要overflow了）。</p>
+</li>
+<li><p>leaf的max_size在初始化BPlusTree时会传入，或者使用默认值。</p>
+</li>
+</ul>
+</li>
+<li><p>lab实现的b+树是不能插入重复key的，所以插入前需要判断一下。</p>
+</li>
+</ul>
+<p>常规情况的插入是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">leaf_page = <span class="built_in">FindLeafNode</span>(key);</span><br><span class="line">idx = 使用lower_bound在leaf_page查找应该插入的位置;</span><br><span class="line"><span class="keyword">if</span>(idx对应的位置的key等于需要插入的key)&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (leaf-&gt;<span class="built_in">GetSize</span>() &lt; leaf-&gt;<span class="built_in">GetMaxSize</span>() - <span class="number">1</span>) &#123;</span><br><span class="line">    leaf-&gt;<span class="built_in">Insert</span>(key, value);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>leaf的插入操作一般是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">idx = 使用lower_bound在leaf_page查找应该插入的位置;</span><br><span class="line">将idx到<span class="built_in">GetSize</span>()的元素都向后移动一位，从而让出一个能插入的空间;</span><br><span class="line">在idx的位置插入key和value;</span><br><span class="line">size++;</span><br></pre></td></tr></table></figure>
+<h2 id="Overflow-In-Leaf-Node"><a href="#Overflow-In-Leaf-Node" class="headerlink" title="Overflow In Leaf Node"></a>Overflow In Leaf Node</h2><p>如果插入后leaf node size == max_size就会发生overflow，需要执行split node操作</p>
+<h3 id="Leaf-Node-Is-Not-The-Root-Node"><a href="#Leaf-Node-Is-Not-The-Root-Node" class="headerlink" title="Leaf Node Is Not The Root Node"></a>Leaf Node Is Not The Root Node</h3><p>如果leaf node不是root node，一般流程如下：</p>
+<ol>
+<li>Split the leaf node into two nodes.</li>
+<li>First node contains ceil((m-1)/2) values.</li>
+<li>Second node contains the remaining values.</li>
+<li>Copy the smallest search key value from second node to the parent node.(Right biased)</li>
+</ol>
+<ul>
+<li><p>example1：<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231114215250806.png" alt="image-20231114215250806"></p>
+</li>
+<li><p>example2：<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231114215807606.png" alt="image-20231114215807606"></p>
+</li>
+</ul>
+<p>这里的逻辑抽出来就是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 已经判断出插入后得发生overflow的前提下</span><br><span class="line">leaf_node = <span class="built_in">FindLeafNode</span>();</span><br><span class="line">leaf_node_new = 创建一个新的leaf node节点</span><br><span class="line">    </span><br><span class="line"><span class="keyword">int</span> mid = (n_new-&gt;<span class="built_in">GetSize</span>() + <span class="number">1</span>) / <span class="number">2</span>; # 取出一半，不一定要按照上面写的ceil来，实现类似效果就好了</span><br><span class="line"><span class="keyword">int</span> left_node_size = mid; </span><br><span class="line"><span class="keyword">int</span> right_node_size = leaf_node.<span class="built_in">size</span>()-mid;</span><br><span class="line"></span><br><span class="line">leaf_node-&gt;<span class="built_in">SetSize</span>(left_node_size);</span><br><span class="line">leaf_node_new-&gt;<span class="built_in">SetSize</span>(right_node_size);</span><br><span class="line"></span><br><span class="line">#将另外一半移动到另外一个节点</span><br><span class="line">#这里的移动其实就是赋值就好了，并不是真的删除然后新增，这里使用size去控制真正的长度，后面的位置虽然有值，但是插入时候会被覆盖掉</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, j = left_node_size; i &lt; right_node_size; i++, j++) &#123;</span><br><span class="line">   leaf_node_new-&gt;arr_[i] = leaf_node-&gt;<span class="built_in">IndexAt</span>(j));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">更新leaf_node和leaf_node_new的NextPageId;</span><br><span class="line"></span><br><span class="line"># Copy the smallest search key value from second node to the parent node.(Right biased)</span><br><span class="line">smallest_kv = leaf_node_new-&gt;arr_[<span class="number">0</span>]; <span class="meta"># smallest search key value，因为arr_是有序的，所以直接取第一个就是最小的</span></span><br><span class="line">parent = leaf_node-&gt;parent; #表述比较简单，实际上需要取出parent_id，从buffer pool manager拿</span><br><span class="line"></span><br><span class="line">parent-&gt;<span class="built_in">Insert</span>(smallest_kv, leaf_node_new-&gt;PageId);</span><br><span class="line"></span><br><span class="line">更新leaf_node_new的parent_id;</span><br><span class="line">unpin相关page;</span><br></pre></td></tr></table></figure>
+<h3 id="Leaf-Node-Is-The-Root-Node"><a href="#Leaf-Node-Is-The-Root-Node" class="headerlink" title="Leaf Node Is The Root Node"></a>Leaf Node Is The Root Node</h3><p>只有一个root node的时候，这个node的类型其实是leaf node</p>
+<ul>
+<li><p>example1:<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231203113800829.png" alt="image-20231203113800829"></p>
+</li>
+<li><p>example2:<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231203114024994.png" alt="image-20231203114024994"></p>
+</li>
+</ul>
+<p>可以看出来，其实和上面的流程有一点类似，只是第四步将smallest kv插到parent这一步不一样，root node节点换了一个，所以流程就是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Split the leaf node into two nodes.</span><br><span class="line"><span class="function">First node contains <span class="title">ceil</span><span class="params">((m<span class="number">-1</span>)/<span class="number">2</span>)</span> values.</span></span><br><span class="line"><span class="function">Second node contains the remaining values.</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">创建一个新的root_node</span>;</span><br><span class="line"><span class="built_in">UpdateRootPageId</span>();</span><br><span class="line">root_node-&gt;<span class="built_in">Insert</span>(空的key, leaf_node-&gt;page_id);</span><br><span class="line">root_node-&gt;<span class="built_in">Insert</span>(smallest_kv, leaf_node_new-&gt;page_id);</span><br><span class="line"></span><br><span class="line">更新leaf_node和leaf_node_new的parent_id;</span><br><span class="line">unpin相关page;</span><br></pre></td></tr></table></figure>
+<h2 id="Overflow-In-Internal-Node"><a href="#Overflow-In-Internal-Node" class="headerlink" title="Overflow In Internal Node"></a>Overflow In Internal Node</h2><p>因为需要将smallest kv插入到parent node，所以这里可能会出现的一种情况就是parent node也得spilt。</p>
+<p>对于internal node，插入之前的size等于max_size的时候需要拆分，所以这里插入前不拆分的极端情况是max_size-1。流程如下：</p>
+<ol>
+<li><p>Split the non leaf node into two nodes.</p>
+</li>
+<li><p>First node contains ceil(m/2)-1 values.</p>
+</li>
+<li><p>Move the smallest among remaining to the parent.</p>
+</li>
+<li><p>Second node contains the remaining keys.</p>
+</li>
+</ol>
+<ul>
+<li><p>example1:</p>
+<p><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231212205441303.png" alt="image-20231212205441303"></p>
+</li>
+<li><p>example2:<br><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231212214338519.png" alt="image-20231212214338519"></p>
+<p>从上面可以看到，insert的时候可能会发生root node节点的变更，从而可能导致重建整个树。</p>
+</li>
+</ul>
+<p>这一块逻辑参考教科书的逻辑即可，比较麻烦，涉及到递归。</p>
+<p><img src="/2023/12/12/CMU445-Project2-BPlusTree-Insert/image-20231212223704765.png" alt="image-20231212223704765"></p>
+<p>递归的逻辑是，如果internal node发生了overflow，向parent node插入key后可能会接着发生overflow，极端情况是一直overflow到root node，然后重建整个树树，这部分的逻辑在上图是insert_in_parent函数里面。</p>
+<hr>
+<p>For more:</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/592964493">CMU 15445-2022 P2 B+Tree Insert/Delete - 知乎</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/618912295">CMU 15-445 Project 2 (Spring 2023) | 关于 B+Tree 的十个问题 - 知乎</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/596067906">CMU 15-445 2022 Project2 B+Tree - 知乎</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zhuanlan.zhihu.com/p/580014163">做个数据库：2022 CMU15-445 Project2 B+Tree Index - 知乎</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.geeksforgeeks.org/insertion-in-a-b-tree/#">Insertion in a B+ tree - GeeksforGeeks</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2023/12/12/CMU445-Project2-BPlusTree-Insert/">https://greenhathg.github.io/2023/12/12/CMU445-Project2-BPlusTree-Insert/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cmu445/">cmu445</a><a class="post-meta__tags" href="/tags/BPlusTree/">BPlusTree</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/"><img class="prev-cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CMU445-Project1-BufferPoolManagerInstance总结</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/02/15/CMU445-Project0-primer/" title="CMU445-Project0-primer"><img class="cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-12-12</div><div class="title">CMU445-Project0-primer</div></div></a></div><div><a href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结"><img class="cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-12-12</div><div class="title">CMU445-Project1-BufferPoolManagerInstance总结</div></div></a></div><div><a href="/2023/04/24/CMU445-Project1-ExtendibleHashTable%E6%80%BB%E7%BB%93/" title="CMU445-Project1-ExtendibleHashTable总结"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-12-12</div><div class="title">CMU445-Project1-ExtendibleHashTable总结</div></div></a></div><div><a href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-12-12</div><div class="title">CMU445-Project1-LRU-K总结</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">193</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">233</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Overview"><span class="toc-number">1.</span> <span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#B-Tree-properties"><span class="toc-number">2.</span> <span class="toc-text">B+ Tree properties</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tree-Node"><span class="toc-number">3.</span> <span class="toc-text">Tree Node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BufferPoolManager"><span class="toc-number">3.1.</span> <span class="toc-text">BufferPoolManager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Page"><span class="toc-number">3.2.</span> <span class="toc-text">Page</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RootPage"><span class="toc-number">3.3.</span> <span class="toc-text">RootPage</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Find-Leaf-Node"><span class="toc-number">4.</span> <span class="toc-text">Find Leaf Node</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Node-Search"><span class="toc-number">4.1.</span> <span class="toc-text">Node Search</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tree-Search"><span class="toc-number">4.2.</span> <span class="toc-text">Tree Search</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Insert"><span class="toc-number">5.</span> <span class="toc-text">Insert</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#No-Overflow"><span class="toc-number">5.1.</span> <span class="toc-text">No Overflow</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#New-Root"><span class="toc-number">5.1.1.</span> <span class="toc-text">New Root</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#No-New-Root"><span class="toc-number">5.1.2.</span> <span class="toc-text">No New Root</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overflow-In-Leaf-Node"><span class="toc-number">5.2.</span> <span class="toc-text">Overflow In Leaf Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Leaf-Node-Is-Not-The-Root-Node"><span class="toc-number">5.2.1.</span> <span class="toc-text">Leaf Node Is Not The Root Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Leaf-Node-Is-The-Root-Node"><span class="toc-number">5.2.2.</span> <span class="toc-text">Leaf Node Is The Root Node</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Overflow-In-Internal-Node"><span class="toc-number">5.3.</span> <span class="toc-text">Overflow In Internal Node</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BPlusTree-Insert-Single-threaded"/></a><div class="content"><a class="title" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded">CMU445-Project1-BPlusTree-Insert-Single-threaded</a><time datetime="2023-12-12T22:59:43.000Z" title="发表于 2023-12-12 22:59:43">2023-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结"><img src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BufferPoolManagerInstance总结"/></a><div class="content"><a class="title" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结">CMU445-Project1-BufferPoolManagerInstance总结</a><time datetime="2023-07-01T09:23:43.000Z" title="发表于 2023-07-01 09:23:43">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-LRU-K总结"/></a><div class="content"><a class="title" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结">CMU445-Project1-LRU-K总结</a><time datetime="2023-06-06T08:35:43.000Z" title="发表于 2023-06-06 08:35:43">2023-06-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/24/CMU445-Project1-ExtendibleHashTable%E6%80%BB%E7%BB%93/" title="CMU445-Project1-ExtendibleHashTable总结"><img src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-ExtendibleHashTable总结"/></a><div class="content"><a class="title" href="/2023/04/24/CMU445-Project1-ExtendibleHashTable%E6%80%BB%E7%BB%93/" title="CMU445-Project1-ExtendibleHashTable总结">CMU445-Project1-ExtendibleHashTable总结</a><time datetime="2023-04-24T14:10:43.000Z" title="发表于 2023-04-24 14:10:43">2023-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/15/CMU445-Project0-primer/" title="CMU445-Project0-primer"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project0-primer"/></a><div class="content"><a class="title" href="/2023/02/15/CMU445-Project0-primer/" title="CMU445-Project0-primer">CMU445-Project0-primer</a><time datetime="2023-02-15T18:02:43.000Z" title="发表于 2023-02-15 18:02:43">2023-02-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: function () {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
+      }
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
