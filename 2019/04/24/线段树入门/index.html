@@ -1,38 +1,132 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>线段树入门 | GreenHatHGのBlog</title><meta name="keywords" content="线段树"><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="线段树入门">
-<meta property="og:type" content="article">
-<meta property="og:title" content="线段树入门">
-<meta property="og:url" content="https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/index.html">
-<meta property="og:site_name" content="GreenHatHGのBlog">
-<meta property="og:description" content="线段树入门">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
-<meta property="article:published_time" content="2019-04-24T18:25:09.000Z">
-<meta property="article:modified_time" content="2024-01-18T11:13:12.049Z">
-<meta property="article:author" content="GreenHatHg">
-<meta property="article:tag" content="线段树">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-116672888-1');
-</script><script>const GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>线段树入门 | GreenHatHGのBlog</title><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="线段树入门  数据结构—线段树（segment..."><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "线段树入门",
+  "url": "https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/",
+  "image": "https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+  "datePublished": "2019-04-24T18:25:09.000Z",
+  "dateModified": "2025-06-14T07:08:54.041Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "GreenHatHg",
+      "url": "https://greenhathg.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'UA-116672888-1')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'UA-116672888-1', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  localSearch: undefined,
   translate: undefined,
-  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"已超过","messageNext":"天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com"},
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
   copy: {
     success: '复制成功',
-    error: '复制错误',
+    error: '复制失败',
     noSupport: '浏览器不支持'
   },
   relativeDate: {
     homepage: false,
     post: false
   },
-  runtime: '天',
-  date_suffix: {
+  runtime: '',
+  dateSuffix: {
     just: '刚刚',
     min: '分钟前',
     hour: '小时前',
@@ -40,114 +134,26 @@ gtag('config', 'UA-116672888-1');
     month: '个月前'
   },
   copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
-  source: {
-    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
-    }
+  lightbox: 'null',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
   },
   isPhotoFigcaption: false,
-  islazyload: true,
-  isanchor: false
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: '线段树入门',
-  isPost: true,
-  isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-01-18 11:13:12'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">195</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">234</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">GreenHatHGのBlog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">线段树入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-04-24T18:25:09.000Z" title="发表于 2019-04-24 18:25:09">2019-04-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-18T11:13:12.049Z" title="更新于 2024-01-18 11:13:12">2024-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="线段树入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/#post-comment"><span id="twikoo-count"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>线段树入门</p>
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">195</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">234</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">GreenHatHGのBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">线段树入门</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">线段树入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-04-24T18:25:09.000Z" title="发表于 2019-04-24 18:25:09">2019-04-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-06-14T07:08:54.041Z" title="更新于 2025-06-14 07:08:54">2025-06-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:500,&quot;messagePrev&quot;:&quot;已超过&quot;,&quot;messageNext&quot;:&quot;天未更新，某些文章具有时效性，若有错误或已失效，请反馈到greenhat2333@gamil.com&quot;,&quot;postUpdate&quot;:&quot;2025-06-14 07:08:54&quot;}" hidden></div><p>线段树入门</p>
 <span id="more"></span>
 <h1 id="数据结构—线段树（segment-tree）"><a href="#数据结构—线段树（segment-tree）" class="headerlink" title="数据结构—线段树（segment tree）"></a>数据结构—线段树（segment tree）</h1><h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>给定一个数组，数组长度可能非常大。现在我们需要对数组里面的数据反反复复进行两个操作</p>
 <ul>
@@ -302,9 +308,9 @@ gtag('config', 'UA-116672888-1');
 </table>
 </div>
 <p>树的结点的定义</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> value; <span class="comment">//节点对应区间的权值（不唯一，也可以代表区间最大值等）</span></span><br><span class="line">    <span class="keyword">int</span> left, right; <span class="comment">//区间[left, right]</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> <span class="title">tree</span>[1000];</span></span><br><span class="line"><span class="keyword">int</span> father[<span class="number">100</span>]; <span class="comment">//记录某个点的序号，方便查找对应的数组下标</span></span><br></pre></td></tr></table></figure>
-<h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Build_tree</span>(<span class="number">1</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"><span class="comment">//为区间[left, right]建立一个以top为祖先的线段树，top为根节点下标</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Build_tree</span><span class="params">(<span class="keyword">int</span> top, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[top].left = left; <span class="comment">//写入第index个结点的左区间</span></span><br><span class="line">    tree[top].right = right; <span class="comment">//写入第index个结点的右区间</span></span><br><span class="line">    tree[top].value = <span class="number">0</span>; <span class="comment">//每个区间的值初始化为0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left == right)	<span class="comment">//区间长度为0时，赋值并且结束递归</span></span><br><span class="line">    &#123;</span><br><span class="line">    	tree[top].value = arr[left];</span><br><span class="line">        father[left] = top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (right + left) / <span class="number">2</span>; <span class="comment">//取区间中点</span></span><br><span class="line">    <span class="keyword">int</span> left_node = top * <span class="number">2</span>; <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = top * <span class="number">2</span> + <span class="number">1</span>;  <span class="comment">//右孩子下标</span></span><br><span class="line">    <span class="built_in">Build_tree</span>(left_node, left, mid);  <span class="comment">//往左孩子方向继续建立线段树</span></span><br><span class="line">    <span class="built_in">Build_tree</span>(right_node, mid + <span class="number">1</span>, right);  <span class="comment">//往右孩子方向继续建立线段树</span></span><br><span class="line">    <span class="comment">//更新结点值为左右孩子的和</span></span><br><span class="line">    tree[top].value = tree[left_node].value + tree[right_node].value; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>更新数组的第5个元素的值为6，直接在树里面更新该结点的值后，然后从父结点往上更新，直到更新到了根结点。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[father[<span class="number">5</span>]].value = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">Update</span>(father[<span class="number">5</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span><span class="params">(<span class="keyword">int</span> index)</span>	<span class="comment">//index为要修改那个点的数组下标</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> father_node = index / <span class="number">2</span>; <span class="comment">//父结点下标</span></span><br><span class="line">    <span class="keyword">int</span> left_node = father_node * <span class="number">2</span>;   <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="keyword">int</span> right_node = father_node * <span class="number">2</span> + <span class="number">1</span>;   <span class="comment">//右孩子下标</span></span><br><span class="line">    tree[father_node].value = tree[left_node].value + tree[right_node].value; <span class="comment">//更新值</span></span><br><span class="line">    <span class="keyword">if</span>(father_node == <span class="number">1</span>) <span class="comment">//找到树的根结点，终止退出</span></span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">Update</span>(father_node); <span class="comment">//递归更新，由父结点往上找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> value; <span class="comment">//节点对应区间的权值（不唯一，也可以代表区间最大值等）</span></span><br><span class="line">    <span class="type">int</span> left, right; <span class="comment">//区间[left, right]</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span> tree[<span class="number">1000</span>];</span><br><span class="line"><span class="type">int</span> father[<span class="number">100</span>]; <span class="comment">//记录某个点的序号，方便查找对应的数组下标</span></span><br></pre></td></tr></table></figure>
+<h3 id="建树"><a href="#建树" class="headerlink" title="建树"></a>建树</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Build_tree</span>(<span class="number">1</span>, <span class="number">1</span>, <span class="number">6</span>);</span><br><span class="line"><span class="comment">//为区间[left, right]建立一个以top为祖先的线段树，top为根节点下标</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Build_tree</span><span class="params">(<span class="type">int</span> top, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[top].left = left; <span class="comment">//写入第index个结点的左区间</span></span><br><span class="line">    tree[top].right = right; <span class="comment">//写入第index个结点的右区间</span></span><br><span class="line">    tree[top].value = <span class="number">0</span>; <span class="comment">//每个区间的值初始化为0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(left == right)	<span class="comment">//区间长度为0时，赋值并且结束递归</span></span><br><span class="line">    &#123;</span><br><span class="line">    	tree[top].value = arr[left];</span><br><span class="line">        father[left] = top;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> mid = (right + left) / <span class="number">2</span>; <span class="comment">//取区间中点</span></span><br><span class="line">    <span class="type">int</span> left_node = top * <span class="number">2</span>; <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="type">int</span> right_node = top * <span class="number">2</span> + <span class="number">1</span>;  <span class="comment">//右孩子下标</span></span><br><span class="line">    <span class="built_in">Build_tree</span>(left_node, left, mid);  <span class="comment">//往左孩子方向继续建立线段树</span></span><br><span class="line">    <span class="built_in">Build_tree</span>(right_node, mid + <span class="number">1</span>, right);  <span class="comment">//往右孩子方向继续建立线段树</span></span><br><span class="line">    <span class="comment">//更新结点值为左右孩子的和</span></span><br><span class="line">    tree[top].value = tree[left_node].value + tree[right_node].value; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h3><p>更新数组的第5个元素的值为6，直接在树里面更新该结点的值后，然后从父结点往上更新，直到更新到了根结点。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    tree[father[<span class="number">5</span>]].value = <span class="number">6</span>;</span><br><span class="line">    <span class="built_in">Update</span>(father[<span class="number">5</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Update</span><span class="params">(<span class="type">int</span> index)</span>	<span class="comment">//index为要修改那个点的数组下标</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> father_node = index / <span class="number">2</span>; <span class="comment">//父结点下标</span></span><br><span class="line">    <span class="type">int</span> left_node = father_node * <span class="number">2</span>;   <span class="comment">//左孩子下标</span></span><br><span class="line">    <span class="type">int</span> right_node = father_node * <span class="number">2</span> + <span class="number">1</span>;   <span class="comment">//右孩子下标</span></span><br><span class="line">    tree[father_node].value = tree[left_node].value + tree[right_node].value; <span class="comment">//更新值</span></span><br><span class="line">    <span class="keyword">if</span>(father_node == <span class="number">1</span>) <span class="comment">//找到树的根结点，终止退出</span></span><br><span class="line">    	<span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">Update</span>(father_node); <span class="comment">//递归更新，由父结点往上找</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="查询-L-R-区间"><a href="#查询-L-R-区间" class="headerlink" title="查询[L,R]区间"></a>查询[L,R]区间</h3><p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/6.png" alt><br>先查询左子树：</p>
 <ol>
 <li>如果满足条件3 &gt;= L,则要查询的区间有涉及左子树，例如查询[1,2]，[2,4]<ul>
@@ -321,7 +327,7 @@ gtag('config', 'UA-116672888-1');
 </ul>
 </li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从index开始查询，所以index一般为树的根结点,查询的区间是[L,R]，结果保留在ans里面</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> index, <span class="keyword">int</span> L, <span class="keyword">int</span> R, <span class="keyword">int</span>&amp; ans)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree[index].left == L &amp;&amp; tree[index].right == R)&#123; <span class="comment">//找到了一个完全重合的区间</span></span><br><span class="line">        ans += tree[index].value;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> left_node = index*<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L &lt;= tree[left_node].right)&#123; <span class="comment">//左区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(R &lt;= tree[left_node].right) <span class="comment">//全包含于左区间，查询区间不变</span></span><br><span class="line">        	<span class="built_in">Query</span>(left_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，左端点不变，右端点变为左孩子的右区间端点</span></span><br><span class="line">        	<span class="built_in">Query</span>(left_node, L, tree[left_node].right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> right_node = left_node + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(R &gt;= tree[right_node].left)&#123; <span class="comment">//右区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(L &gt;= tree[right_node].left) <span class="comment">//全包含于右区间，查询区间不变</span></span><br><span class="line">        	<span class="built_in">Query</span>(right_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，与上同理</span></span><br><span class="line">        	<span class="built_in">Query</span>(right_node, tree[right_node].left, R, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从index开始查询，所以index一般为树的根结点,查询的区间是[L,R]，结果保留在ans里面</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Query</span><span class="params">(<span class="type">int</span> index, <span class="type">int</span> L, <span class="type">int</span> R, <span class="type">int</span>&amp; ans)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree[index].left == L &amp;&amp; tree[index].right == R)&#123; <span class="comment">//找到了一个完全重合的区间</span></span><br><span class="line">        ans += tree[index].value;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> left_node = index*<span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(L &lt;= tree[left_node].right)&#123; <span class="comment">//左区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(R &lt;= tree[left_node].right) <span class="comment">//全包含于左区间，查询区间不变</span></span><br><span class="line">        	<span class="built_in">Query</span>(left_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，左端点不变，右端点变为左孩子的右区间端点</span></span><br><span class="line">        	<span class="built_in">Query</span>(left_node, L, tree[left_node].right, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> right_node = left_node + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(R &gt;= tree[right_node].left)&#123; <span class="comment">//右区间有涉及</span></span><br><span class="line">    	<span class="keyword">if</span>(L &gt;= tree[right_node].left) <span class="comment">//全包含于右区间，查询区间不变</span></span><br><span class="line">        	<span class="built_in">Query</span>(right_node, L, R, ans);</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//半包含于左区间，则查询区间拆分，与上同理</span></span><br><span class="line">        	<span class="built_in">Query</span>(right_node, tree[right_node].left, R, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/10.PNG" alt></p>
 <h2 id="模板题HDU1754"><a href="#模板题HDU1754" class="headerlink" title="模板题HDU1754"></a><a target="_blank" rel="noopener external nofollow noreferrer" href="http://acm.hdu.edu.cn/showproblem.php?pid=1754">模板题HDU1754</a></h2><p><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/timu.png" alt></p>
 <p>936MS    8336K（注意，线段树需要空间比较大，数组开小可能会wa或者TLE，一般为4n）<br><img src="/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/11.PNG" alt></p>
@@ -329,86 +335,70 @@ gtag('config', 'UA-116672888-1');
 <li><code>a*2</code>可以用<code>a&lt;&lt;1</code>代替，<code>a/2</code>可以用<code>a&gt;&gt;1</code>代替。（位运算其实就是直接对在内存中的二进制数据进行操作，因此处理数据的速度非常快）</li>
 <li>因为下标为a的节点的左儿子下标为<code>a*2</code>，右儿子下标为<code>a*2+1</code>，所以可以</li>
 </ol>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加入一些编译预处理指令可以提高编程效率，加快编译速度</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LS(a) (a &lt;&lt; 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1 等同于 a*2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RS(a) (a &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1|1 等同于 a*2+1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加入一些编译预处理指令可以提高编程效率，加快编译速度</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LS(a) (a &lt;&lt; 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1 等同于 a*2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> RS(a) (a &lt;&lt; 1 | 1)</span></span><br><span class="line"><span class="comment">// a&lt;&lt;1|1 等同于 a*2+1</span></span><br></pre></td></tr></table></figure>
 <h2 id="线段树进阶"><a href="#线段树进阶" class="headerlink" title="线段树进阶"></a>线段树进阶</h2><ol>
 <li>Lazy标记—用于同时更新一段区间的值：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://poj.org/problem?id=3468">poj3468 A Simple Problem with Integers</a></li>
 <li>线段树离散化（节约空间）—<a target="_blank" rel="noopener external nofollow noreferrer" href="http://poj.org/problem?id=2528">poj2528 Mayor’s posters</a></li>
 <li>线段树应用：扫描线问题（求多个矩形互相覆盖后的面积）：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://poj.org/problem?id=1151">poj1151 Atlantis</a></li>
 <li>可持久化（保留整个操作的历史）—主席树</li>
 </ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" rel="external nofollow noreferrer">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/">https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a></div><div class="post_share"><div class="social-share" data-image="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/04/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%B8%B8%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%90%AB%E4%B9%89%E4%BB%A5%E5%8F%8A%E5%8F%8D%E7%BC%96%E8%AF%91%E5%87%BA%E7%8E%B0%E7%9A%84%E9%83%A8%E5%88%86%E5%8A%A9%E8%AE%B0%E7%AC%A6/"><img class="prev-cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符</div></div></a></div><div class="next-post pull-right"><a href="/2019/04/25/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%9F%E5%B8%B8%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA%E6%9C%AC%E8%B4%A8%E5%88%86%E6%9E%90/"><img class="next-cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2019/05/11/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A8%A1%E6%9D%BF/" title="线段树模板"><img class="cover" src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2024-01-18</div><div class="title">线段树模板</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">GreenHatHg</div><div class="author-info__description">巴拉巴拉能量! rm -rf / --no-preserve-root</div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">195</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">234</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%88segment-tree%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">数据结构—线段树（segment tree）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">引入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E8%A7%A3%E5%86%B3%E5%92%8C%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-number">1.1.1.</span> <span class="toc-text">暴力解决和前缀和</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">线段树简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%9E%84%E5%BB%BA"><span class="toc-number">1.3.</span> <span class="toc-text">线段树构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0%E5%8E%9F%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">回到原题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.5.</span> <span class="toc-text">线段树的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E6%A0%91"><span class="toc-number">1.5.1.</span> <span class="toc-text">建树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2-L-R-%E5%8C%BA%E9%97%B4"><span class="toc-number">1.5.3.</span> <span class="toc-text">查询[L,R]区间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E9%A2%98HDU1754"><span class="toc-number">1.6.</span> <span class="toc-text">模板题HDU1754</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E9%83%A8%E5%88%86%E4%BC%98%E5%8C%96"><span class="toc-number">1.7.</span> <span class="toc-text">线段树部分优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E8%BF%9B%E9%98%B6"><span class="toc-number">1.8.</span> <span class="toc-text">线段树进阶</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project2-BPlusTree-Delete-Single-threaded"/></a><div class="content"><a class="title" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded">CMU445-Project2-BPlusTree-Delete-Single-threaded</a><time datetime="2024-01-05T12:39:43.000Z" title="发表于 2024-01-05 12:39:43">2024-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒"><img src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩客云换魔百盒"/></a><div class="content"><a class="title" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒">玩客云换魔百盒</a><time datetime="2023-12-31T12:44:43.000Z" title="发表于 2023-12-31 12:44:43">2023-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BPlusTree-Insert-Single-threaded"/></a><div class="content"><a class="title" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded">CMU445-Project1-BPlusTree-Insert-Single-threaded</a><time datetime="2023-12-12T22:59:43.000Z" title="发表于 2023-12-12 22:59:43">2023-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结"><img src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BufferPoolManagerInstance总结"/></a><div class="content"><a class="title" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结">CMU445-Project1-BufferPoolManagerInstance总结</a><time datetime="2023-07-01T09:23:43.000Z" title="发表于 2023-07-01 09:23:43">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结"><img src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-LRU-K总结"/></a><div class="content"><a class="title" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结">CMU445-Project1-LRU-K总结</a><time datetime="2023-06-06T08:35:43.000Z" title="发表于 2023-06-06 08:35:43">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2024 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
-  if (typeof pangu === 'object') pangu.autoSpacingPage()
-  else {
-    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
-      .then(() => {
-        pangu.autoSpacingPage()
-      })
-  }
-}
-
-function panguInit () {
-  if (false){
-    GLOBAL_CONFIG_SITE.isPost && panguFn()
-  } else {
-    panguFn()
-  }
-}
-
-document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
-  endLoading: () => {
-    document.body.style.overflow = 'auto';
-    document.getElementById('loading-box').classList.add("loaded")
-  },
-  initLoading: () => {
-    document.body.style.overflow = '';
-    document.getElementById('loading-box').classList.remove("loaded")
-
-  }
-}
-window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(()=>{
-  const $countDom = document.getElementById('twikoo-count')
-  const init = () => {
-    twikoo.init(Object.assign({
-      el: '#twikoo-wrap',
-      envId: 'https://blog-twikoo-khaki.vercel.app',
-      region: '',
-      onCommentLoaded: function () {
-        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.vemoji)'))
-      }
-    }, null))
-  }
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/">https://greenhathg.github.io/2019/04/24/%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/">线段树</a></div><div class="post-share"><div class="social-share" data-image="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2019/04/25/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E7%BC%96%E8%AF%91%E6%9C%9F%E5%B8%B8%E9%87%8F%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%9C%9F%E5%B8%B8%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E6%95%B0%E7%BB%84%E5%88%9B%E5%BB%BA%E6%9C%AC%E8%B4%A8%E5%88%86%E6%9E%90/" title="Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析"><img class="cover" src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Java虚拟机笔记-编译期常量与运行期常量的区别及数组创建本质分析</div></div><div class="info-2"><div class="info-item-1">编译期常量与运行期常量的区别及数组创建本质分析  样例11234567891011121314151617181920import java.util.UUID;public class Main&#123;    public static void main(String[] args)&#123;        System.out.println(MyParent3.str);    &#125;&#125;class MyParent3&#123;    public static final String str = UUID.randomUUID().toString();        static&#123;        System.out.println(&quot;MyParent3 code block&quot;);            &#125;&#125;/*output:MyParent3 code...</div></div></div></a><a class="pagination-related" href="/2019/04/23/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0-%E5%B8%B8%E9%87%8F%E7%9A%84%E6%9C%AC%E8%B4%A8%E5%90%AB%E4%B9%89%E4%BB%A5%E5%8F%8A%E5%8F%8D%E7%BC%96%E8%AF%91%E5%87%BA%E7%8E%B0%E7%9A%84%E9%83%A8%E5%88%86%E5%8A%A9%E8%AE%B0%E7%AC%A6/" title="Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符"><img class="cover" src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Java虚拟机笔记-常量的本质含义以及反编译出现的部分助记符</div></div><div class="info-2"><div class="info-item-1">常量的本质含义以及反编译出现的部分助记符  样例112345678910111213141516171819public class Main&#123;    public static void main(String[] args)&#123;        System.out.println(Mychild1.str);    &#125;&#125;class MyParent1&#123;    public static String str = &quot;hello world&quot;;    static&#123;        out.println(&quot;Myparent1 static block&quot;);    &#125;&#125;class Mychild1 extends MyParent1&#123;    public static String str2 = &quot;welcome&quot;;    static&#123;        System.out.println(&quot;Mychild1...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2019/05/11/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A8%A1%E6%9D%BF/" title="线段树模板"><img class="cover" src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2025-06-14</div><div class="info-item-2">线段树模板</div></div><div class="info-2"><div class="info-item-1">「LYOI2018 Summer」Hzy’s Rabbit Array                  参考： wyy603 「LYOI2018 Summer」Hzy’s Rabbit...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">GreenHatHg</div><div class="author-info-description">巴拉巴拉能量! rm -rf / --no-preserve-root</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">195</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">234</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%88segment-tree%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">数据结构—线段树（segment tree）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">引入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E8%A7%A3%E5%86%B3%E5%92%8C%E5%89%8D%E7%BC%80%E5%92%8C"><span class="toc-number">1.1.1.</span> <span class="toc-text">暴力解决和前缀和</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%AE%80%E4%BB%8B"><span class="toc-number">1.2.</span> <span class="toc-text">线段树简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%9E%84%E5%BB%BA"><span class="toc-number">1.3.</span> <span class="toc-text">线段树构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0%E5%8E%9F%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">回到原题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.5.</span> <span class="toc-text">线段树的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E6%A0%91"><span class="toc-number">1.5.1.</span> <span class="toc-text">建树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0"><span class="toc-number">1.5.2.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2-L-R-%E5%8C%BA%E9%97%B4"><span class="toc-number">1.5.3.</span> <span class="toc-text">查询[L,R]区间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E9%A2%98HDU1754"><span class="toc-number">1.6.</span> <span class="toc-text">模板题HDU1754</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E9%83%A8%E5%88%86%E4%BC%98%E5%8C%96"><span class="toc-number">1.7.</span> <span class="toc-text">线段树部分优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E6%A0%91%E8%BF%9B%E9%98%B6"><span class="toc-number">1.8.</span> <span class="toc-text">线段树进阶</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project2-BPlusTree-Delete-Single-threaded"/></a><div class="content"><a class="title" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded">CMU445-Project2-BPlusTree-Delete-Single-threaded</a><time datetime="2024-01-05T12:39:43.000Z" title="发表于 2024-01-05 12:39:43">2024-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒"><img src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩客云换魔百盒"/></a><div class="content"><a class="title" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒">玩客云换魔百盒</a><time datetime="2023-12-31T12:44:43.000Z" title="发表于 2023-12-31 12:44:43">2023-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded"><img src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BPlusTree-Insert-Single-threaded"/></a><div class="content"><a class="title" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded">CMU445-Project1-BPlusTree-Insert-Single-threaded</a><time datetime="2023-12-12T22:59:43.000Z" title="发表于 2023-12-12 22:59:43">2023-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结"><img src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BufferPoolManagerInstance总结"/></a><div class="content"><a class="title" href="/2023/07/01/CMU445-Project1-BufferPoolManagerInstance%E6%80%BB%E7%BB%93/" title="CMU445-Project1-BufferPoolManagerInstance总结">CMU445-Project1-BufferPoolManagerInstance总结</a><time datetime="2023-07-01T09:23:43.000Z" title="发表于 2023-07-01 09:23:43">2023-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结"><img src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-LRU-K总结"/></a><div class="content"><a class="title" href="/2023/06/06/CMU445-Project1-LRU-K%E6%80%BB%E7%BB%93/" title="CMU445-Project1-LRU-K总结">CMU445-Project1-LRU-K总结</a><time datetime="2023-06-06T08:35:43.000Z" title="发表于 2023-06-06 08:35:43">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2025 By GreenHatHg</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
 
   const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
     twikoo.getCommentsCount({
       envId: 'https://blog-twikoo-khaki.vercel.app',
       region: '',
       urls: [window.location.pathname],
       includeReply: false
-    }).then(function (res) {
-      $countDom.innerText = res[0].count
-    }).catch(function (err) {
-      console.error(err);
-    });
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
   }
 
-  const loadTwikoo = (bool = false) => {
-    if (typeof twikoo === 'object') {
-      init()
-      bool && $countDom && setTimeout(getCount,0)
-    } else {
-      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
-        init()
-        bool && $countDom && setTimeout(getCount,0)
-      })
-    }
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
   }
 
   if ('Twikoo' === 'Twikoo' || !false) {
     if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
-    else loadTwikoo(true)
+    else loadTwikoo()
   } else {
-    window.loadOtherComment = () => {
-      loadTwikoo()
-    }
+    window.loadOtherComment = loadTwikoo
   }
-})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
