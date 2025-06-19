@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>[Twitter_lcomplete_wild] 发言时段总结 - 2025-06-19 12:01</title>
+      <link href="/2025/06/19/summary/Twitter_lcomplete_wild-2025-06-19-12-01-09/"/>
+      <url>/2025/06/19/summary/Twitter_lcomplete_wild-2025-06-19-12-01-09/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【工具更新】"><a href="#【工具更新】" class="headerlink" title="【工具更新】"></a>【工具更新】</h3><ol>  <li>Cursor Pro 已取消对AI代理（agent）请求次数的限制。 <sup><a href="https://x.com/lcomplete_wild/status/1934931357245001895">[1]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>lcomplete : Cursor Pro 不限制 agent 请求次数了. Tue Jun 17 2025 19:09:19 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/lcomplete_wild/status/1934931357245001895">App</a> | <a href="https://x.com/lcomplete_wild/status/1934931357245001895" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **执行ID:** `69713429`*   **AI模型:** `gemini-2.5-flash`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_lcomplete_wild </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_madawei2699] 发言时段总结 - 2025-06-19 12:00</title>
+      <link href="/2025/06/19/summary/Twitter_madawei2699-2025-06-19-12-00-23/"/>
+      <url>/2025/06/19/summary/Twitter_madawei2699-2025-06-19-12-00-23/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【产品动态】"><a href="#【产品动态】" class="headerlink" title="【产品动态】"></a>【产品动态】</h3><ol>  <li>宣布“策引”产品的文档库与原语策略功能已上线，并新增组合收益归因分析及投资驾驶舱的等比买入持有策略对比功能，将举办线上发布会介绍。 <sup><a href="https://x.com/madawei2699/status/1934955378762223732">[1]</a></sup></li></ol><h3 id="【LLM与动态工作流】"><a href="#【LLM与动态工作流】" class="headerlink" title="【LLM与动态工作流】"></a>【LLM与动态工作流】</h3><ol>  <li>探讨传统Restful API设计与LLM动态实现工作流的冲突，认为LLM Agent项目中的API应从“数据-方法”转变为“意图-动作”，并以策引的原语策略功能为例，说明声明式JSON结构能实现服务器动态解析与执行。 <sup><a href="https://x.com/madawei2699/status/1934969086322311236">[2]</a></sup></li>  <li>进一步阐述LLM通过生成JSON声明配置，由服务器解析并执行动态工作流的设想，认为这能赋予LLM灵活操作资源的能力，类似于GraphQL但专注于工作流的动态执行。 <sup><a href="https://x.com/madawei2699/status/1934969089505869856">[3]</a></sup></li>  <li>总结LLM能生成动态工作流的声明配置，API服务器解析执行后将结果反馈给LLM进行进一步编排，以此方式使LLM能通过编排工作流来完成用户需求。 <sup><a href="https://x.com/madawei2699/status/1934970396073500843">[4]</a></sup></li></ol><h3 id="【智能体开发策略】"><a href="#【智能体开发策略】" class="headerlink" title="【智能体开发策略】"></a>【智能体开发策略】</h3><ol>  <li>同意在智能体开发的原型设计和基线测试阶段，应优先使用当前最强大的模型以了解最佳效果，而非一开始就为节约成本选择弱模型，从而避免后续在工程上投入更多时间。 <sup><a href="https://x.com/madawei2699/status/1935121699693113850">[5]</a></sup></li></ol><h3 id="【API与智能体交互】"><a href="#【API与智能体交互】" class="headerlink" title="【API与智能体交互】"></a>【API与智能体交互】</h3><ol>  <li>认同Jose Valim的观点，认为与其将API封装成MCP工具，不如直接给代理/助手一个能运行代码的API并提供结构化描述文本，让服务器根据描述执行任务，这样会更灵活强大。 <sup><a href="https://x.com/madawei2699/status/1935123426844487845">[6]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>Dawei Ma 🔁 策引 : 我们的文档库和原语策略功能上线了。组合详情页现在能看收益归因分析，投资驾驶舱也加了等比买入持有策略对比功能。 这周六早上9点会开个线上会介绍这些，还有优惠活动，欢迎参加。 https://docs.myinvestpilot.com/docs/ Tue Jun 17 2025 20:42:04 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1934955378762223732">App</a> | <a href="https://x.com/madawei2699/status/1934955378762223732" target="_blank">Web</a></small></li><li id="ref-2"><blockquote><p>Dawei Ma : 传统的 Restful API 设计是围绕资源的，流程的实现必须依赖固定的代码实现，但是 LLM 是可以动态实现这些流程的，这就需要服务器能根据这些动态实现的结果来执行这个动态工作流，最近开发策引的原语策略功能时，刚好原语策略的实现是声明式的 json 结构，服务器能解析配置然后执行结果。 马东锡 NLP 🇸🇪 : 看了一些 Agent 项目，忽然发现一个问题。 目前 LLM Agent 通过 tool call 调用下游 API，不管是 REST 还是 gRPC，这套最佳实践诞生 Agent 之前，交互单元仍以“资源”或“函数”为核心，主要面向人类开发者。 在 Agent 项目中，API 接口应从“数据 - 方法” 转变到 “意图 - 动作”，成为 Agent… Link: https://x.com/dongxi_nlp/status/1934332049038442911 Mon Jun 16 2025 03:27:53 GMT+0800 (China Standard Time) Tue Jun 17 2025 21:39:14 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1934969086322311236">App</a> | <a href="https://x.com/madawei2699/status/1934969086322311236" target="_blank">Web</a></small></li><li id="ref-3"><blockquote><p>Dawei Ma : ↩️ 也就是客户端给服务器发送 json 声明的配置，服务器去解析执行任务，最终生成结果给客户端。如果 LLM 能生成这些声明的配置，让服务器执行这些动态工作流，似乎也可以让 LLM 有了能灵活操作资源的能力了🤔有点类似于 graphql 那种给客户端灵活操作资源的能力，不过对 LLM 来说，这些都是工作流动态执行 Tue Jun 17 2025 21:39:15 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1934969089505869856">App</a> | <a href="https://x.com/madawei2699/status/1934969089505869856" target="_blank">Web</a></small></li><li id="ref-4"><blockquote><p>Dawei Ma : ↩️ 大概类似这个流程，LLM 生成动态工作流的描述声明配置，API 服务器解析后执行工作流并产生结果给 LLM 进一步编排，这样 LLM 就能够通过编排一系列工作流的配置来完成用户的需求 Tue Jun 17 2025 21:44:27 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1934970396073500843">App</a> | <a href="https://x.com/madawei2699/status/1934970396073500843" target="_blank">Web</a></small></li><li id="ref-5"><blockquote><p>Dawei Ma : 是的，先了解最好的效果，然后再考虑如何降低成本并且不影响质量 宝玉 : 很多公司或者开发者在开发智能体时，为了节约成本，会在一开始就选择便宜的能力较弱的模型，于是要花费很多时间在工程上，但实际上，在原型设计和基线测试阶段，应首先使用当前可用的最强大的模型（例如 Claude 4、o3、Gemini 2.5 Pro 等）来构建智能体… Link: https://x.com/dotey/status/1935092488865210771 Wed Jun 18 2025 05:49:36 GMT+0800 (China Standard Time) Wed Jun 18 2025 07:45:40 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1935121699693113850">App</a> | <a href="https://x.com/madawei2699/status/1935121699693113850" target="_blank">Web</a></small></li><li id="ref-6"><blockquote><p>Dawei Ma : 感觉 Jose 说的也是类似给API一个结构化的描述文本，服务器能根据描述文本执行任务，这比把API封装成MCP工具要更灵活强大🤔 José Valim : I can’t shake the feeling MCPs for web services are a bit backwards: give the agent/assistant an API and the ability to run code, and it will go way beyond what the MCP will offer. Link: https://x.com/josevalim/status/1935044115630276711 Wed Jun 18 2025 02:37:23 GMT+0800 (China Standard Time) Wed Jun 18 2025 07:52:32 GMT+0800 (China Standard Time)</p></blockquote><small>来源: <a href="https://x.com/madawei2699/status/1935123426844487845">App</a> | <a href="https://x.com/madawei2699/status/1935123426844487845" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **执行ID:** `69713429`*   **AI模型:** `gemini-2.5-flash`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_madawei2699 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[Twitter_yetone] 发言时段总结 - 2025-06-19 12:00</title>
       <link href="/2025/06/19/summary/Twitter_yetone-2025-06-19-12-00-21/"/>
       <url>/2025/06/19/summary/Twitter_yetone-2025-06-19-12-00-21/</url>
