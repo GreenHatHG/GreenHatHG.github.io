@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>[Twitter_iskyzh] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_iskyzh-2025-06-20-12-00-10/"/>
+      <url>/2025/06/20/summary/Twitter_iskyzh-2025-06-20-12-00-10/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【市场批判】"><a href="#【市场批判】" class="headerlink" title="【市场批判】"></a>【市场批判】</h3><ol>  <li>认为在美国，所有标有“有机”字样的水果都是彻头彻尾的骗局。 <sup><a href="https://x.com/iskyzh/status/1935539190932062565">[1]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>Every fruit with the word “organic” on the packaging is a total scam in the US</p></blockquote><small>来源: <a href="https://x.com/iskyzh/status/1935539190932062565">App</a> | <a href="https://x.com/iskyzh/status/1935539190932062565" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_iskyzh`*   **总结的博文数量:** 1*   **数据源 (Redis Key):** `summary_posts_Twitter_iskyzh`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 4134ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_iskyzh </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[Xueqiu_GuanWoCai] 发言时段总结 - 2025-06-19 12:30</title>
       <link href="/2025/06/19/summary/Xueqiu_GuanWoCai-2025-06-19-12-30-11/"/>
       <url>/2025/06/19/summary/Xueqiu_GuanWoCai-2025-06-19-12-30-11/</url>
@@ -7297,9 +7326,9 @@
             
             <tag> c++类 </tag>
             
-            <tag> 虚函数 </tag>
-            
             <tag> 继承 </tag>
+            
+            <tag> 虚函数 </tag>
             
             <tag> 转换函数 </tag>
             
@@ -7328,9 +7357,9 @@
             
             <tag> c++类 </tag>
             
-            <tag> 继承 </tag>
-            
             <tag> 复合 </tag>
+            
+            <tag> 继承 </tag>
             
             <tag> 委托 </tag>
             
