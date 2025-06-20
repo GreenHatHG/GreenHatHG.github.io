@@ -4,6 +4,151 @@
   
     
     <entry>
+      <title>[Twitter_Blankwonder] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_Blankwonder-2025-06-20-12-00-16/"/>
+      <url>/2025/06/20/summary/Twitter_Blankwonder-2025-06-20-12-00-16/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【Xcode问题排查】"><a href="#【Xcode问题排查】" class="headerlink" title="【Xcode问题排查】"></a>【Xcode问题排查】</h3><ol>  <li>博主解决了Xcode调试器连接卡顿30秒的问题，通过分析syslog和fs_usage发现lldb-rpc-server在狂扫framework，最终通过删除`~/Library/Preferences/com.apple.dt.*`解决了。 <sup><a href="https://x.com/Blankwonder/status/1935579039420596410">[1]</a></sup></li></ol><h3 id="【开发工具吐槽】"><a href="#【开发工具吐槽】" class="headerlink" title="【开发工具吐槽】"></a>【开发工具吐槽】</h3><ol>  <li>博主引用的内容指出Xcode在获取provisioning profile和调试器连接阶段均耗时30秒，且相关问题提交反馈后杳无音信，反映了用户对Xcode性能和Apple反馈机制的不满。 <sup><a href="https://x.com/Blankwonder/status/1935579039420596410">[1]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>debugger attaching 卡 30 秒的问题，今天终于忍不了，让 o3 分析 syslog 刨根问底到底是哪里出了问题，一路排查上 fs_usage 分析发现卡顿时 lldb-rpc-server 在狂扫所有 framework。&lt;br&gt;最终 rm ~/Library/Preferences/com.apple.dt.* 解决掉了问题。&lt;div class=&quot;rsshub-quote&quot;&gt;&lt;br&gt;&lt;br&gt;Yachen Liu: 我现在真的对 Mac 的性能一点点兴趣都没有，因为我 Xcode 跑个项目，首先 Xcode 自动调用 App Connect API 获取 provisioning profile 就要耗去近 30 秒，编译结束后，debugger attaching 阶段又要卡 30 秒，所以完全不关心编译阶段差的那点时间…&lt;br&gt;（两个问题几个月前就提交了 FB，杳无音信）&lt;br&gt;&lt;/div&gt;</p></blockquote><small>来源: <a href="https://x.com/Blankwonder/status/1935579039420596410">App</a> | <a href="https://x.com/Blankwonder/status/1935579039420596410" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_Blankwonder`*   **总结的博文数量:** 1*   **数据源 (Redis Key):** `summary_posts_Twitter_Blankwonder`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 9324ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_Blankwonder </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_tualatrix] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_tualatrix-2025-06-20-12-00-16/"/>
+      <url>/2025/06/20/summary/Twitter_tualatrix-2025-06-20-12-00-16/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【城市观察】"><a href="#【城市观察】" class="headerlink" title="【城市观察】"></a>【城市观察】</h3><ol>  <li>博主探访了仅有8000人口的杜瓦尔（Duvall）小城，发现其基础设施完备，拥有市政厅、警察局、消防局、图书馆及多座教堂。 <sup><a href="https://x.com/tualatrix/status/1935572759045980430">[1]</a></sup></li></ol><h3 id="【地域特色】"><a href="#【地域特色】" class="headerlink" title="【地域特色】"></a>【地域特色】</h3><ol>  <li>杜瓦尔城市展现出独特的细节，包括典型的民宅、漂亮的教堂、提供7种语言的选票投放箱，以及图书馆内“CURIOSITY ISN’T QUIET”的标语。 <sup><a href="https://x.com/tualatrix/status/1935572759045980430">[1]</a></sup></li></ol><h3 id="【生活成本】"><a href="#【生活成本】" class="headerlink" title="【生活成本】"></a>【生活成本】</h3><ol>  <li>该安静的郊外小城距离微软仅30分钟车程，平均房价约75万美元，被博主评价为华盛顿州典型的“安居乐业”之城。 <sup><a href="https://x.com/tualatrix/status/1935572759045980430">[1]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>傍晚去了一个只有 8000 人口的城市：Duvall（杜瓦尔），麻雀虽小五脏俱全。这个城市有 City Hall（市政厅）、Police Department（警察局）、Fire Station（消防局）、图书馆等等，还有好几座漂亮的教堂。&lt;br&gt;&lt;br&gt;- 一栋典型的民宅；&lt;br&gt;- 其中一座漂亮的教堂；&lt;br&gt;- 警察局附近的「选票投放箱」，有 7 种语言；&lt;br&gt;- 杜瓦尔图书馆，窗口贴着一句话：CURIOSITY ISN’T QUIET。&lt;br&gt;&lt;br&gt;这个安静的郊外小城去微软只要 30 分钟，平均房价约75 万美元。算是华盛顿州一个典型的「安居乐业」小城吧！&lt;br&gt;&lt;img width=&quot;1440&quot; height=&quot;1080&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/GtyJKilaQAA98P2?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;br&gt;&lt;img width=&quot;1440&quot; height=&quot;1080&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/GtyJKoTXUAAJd1f?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;br&gt;&lt;img width=&quot;1440&quot; height=&quot;1080&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/GtyJKoXXUAAnRy5?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;br&gt;&lt;img width=&quot;1440&quot; height=&quot;1080&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/GtyJKhkagAAdsix?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;</p></blockquote><small>来源: <a href="https://x.com/tualatrix/status/1935572759045980430">App</a> | <a href="https://x.com/tualatrix/status/1935572759045980430" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_tualatrix`*   **总结的博文数量:** 1*   **数据源 (Redis Key):** `summary_posts_Twitter_tualatrix`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 9424ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_tualatrix </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_DIYgod] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_DIYgod-2025-06-20-12-00-15/"/>
+      <url>/2025/06/20/summary/Twitter_DIYgod-2025-06-20-12-00-15/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【技术问题】"><a href="#【技术问题】" class="headerlink" title="【技术问题】"></a>【技术问题】</h3><ol>  <li>描述了与模型提供商连接出现问题，可能为暂时性故障。 <sup><a href="https://x.com/DIYgod/status/1935644896905613688">[1]</a></sup></li></ol><h3 id="【生活记录】"><a href="#【生活记录】" class="headerlink" title="【生活记录】"></a>【生活记录】</h3><ol>  <li>分享了乐高主题的图片。 <sup><a href="https://x.com/DIYgod/status/1935675896821899268">[2]</a></sup></li></ol><h3 id="【AI应用】"><a href="#【AI应用】" class="headerlink" title="【AI应用】"></a>【AI应用】</h3><ol>  <li>正在其RSS阅读器@follow_app_中集成AI能力，具体功能包括辅助阅读长文、高亮关键内容、生成思维导图、总结音视频内容，以及根据阅读习惯筛选和推荐信息。 <sup><a href="https://x.com/DIYgod/status/1935893127958872315">[3]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>We&#39;re having trouble connecting to the model provider. This might be temporary - please try again in a moment.</p></blockquote><small>来源: <a href="https://x.com/DIYgod/status/1935644896905613688">App</a> | <a href="https://x.com/DIYgod/status/1935644896905613688" target="_blank">Web</a></small></li><li id="ref-2"><blockquote><p>乐高&lt;br&gt;&lt;img width=&quot;2048&quot; height=&quot;1536&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/Gtzm9zrWsAA5E-z?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;</p></blockquote><small>来源: <a href="https://x.com/DIYgod/status/1935675896821899268">App</a> | <a href="https://x.com/DIYgod/status/1935675896821899268" target="_blank">Web</a></small></li><li id="ref-3"><blockquote><p>正在尝试把 AI 带入 RSS 阅读器 @follow_app_ ，它可以：&lt;br&gt;1. 帮助你阅读长文、高亮关键内容、生成思维导图、总结视频和播客&lt;br&gt;2. 从 Folo 庞大且更新迅速的信息库中搜寻内容、推荐订阅或者做调研&lt;br&gt;3. 根据你的阅读习惯帮你从未读中只保留感兴趣的部分，缩减未读数&lt;br&gt;&lt;br&gt;如果还有什么想要的请告诉我 🤔&lt;br&gt;&lt;img width=&quot;2048&quot; height=&quot;1412&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/Gt2nqmpWUAAnVbq?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;br&gt;&lt;img width=&quot;2048&quot; height=&quot;1412&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/Gt2nuSZW0AI6Suc?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;</p></blockquote><small>来源: <a href="https://x.com/DIYgod/status/1935893127958872315">App</a> | <a href="https://x.com/DIYgod/status/1935893127958872315" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_DIYgod`*   **总结的博文数量:** 3*   **数据源 (Redis Key):** `summary_posts_Twitter_DIYgod`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 8903ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_DIYgod </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_xxm459259] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_xxm459259-2025-06-20-12-00-15/"/>
+      <url>/2025/06/20/summary/Twitter_xxm459259-2025-06-20-12-00-15/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【AI教育】"><a href="#【AI教育】" class="headerlink" title="【AI教育】"></a>【AI教育】</h3><ol>  <li>Stanford CS336课程旨在通过让学生从头构建语言模型，解决研究人员与LLM技术细节脱节的问题。 <sup><a href="https://x.com/xxm459259/status/1935538956164280746">[1]</a></sup></li></ol><h3 id="【资源分享】"><a href="#【资源分享】" class="headerlink" title="【资源分享】"></a>【资源分享】</h3><ol>  <li>转发了Andrej Karpathy关于软件2.0、LLM技术传播以及编程实践的多个链接资源。 <sup><a href="https://x.com/xxm459259/status/1935539075781693802">[2]</a></sup></li></ol><h3 id="【AI范式变革】"><a href="#【AI范式变革】" class="headerlink" title="【AI范式变革】"></a>【AI范式变革】</h3><ol>  <li>高度评价Andrej Karpathy关于软件正在发生根本性变革的观点，认为LLM是一种新的计算机，可用英语进行编程。 <sup><a href="https://x.com/xxm459259/status/1935539574874472820">[3]</a></sup></li></ol><h3 id="【社交观察】"><a href="#【社交观察】" class="headerlink" title="【社交观察】"></a>【社交观察】</h3><ol>  <li>对脉脉同事圈的活跃表示赞叹，并认为匿名社区是畅所欲言的良好平台。 <sup><a href="https://x.com/xxm459259/status/1935630017578541133">[4]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>RT Percy Liang&lt;br&gt;Wrapped up Stanford CS336 (Language Models from Scratch), taught with an amazing team @tatsu_hashimoto @marcelroed @neilbband @rckpudi. Researchers are becoming detached from the technical details of how LMs work. In CS336, we try to fix that by having students build everything:</p></blockquote><small>来源: <a href="https://x.com/xxm459259/status/1935538956164280746">App</a> | <a href="https://x.com/xxm459259/status/1935538956164280746" target="_blank">Web</a></small></li><li id="ref-2"><blockquote><p>RT Andrej Karpathy&lt;br&gt;Re Some of the links:&lt;br&gt;- My slides as keynote: https://drive.google.com/file/d/1a0h1mkwfmV2PlekxDN8isMrDA5evc4wW/view?usp=sharing&lt;br&gt;- Software 2.0 blog post from 2017 https://karpathy.medium.com/software-2-0-a64152b37c35&lt;br&gt;- How LLMs flip the script on technology diffusion https://karpathy.bearblog.dev/power-to-the-people/&lt;br&gt;- Vibe coding MenuGen (retrospective) https://karpathy.bearblog.dev/vibe-coding-menugen/</p></blockquote><small>来源: <a href="https://x.com/xxm459259/status/1935539075781693802">App</a> | <a href="https://x.com/xxm459259/status/1935539075781693802" target="_blank">Web</a></small></li><li id="ref-3"><blockquote><p>another karpathy BANGER, absolutely.&lt;div class=&quot;rsshub-quote&quot;&gt;&lt;br&gt;&lt;br&gt;Andrej Karpathy: Nice - my AI startup school talk is now up! Chapters:&lt;br&gt;&lt;br&gt;0:00 Imo fair to say that software is changing quite fundamentally again. LLMs are a new kind of computer, and you program them *in English*. Hence I think they are well deserving of a major version upgrade in terms of…&lt;br&gt;&lt;/div&gt;</p></blockquote><small>来源: <a href="https://x.com/xxm459259/status/1935539574874472820">App</a> | <a href="https://x.com/xxm459259/status/1935539574874472820" target="_blank">Web</a></small></li><li id="ref-4"><blockquote><p>今天的脉脉同事圈堪称是壮观了，畅所欲言还得是匿名社区。</p></blockquote><small>来源: <a href="https://x.com/xxm459259/status/1935630017578541133">App</a> | <a href="https://x.com/xxm459259/status/1935630017578541133" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_xxm459259`*   **总结的博文数量:** 4*   **数据源 (Redis Key):** `summary_posts_Twitter_xxm459259`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 8628ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_xxm459259 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_waylybaye] 发言时段总结 - 2025-06-20 12:00</title>
+      <link href="/2025/06/20/summary/Twitter_waylybaye-2025-06-20-12-00-14/"/>
+      <url>/2025/06/20/summary/Twitter_waylybaye-2025-06-20-12-00-14/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【生活对比】"><a href="#【生活对比】" class="headerlink" title="【生活对比】"></a>【生活对比】</h3><ol>  <li>发现墨尔本的酒店价格相对较低，与东南亚国家（除新加坡）的旅居成本相近。 <sup><a href="https://x.com/waylybaye/status/1935552767323685118">[1]</a></sup></li></ol><h3 id="【iOS开发】"><a href="#【iOS开发】" class="headerlink" title="【iOS开发】"></a>【iOS开发】</h3><ol>  <li>因测试机故障，被迫将主力机升级至iOS 26，并需开始着手兼容新系统、适配新设计语言以及调整部分App的最低系统版本要求以减少UI代码维护量。 <sup><a href="https://x.com/waylybaye/status/1935563364807356867">[2]</a></sup></li></ol><h3 id="【旅行见闻】"><a href="#【旅行见闻】" class="headerlink" title="【旅行见闻】"></a>【旅行见闻】</h3><ol>  <li>称赞泰国网约车普遍干净且无烟味，并对比指出国内打车约有1/4概率遇到有烟味的车。 <sup><a href="https://x.com/waylybaye/status/1935592662033482052">[3]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol><li id="ref-1"><blockquote><p>很奇怪，为什么墨尔本的酒店价格并不高？几乎和东南亚国家（不包括新加坡）一个价格。在东南亚旅居和澳大利亚旅居成本几乎一样啊。&lt;br&gt;&lt;img width=&quot;945&quot; height=&quot;2048&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/Gtx2qI1XYAArMow?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;&lt;br&gt;&lt;img width=&quot;945&quot; height=&quot;2048&quot; style=&quot;&quot; src=&quot;https://pbs.twimg.com/media/Gtx2qIAa8AAFOtV?format=jpg&amp;amp;name=orig&quot; referrerpolicy=&quot;no-referrer&quot;&gt;</p></blockquote><small>来源: <a href="https://x.com/waylybaye/status/1935552767323685118">App</a> | <a href="https://x.com/waylybaye/status/1935552767323685118" target="_blank">Web</a></small></li><li id="ref-2"><blockquote><p>测试机救不回来了，把我的主力机升级 iOS 26 了。&lt;br&gt;&lt;br&gt;要开始把我所有的 App 兼容新系统，以及适配新的设计语言啦。后续会逐个开始 TF 测试。另外一些 App 要提高下最低系统版本要求了，不然要维护六套 UI 代码了 😂&lt;div class=&quot;rsshub-quote&quot;&gt;&lt;br&gt;&lt;br&gt;Baye: 我的 iPhone 测试机升级到 iOS 26 后充不进电了，永远是 1% ……&lt;br&gt;&lt;/div&gt;</p></blockquote><small>来源: <a href="https://x.com/waylybaye/status/1935563364807356867">App</a> | <a href="https://x.com/waylybaye/status/1935563364807356867" target="_blank">Web</a></small></li><li id="ref-3"><blockquote><p>泰国网约车有一个比较好的地方：都比较干净，而且全都没有异味（得益于泰国禁烟）。在国内打车感觉差不多有 1/4 的概率会遇到满是烟味的车。</p></blockquote><small>来源: <a href="https://x.com/waylybaye/status/1935592662033482052">App</a> | <a href="https://x.com/waylybaye/status/1935592662033482052" target="_blank">Web</a></small></li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.8.0`*   **执行ID:** `14dea89f`*   **处理的Feed:** `Twitter_waylybaye`*   **总结的博文数量:** 3*   **数据源 (Redis Key):** `summary_posts_Twitter_waylybaye`*   **AI提供商列表:** `[gemini_key1, gemini_key2]`*   **成功的AI模型:** `gemini-2.5-flash`*   **AI调用耗时:** 7393ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_waylybaye </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[Twitter_iskyzh] 发言时段总结 - 2025-06-20 12:00</title>
       <link href="/2025/06/20/summary/Twitter_iskyzh-2025-06-20-12-00-10/"/>
       <url>/2025/06/20/summary/Twitter_iskyzh-2025-06-20-12-00-10/</url>
