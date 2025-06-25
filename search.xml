@@ -4,6 +4,93 @@
   
     
     <entry>
+      <title>[Twitter_iskyzh] 发言时段总结 - 2025-06-25 12:00:49</title>
+      <link href="/2025/06/25/summary/Others-2025-06-25-12-00-49/"/>
+      <url>/2025/06/25/summary/Others-2025-06-25-12-00-49/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【服务吐槽】"><a href="#【服务吐槽】" class="headerlink" title="【服务吐槽】"></a>【服务吐槽】</h3><ol>  <li>[Twitter_iskyzh] 抱怨其移民文件在使用USPS邮寄服务时陷入物流循环，在多个州之间流转却无法送达目的地。 <sup><a href="https://x.com/iskyzh/status/1937369368930689157">[1]</a></sup></li></ol><h3 id="【技术发展】"><a href="#【技术发展】" class="headerlink" title="【技术发展】"></a>【技术发展】</h3><ol>  <li>[Twitter_iskyzh] 感叹技术成本的降低，指出曾经昂贵的通配符HTTPS证书现在已可免费获取。 <sup><a href="https://x.com/iskyzh/status/1937694800477642760">[2]</a></sup></li></ol><h3 id="【技术实践】"><a href="#【技术实践】" class="headerlink" title="【技术实践】"></a>【技术实践】</h3><ol>  <li>[Twitter_iskyzh] 分享了为局域网内每个可通过SSH访问的设备配置独立DNS条目的做法，以方便管理。 <sup><a href="https://x.com/iskyzh/status/1937695884705141244">[3]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol>  <li id="ref-1">    <blockquote>      <p>it feels like every time USPS processes my immigration document it gets into a loophole somehow 🤣 it goes from NYC-&gt;NJ-&gt;MO-&gt;NJ again but never bounces back to Pittsburgh 😂</p>    </blockquote>    <small>来源: <a href="https://x.com/iskyzh/status/1937369368930689157">App</a> | <a href="https://x.com/iskyzh/status/1937369368930689157" target="_blank">Web</a></small>  </li>  <li id="ref-2">    <blockquote>      <p>just got a wildcard https cert for one of my domain; can't imagine 10 years ago this would cost $$$$$ but now it's all free 😂</p>    </blockquote>    <small>来源: <a href="https://x.com/iskyzh/status/1937694800477642760">App</a> | <a href="https://x.com/iskyzh/status/1937694800477642760" target="_blank">Web</a></small>  </li>  <li id="ref-3">    <blockquote>      <p>assigned an DNS entry for each of my SSH-able devices (which is a static LAN IP)</p>    </blockquote>    <small>来源: <a href="https://x.com/iskyzh/status/1937695884705141244">App</a> | <a href="https://x.com/iskyzh/status/1937695884705141244" target="_blank">Web</a></small>  </li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.19.9`*   **执行ID:** `57bd84a6`*   **处理的Job:** `Others`*   **总结的博文数量:** 3*   **数据源 (Redis Key):** `summary_posts_group_twitter_daily`*   **AI提供商列表:** `[openai_ulimited]`*   **成功的AI模型:** `gemini-2.5-pro-preview-03-25`*   **AI调用耗时:** 27220ms*   **使用的Prompt:** `twitter_summary_prompt`*   **引用链接样式:** `app`*   **生成的博客文章URL:** `https://greenhathg.github.io/2025/06/25/summary/Others-2025-06-25-12-00-49/`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Others </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_draven907] 发言时段总结 - 2025-06-25 12:00:49</title>
+      <link href="/2025/06/25/summary/Twitter_draven907-2025-06-25-12-00-49/"/>
+      <url>/2025/06/25/summary/Twitter_draven907-2025-06-25-12-00-49/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【个人动态】"><a href="#【个人动态】" class="headerlink" title="【个人动态】"></a>【个人动态】</h3><ol>  <li>解释了其多个相似的用户名（Draven, Draven0xff, Draveness）是由于重名所致。 <sup><a href="https://x.com/draven907/status/1469642400650137606">[1]</a></sup></li>  <li>更新了个人社交媒体头像。 <sup><a href="https://x.com/draven907/status/1627873999400361986">[2]</a></sup></li></ol><h3 id="【作品推广】"><a href="#【作品推广】" class="headerlink" title="【作品推广】"></a>【作品推广】</h3><ol>  <li>分享了其著作《Go语言设计与实现》的在线阅读地址。 <sup><a href="https://x.com/draven907/status/1470349535440683009">[3]</a></sup></li>  <li>为其出版的书籍《Go 语言设计与实现》在豆瓣上请求评分。 <sup><a href="https://x.com/draven907/status/1477875062011166722">[4]</a></sup></li>  <li>对自己作品《Go语言设计与实现》的持续畅销感到意外，该书在双十一期间再次加印。 <sup><a href="https://x.com/draven907/status/1590966078515335168">[5]</a></sup></li></ol><h3 id="【技术选型与探讨】"><a href="#【技术选型与探讨】" class="headerlink" title="【技术选型与探讨】"></a>【技术选型与探讨】</h3><ol>  <li>询问国内是否有稳定、便宜且按需付费的Kubernetes服务。 <sup><a href="https://x.com/draven907/status/1493575679577067527">[6]</a></sup></li>  <li>经过推荐，最终选择了Vultr提供的Kubernetes服务。 <sup><a href="https://x.com/draven907/status/1493596770487709709">[7]</a></sup></li>  <li>寻找能够提供私有Yum源和Python源的Gemfury国内替代品。 <sup><a href="https://x.com/draven907/status/1495790651430289415">[8]</a></sup></li>  <li>寻找PagerDuty的替代方案，并认为市面上现有选项不够理想。 <sup><a href="https://x.com/draven907/status/1774825918298497304">[9]</a></sup></li>  <li>主张小公司应采用大厂的Serverless Kubernetes服务，以简化运维，这与一篇不推荐K8s的文章观点相反。 <sup><a href="https://x.com/draven907/status/1836447397813326305">[10]</a></sup></li></ol><h3 id="【职场见闻】"><a href="#【职场见闻】" class="headerlink" title="【职场见闻】"></a>【职场见闻】</h3><ol>  <li>吐槽前雇主Shopee的离职流程体验不佳，要求员工自行清理电脑和赔偿丢失配件。 <sup><a href="https://x.com/draven907/status/1543960817338822656">[11]</a></sup></li></ol><h3 id="【业界趣闻】"><a href="#【业界趣闻】" class="headerlink" title="【业界趣闻】"></a>【业界趣闻】</h3><ol>  <li>发布了一条关于“藏好比特币”的幽默评论。 <sup><a href="https://x.com/draven907/status/1560199967767113728">[12]</a></sup></li></ol><h3 id="【应用体验】"><a href="#【应用体验】" class="headerlink" title="【应用体验】"></a>【应用体验】</h3><ol>  <li>表示已购买OpenCat应用，以体验其新增的Siri集成功能。 <sup><a href="https://x.com/draven907/status/1637279842143203328">[13]</a></sup></li></ol><h3 id="【服务评论】"><a href="#【服务评论】" class="headerlink" title="【服务评论】"></a>【服务评论】</h3><ol>  <li>抱怨GitHub服务频繁出现稳定性问题。 <sup><a href="https://x.com/draven907/status/1640337792604721152">[14]</a></sup></li>  <li>批评GitHub Action的稳定性与其收费模式不匹配。 <sup><a href="https://x.com/draven907/status/1685999050875981825">[15]</a></sup></li>  <li>在GitHub服务故障期间，公开询问其日志丢失问题。 <sup><a href="https://x.com/draven907/status/1686001422918471680">[16]</a></sup></li></ol><h3 id="【开发文化】"><a href="#【开发文化】" class="headerlink" title="【开发文化】"></a>【开发文化】</h3><ol>  <li>赞同并遵循DHH的观点，坚持使用“master”作为Git仓库的默认分支名。 <sup><a href="https://x.com/draven907/status/1779925331689841136">[17]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol>  <li id="ref-1">    <blockquote>      <p>有关系啊，加了那么多后缀是因为总重名😂 Hao Chen: 苹果手机直接在照片上copy其中的文字“Go语言设计与实现”，这体验真好……@draven0xff 为什么作者名字后面是@ Draven，不是Draven0xff, 也不是 Draveness？这跟英雄联盟的德莱文有关系么？</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1469642400650137606">App</a> | <a href="https://x.com/draven907/status/1469642400650137606" target="_blank">Web</a></small>  </li>  <li id="ref-2">    <blockquote>      <p>#NewProfilePic</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1627873999400361986">App</a> | <a href="https://x.com/draven907/status/1627873999400361986" target="_blank">Web</a></small>  </li>  <li id="ref-3">    <blockquote>      <p>可以看看电子版 http://draven.co/golang luxiaolu: @haoel @draven0xff 这书咋样啊？😀</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1470349535440683009">App</a> | <a href="https://x.com/draven907/status/1470349535440683009" target="_blank">Web</a></small>  </li>  <li id="ref-4">    <blockquote>      <p>给新书《Go 语言设计与实现》求一波豆瓣评分🙏🙏🙏 https://book.douban.com/subject/35635836/</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1477875062011166722">App</a> | <a href="https://x.com/draven907/status/1477875062011166722" target="_blank">Web</a></small>  </li>  <li id="ref-5">    <blockquote>      <p>一直以为自己是滞销书作家，好久没宣传，自从书出版就没怎么写公众号，没想到最近双十一又重印了😂</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1590966078515335168">App</a> | <a href="https://x.com/draven907/status/1590966078515335168" target="_blank">Web</a></small>  </li>  <li id="ref-6">    <blockquote>      <p>国内有没有稳定、便宜、按需付费的 Kubernetes 服务😓</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1493575679577067527">App</a> | <a href="https://x.com/draven907/status/1493575679577067527" target="_blank">Web</a></small>  </li>  <li id="ref-7">    <blockquote>      <p>感谢感谢，最后选择了 Vultr 的 Kubernetes Dawei Ma: @draven0xff 好像没有，国外最便宜的感觉是 @digitalocean 的，之前做过一个 k8s cost 对比的资料：https://github.com/bmpi-dev/bmpi-tech-starter/blob/main/infra/k8s-cost.md</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1493596770487709709">App</a> | <a href="https://x.com/draven907/status/1493596770487709709" target="_blank">Web</a></small>  </li>  <li id="ref-8">    <blockquote>      <p>现在有没有 Gemfury 的替代品，能够提供私有的 Yum 源、Python 源，感觉国内目前没有类似的服务</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1495790651430289415">App</a> | <a href="https://x.com/draven907/status/1495790651430289415" target="_blank">Web</a></small>  </li>  <li id="ref-9">    <blockquote>      <p>市面上有没有 PagerDuty 的替代品啊，感觉看了几个都不太行</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1774825918298497304">App</a> | <a href="https://x.com/draven907/status/1774825918298497304" target="_blank">Web</a></small>  </li>  <li id="ref-10">    <blockquote>      <p>为啥不用 Kubernetes 呢，直接买大公司的 Serverless Kubernetes 服务，节点啥都不用管直接往上 apply 相当省事了，尤其适合小公司 Nextify: 最近读到一篇关于初创公司技术选型的文章，我觉得有一些观点不谋而合。<br>1、不要用 微服务<br>2、不要用 K8S<br>3、无论你是否在创业，真正重要的是与你的用户交流，并找到产品与市场的契合点 不同意的点：我始终认为Docker Compose不应该用于严格的生产环境。 Devcontainer在Vscode…</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1836447397813326305">App</a> | <a href="https://x.com/draven907/status/1836447397813326305" target="_blank">Web</a></small>  </li>  <li id="ref-11">    <blockquote>      <p>Shopee 离职还要自己拿布擦电脑、转接头丢了要京东买了寄过去，离职体验真的差😀</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1543960817338822656">App</a> | <a href="https://x.com/draven907/status/1543960817338822656" target="_blank">Web</a></small>  </li>  <li id="ref-12">    <blockquote>      <p>大家快把屋子里的比特币藏好！</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1560199967767113728">App</a> | <a href="https://x.com/draven907/status/1560199967767113728" target="_blank">Web</a></small>  </li>  <li id="ref-13">    <blockquote>      <p>买了买了 Baye: OpenCat 新版支持了 Siri，可以用 Siri 激活任意对话了。打开对话后点击右上角三点，选择“添加到Siri”，可以修改欢迎语以及 Prompt。 另外推出了一个 Pro 版的早鸟优惠，现在可以最低价格购入 Pro 版，全平台通用。虽然有了 Pro， 但目前所有功能都还做任何限制。 https://apps.apple.com/us/app/opencat/id6445999201</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1637279842143203328">App</a> | <a href="https://x.com/draven907/status/1637279842143203328" target="_blank">Web</a></small>  </li>  <li id="ref-14">    <blockquote>      <p>GitHub 怎么总挂啊...</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1640337792604721152">App</a> | <a href="https://x.com/draven907/status/1640337792604721152" target="_blank">Web</a></small>  </li>  <li id="ref-15">    <blockquote>      <p>GitHub Action 就这个稳定性还来收钱么...🫡</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1685999050875981825">App</a> | <a href="https://x.com/draven907/status/1685999050875981825" target="_blank">Web</a></small>  </li>  <li id="ref-16">    <blockquote>      <p>Re @githubstatus where are my logs??</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1686001422918471680">App</a> | <a href="https://x.com/draven907/status/1686001422918471680" target="_blank">Web</a></small>  </li>  <li id="ref-17">    <blockquote>      <p>我也都改回 master 😂 Rei: DHH 终于点名 master/main 了 😂 不枉我坚持 master 这么多年，连 Mac 系统 git 的默认改了我都改回去。 用 master 没有问题！</p>    </blockquote>    <small>来源: <a href="https://x.com/draven907/status/1779925331689841136">App</a> | <a href="https://x.com/draven907/status/1779925331689841136" target="_blank">Web</a></small>  </li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.19.9`*   **执行ID:** `57bd84a6`*   **处理的Job:** `Twitter_draven907`*   **总结的博文数量:** 18*   **数据源 (Redis Key):** `summary_posts_group_twitter_daily`*   **AI提供商列表:** `[openai_ulimited]`*   **成功的AI模型:** `gemini-2.5-pro-preview-03-25`*   **AI调用耗时:** 40411ms*   **使用的Prompt:** `twitter_single_author_prompt`*   **引用链接样式:** `app`*   **生成的博客文章URL:** `https://greenhathg.github.io/2025/06/25/summary/Twitter_draven907-2025-06-25-12-00-49/`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_draven907 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>[Twitter_li_taiyang] 发言时段总结 - 2025-06-25 12:00:49</title>
+      <link href="/2025/06/25/summary/Twitter_li_taiyang-2025-06-25-12-00-49/"/>
+      <url>/2025/06/25/summary/Twitter_li_taiyang-2025-06-25-12-00-49/</url>
+      
+        <content type="html"><![CDATA[<span id="more"></span><h2 id="🤖-AI-总结"><a href="#🤖-AI-总结" class="headerlink" title="🤖 AI 总结"></a>🤖 AI 总结</h2><h3 id="【技术资源分享】"><a href="#【技术资源分享】" class="headerlink" title="【技术资源分享】"></a>【技术资源分享】</h3><ol>  <li>分享了关于 Apache Gluten 结合 ClickHouse 后端进行性能优化的技术讲座回放视频。 <sup><a href="https://x.com/li_taiyang/status/1937695652525539714">[1]</a></sup></li>  <li>提供了关于 Gluten + ClickHouse 后端技术的综合介绍博客文章，作为视频分享的补充材料。 <sup><a href="https://x.com/li_taiyang/status/1937696282296090646">[2]</a></sup></li>  <li>分享了专题博客文章，深入探讨 Gluten + ClickHouse 后端性能优化中遇到的问题与挑战。 <sup><a href="https://x.com/li_taiyang/status/1937696327271698812">[3]</a></sup></li>  <li>分享了专题博客文章，介绍了在 Gluten + ClickHouse 后端性能优化过程中使用的相关工具。 <sup><a href="https://x.com/li_taiyang/status/1937696358988918806">[4]</a></sup></li>  <li>分享了专题博客文章，系统阐述了进行 Gluten + ClickHouse 后端性能优化的方法论。 <sup><a href="https://x.com/li_taiyang/status/1937696396863504503">[5]</a></sup></li>  <li>分享了专题博客文章，通过具体案例展示了 Gluten + ClickHouse 后端性能优化的实践。 <sup><a href="https://x.com/li_taiyang/status/1937696431302902210">[6]</a></sup></li></ol><p><br></p><h2 id="引用来源"><a href="#引用来源" class="headerlink" title="引用来源"></a>引用来源</h2><ol>  <li id="ref-1">    <blockquote>      <p>最近的一个分享，关于apache gluten + clickhouse backend性能优化的，回放：https://0rt0w.hk.xet.citv.cn/sl/v900b</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937695652525539714">App</a> | <a href="https://x.com/li_taiyang/status/1937695652525539714" target="_blank">Web</a></small>  </li>  <li id="ref-2">    <blockquote>      <p>Re 博客里的总结更全面<br>https://backendhouse.github.io/post/gluten+ch-backend%E4%BB%8B%E7%BB%8D/</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937696282296090646">App</a> | <a href="https://x.com/li_taiyang/status/1937696282296090646" target="_blank">Web</a></small>  </li>  <li id="ref-3">    <blockquote>      <p>Re https://backendhouse.github.io/post/gluten+ch-backend%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E9%97%AE%E9%A2%98%E4%B8%8E%E6%8C%91%E6%88%98%E7%AF%87/</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937696327271698812">App</a> | <a href="https://x.com/li_taiyang/status/1937696327271698812" target="_blank">Web</a></small>  </li>  <li id="ref-4">    <blockquote>      <p>Re https://backendhouse.github.io/post/gluten+ch-backend%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E5%B7%A5%E5%85%B7%E7%AF%87/</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937696358988918806">App</a> | <a href="https://x.com/li_taiyang/status/1937696358988918806" target="_blank">Web</a></small>  </li>  <li id="ref-5">    <blockquote>      <p>Re https://backendhouse.github.io/post/gluten-+-ch-backend%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E6%96%B9%E6%B3%95%E8%AE%BA/</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937696396863504503">App</a> | <a href="https://x.com/li_taiyang/status/1937696396863504503" target="_blank">Web</a></small>  </li>  <li id="ref-6">    <blockquote>      <p>Re https://backendhouse.github.io/post/gluten+ch-backend%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E6%A1%88%E4%BE%8B%E7%AF%87/</p>    </blockquote>    <small>来源: <a href="https://x.com/li_taiyang/status/1937696431302902210">App</a> | <a href="https://x.com/li_taiyang/status/1937696431302902210" target="_blank">Web</a></small>  </li></ol><p><br></p><h2 id="⚙️-调试信息"><a href="#⚙️-调试信息" class="headerlink" title="⚙️ 调试信息"></a>⚙️ 调试信息</h2><details><summary>点击展开</summary>*   **脚本版本:** `v4.19.9`*   **执行ID:** `57bd84a6`*   **处理的Job:** `Twitter_li_taiyang`*   **总结的博文数量:** 6*   **数据源 (Redis Key):** `summary_posts_group_twitter_daily`*   **AI提供商列表:** `[openai_ulimited]`*   **成功的AI模型:** `gemini-2.5-pro-preview-03-25`*   **AI调用耗时:** 30045ms*   **使用的Prompt:** `twitter_single_author_prompt`*   **引用链接样式:** `app`*   **生成的博客文章URL:** `https://greenhathg.github.io/2025/06/25/summary/Twitter_li_taiyang-2025-06-25-12-00-49/`</details><!-- flag of hidden posts -->]]></content>
+      
+      
+      <categories>
+          
+          <category> AI 总结 </category>
+          
+          <category> Twitter_li_taiyang </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自动生成 </tag>
+            
+            <tag> 信息摘要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>[Xueqiu_GuYingGuangYan、Xueqiu_ManBuJiaZhiXian 等人] 发言时段总结 - 2025-06-24 22:31:46</title>
       <link href="/2025/06/24/summary/Others-2025-06-24-22-31-46/"/>
       <url>/2025/06/24/summary/Others-2025-06-24-22-31-46/</url>
