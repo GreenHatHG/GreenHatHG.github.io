@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【翻译学习】【MDN】数字音频基本概念 | GreenHatHGのBlog</title><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="借助 AI 翻译自MDN Web Docs-Digital audio concepts，以供学习数字音频的基本概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译学习】【MDN】数字音频基本概念">
+<meta property="og:url" content="https://greenhathg.github.io/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="借助 AI 翻译自MDN Web Docs-Digital audio concepts，以供学习数字音频的基本概念">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2026-08-04T16:21:43.000Z">
+<meta property="article:modified_time" content="2026-08-04T08:27:55.425Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="数字音频">
+<meta property="article:tag" content="MDN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【翻译学习】【MDN】数字音频基本概念",
+  "url": "https://greenhathg.github.io/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/",
+  "image": "https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+  "datePublished": "2026-08-04T16:21:43.000Z",
+  "dateModified": "2026-08-04T08:27:55.425Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "GreenHatHg",
+      "url": "https://greenhathg.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css?v=5.6.1"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://unpkg.com/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'UA-116672888-1')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'UA-116672888-1', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【翻译学习】【MDN】数字音频基本概念',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">197</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">239</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/AI-%E6%80%BB%E7%BB%93/"><i class="fa-fw fas fa-robot"></i><span> AI总结</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">GreenHatHGのBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">【翻译学习】【MDN】数字音频基本概念</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/AI-%E6%80%BB%E7%BB%93/"><i class="fa-fw fas fa-robot"></i><span> AI总结</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【翻译学习】【MDN】数字音频基本概念</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-04T16:21:43.000Z" title="发表于 2026-08-04 16:21:43">2026-08-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-04T08:27:55.425Z" title="更新于 2026-08-04 08:27:55">2026-08-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">10.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>43分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:500,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-08-04 08:27:55&quot;}" hidden></div><p>借助 AI 翻译自<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_concepts">MDN Web Docs-Digital audio concepts</a>，以供学习数字音频的基本概念</p>
+<span id="more"></span>
+<p>Representing audio in digital form involves a number of steps and processes, with multiple formats available both for the raw audio and the encoded or compressed audio which is actually used on the web. This guide is an overview examining how audio is represented digitally, and how codecs are used to encode and decode audio for use on the web.<br>将音频以数字形式呈现需要历经诸多步骤与流程，原始音频以及 Web 实际使用的经过编码、压缩处理的音频均拥有多种可用格式。本指南整体梳理了音频的数字化呈现方式，以及编解码器如何对音频进行编码和解码，从而适配 Web 场景使用。</p>
+<h2 id="Sampling-audio-音频采样"><a href="#Sampling-audio-音频采样" class="headerlink" title="Sampling audio 音频采样"></a>Sampling audio 音频采样</h2><p>Audio is an inherently analog feature of the natural world. As an object vibrates, it causes the molecules surrounding it to vibrate as well. These molecules affect the ones adjacent to them, and so forth, propagating the vibration in the form of a wave outward from the source until the amplitude of the wave (its volume) fades away with distance. The granularity of an audio wave in the real world, then, is that of an individual molecule of the medium through which the sound wave is traveling.<br>声音是自然界本身就具备的模拟属性事物（<code>连续不间断、顺滑变化，没有一格一格的断点</code>）。物体发生振动时，会带动周边的分子一同振动；这些分子继而又会牵动相邻分子，如此往复，振动便以声波的形式从声源处向外传播，直至声波的振幅（也就是音量）随着传播距离增加逐渐衰减消散。因此，现实世界中音频波的粒度是声波传播介质中单个分子的粒度（<code>宏观听着连贯的声音，微观上最小只能细化到一个个振动的介质分子，这就是声波的极限精细程度</code>）。</p>
+<p>On Earth, the medium most audio travels through is the air. Some audio does travel through water, or even through the rock comprising the planet itself (if you’ve ever heard the rumble or boom of an earthquake, you’ve experienced this phenomenon), but nearly all of the sounds you hear every day travel to your ears through the air.<br>在地球上，大多数音频通过空气传播。有些音频通过水传播，甚至通过构成地球本身的岩石传播（如果你曾听到过地震的隆隆声或轰鸣声，你就经历过这种现象），但你每天听到的几乎所有声音都是通过空气传到耳朵的。</p>
+<p>The sounds a person hears every day are, then, actually vibrations in the air which cause the inner workings of the ear. The farther the air molecules move with each pulse of the wave, the higher the amplitude of the wave, and the louder the sound is. The faster the molecules vibrate, the higher the frequency of the wave.<br>因此，人每天听到的声音，实际上都是空气中的振动，这些振动会带动耳部内部结构运作。空气分子随声波每一次脉动移动的距离越远，声波振幅就越大，声音也就越响亮；分子振动速度越快，声波的频率就越高。</p>
+<p>The higher the amplitude (height) of the wave, the louder the sound is at that instant. The shorter the wavelength (the closer together the crests of the wave are), the higher the frequency (or pitch) of the sound that’s produced.<br>波的振幅（高度）越高，该瞬间的声音就越响。波长越短（波峰之间的距离越近），产生的声音频率（或音高）就越高。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_concepts/audio-waveform.svg" alt="A sound waveform"></p>
+<p>Computers, however, are digital. In order to represent a sound wave in a way computers can manipulate and work with (let alone transmit over a network), the sound has to be converted into a digital form. This process is called <strong>analog to digital conversion</strong> (<strong>A/D</strong> for short).<br>但计算机属于数字设备。为了以计算机可以操作和处理（更不用说通过网络传输）的方式表示声波，必须将声音转换为数字形式。这个过程称为<strong>模数转换（analog to digital conversion）</strong>（简称 <strong>A/D</strong>）。</p>
+<p>The first factor affecting the fidelity of the captured audio is the <strong>audio bandwidth</strong>; that is, the range of audio frequencies the A/D converter is capable of capturing and converting into digital form. The audio bandwidth is also affected by the codec, if it chooses to discard any frequency bands while encoding the sound.<br>影响捕获音频保真度的第一个因素是<strong>音频带宽（audio bandwidth）</strong>；也就是说，A/D 转换器能够捕获并转换为数字形式的音频频率范围。如果编解码器在编码声音时选择丢弃某些频段，音频带宽也会受到影响。</p>
+<p>Sound enters the computer through a microphone or other input in the form of a stream of electrons whose voltage varies to represent the amplitude of the sound wave. This analog signal is then converted into digital form by a circuit that captures the incoming wave’s amplitude at regular intervals, converting that data into a number in a form that is understood by the audio recording system. Each of these captured moments is a <strong>sample</strong>. By chaining all the samples together, you can approximately represent the original wave, as seen in the diagram below.<br>声音以电子流的形式通过麦克风或其他输入进入计算机，其电压变化代表声波的振幅。然后，模拟信号由电路转换为数字形式，该电路定期捕获传入波的振幅，将数据转换为音频录制系统理解的数字格式。每一次瞬时采集所得的数据即为一个<strong>采样点（sample）</strong>。通过将所有采样点串联起来，你可以近似表示原始波形，如下图所示。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_concepts/audio-waveform-samples1.svg" alt="An audio waveform with samples taken periodically"><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_concepts/audio-waveform-samples1.svg" alt="定期采样的音频波形"></p>
+<p>In this example, the blue line represents the samples taken from the audio waveform, which is black. At regular intervals, the A/D converter circuitry reads the voltage of the signal as a value between (in this case) -1.0 and +1.0. Since the amplitude varies over the duration of that time slice, the A/D converter must choose a value to represent that slice, whether by taking the value at a particular moment (in the diagram above, the midpoint of each slice is used as the value), or by averaging the amplitude over the duration of each sample. Those sample values are then recorded as the amplitude of the waveform at that time.<br>在本示例中，蓝色线条代表从黑色音频波形中提取的采样点。模数转换电路会按照固定时间间隔读取信号电压，并将其转换为介于（本例中）-1.0至+1.0之间的数值。由于信号振幅在单个采样时段内会不断变化，模数转换器需要选定一个数值来代表该时段的波形振幅：既可以选取某一瞬时的电压值（上图中选取每个时段中点时刻的数值作为采样值），也可以计算整个采样周期内振幅的平均值。这些采样数值随后会被记录下来，作为对应时刻波形的振幅大小。</p>
+<p>When it comes time to play back that sound later, these amplitudes are used to generate an approximation of the original waveform; instead of playing back an exact duplicate of the original, smooth wave, the rougher, blue wave is played.<br>待到后续需要回放该声音时，系统会借助这些振幅数值还原出原始波形的近似形态；最终播放的并非顺滑完整的原始波形复刻版本，而是相对粗糙的蓝色波形。</p>
+<p>The more often you take samples of the original audio, the closer to the original you can get. The number of samples taken per second is called the <strong>sample rate</strong>. Consider the wave above, and how much different the blue, digital wave would look if you took samples twice as often. Or ten times as often. The more samples you take, the smoother the wave becomes.<br>对原始音频的采样次数越频繁，得到的音频就越贴近原版。每秒采集的样本数量被称作<strong>采样率（sample rate）</strong>。试想上方的波形，倘若将采样频率提升至原先的两倍，或是十倍，蓝色数字波看起来会有多大不同。采集的样本数量越多，波形就会越平滑。</p>
+<h2 id="Audio-data-format-and-structure-音频数据格式和结构"><a href="#Audio-data-format-and-structure-音频数据格式和结构" class="headerlink" title="Audio data format and structure 音频数据格式和结构"></a>Audio data format and structure 音频数据格式和结构</h2><p>At the most basic level, audio is represented by a stream of samples, each specifying the amplitude of the audio waveform as measured for a given slice of the overall waveform of the audio signal. There are several formats used for the individual samples within an audio file. Most audio files use 16-bit signed integers for each sample, but others use 32-bit floating-point values or 24-bit or 32-bit integers. Some older audio file formats—which you won’t find in use on the web—used 8-bit integer samples. In addition, samples may use signed or unsigned values, as well. The size of an individual sample is called the <strong>sample size</strong>.<br>从最基础的层面来讲，音频由一连串采样点构成，每个采样点都会记录音频信号整体波形中某一极小片段所测得的音频波形振幅。音频文件内的单个采样点有着多种存储格式：绝大多数音频文件的每个采样点采用16位有符号整数存储，也有部分文件使用32位浮点数值、24位整数或是32位整数；一些老旧音频格式（如今已不在网络端使用）采用8位整数采样。除此之外，采样点的数值还可分为有符号类型与无符号类型。一个采样点占用的数据大小被称作<strong>采样位深（sample size）</strong>。</p>
+<p>The position of each audio source within the audio signal is called a <strong>channel</strong>. Each channel contains a sample indicating the amplitude of the audio being produced by that source at a given moment in time. For instance, in stereo sound, there are two audio sources: one speaker on the left, and one on the right. Each of these is represented by one channel, and the number of channels contained in the audio signal is called the <strong>channel count</strong>.<br>音频中每一路独立的声音来源，各自占用一条专属声音轨道，这条轨道就叫作<strong>声道（channel）</strong>。每一个声道都会存储一个个采样点，采样点的作用是记录该音源在某一瞬间声音振动的幅度（也就是音量大小）。例如立体声拥有两个音源：左侧扬声器与右侧扬声器，二者各自对应一个声道；一段音频总共拥有多少个声道，这个数值就叫<strong>声道数（channel count）</strong>。</p>
+<p>While recording or generating multi-channel audio files, the channels are assembled into a series of <strong>audio frames</strong>, each consisting of one sample for each of the audio’s channels. An individual sample is a numeric value representing the amplitude of the sound <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Waveform" title="External link (opens in new tab)">waveform</a> at a single moment in time, and may be represented in various formats.<br>在录制或生成多声道音频文件时，所有声道的数据会打包成一连串<strong>音频帧（audio frames）</strong>；每一个音频帧均包含该音频所有声道各自对应的一个采样点（<code>例如5.1环绕声系统一共 6 条声道，那么每一帧里面，就会存放 6 个采样值，每条声道各占一个</code>）。一个采样值就是一个数字，用来记录声波在某一瞬间的振动幅度（音量大小），这个数字可以用多种数据格式存储。</p>
+<p>Stereo audio is probably the most commonly used channel arrangement in web audio, and 16-bit samples are used for the majority of day-to-day audio in use today. For 16-bit stereo audio, each sample taken from the analog signal is recorded as two 16-bit integers, one for the left channel and one for the right. That means each sample requires 32 bits of memory. At the common sample rate of 48 kHz (48,000 samples per second), this means each second of audio occupies 192 kB of memory. Therefore, a typical three-minute song requires about 34.5 MB of memory. That’s a lot of storage, but worse, it’s an insane amount of network bandwidth to use for a relatively short piece of audio. That’s why most digital audio is compressed.<br>立体声音频或许是网络音频中最常用的声道配置，如今绝大多数日常使用的音频都采用16位采样。对于16位立体声音频而言，从模拟信号中采集的每一个采样点都会存储为两个16位整数，分别对应左声道与右声道。这就代表单个采样点需要占用32比特内存。按照常见的 48 kHz 采样率（每秒采集48000个采样点）计算，每秒的音频数据会占用 192 kB 内存。据此推算，一首常规时长三分钟的歌曲大约需要 34.5 MB 的内存。这类原始音频数据会占用大量存储空间，更棘手的是，传输一段时长较短的音频反而需要消耗极高的网络带宽。正因如此，绝大多数数字音频都会经过压缩处理。</p>
+<p>The process of compressing and decompressing audio is performed by encoding and decoding it using an audio <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Glossary/Codec">codec</a></strong> (<strong>CO</strong> der/ <strong>DE</strong> coder). Over the years, a large variety of codecs have been developed, several of which are commonly used on the web. For details about the most important and useful ones for web developers to be familiar with, see the article <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_codecs">Guide to audio codecs used on the web</a>.<br>音频的压缩与解压过程，是借助音频编解码器（编码器/解码器）对音频进行编码和解码实现的。多年来，人们研发出了各种各样的编解码器，其中几个在网络环境中被普遍使用。有关 Web 开发人员应该熟悉的最重要和最有用的编解码器的详细信息，，可参阅《网页音频编解码器使用指南》一文。</p>
+<h3 id="Audio-channels-and-frames-音频声道和帧"><a href="#Audio-channels-and-frames-音频声道和帧" class="headerlink" title="Audio channels and frames 音频声道和帧"></a>Audio channels and frames 音频声道和帧</h3><p>There are two types of audio channel. Standard audio channels are used to present the majority of the audible sound. The sound for the left and right main channels, as well as all of your surround sound speakers (center, left and right rear, left and right sides, ceiling channels, and so forth) are all standard audio channels. Special <strong>Low Frequency Enhancement</strong> (<strong>LFE</strong>) channels provide the signal for special speakers designed to produce the low frequency sounds and vibration to create a visceral sensation when listening to the audio. The LFE channels typically drive subwoofers and similar devices.<br>音频声道分为两类。主音频声道用于呈现绝大部分可听见的声音。左右主通道的声音，以及所有环绕声扬声器（中央、左后和右后、左侧和右侧、天花板通道等）都是主音频通道。特殊的<strong>低频增强</strong>（<strong>LFE</strong>）通道为专门设计用于产生低频声音和振动的扬声器提供信号，这类设备能够还原低频声响与震动效果，让人聆听音频时获得沉浸式体感体验。LFE声道一般用于驱动低音炮及同类设备。</p>
+<p>Monophonic audio has one channel, stereo sound has two channels, 5.1 surround sound has 6 channels (five standard and one LFE), and so forth. Each audio frame is a data record that contains the samples for all of the channels available in an audio signal. The size of an audio frame is calculated by multiplying the sample size in bytes by the number of channels, so a single frame of stereo 16-bit audio is 4 bytes long and a single frame of 5.1 floating-point audio is 24 (4 bytes per sample multiplied by 6 channels).<br>单声道音频仅有一个声道，立体声音频拥有两个声道，5.1 环绕声包含六个声道（五个主声道加一个低频效果声道），以此类推。每个音频帧都是一条数据记录，存储着音频信号中所有可用声道对应的采样数据。音频帧大小的计算方式为：采样点大小（以字节为单位）乘以声道数量。因此一帧 16 位立体声音频长度为 4 字节，一帧浮点型 5.1 声道音频大小为 24 字节（每个采样点占 4 字节，共计 6 个声道）。</p>
+<p><strong>Note:</strong> Some codecs will actually separate the left and right channels, storing them in separate blocks within their data structure. However, an audio frame is always comprised of all of the data for all available channels.<br><strong>注意</strong>：某些编解码器实际上会分离左右通道，将它们存储在其数据结构中的单独块中。但一个音频帧始终包含所有可用声道的全部数据。</p>
+<p>The number of frames that comprise a single second of audio varies depending on the sample rate used when recording the sound. Since the sample rate corresponds to the number of “slices” a sound wave is divided into for each second of time, it’s sometimes thought of as a frequency (in the sense that it’s a description of something that repeats periodically, not in terms of actual audio frequency), and the samples per second measurement therefore uses the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Hertz" title="External link (opens in new tab)">Hertz</a> as its unit.<br>构成一秒音频的帧数，会根据录制声音时采用的采样率有所不同。采样率代表每秒时间内声波被切分成的片段数量，因此它有时会被视作一种频率（此处是指对周期性重复事物的描述，并非实际音频频率层面的含义），故而每秒采样数的计量单位采用赫兹。</p>
+<p>The most common sample rates are:<br>最常见的采样率是：</p>
+<p>8000 Hz</p>
+<p>The international <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/G.711" title="External link (opens in new tab)">G.711</a> standard for audio used in telephony uses a sample rate of 8000 Hz (8 kHz). This is enough for human speech to be comprehensible.<br>国际 G.711 电话音频标准使用 8000 Hz（8 kHz）的采样率。这足以使人类语音清晰易懂。</p>
+<p>44100 Hz</p>
+<p>The 44.1 kHz sample rate is used for compact disc (CD) audio. CDs provide uncompressed 16-bit stereo sound at 44.1 kHz. Computer audio also frequently uses this frequency by default.<br>44.1 kHz 采样率用于光盘（CD）音频。CD 以 44.1 kHz 提供未压缩的 16 位立体声。计算机音频也经常默认使用此频率。</p>
+<p>48000 Hz</p>
+<p>The audio on DVD is recorded at 48 kHz. This is also often used for computer audio.<br>DVD 上的音频以 48 kHz 录制。这也经常用于计算机音频。</p>
+<p>96000 Hz</p>
+<p>High-resolution audio.<br>高解析音频</p>
+<p>192000 Hz</p>
+<p>Ultra-high resolution audio. Not commonly used yet, but this will change over time.<br>超高解析音频。尚未普遍使用，但随着时间的推移，这种情况会改变。</p>
+<p>There is a reason why 44.1 kHz is considered the minimum “high fidelity” sampling rate. The <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Nyquist-Shannon_sampling_theorem" title="External link (opens in new tab)">Nyquist-Shannon sampling theorem</a> dictates that to reproduce a sound accurately, it must be sampled at twice the rate of the sound’s frequency. Since the range of human hearing is from around 20 Hz to 20,000 Hz, reproducing the highest-pitched sounds people can generally hear requires a sample rate of more than 40,000 Hz.<br>44.1 kHz 被视作高保真音质最低采样频率是有原因的。奈奎斯特-香农采样定理规定：想要精准还原声音，采样频率必须达到声音频率的两倍。人耳可听见的声音频率范围大约在20 Hz 至 20,000 Hz，因此要还原人类普遍能够听到的最高音调声音，采样频率就需要超过 40,000 Hz。</p>
+<p>To provide additional room for a <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Low-pass_filter" title="External link (opens in new tab)">low-pass filter</a> in order to avoid distortion caused by <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Aliasing" title="External link (opens in new tab)">aliasing</a>, an additional 2.05 kHz <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Transition_band" title="External link (opens in new tab)">transition band</a> is added to the pre-sampling frequency (resulting in 22,050 Hz). Doubling that per the Nyquist theorem results in a final minimum frequency of (you guessed it) 44.1 kHz.<br>预留额外空间以供低通滤波器工作，从而避免混叠带来的信号失真，因此在预采样频率基础上增加了额外的 2.05 kHz 过渡带，最终预采样频率变为 22050 Hz。依据奈奎斯特定理将该数值翻倍，最终得到的最低采样频率恰好就是 44.1 kHz。</p>
+<p>High-resolution (96 kHz) audio is used in some high-end audio systems, and it and ultra-high resolution (192 kHz) audio are useful for audio mastering, where you need as much quality as possible while manipulating and editing the sound before downsampling to the sample rate you will use for the final product. This is similar to how photographers will use high resolution images for editing and compositing before presenting the customer with a JPEG suitable for use on a website.<br>部分高端音响系统会采用 96 kHz 的高解析音频；96 kHz 高解析音频与 192 kHz 超高解析音频对于音频母带制作很有用。在该工序中，工作人员需要对声音进行调校与剪辑处理，之后再降采样适配成品所需采样率，全程都要最大限度保留音质。这一原理和摄影工作相通：摄影师会先用高分辨率图片完成修图、画面合成工作，最后再导出适配网页展示的JPEG格式图片交付客户。</p>
+<h3 id="Audio-file-size-and-network-bandwidth-音频文件大小和网络带宽"><a href="#Audio-file-size-and-network-bandwidth-音频文件大小和网络带宽" class="headerlink" title="Audio file size and network bandwidth 音频文件大小和网络带宽"></a>Audio file size and network bandwidth 音频文件大小和网络带宽</h3><p>Once you know the size of a single audio frame and how many frames per second make up your audio data, you can easily calculate how much space the raw sound data itself will occupy (and therefore how much bandwidth it would consume on a network).<br>一旦你知道单个音频帧的大小，以及音频数据每秒包含的帧数，便可轻松计算出原始音频数据本身所需占用的存储空间（进而算出其在网络传输中会消耗多少带宽）。</p>
+<p>For example, consider a stereo audio clip (that is, two audio channels) with a sample size of 16 bits (2 bytes), recorded at 48 kHz:<br>举例来说，我们以一段立体声音频片段（即拥有两个音频声道）为例：其采样位深度为 16 比特（2字节），采样率为 48 kHz。</p>
+<script type="math/tex; mode=display">
+2 \times 2\frac { bytes }{ sample } \times 48000\frac { samples }{ second } = 192000\frac { bytes }{ second } = 192 kBps</script><p>At 192 kBps, lower-end networks are already going to be strained just by a single audio stream playing. If the network is also doing other things, the problem strikes even on higher bandwidth networks. With so much competition for network capacity, especially on slower networks, this amount of data may be too much to viably transmit during any kind of real-time applications.</p>
+<p>以 192 kBps 的速度，即便只播放一路音频流，低配网络就已不堪重负。如果网络同时还要承载其他业务，即便带宽更高的网络也会出现卡顿问题。各类应用争相抢占网络资源，低速网络场景下该现象尤为突出，如此庞大的数据量，很难在各类实时应用中顺畅完成传输。</p>
+<p>To solve this problem, the audio must be made smaller using compression.<br>为了解决这个问题，必须使用压缩使音频变小。</p>
+<p><strong>Note:</strong> Network bandwidth is obviously not the same thing as audio bandwidth, which is discussed in <a href="#sampling_audio">Sampling audio</a>, above.<br><strong>注意</strong>：网络带宽显然与音频带宽不同，音频带宽在上面的音频采样中已有讨论。</p>
+<h2 id="Audio-compression-basics-音频压缩基础"><a href="#Audio-compression-basics-音频压缩基础" class="headerlink" title="Audio compression basics 音频压缩基础"></a>Audio compression basics 音频压缩基础</h2><p>Unlike text and many other kinds of data, audio data tends to be <strong>noisy</strong>, meaning the data rarely consists of a series of exactly repeated bytes or byte sequences. As a result, audio data is difficult to compress using traditional algorithms such as those used by general-purpose tools like <code>zip</code>, which usually work by replacing repeating sequences of data with a shorthand representation.<br>与文本和许多其他类型的数据不同，音频数据通常带有噪声，这意味着这类数据几乎不会由一连串完全重复的字节或字节序列构成。因此，音频数据很难使用传统算法进行压缩，例如通用工具（如 <code>zip</code>）使用的算法；这类传统算法的压缩原理，一般是将重复的数据序列替换为简写形式。</p>
+<p>There are several techniques which can be applied when compressing audio. Most codecs use a combination of these, and may use other techniques as well.<br>压缩音频时可运用多种技术手段。大多数编码格式会结合使用其中数种技术，部分编码格式还会采用其他相关技术。</p>
+<p>The simplest thing you can do is to apply a filter that removes hiss and quiet sounds, converting any quiet sections into silence and smoothing out the signal. This can produce stretches of silence as well as other repeating or nearly repeating signals that can be shortened.<br>最简单的方法是应用一个降噪滤波器，去除嘶嘶声和微弱杂音，将所有音量偏低的片段转为静音，并对音频信号做平滑处理。经过处理后会生成多段静音区间，同时还会产生各类重复或近似重复的信号，这类信号均可进行缩短处理。</p>
+<p>You can apply a filter that narrows the audio bandwidth, removing any audio frequencies that you don’t care about. This is especially useful for voice-only audio signals. Doing this removes data, making the resulting signal more likely to be easy to compress.<br>你可以应用一个滤波器来缩小音频带宽，去除所有无需保留的音频频率。该操作对于纯语音音频信号特别有用。这样做会删减部分数据，让处理后的音频信号更易于压缩。</p>
+<h3 id="Psychoacoustics-心理声学"><a href="#Psychoacoustics-心理声学" class="headerlink" title="Psychoacoustics 心理声学"></a>Psychoacoustics 心理声学</h3><p>If you know what kind of audio you’re most likely to handle, you can potentially find special filtering techniques applicable specifically to that kind of sound, that will optimize the encoding.<br>如果你知道你最有可能处理什么类型的音频，你可能会找到专门适用于该类型声音的特殊滤波技术，从而优化编码。</p>
+<p>The most commonly-used compression methods for audio apply the science of <strong><a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Psychoacoustics" title="External link (opens in new tab)">psychoacoustics</a></strong>. This is the science that studies how humans perceive sound, and what parts of the audio frequencies we hear are most important to how we respond to those sounds, given the context and content of the sound. Factors such as the ability to sense the change in frequency of a sound, the overall range of human hearing vs. the frequencies of the audio signal, audio localization, and so forth all can be considered by a codec.<br>音频领域最常用的压缩算法均运用了心理声学相关原理。心理声学是一门研究人类听觉感知规律的学科，它探究：结合声音所处场景与内容，人耳接收各类音频频率时，哪些频段会主导我们对声音的主观感受。音频编码格式会综合考量多项要素，包括人耳对声音频率变化的感知能力、人类整体听觉范围与音频信号频率区间的差异、声音方位辨识能力等等。</p>
+<p>By using a sound (no pun intended) understanding of psychoacoustics, it’s possible to design a compression method that will minimize the compressed size of the audio while maximizing the perceived fidelity of the sound. An algorithm employing psychoacoustics may use any of the techniques mentioned here, and will almost certainly apply others as well.<br>通过对心理声学的深入（无意双关）理解，人们能够设计出一套压缩算法，在最大化声音的感知保真度的同时最小化音频的压缩大小。采用心理声学原理构建的算法，既可以运用此处列举的各类技术手段，也几乎必然会搭配其他未提及的相关技术。</p>
+<p>All of this means there is a fundamental question that has to be asked and answered before choosing a codec: Given the content of the sound, the usage context, and the target audience, is it acceptable to lose some degree of audio fidelity, and if so, how much; or is it necessary that, upon decoding the data, the result be identical to the source audio?<br>以上种种意味着，在选择编解码器之前，必须提出并解答一个根本性问题：结合音频内容、使用场景以及目标受众来看，舍弃一定程度的音频保真度是否可行；倘若可行，可接受的损耗范围是多少；还是要求数据解码后的音频必须与原始音源完全一致？</p>
+<h3 id="Lossy-vs-lossless-compression-有损压缩与无损压缩"><a href="#Lossy-vs-lossless-compression-有损压缩与无损压缩" class="headerlink" title="Lossy vs. lossless compression 有损压缩与无损压缩"></a>Lossy vs. lossless compression 有损压缩与无损压缩</h3><p>If loss of detail and potentially fidelity is unacceptable or undesirable, a <strong>lossless</strong> codec is preferred. On the other hand, if some degree of reduction of audio fidelity is okay, a <strong>lossy</strong> codec can be used. Generally, lossy compression results in significantly smaller output than lossless compression methods; also, many lossy codecs are excellent, with the loss in quality and detail being difficult or even impossible for the average listener to discern.<br>倘若无法接受或不希望出现细节丢失以及保真度受损的情况，则应当选用无损编解码器。反之，若可以接受音频保真度出现一定程度的衰减，便可使用有损编解码器。总体而言，有损压缩生成的文件体积远小于各类无损压缩方案；并且多数有损编解码器性能优异，其造成的音质与细节损耗，普通听众很难察觉，甚至完全无法分辨。</p>
+<p><strong>Note:</strong> While a high-quality lossy compression algorithm’s effect on sound quality may be difficult for the average person to detect, certain people have exceptionally good hearing, or are particularly adept at noticing the kinds of changes introduced to music by lossy compression techniques.<br><strong>注意</strong>：虽然高质量有损压缩算法对声音质量的影响可能难以被普通人察觉，但部分人群听力格外敏锐，或是尤其擅长捕捉有损压缩技术给音乐带来的各类细微变化。</p>
+<p>The majority of audio codecs use some form of lossy compression, because of the better compression ratio those algorithms offer. Whereas lossless compression algorithms usually manage no better than a 40-50% of the size of the original, uncompressed sound data, modern lossy compression algorithms can reduce the size of the audio to between 5-20% of the original size, depending on the complexity of the audio. The vastly superior compression ratios possible with lossy compression usually make it a compelling choice, and adequate or excellent audio quality is possible with well-chosen codec configurations.<br>大多数音频编解码器都会采用某种有损压缩方式，原因是这类算法能够带来更高的压缩比。无损压缩算法压缩后的文件体积通常最多只能达到原始未压缩音频数据的 40%-50%；而现代有损压缩算法可依据音频内容的复杂程度，将音频体积压缩至原始大小的 5%-20%。有损压缩具备远超无损压缩的压缩效率，这让它往往成为极具吸引力的选择，并且只要合理设置编解码器参数，就能获得尚可乃至极佳的音频音质。</p>
+<p>Researchers are continuing to devise better ways to analyze and compress audio, so new formats come out periodically that offer various improvements, either in compression ratio or audio fidelity (or both).<br>研究人员仍在不断研发更优质的音频分析与压缩技术，因此各类全新音频格式会定期推出。这些新格式在压缩率、音频保真度两方面均带来诸多优化提升，部分格式可同时兼顾两项性能。</p>
+<p>Use cases for lossless audio include scenarios such as:<br>无损音频的应用场景包含如下情形：</p>
+<ul>
+<li>Any situation in which the listener expects precise audio reproduction and may have an ear for sound that’s good enough to make out the intricate details of unaltered audio</li>
+<li>听众期望音频精准还原，且具备足够敏锐的听觉，能够分辨未经改动音频里各类细腻细节</li>
+<li>Audio loops and samples used in music and sound effects production work</li>
+<li>音乐及音效制作工作中使用的音频循环片段与采样素材</li>
+<li>Situations in which audio clips or samples may be remixed and then compressed; using lossless audio for the mastering process avoids compressing previously compressed data, resulting in additional quality loss</li>
+<li>音频片段或采样素材可被重新混音并压缩的各类场景；母带制作阶段采用无损音频，能够避免对已压缩过的数据再次压缩，进而杜绝额外的音质损耗</li>
+</ul>
+<p>Factors that may recommend the use of lossy compression include:<br>可能建议使用有损压缩的因素包括：</p>
+<ul>
+<li>Very large source audio</li>
+<li>超大原始音频</li>
+<li>Constrained storage (either because the storage space is small, or because there’s a large amount of sound to store into it)</li>
+<li>存储空间受限（成因分为两类：要么存储空间本身容量偏小，要么需要存入的音频数据体量过大）</li>
+<li>A need to constrain the network bandwidth required to broadcast the audio; this is especially important for live streams and teleconferencing</li>
+<li>需要限制音频广播所需占用的网络带宽，这一点对于直播以及远程会议场景而言尤为重要</li>
+</ul>
+<h2 id="Psychoacoustics-101-心理声学-101"><a href="#Psychoacoustics-101-心理声学-101" class="headerlink" title="Psychoacoustics 101 心理声学 101"></a>Psychoacoustics 101 心理声学 101</h2><p>Diving into the details of psychoacoustics and how audio compression works is far beyond the scope of this article, but it is useful to have a general idea of how audio gets compressed by common algorithms can help understand and make better decisions about audio codec selection.<br>深入探究心理声学的细节以及音频压缩的工作原理，远远超出了本文的论述范围，但大致了解常见算法压缩音频的原理，有助于我们理解音频编码格式，并在选型时做出更合适的选择。</p>
+<p>Lossy compression algorithms generally use psychoacoustics to determine which components of an audio waveform can be lost or subdued in some way that can improve compression ratios while minimizing the audible effect for the target listeners. By manipulating the waveform to make it easier to compress, or by removing components of the sound that aren’t really heard, the waveform becomes simpler, resulting in data which has more consistency and is therefore easier to compress. Restricting the audio bandwidth to include only the frequencies most important to how the human ear will interpret the decoded sound can also improve compression factors.<br>有损压缩算法通常会利用心理声学原理，判定音频波形中的哪些成分可以被舍弃或适度削弱，以此提升压缩率，同时尽可能降低目标收听者能够感知到的听觉损耗。通过调整波形使其更易于压缩，或是剔除人耳实际无法察觉的声音成分，音频波形会变得更加简洁，生成的数据连贯性更强，压缩难度随之降低。限定音频带宽，仅保留对人耳解析解码后声音最为关键的频率区间，同样能够提升压缩倍率。</p>
+<p>The type of content being encoded can affect the choice of codec. In particular, the waveform for music is almost always more complex than that of an audio sample that contains only human voices. In addition, the human voice uses a small portion of the range of audio frequencies the human ear can detect.<br>待编码的内容类型会影响编解码器的选择。具体而言，音乐的波形几乎总要比仅包含人声的音频采样波形更为复杂。除此之外，人声仅占用人类耳朵可感知音频频率范围中的一小部分。</p>
+<p><strong>Note:</strong> Telephone networks, which were originally designed specifically to transmit human voices, can only carry audio (or any other kind of signal) in the frequency band from 300 Hz to 3,000 Hz. This doesn’t quite cover the entire range of human speech at the low end, but enough of the waveform is available that the human ear and brain compensate easily. This also means that humans are generally acclimated to hearing speech constrained to so narrow an audio bandwidth.<br><strong>注意</strong>：电话网络最初专为传输人声设计，仅能传输 300 Hz 到 3,000 Hz 频段内的音频（或任何其他类型的信号）。该频段未能完整覆盖人类语音的低频区间，但保留了足够多的声波波形，人耳与大脑可轻松补齐缺失部分。这也意味着，人们早已习惯聆听被限制在如此狭窄音频带宽内的语音。</p>
+<p>Human speech uses a relatively narrow frequency band (around 300 Hz to 18,000 Hz, though the exact range varies from person to person due to factors including gender). In addition, the vast majority of human speech sounds tend to lie between 500 Hz and 3,000 Hz or so, making it possible to drop substantial portions of the overall waveform without compromising the listener’s ability to understand the words being said. You can even adjust the audio bandwidth to factor in the pitch of the individual speaker’s voice.<br>人类语音使用相对较窄的频段（约 300 Hz 到 18,000 Hz，但确切范围因人而异，取决于包括性别在内的因素）。除此之外，绝大部分人类语音的声音频段基本集中在 500 Hz 和 3,000 Hz 左右。正因如此，我们可以舍弃声波波形中的绝大部分频段内容，却不会影响收听者听懂话语内容。你还可以结合说话人自身的音调，对音频带宽进行调整。</p>
+<p>Because of all these factors, and because speech waveforms are typically less complex than music, high (and more specifically “high enough”) fidelity reproduction of speech can be achieved at a relatively low bit rate.<br>综合以上各类因素，再加上语音波形的复杂度通常低于音乐波形，因此只需相对较低的比特率，就能够实现语音的高保真（更确切地说是达标保真度）还原播放。</p>
+<p>When a compression algorithm designed to compress general audio analyzes an audio waveform, it can discard anything outside the range of human hearing (or possibly even more, depending on how willing the algorithm is willing to risk losing detail at the high and/or low end of the frequency band). That means that the codec can discard audio whose frequency is lower than about 20 Hz or higher than about 20,000 Hz (20 kHz). This narrows the audio bandwidth of the sound, thereby reducing the amount of data required to represent the signal in its compressed form. The audio bandwidth can’t be reduced nearly as much as for a speech-only codec, but it is still a helpful start.<br>一款面向通用音频设计的压缩算法在解析音频波形时，能够舍弃人耳听觉范围之外的所有音频内容（根据算法对高低频段细节丢失风险的容忍程度，舍弃的内容甚至会更多）。这也就意味着，该编解码器可剔除频率低于约 20 Hz 或高于约 20,000 Hz（20 kHz）的音频信号。这会缩小声音的音频带宽，进而降低以压缩形式存储该信号所需的数据量。相较于纯语音编解码器，通用音频压缩算法能够缩减的音频带宽幅度要小得多，但这依然是一种有效的基础优化手段。</p>
+<p>Some people can hear outside this range to some extent. More often, people’s ability to hear higher frequencies is rather lower than this; in particular, it’s worth noting that by middle age, the high end of that frequency range usually falls from 20 kHz down to around 12 kHz to 14 kHz. This suggests that the higher frequencies can often be discarded without overly affecting comprehensibility of the sound, so you can substantially reduce how much of the audio space you need to retain, thereby making your sound simpler and easier to compress.<br>有些人在一定程度上能够听到该范围之外的声音。更常见的是，人们感知高频声音的能力还要低于这一标准；特别值得注意的是，人到中年时，听觉频率范围的上限通常从 20 kHz 下降到 12 kHz 到 14 kHz 左右。这表明通常可以舍弃更高频率的声波，而不会对声音的可理解度造成过大影响，因此你能够大幅缩减需要保留的音频频段，进而简化声音信号，使其更易于压缩。</p>
+<p>This is portrayed in the diagram below. The diagram compares the frequency range of human hearing (green) to the frequency range of human speech (red) and the range of frequencies in which the majority of human vocalizations lie (yellow).<br>下图展示了这一情况。该图将人类听觉的频率范围（绿色）、人类言语的频率范围（红色）以及大多数人类发声所处的频率范围（黄色）进行对比。</p>
+<p>下图描绘了这一点。该图比较了人类听觉的频率范围（绿色）与人类语音的频率范围（红色）以及大多数人类发声所在的频率范围（黄色）。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_concepts/human-hearing-range.svg" alt="Diagram showing human hearing range compared to human speech range"></p>
+<p>The large differences among these ranges gives us room to lose details in audio data without significantly impacting the ability of the human ear to notice any real change in audio quality. These facts can be taken advantage of when compressing audio.<br>这些区间之间存在巨大差异，这就使得我们可以舍弃音频数据中的部分细节，而不会明显影响人耳感知音质的实际变化。在对音频进行压缩时，便可利用这一特性。</p>
+<p>On top of simplifying the sound through psychoacoustic analysis, codecs use other algorithms and transforms to further simplify and reduce the size of the audio. If you’d like to learn more about the way compression works on audio, take a look at <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data_compression#Audio" title="External link (opens in new tab)">Audio data compression</a> on Wikipedia.<br>编码器除了通过心理声学分析简化声音信号外，还会运用其他算法与变换手段进一步精简音频数据、缩小文件体积。如果你想深入了解音频压缩的工作原理，请查看维基百科上的<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Data_compression#Audio">音频数据压缩</a>。</p>
+<p>Importantly, codecs do all the hard work for you. It’s why so much engineering and scientific study goes into the creation of new algorithms and codecs. All you need to do is consider the options and your use case, then choose the appropriate codec for your needs.<br>重要的是，编解码器会为你完成所有复杂工作。正因如此，大量工程研究与科学研究都致力于研发全新算法和编解码器。你只需考量各类方案与自身应用场景，再根据需求挑选合适的编解码器即可。</p>
+<p><strong>Note:</strong> For a more detailed guide to choosing audio codecs, see <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_codecs#choosing_an_audio_codec">Choosing an audio codec</a>.<br><strong>注意</strong>：有关选择音频编解码器的更详细指南，请参阅<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Audio_codecs#choosing_an_audio_codec">选择音频编解码器</a>。</p>
+<h2 id="Lossless-encoder-parameters-无损编码器参数"><a href="#Lossless-encoder-parameters-无损编码器参数" class="headerlink" title="Lossless encoder parameters 无损编码器参数"></a>Lossless encoder parameters 无损编码器参数</h2><p>Lossless encoders have a lot less room to manipulate the audio to improve the compression rate, given the need to be able to reproduce the original audio, which limits the number of options available to configure these encoders. The options tend to revolve around choosing the method by which the encoder performs the encoding and how much time and processor power it’s allowed to consume in order to do so.<br>鉴于需要能够再现原始音频，无损编码器操纵音频以提高压缩率的空间要小得多，这限制了可用于配置这些编码器的选项数量。这些选项往往围绕选择编码器执行编码的方法以及允许它消耗多少时间和处理器能力来执行此操作。</p>
+<p>These parameters vary depending on the codec, but can include:<br>这些参数因编解码器而异，但可以包括：</p>
+<ul>
+<li>Specifying specific algorithms to use during particular phases of the encoding process</li>
+<li>Parameters for those algorithms to use, such as how much predictive depth to use when trying to model the audio</li>
+<li>The number of passes to make while analyzing the audio, or the number of times given algorithms should be run</li>
+<li>指定在编码过程的特定阶段使用的特定算法</li>
+<li>这些算法使用的参数，例如在尝试对音频建模时要使用多少预测深度</li>
+<li>分析音频时要进行的遍数，或给定算法应运行的次数</li>
+</ul>
+<h2 id="Lossy-encoder-parameters"><a href="#Lossy-encoder-parameters" class="headerlink" title="Lossy encoder parameters"></a>Lossy encoder parameters</h2><h2 id="有损编码器参数"><a href="#有损编码器参数" class="headerlink" title="有损编码器参数"></a>有损编码器参数</h2><p>Most codecs have input values you can tune to optimize the compression in various ways, either for size or for quality. When using a lossy encoder, the higher the quality, the larger the encoded audio will be. Because of this, most options affect both quality and size in some manner.<br>大多数编解码器都提供可供调整的输入参数，能够通过多种方式优化压缩效果，可侧重文件体积，也可侧重音质。使用有损编码器时，设置的音质越高，编码后的音频文件体积就越大。正因如此，绝大多数参数选项都会在不同程度上同时影响音质与文件大小。</p>
+<p>You will need to refer to the documentation for the encoding software you use to determine which options are available, which will depend on the codec and the encoding software itself. Some codecs have a number of values you can adjust (some of which may require a deep understanding of both psychoacoustics and of the codec’s algorithms), and others offer a “quality” parameter you can set, which automatically adjusts various properties of the algorithm.<br>你需要参考所使用的编码软件的文档，以确定有哪些选项可用，具体选项取决于编码器以及编码软件本身。部分编码器支持大量可调整参数（其中一些参数要求使用者深入掌握心理声学知识与编码器算法原理），还有一些编码器提供可供设置的“质量”参数，该参数能够自动调整算法的各项属性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">https://greenhathg.github.io/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BF%BB%E8%AF%91/">翻译</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91/">数字音频</a><a class="post-meta__tags" href="/tags/MDN/">MDN</a></div><div class="post-share"><div class="social-share" data-image="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://unpkg.com/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/12/17/Tracking-history-with-git-in-a-team-scenario/" title="Tracking history with git in a team scenario"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Tracking history with git in a team scenario</div></div><div class="info-2"><div class="info-item-1">Git workflowThis article walks through a practical Git workflow for a small developmentteam.  We will follow three developers—Alice(admin), Bob(dev), and Carol(dev). They work on new features, handle an urgent security fix, and integrate theirwork into the main branch using commands like rebase, cherry-pick. Setup the remote repoTo simulate a remote server for this local test, we’ll create a bare repository.  123456789git init --bare remote-repo.gitfor user in Alice Bob Carol; do  git clone r...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2026-08-04</div><div class="info-item-2">MIT6.824-Raft中使用锁的建议</div></div><div class="info-2"><div class="info-item-1">Raft Locking Advicehttp://nil.csail.mit.edu/6.824/2020/labs/raft-locking.txt If you are wondering how to use locks in the 6.824 Raft labs, here are some rules and ways of thinking that might be helpful. 如果您想知道如何在6.824 Raft labs中使用锁，以下是一些可能会有所帮助的规则和思考方法。 规则1：go raceRule 1: Whenever you have data that more than one goroutine uses, and at least one goroutine might modify the data, the goroutines should use locks to prevent simultaneous use of the data. The Go race detector is pretty good at dete...</div></div></div></a><a class="pagination-related" href="/2021/10/16/%E5%8D%B3%E4%BD%BF%E7%9D%A1%E4%BA%867.5%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%8D%E7%84%B6%E6%84%9F%E8%A7%89%E4%B8%8D%E5%88%B0%E7%B2%BE%E5%8A%9B%E5%85%85%E6%B2%9B/" title="即使睡了7.5个小时，我仍然感觉不到精力充沛"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2026-08-04</div><div class="info-item-2">即使睡了7.5个小时，我仍然感觉不到精力充沛</div></div><div class="info-2"><div class="info-item-1">翻译自《I Wasn’t Feeling Refreshed Even After 7.5 Hours of Sleep. Here’s How I Fixed It | by Samir S. | In Fitness And In Health | Medium》   https://medium.com/in-fitness-and-in-health/i-wasnt-feeling-refreshed-even-after-7-5-hours-of-sleep-here-s-how-i-fixed-it-f785a51fec15  Getting enough sleep is perhaps one of the most important things we can do for our health and body. Sleep is a chance for the body to repair itself and to reenergize. 充足的睡眠可能是我们能为我们的健康和身体做的最重要的事情之一。睡眠是身体自我修复和重新获得能量的机会。 Ever ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">GreenHatHg</div><div class="author-info-description">巴拉巴拉能量! rm -rf / --no-preserve-root</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">197</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">239</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sampling-audio-%E9%9F%B3%E9%A2%91%E9%87%87%E6%A0%B7"><span class="toc-number">1.</span> <span class="toc-text">Sampling audio 音频采样</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Audio-data-format-and-structure-%E9%9F%B3%E9%A2%91%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F%E5%92%8C%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">Audio data format and structure 音频数据格式和结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Audio-channels-and-frames-%E9%9F%B3%E9%A2%91%E5%A3%B0%E9%81%93%E5%92%8C%E5%B8%A7"><span class="toc-number">2.1.</span> <span class="toc-text">Audio channels and frames 音频声道和帧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Audio-file-size-and-network-bandwidth-%E9%9F%B3%E9%A2%91%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E5%92%8C%E7%BD%91%E7%BB%9C%E5%B8%A6%E5%AE%BD"><span class="toc-number">2.2.</span> <span class="toc-text">Audio file size and network bandwidth 音频文件大小和网络带宽</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Audio-compression-basics-%E9%9F%B3%E9%A2%91%E5%8E%8B%E7%BC%A9%E5%9F%BA%E7%A1%80"><span class="toc-number">3.</span> <span class="toc-text">Audio compression basics 音频压缩基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Psychoacoustics-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6"><span class="toc-number">3.1.</span> <span class="toc-text">Psychoacoustics 心理声学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lossy-vs-lossless-compression-%E6%9C%89%E6%8D%9F%E5%8E%8B%E7%BC%A9%E4%B8%8E%E6%97%A0%E6%8D%9F%E5%8E%8B%E7%BC%A9"><span class="toc-number">3.2.</span> <span class="toc-text">Lossy vs. lossless compression 有损压缩与无损压缩</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Psychoacoustics-101-%E5%BF%83%E7%90%86%E5%A3%B0%E5%AD%A6-101"><span class="toc-number">4.</span> <span class="toc-text">Psychoacoustics 101 心理声学 101</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lossless-encoder-parameters-%E6%97%A0%E6%8D%9F%E7%BC%96%E7%A0%81%E5%99%A8%E5%8F%82%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">Lossless encoder parameters 无损编码器参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lossy-encoder-parameters"><span class="toc-number">6.</span> <span class="toc-text">Lossy encoder parameters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E6%8D%9F%E7%BC%96%E7%A0%81%E5%99%A8%E5%8F%82%E6%95%B0"><span class="toc-number">7.</span> <span class="toc-text">有损编码器参数</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译学习】【MDN】数字音频基本概念"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【翻译学习】【MDN】数字音频基本概念"/></a><div class="content"><a class="title" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E5%AD%A6%E4%B9%A0%E3%80%91%E3%80%90MDN%E3%80%91%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译学习】【MDN】数字音频基本概念">【翻译学习】【MDN】数字音频基本概念</a><time datetime="2026-08-04T16:21:43.000Z" title="发表于 2026-08-04 16:21:43">2026-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/17/Tracking-history-with-git-in-a-team-scenario/" title="Tracking history with git in a team scenario"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tracking history with git in a team scenario"/></a><div class="content"><a class="title" href="/2025/12/17/Tracking-history-with-git-in-a-team-scenario/" title="Tracking history with git in a team scenario">Tracking history with git in a team scenario</a><time datetime="2025-12-17T16:27:28.000Z" title="发表于 2025-12-17 16:27:28">2025-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project2-BPlusTree-Delete-Single-threaded"/></a><div class="content"><a class="title" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded">CMU445-Project2-BPlusTree-Delete-Single-threaded</a><time datetime="2024-01-05T12:39:43.000Z" title="发表于 2024-01-05 12:39:43">2024-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩客云换魔百盒"/></a><div class="content"><a class="title" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒">玩客云换魔百盒</a><time datetime="2023-12-31T12:44:43.000Z" title="发表于 2023-12-31 12:44:43">2023-12-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762272-c2bf6b4f1ce2?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project1-BPlusTree-Insert-Single-threaded"/></a><div class="content"><a class="title" href="/2023/12/12/CMU445-Project2-BPlusTree-Insert/" title="CMU445-Project1-BPlusTree-Insert-Single-threaded">CMU445-Project1-BPlusTree-Insert-Single-threaded</a><time datetime="2023-12-12T22:59:43.000Z" title="发表于 2023-12-12 22:59:43">2023-12-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2018 - 2026 By GreenHatHg</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.6.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.6.1"></script><script src="/js/main.js?v=5.6.1"></script><script src="https://unpkg.com/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.js"></script><script src="https://unpkg.com/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://unpkg.com/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://unpkg.com/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://unpkg.com/twikoo@1.7.14/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://unpkg.com/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://unpkg.com/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.6.1"></script></div></div></body></html>
