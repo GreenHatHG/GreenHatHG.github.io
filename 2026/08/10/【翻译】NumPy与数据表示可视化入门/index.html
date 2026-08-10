@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【翻译】NumPy与数据表示可视化入门 | GreenHatHGのBlog</title><meta name="author" content="GreenHatHg"><meta name="copyright" content="GreenHatHg"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="借助 AI 翻译自 A Visual Intro to NumPy and Data Representation，以供学习 Numpy 的基本概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译】NumPy与数据表示可视化入门">
+<meta property="og:url" content="https://greenhathg.github.io/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="GreenHatHGのBlog">
+<meta property="og:description" content="借助 AI 翻译自 A Visual Intro to NumPy and Data Representation，以供学习 Numpy 的基本概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80">
+<meta property="article:published_time" content="2026-08-10T16:57:43.000Z">
+<meta property="article:modified_time" content="2026-08-10T08:59:16.000Z">
+<meta property="article:author" content="GreenHatHg">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="Numpy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "【翻译】NumPy与数据表示可视化入门",
+  "url": "https://greenhathg.github.io/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/",
+  "image": "https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80",
+  "datePublished": "2026-08-10T16:57:43.000Z",
+  "dateModified": "2026-08-10T08:59:16.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "GreenHatHg",
+      "url": "https://greenhathg.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="https://avatars0.githubusercontent.com/u/34258355?s=460&u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&v=4"><link rel="canonical" href="https://greenhathg.github.io/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="&lt;meta name=&quot;google-site-verification&quot; content=&quot;eCt7WHUdmok7J0DG_5L1LtGFqZ_0DeC0ndMY3tBY_rQ&quot; /&gt;"/><link rel="stylesheet" href="/css/index.css?v=5.7.0"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@7.3.1/css/all.min.css"><link rel="stylesheet" href="https://unpkg.com/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
+          localStorage.removeItem(key)
+        }
+      }
+    }
+
+    const scriptCache = new Map()
+    const cssCache = new Map()
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
+        }
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
+      const activateDarkMode = () => {
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-116672888-1"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'UA-116672888-1')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'UA-116672888-1', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【翻译】NumPy与数据表示可视化入门',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">198</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">240</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/AI-%E6%80%BB%E7%BB%93/"><i class="fa-fw fas fa-robot"></i><span> AI总结</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">GreenHatHGのBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">【翻译】NumPy与数据表示可视化入门</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/AI-%E6%80%BB%E7%BB%93/"><i class="fa-fw fas fa-robot"></i><span> AI总结</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-compass"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mood/"><i class="fa-fw fas fa-glass-cheers"></i><span> 自言自语</span></a></div><div class="menus_item"><a class="site-page" href="/message/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">【翻译】NumPy与数据表示可视化入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-10T16:57:43.000Z" title="发表于 2026-08-10 16:57:43">2026-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-10T08:59:16.000Z" title="更新于 2026-08-10 08:59:16">2026-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">4.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>20分钟</span></span><span class="post-meta-separator">|</span><span id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="twikoo_visitors"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:500,&quot;messagePrev&quot;:&quot;It has been&quot;,&quot;messageNext&quot;:&quot;days since the last update, the content of the article may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2026-08-10 08:59:16&quot;}" hidden></div><p>借助 AI 翻译自 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jalammar.github.io/visual-numpy/">A Visual Intro to NumPy and Data Representation</a>，以供学习 Numpy 的基本概念。</p>
+<span id="more"></span>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array.png" alt="Image 1"></p>
+<p>The <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.numpy.org/">NumPy</a> package is the workhorse of data analysis, machine learning, and scientific computing in the python ecosystem. It vastly simplifies manipulating and crunching vectors and matrices. Some of python’s leading package rely on NumPy as a fundamental piece of their infrastructure (examples include scikit-learn, SciPy, pandas, and tensorflow). Beyond the ability to slice and dice numeric data, mastering numpy will give you an edge when dealing and debugging with advanced usecases in these libraries.</p>
+<p>NumPy 库是 Python 生态中数据分析、机器学习与科学计算的主力工具。它极大地简化了向量与矩阵的处理和运算。Python 众多主流库都将 NumPy 当作底层基础组件，典型例子包含 scikit‑learn、SciPy、pandas 以及 tensorflow。除了能够灵活拆分、处理数值数据之外，熟练掌握 NumPy，能够让你在处理、调试上述库当中的复杂业务场景时占得优势。</p>
+<p>In this post, we’ll look at some of the main ways to use NumPy and how it can represent different types of data (tables, images, text…etc) before we can serve them to machine learning models.</p>
+<p>在本篇文章中，我们将介绍 NumPy 的几种主要使用方式，以及在把各类数据（表格、图像、文本等）输送至机器学习模型前，它是如何对不同类型的数据进行表示的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+<h2 id="Creating-Arrays-创建数组"><a href="#Creating-Arrays-创建数组" class="headerlink" title="Creating Arrays 创建数组"></a>Creating Arrays 创建数组</h2><p>We can create a NumPy array (a.k.a. the mighty <a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html">ndarray</a>) by passing a python list to it and using <code>np.array()</code>. In this case, python creates the array we can see on the right here:</p>
+<p>我们可以向 <code>np.array()</code> 传入 Python 列表，以此创建 NumPy 数组（也就是功能强大的 <code>ndarray</code>）。本例当中，Python 生成了右侧展示出来的数组：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/create-numpy-array-1.png" alt="Image 2"></p>
+<p>There are often cases when we want NumPy to initialize the values of the array for us. NumPy provides methods like ones(), zeros(), and random.random() for these cases. We just pass them the number of elements we want it to generate:</p>
+<p>我们时常需要 NumPy 替我们初始化数组数值。针对这类需求，NumPy 提供了 <code>ones()</code>、<code>zeros()</code> 以及 <code>random.random()</code> 等函数方法。我们只需向其传入想要生成的元素数量即可：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/create-numpy-array-ones-zeros-random.png" alt="Image 3"></p>
+<p>Once we’ve created our arrays, we can start to manipulate them in interesting ways.<br>在创建好数组之后，我们便能够以各类实用的方式对其进行操作。</p>
+<h2 id="Array-Arithmetic-数组运算"><a href="#Array-Arithmetic-数组运算" class="headerlink" title="Array Arithmetic 数组运算"></a>Array Arithmetic 数组运算</h2><p>Let’s create two NumPy arrays to showcase their usefulness. We’ll call them <code>data</code> and <code>ones</code>:<br>接下来我们创建两个 NumPy 数组来演示其实用性，分别将它们命名为<code>data</code>和<code>ones</code>：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-arrays-example-1.png" alt="Image 4"></p>
+<p>Adding them up position-wise (i.e. adding the values of each row) is as simple as typing <code>data + ones</code>:<br>按位置将二者相加（也就是对每一行的数值求和），只需输入<code>data + ones</code>即可完成操作：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-arrays-adding-1.png" alt="Image 5"></p>
+<p>When I started learning such tools, I found it refreshing that an abstraction like this makes me not have to program such a calculation in loops. It’s a wonderful abstraction that allows you to think about problems at a higher level.<br>当我开始学习这类工具时，我发觉这类抽象机制十分让人耳目一新，它让我无需通过循环编写计算程序。这是一种出色的抽象方式，可以让你站在更高的层面去思考问题。</p>
+<p>And it’s not only addition that we can do this way:<br>而且不光加法可以这么运算:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array-subtract-multiply-divide.png" alt="Image 6"></p>
+<p>There are often cases when we want to carry out an operation between an array and a single number (we can also call this an operation between a vector and a scalar). Say, for example, our array represents distance in miles, and we want to convert it to kilometers. We simply say <code>data * 1.6</code>:<br>我们时常需要在数组与单个数值之间执行运算（也可称作向量和标量之间的运算）。举个例子，数组存储着以英里为单位的距离数据，而我们需要将其换算成千米。只需编写代码 <code>data * 1.6</code> 即可：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array-broadcast.png" alt="Image 7"></p>
+<p>See how NumPy understood that operation to mean that the multiplication should happen with each cell? That concept is called <em>broadcasting</em>, and it’s very useful.<br>你看到没，NumPy 将该运算解读为需要对每一个单元格执行相乘操作，该概念叫作 <em>广播机制</em>，它十分实用。</p>
+<h2 id="Indexing-索引"><a href="#Indexing-索引" class="headerlink" title="Indexing 索引"></a>Indexing 索引</h2><p>We can index and slice NumPy arrays in all the ways we can slice python lists:<br>我们可以像操作 Python 普通列表那样，对 NumPy 数组执行索引与切片操作。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array-slice.png" alt="Image 8"></p>
+<h2 id="Aggregation-聚合"><a href="#Aggregation-聚合" class="headerlink" title="Aggregation 聚合"></a>Aggregation 聚合</h2><p>Additional benefits NumPy gives us are aggregation functions:<br>NumPy 还给我们提供的另一类优势是聚合函数：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array-aggregation.png" alt="Image 9"></p>
+<p>In addition to <code>min</code>, <code>max</code>, and <code>sum</code>, you get all the greats like <code>mean</code> to get the average, <code>prod</code> to get the result of multiplying all the elements together, <code>std</code> to get standard deviation, and <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.04-computation-on-arrays-aggregates.html">plenty of others</a>.<br>除 <code>min</code>、<code>max</code>、<code>sum</code> 以外，你还能使用各类实用函数：<code>mean</code> 求取平均值、<code>prod</code> 计算所有元素的乘积、<code>std</code> 计算标准差，此外还有很多别的函数。</p>
+<h2 id="In-more-dimensions-往更高维度"><a href="#In-more-dimensions-往更高维度" class="headerlink" title="In more dimensions 往更高维度"></a>In more dimensions 往更高维度</h2><p>All the examples we’ve looked at deal with vectors in one dimension. A key part of the beauty of NumPy is its ability to apply everything we’ve looked at so far to any number of dimensions.<br>我们此前研究的所有示例都是一维向量。NumPy 一大亮眼优势，就是能够把前面学到的全部操作适配至任意维度。</p>
+<h3 id="Creating-Matrices-创建矩阵"><a href="#Creating-Matrices-创建矩阵" class="headerlink" title="Creating Matrices 创建矩阵"></a>Creating Matrices 创建矩阵</h3><p>We can pass python lists of lists in the following shape to have NumPy create a matrix to represent them:<br>你可以传入如下格式的 Python 嵌套列表，让 NumPy 根据它生成矩阵。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.array([[1,2],[3,4]])</span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-array-create-2d.png" alt="Image 10"></p>
+<p>We can also use the same methods we mentioned above (<code>ones()</code>, <code>zeros()</code>, and <code>random.random()</code>) as long as we give them a tuple describing the dimensions of the matrix we are creating:<br>我们同样可以使用上文提到过的方法（<code>ones()</code>、<code>zeros()</code>、<code>random.random()</code>）；前提是向这些函数传入一个元组，用来规定待创建矩阵的维度。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-ones-zeros-random.png" alt="Image 11"></p>
+<h3 id="Matrix-Arithmetic-矩阵运算"><a href="#Matrix-Arithmetic-矩阵运算" class="headerlink" title="Matrix Arithmetic 矩阵运算"></a>Matrix Arithmetic 矩阵运算</h3><p>We can add and multiply matrices using arithmetic operators (<code>+-*/</code>) if the two matrices are the same size. NumPy handles those as position-wise operations:<br>只有两个矩阵维度（行列数）完全一致时，才能够直接使用算术运算符 <code>+-*/</code> 做运算；</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-arithmetic.png" alt="Image 12"></p>
+<p>We can get away with doing these arithmetic operations on matrices of different size only if the different dimension is one (e.g. the matrix has only one column or one row), in which case NumPy uses its broadcast rules for that operation:<br>倘若两个数组所有维度基本一致，只是有一处维度的大小为 1（比如矩阵仅有一行或者一列），那就能够运算。这种情况下 NumPy 会依靠广播机制完成计算:</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-broadcast.png" alt="Image 13"></p>
+<h3 id="Dot-Product-点积"><a href="#Dot-Product-点积" class="headerlink" title="Dot Product 点积"></a>Dot Product 点积</h3><p>A key distinction to make with arithmetic is the case of <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.mathsisfun.com/algebra/matrix-multiplying.html">matrix multiplication</a> using the dot product. NumPy gives every matrix a <code>dot()</code> method we can use to carry-out dot product operations with other matrices:<br>普通数字相乘直接数值相乘，但矩阵乘法是点积运算；numpy 直接提供 <code>dot()</code> 函数实现矩阵点乘。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-dot-product-1.png" alt="Image 14"></p>
+<p>I’ve added matrix dimensions at the bottom of this figure to stress that the two matrices have to have the same dimension on the side they face each other with. You can visualize this operation as looking like this:<br>我已经在该图底部标注了矩阵尺寸，以此着重说明两个矩阵相接触的维度必须保持一致。你可以参照下面的示意图理解该运算：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-dot-product-2.png" alt="Image 15"></p>
+<h3 id="Matrix-Indexing-矩阵索引"><a href="#Matrix-Indexing-矩阵索引" class="headerlink" title="Matrix Indexing 矩阵索引"></a>Matrix Indexing 矩阵索引</h3><p>Indexing and slicing operations become even more useful when we’re manipulating matrices:<br>在处理矩阵时，索引和切片操作会变得更加实用：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-indexing.png" alt="Image 16"></p>
+<h3 id="Matrix-Aggregation-矩阵聚合"><a href="#Matrix-Aggregation-矩阵聚合" class="headerlink" title="Matrix Aggregation 矩阵聚合"></a>Matrix Aggregation 矩阵聚合</h3><p>We can aggregate matrices the same way we aggregated vectors:<br>我们可以像聚合向量那样聚合矩阵：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-aggregation-1.png" alt="Image 17"></p>
+<p>Not only can we aggregate all the values in a matrix, but we can also aggregate across the rows or columns by using the <code>axis</code> parameter:<br>我们不仅能够对矩阵全部数值做聚合运算，还可借助 <code>axis</code> 参数，单独按行或者按列进行聚合计算。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-matrix-aggregation-4.png" alt="Image 18"></p>
+<h2 id="Transposing-and-Reshaping-转置与变形"><a href="#Transposing-and-Reshaping-转置与变形" class="headerlink" title="Transposing and Reshaping 转置与变形"></a>Transposing and Reshaping 转置与变形</h2><p>A common need when dealing with matrices is the need to rotate them. This is often the case when we need to take the dot product of two matrices and need to align the dimension they share. NumPy arrays have a convenient property called <code>T</code> to get the transpose of a matrix:<br>处理矩阵时经常需要做矩阵转置（旋转矩阵）；最常见场景：计算两个矩阵点积，需要对齐二者匹配的维度。NumPy 数组自带属性 <code>T</code>，可以便捷获取矩阵的转置。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-transpose.png" alt="Image 19"></p>
+<p>In more advanced use case, you may find yourself needing to switch the dimensions of a certain matrix. This is often the case in machine learning applications where a certain model expects a certain shape for the inputs that is different from your dataset. NumPy’s <code>reshape()</code> method is useful in these cases. You just pass it the new dimensions you want for the matrix. You can pass -1 for a dimension and NumPy can infer the correct dimension based on your matrix:<br>在一些复杂的开发场景，你常会需要更改矩阵的尺寸。机器学习里这种情况十分常见：模型规定了固定的输入形状，但你手上数据集的格式对不上。这时就可以用上 NumPy 的 <code>reshape()</code> 函数。你直接传入想要的新尺寸就行。某个维度懒得手动计算，直接填 -1，NumPy 就会自动算出合适的大小。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-reshape.png" alt="Image 20"></p>
+<h2 id="Yet-More-Dimensions-更多维度"><a href="#Yet-More-Dimensions-更多维度" class="headerlink" title="Yet More Dimensions 更多维度"></a>Yet More Dimensions 更多维度</h2><p>NumPy can do everything we’ve mentioned in any number of dimensions. Its central data structure is called ndarray (N-Dimensional Array) for a reason.<br>NumPy 能够在任意维度下实现前面讲到的所有功能。它的核心数据结构名为 ndarray（多维数组），这个命名是有缘由的。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-3d-array.png" alt="Image 21"></p>
+<p>In a lot of ways, dealing with a new dimension is just adding a comma to the parameters of a NumPy function:<br>从很多层面来讲，处理新维度，不过就是给 NumPy 函数的参数多加一个逗号。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-3d-array-creation.png" alt="Image 22"></p>
+<p>Note: Keep in mind that when you print a 3-dimensional NumPy array, the text output visualizes the array differently than shown here. NumPy’s order for printing n-dimensional arrays is that the last axis is looped over the fastest, while the first is the slowest. Which means that <code>np.ones((4,3,2))</code> would be printed as:<br>注意：请记住，当你打印一个三维 NumPy 数组时，文本输出展示数组的形式和此处所示有所区别。NumPy 输出多维数组有固定顺序：最右边的维度最先循环读取，最左边的维度最后遍历、速度最慢。举个例子，<code>np.ones((4,3,2))</code> 打印出来格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">array([[[1., 1.],</span><br><span class="line">        [1., 1.],</span><br><span class="line">        [1., 1.]],</span><br><span class="line"></span><br><span class="line">       [[1., 1.],</span><br><span class="line">        [1., 1.],</span><br><span class="line">        [1., 1.]],</span><br><span class="line"></span><br><span class="line">       [[1., 1.],</span><br><span class="line">        [1., 1.],</span><br><span class="line">        [1., 1.]],</span><br><span class="line"></span><br><span class="line">       [[1., 1.],</span><br><span class="line">        [1., 1.],</span><br><span class="line">        [1., 1.]]])</span><br></pre></td></tr></table></figure>
+<h2 id="Practical-Usage-实际用法"><a href="#Practical-Usage-实际用法" class="headerlink" title="Practical Usage 实际用法"></a>Practical Usage 实际用法</h2><p>And now for the payoff. Here are some examples of the useful things NumPy will help you through.<br>下面举一些实例，展示 NumPy 能够帮我们处理的实用任务</p>
+<h3 id="Formulas-公式"><a href="#Formulas-公式" class="headerlink" title="Formulas 公式"></a>Formulas 公式</h3><p>Implementing mathematical formulas that work on matrices and vectors is a key use case to consider NumPy for. It’s why NumPy is the darling of the scientific python community. For example, consider the mean square error formula that is central to supervised machine learning models tackling regression problems:<br>实现适用于矩阵与向量的数学公式运算，是选用 NumPy 的一项核心应用场景。这也是 NumPy 深受 Python 科研领域从业者青睐的原因。举个例子，均方误差公式对于处理回归任务的有监督机器学习模型至关重要：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/mean-square-error-formula.png" alt="Image 23"></p>
+<p>Implementing this is a breeze in NumPy:<br>使用NumPy实现这一点十分简单：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-mean-square-error-formula.png" alt="Image 24"></p>
+<p>The beauty of this is that numpy does not care if <code>predictions</code> and <code>labels</code> contain one or a thousand values (as long as they’re both the same size). We can walk through an example stepping sequentially through the four operations in that line of code:<br>NumPy 的便捷之处在于它不在乎 <code>predictions</code> 与 <code>labels</code> 里面是单个数值还是上千个数值，只要二者形状、长度一致即可正常运算。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-mse-1.png" alt="Image 25"></p>
+<p>Both the predictions and labels vectors contain three values. Which means n has a value of three. After we carry out the subtraction, we end up with the values looking like this:<br>predictions 与 labels 均包含三个数值，也就是 n 的取值为 3。在完成减法运算之后，所得数值如下所示：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-mse-2.png" alt="Image 26"></p>
+<p>Then we can square the values in the vector:<br>接着我们便可对向量内的数值取平方：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-mse-3.png" alt="Image 27"></p>
+<p>Now we sum these values:<br>接着我们便可对向量内的数值取平方：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-mse-4.png" alt="Image 28"></p>
+<p>Which results in the error value for that prediction and a score for the quality of the model.<br>这会得出该次预测的误差值，以及一项用于评判模型优劣的得分。</p>
+<h3 id="Data-Representation-数据表示"><a href="#Data-Representation-数据表示" class="headerlink" title="Data Representation 数据表示"></a>Data Representation 数据表示</h3><p>Think of all the data types you’ll need to crunch and build models around (spreadsheets, images, audio…etc). So many of them are perfectly suited for representation in an n-dimensional array:<br>试想所有你需要处理、用来搭建模型的数据类型（表格、图像、音频等等）；其中绝大多数数据，都非常适合用 n 维数组进行存储表示。</p>
+<h4 id="Tables-and-Spreadsheets-表格与工作表"><a href="#Tables-and-Spreadsheets-表格与工作表" class="headerlink" title="Tables and Spreadsheets 表格与工作表"></a>Tables and Spreadsheets 表格与工作表</h4><ul>
+<li>A spreadsheet or a table of values is a two dimensional matrix. Each sheet in a spreadsheet can be its own variable. The most popular abstraction in python for those is the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jalammar.github.io/gentle-visual-intro-to-data-analysis-python-pandas/">pandas dataframe</a>, which actually uses NumPy and builds on top of it.<br>Excel 表格这种数值表单，本质就是二维矩阵。Excel 里每一张工作表，都能单独当成一份数据。Python 当中处理表格最常用的工具就是 Pandas 的 DataFrame，它底层就是 NumPy。</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/pandas-intro/0%20excel-to-pandas.png" alt="Image 29"></p>
+<h4 id="Audio-and-Timeseries-音频与时间序列"><a href="#Audio-and-Timeseries-音频与时间序列" class="headerlink" title="Audio and Timeseries 音频与时间序列"></a>Audio and Timeseries 音频与时间序列</h4><ul>
+<li>An audio file is a one-dimensional array of samples. Each sample is a number representing a tiny chunk of the audio signal. CD-quality audio may have 44,100 samples per second and each sample is an integer between -32767 and 32768. Meaning if you have a ten-seconds WAVE file of CD-quality, you can load it in a NumPy array with length 10 * 44,100 = 441,000 samples. Want to extract the first second of audio? simply load the file into a NumPy array that we’ll call <code>audio</code>, and get <code>audio[:44100]</code>.<br>音频文件本质就是一维的采样点数组。每一个采样数值，代表一小段声音信号。标准 CD 音质的音频，每秒采集 44100 个采样点，单个采样取值范围在 -32767～32768 的整数。举个例子，一段 10 秒 CD 音质的 WAV 音频，导入 NumPy 数组之后，一共有 10 × 44100 = 441000 个采样。如果只想截取最开始一秒的音频：把音频读进名叫 audio 的 NumPy 数组，截取 audio[:44100] 就完事。</li>
+</ul>
+<p>Here’s a look at a slice of an audio file:<br>下面是一段音频文件片段的展示：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-audio.png" alt="Image 30"></p>
+<p>The same goes for time-series data (for example, the price of a stock over time).<br>时间序列数据亦是如此（例如某只股票随时间变化的价格）。</p>
+<h4 id="Images-图片"><a href="#Images-图片" class="headerlink" title="Images 图片"></a>Images 图片</h4><ul>
+<li><p>An image is a matrix of pixels of size (height x width).<br>一张图像是尺寸为（高度 × 宽度）的像素矩阵。</p>
+<ul>
+<li>If the image is black and white (a.k.a. grayscale), each pixel can be represented by a single number (commonly between 0 (black) and 255 (white)). Want to crop the top left 10 x 10 pixel part of the image? Just tell NumPy to get you <code>image[:10,:10]</code>.<br>倘若图片为黑白图像（也叫灰度图像），每个像素可由单个数值表示（数值通常处于 0（黑色）255（白色）区间）。想要裁剪出图片左上角 10×10 像素的区域？只需调用 NumPy 执行 <code>image[:10,:10]</code>即可。</li>
+</ul>
+</li>
+</ul>
+<p>Here’s a look at a slice of an image file:<br>下面展示一张图像文件的部分内容：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-grayscale-image.png" alt="Image 31"></p>
+<ul>
+<li>If the image is colored, then each pixel is represented by three numbers - a value for each of red, green, and blue. In that case we need a 3rd dimension (because each cell can only contain one number). So a colored image is represented by an ndarray of dimensions: (height x width x 3).<br>如果是彩色图片，那每一个像素点都由三个数值组成，分别对应红、绿、蓝三种颜色。因为数组一个位置只能存放一个数字，所以这时就多出第三维。因此彩色图片的 numpy 数组格式就是：(图片高度 × 图片宽度 × 3)</li>
+</ul>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-color-image.png" alt="Image 32"></p>
+<h4 id="Language"><a href="#Language" class="headerlink" title="Language"></a>Language</h4><p>If we’re dealing with text, the story is a little different. The numeric representation of text requires a step of building a vocabulary (an inventory of all the unique words the model knows) and an <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jalammar.github.io/illustrated-word2vec/">embedding step</a>. Let us see the steps of numerically representing this (translated) quote by an ancient spirit:<br>但要是我们处理的是文本，那就不一样了。想把文字变成机器看得懂的数字，先要制作词汇表（也就是整理好模型认识的所有不重复词语），之后再做词嵌入。下面咱们就演示一遍，如何把这句古人名言转换成数字。</p>
+<p>“Have the bards who preceded me left any theme unsung?”</p>
+<p>A model needs to look at a large amount of text before it can numerically represent the anxious words of this warrior poet. We can proceed to have it process a <a target="_blank" rel="noopener external nofollow noreferrer" href="http://mattmahoney.net/dc/textdata.html">small dataset</a> and use it to build a vocabulary (of 71,290 words):<br>模型得先看过海量文本，才能够用数字去读懂这位悲壮诗人笔下饱含心绪的文字。接下来我们让模型读取一份小型数据集，靠它生成一份内含 71290 个词语的词汇表。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-nlp-vocabulary.png" alt="Image 33"></p>
+<p>The sentence can then be broken into an array of tokens (words or parts of words based on common rules):<br>之后这句话能够拆分出一组 token（按照通用规则拆分出来的完整单词或是词语片段），存到数组里面。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-nlp-tokenization.png" alt="Image 34"></p>
+<p>We then replace each word by its id in the vocabulary table:<br>随后我们使用词汇表里面的编号替换每一个单词：</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-nlp-ids.png" alt="Image 35"></p>
+<p>These ids still don’t provide much information value to a model. So before feeding a sequence of words to a model, the tokens/words need to be replaced with their embeddings (50 dimension <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jalammar.github.io/illustrated-word2vec/">word2vec embedding</a> in this case):<br>这些单词编号本身，对模型来说没多少有用信息。所以在把词语序列输入模型之前，token 需要转换成词向量；本例用的是 50 维的 word2vec embedding。</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-nlp-embeddings.png" alt="Image 36"></p>
+<p>You can see that this NumPy array has the dimensions [embedding_dimension x sequence_length]. In practice these would be the other way around, but I’m presenting it this way for visual consistency. For performance reasons, deep learning models tend to preserve the first dimension for batch size (because the model can be trained faster if multiple examples are trained in parallel). This is a clear case where <code>reshape()</code> becomes super useful. A model like <a target="_blank" rel="noopener external nofollow noreferrer" href="https://jalammar.github.io/illustrated-bert/">BERT</a>, for example, would expect its inputs in the shape: [batch_size, sequence_length, embedding_size].<br>你能看见这个 NumPy 数组的尺寸是「词向量维度 × 文本单词长度」。<br>实际开发里二者顺序一般是反过来的，我现在这样写只是为了看着顺眼、方便理解。出于运行速度考量，深度学习模型习惯把第一个维度留给批次大小（一次性同时训练多条样本，训练速度会快很多）。这种场景就非常适合使用 <code>reshape()</code> 修改数组形状。举个例子，BERT 模型要求输入数据格式为：[一批多少条样本，一条文本有多少个词，单个词语向量维度大小]</p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://jalammar.github.io/images/numpy/numpy-nlp-bert-shape.png" alt="Image 37"></p>
+<p>This is now a numeric volume that a model can crunch and do useful things with. I left the other rows empty, but they’d be filled with other examples for the model to train on (or predict).<br>现在这组纯数字的数据，模型就能够运算处理、拿来干活了。表格剩下的行我这里是空着的，实际里面会填上其余样本，供给模型用来训练或是做预测。</p>
+<p>(It turned out the <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikisource.org/wiki/The_Poem_of_Antara">poet’s words</a> in our example were immortalized more so than those of the other poets which trigger his anxieties. Born a slave owned by his father, <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Antarah_ibn_Shaddad">Antarah’s</a> valor and command of language gained him his freedom and the mythical status of having his poem as one of <a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Mu%27allaqat">seven poems suspended in the kaaba</a> in pre-Islamic Arabia).<br>事实证明，咱们例子里这位诗人写下的字句流传千古，名气远超其他令他心生顾虑的诗人。安塔拉生来便是父亲名下的奴隶；他骁勇善战、文笔出众，因此重获自由。在伊斯兰教诞生之前的阿拉伯地区，传说他的诗作是七幅悬挂于克尔白圣殿的名诗之一。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io">GreenHatHg</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://greenhathg.github.io/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/">https://greenhathg.github.io/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://greenhathg.github.io" target="_blank">GreenHatHGのBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BF%BB%E8%AF%91/">翻译</a><a class="post-meta__tags" href="/tags/Numpy/">Numpy</a></div><div class="post-share"><div class="social-share" data-image="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://unpkg.com/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91MDN-%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译】MDN-数字音频基本概念"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">【翻译】MDN-数字音频基本概念</div></div><div class="info-2"><div class="info-item-1">借助 AI 翻译自MDN Web Docs-Digital audio concepts，以供学习数字音频的基本概念。  Representing audio in digital form involves a number of steps and processes, with multiple formats available both for the raw audio and the encoded or compressed audio which is actually used on the web. This guide is an overview examining how audio is represented digitally, and how codecs are used to encode and decode audio for use on the web.将音频以数字形式呈现需要历经诸多步骤与流程，原始音频以及 Web 实际使用的经过编码、压缩处理的音频均拥有多种可用格式。本指南整体梳理了音频的数字化呈现方式，以及编解码器如何对音频进...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2021/10/16/%E5%8D%B3%E4%BD%BF%E7%9D%A1%E4%BA%867.5%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%8C%E6%88%91%E4%BB%8D%E7%84%B6%E6%84%9F%E8%A7%89%E4%B8%8D%E5%88%B0%E7%B2%BE%E5%8A%9B%E5%85%85%E6%B2%9B/" title="即使睡了7.5个小时，我仍然感觉不到精力充沛"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1619075120066-02024cb853bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2021-10-17</div><div class="info-item-2">即使睡了7.5个小时，我仍然感觉不到精力充沛</div></div><div class="info-2"><div class="info-item-1">翻译自《I Wasn’t Feeling Refreshed Even After 7.5 Hours of Sleep. Here’s How I Fixed It | by Samir S. | In Fitness And In Health | Medium》   https://medium.com/in-fitness-and-in-health/i-wasnt-feeling-refreshed-even-after-7-5-hours-of-sleep-here-s-how-i-fixed-it-f785a51fec15  Getting enough sleep is perhaps one of the most important things we can do for our health and body. Sleep is a chance for the body to repair itself and to reenergize. 充足的睡眠可能是我们能为我们的健康和身体做的最重要的事情之一。睡眠是身体自我修复和重新获得能量的机会。 Ever ...</div></div></div></a><a class="pagination-related" href="/2021/10/17/MIT6.824-Raft%E4%B8%AD%E4%BD%BF%E7%94%A8%E9%94%81%E7%9A%84%E5%BB%BA%E8%AE%AE/" title="MIT6.824-Raft中使用锁的建议"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2022-03-30</div><div class="info-item-2">MIT6.824-Raft中使用锁的建议</div></div><div class="info-2"><div class="info-item-1">Raft Locking Advicehttp://nil.csail.mit.edu/6.824/2020/labs/raft-locking.txt If you are wondering how to use locks in the 6.824 Raft labs, here are some rules and ways of thinking that might be helpful. 如果您想知道如何在6.824 Raft labs中使用锁，以下是一些可能会有所帮助的规则和思考方法。 规则1：go raceRule 1: Whenever you have data that more than one goroutine uses, and at least one goroutine might modify the data, the goroutines should use locks to prevent simultaneous use of the data. The Go race detector is pretty good at dete...</div></div></div></a><a class="pagination-related" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91MDN-%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译】MDN-数字音频基本概念"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2026-08-10</div><div class="info-item-2">【翻译】MDN-数字音频基本概念</div></div><div class="info-2"><div class="info-item-1">借助 AI 翻译自MDN Web Docs-Digital audio concepts，以供学习数字音频的基本概念。  Representing audio in digital form involves a number of steps and processes, with multiple formats available both for the raw audio and the encoded or compressed audio which is actually used on the web. This guide is an overview examining how audio is represented digitally, and how codecs are used to encode and decode audio for use on the web.将音频以数字形式呈现需要历经诸多步骤与流程，原始音频以及 Web 实际使用的经过编码、压缩处理的音频均拥有多种可用格式。本指南整体梳理了音频的数字化呈现方式，以及编解码器如何对音频进...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars0.githubusercontent.com/u/34258355?s=460&amp;u=eb0a1ce09dd045532464cb42f020e8ba1d025b6c&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">GreenHatHg</div><div class="author-info-description">巴拉巴拉能量! rm -rf / --no-preserve-root</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">198</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">240</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/GreenHatHG"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/GreenHatHG" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:greenhat2333@gmail.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-Arrays-%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="toc-number">1.</span> <span class="toc-text">Creating Arrays 创建数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Array-Arithmetic-%E6%95%B0%E7%BB%84%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">Array Arithmetic 数组运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Indexing-%E7%B4%A2%E5%BC%95"><span class="toc-number">3.</span> <span class="toc-text">Indexing 索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aggregation-%E8%81%9A%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text">Aggregation 聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#In-more-dimensions-%E5%BE%80%E6%9B%B4%E9%AB%98%E7%BB%B4%E5%BA%A6"><span class="toc-number">5.</span> <span class="toc-text">In more dimensions 往更高维度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Creating-Matrices-%E5%88%9B%E5%BB%BA%E7%9F%A9%E9%98%B5"><span class="toc-number">5.1.</span> <span class="toc-text">Creating Matrices 创建矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matrix-Arithmetic-%E7%9F%A9%E9%98%B5%E8%BF%90%E7%AE%97"><span class="toc-number">5.2.</span> <span class="toc-text">Matrix Arithmetic 矩阵运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dot-Product-%E7%82%B9%E7%A7%AF"><span class="toc-number">5.3.</span> <span class="toc-text">Dot Product 点积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matrix-Indexing-%E7%9F%A9%E9%98%B5%E7%B4%A2%E5%BC%95"><span class="toc-number">5.4.</span> <span class="toc-text">Matrix Indexing 矩阵索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Matrix-Aggregation-%E7%9F%A9%E9%98%B5%E8%81%9A%E5%90%88"><span class="toc-number">5.5.</span> <span class="toc-text">Matrix Aggregation 矩阵聚合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transposing-and-Reshaping-%E8%BD%AC%E7%BD%AE%E4%B8%8E%E5%8F%98%E5%BD%A2"><span class="toc-number">6.</span> <span class="toc-text">Transposing and Reshaping 转置与变形</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Yet-More-Dimensions-%E6%9B%B4%E5%A4%9A%E7%BB%B4%E5%BA%A6"><span class="toc-number">7.</span> <span class="toc-text">Yet More Dimensions 更多维度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Practical-Usage-%E5%AE%9E%E9%99%85%E7%94%A8%E6%B3%95"><span class="toc-number">8.</span> <span class="toc-text">Practical Usage 实际用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Formulas-%E5%85%AC%E5%BC%8F"><span class="toc-number">8.1.</span> <span class="toc-text">Formulas 公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Representation-%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA"><span class="toc-number">8.2.</span> <span class="toc-text">Data Representation 数据表示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tables-and-Spreadsheets-%E8%A1%A8%E6%A0%BC%E4%B8%8E%E5%B7%A5%E4%BD%9C%E8%A1%A8"><span class="toc-number">8.2.1.</span> <span class="toc-text">Tables and Spreadsheets 表格与工作表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Audio-and-Timeseries-%E9%9F%B3%E9%A2%91%E4%B8%8E%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97"><span class="toc-number">8.2.2.</span> <span class="toc-text">Audio and Timeseries 音频与时间序列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Images-%E5%9B%BE%E7%89%87"><span class="toc-number">8.2.3.</span> <span class="toc-text">Images 图片</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Language"><span class="toc-number">8.2.4.</span> <span class="toc-text">Language</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/" title="【翻译】NumPy与数据表示可视化入门"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1618170673668-0eea9c66d40c?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【翻译】NumPy与数据表示可视化入门"/></a><div class="content"><a class="title" href="/2026/08/10/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91NumPy%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA%E5%8F%AF%E8%A7%86%E5%8C%96%E5%85%A5%E9%97%A8/" title="【翻译】NumPy与数据表示可视化入门">【翻译】NumPy与数据表示可视化入门</a><time datetime="2026-08-10T16:57:43.000Z" title="发表于 2026-08-10 16:57:43">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91MDN-%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译】MDN-数字音频基本概念"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1619342802099-027bc73e30eb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【翻译】MDN-数字音频基本概念"/></a><div class="content"><a class="title" href="/2026/08/04/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91MDN-%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" title="【翻译】MDN-数字音频基本概念">【翻译】MDN-数字音频基本概念</a><time datetime="2026-08-04T16:21:43.000Z" title="发表于 2026-08-04 16:21:43">2026-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/17/Tracking-history-with-git-in-a-team-scenario/" title="Tracking history with git in a team scenario"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762258-273a49958090?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tracking history with git in a team scenario"/></a><div class="content"><a class="title" href="/2025/12/17/Tracking-history-with-git-in-a-team-scenario/" title="Tracking history with git in a team scenario">Tracking history with git in a team scenario</a><time datetime="2025-12-17T16:27:28.000Z" title="发表于 2025-12-17 16:27:28">2025-12-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1621761836815-6e43911fbcfc?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CMU445-Project2-BPlusTree-Delete-Single-threaded"/></a><div class="content"><a class="title" href="/2024/01/05/CMU445-Project2-BPlusTree-Delete-Single-Threaded/" title="CMU445-Project2-BPlusTree-Delete-Single-threaded">CMU445-Project2-BPlusTree-Delete-Single-threaded</a><time datetime="2024-01-05T12:39:43.000Z" title="发表于 2024-01-05 12:39:43">2024-01-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://images.unsplash.com/photo-1620880762296-f9787c134352?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=1171&amp;q=80" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩客云换魔百盒"/></a><div class="content"><a class="title" href="/2023/12/31/%E7%8E%A9%E5%AE%A2%E4%BA%91%E6%8D%A2%E9%AD%94%E7%99%BE%E7%9B%92/" title="玩客云换魔百盒">玩客云换魔百盒</a><time datetime="2023-12-31T12:44:43.000Z" title="发表于 2023-12-31 12:44:43">2023-12-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2018 - 2026 By GreenHatHg</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.7.0</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.7.0"></script><script src="/js/main.js?v=5.7.0"></script><script src="https://unpkg.com/@fancyapps/ui@6.1.14/dist/fancybox/fancybox.umd.js"></script><script src="https://unpkg.com/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://unpkg.com/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://unpkg.com/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://blog-twikoo-khaki.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    GLOBAL_CONFIG_SITE.pageType === 'post' && getCount()
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://unpkg.com/twikoo@1.7.15/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><canvas class="fireworks" mobile="false"></canvas><script src="https://unpkg.com/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://unpkg.com/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.7.0"></script></div></div></body></html>
